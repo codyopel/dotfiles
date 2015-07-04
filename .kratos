@@ -1,6 +1,7 @@
+dont_sym=./
 ignore=LICENSE
 ignore=README.md
 
 ignore=DIR_COLORS
-ignore=dir_colors
 ignore=Xresources
+
