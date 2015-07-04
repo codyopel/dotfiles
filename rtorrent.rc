@@ -1,0 +1,58 @@
+## rTorrent Configuration File
+## Assumed Directory & File Structure:
+##   ~/Torrents/Complete/ ----- Torrents are moved here when complete
+##   ~/Torrents/Incomplete/ --- Temporaray location for torrents while downloading
+##   ~/Torrents/Watch/ -------- The 'autoload' directory for rtorrent to use
+##   ~/.local/share/rtorrent/ - For storing rtorrent session information
+
+# Directories
+directory.default.set = ~/Torrents/Incomplete/
+method.set_key = event.download.finished,move_complete,"d.directory.set=~/Torrents/Complete;execute2=mv,-u,$d.base_path=,~/Torrents/Complete"
+session.path.set = ~/.local/share/rtorrent
+schedule2 = watch.directory.added,5,5,load.start=~/Torrents/Watch/*.torrent
+
+# Re-hash complete torrents
+pieces.hash.on_completion.set = yes
+
+# Throttle
+throttle.min_peers.normal.set = 40
+throttle.max_peers.normal.set = 100
+throttle.min_peers.seed.set = -1
+throttle.max_peers.seed.set = -1
+throttle.max_uploads.set = 50
+throttle.global_down.max_rate.set_kb = 0
+throttle.global_up.max_rate.set_kb = 0
+
+# Network
+#network.local_address.set = 127.0.0.1
+#network.local_address.set = example.com
+#network.bind_address.set = 127.0.0.1
+#network.bind_address.set = rakshasa.no
+network.port_range.set = 6890-6999
+port_random = yes
+
+# XML-RPC
+scgi_port = 127.0.0.1:5000
+
+# Trackers
+trackers.use_udp.set = no
+
+# Encryption
+protocol.encryption.set = require,require_RC4,allow_incoming,try_outgoing,enable_retry
+
+# DHT
+#dht.mode.set = enable
+#dht.port.set = 6881
+
+# Peer exchange
+#protocol.pex.set = yes
+
+# Custom Colors
+color_bg_active = 8
+color_fg_active = 10
+color_bg_complete = 8
+color_fg_complete = 14
+color_bg_inactive = 8
+color_fg_inactive = 9
+color_bg_dead = 8
+color_fg_dead = 11
