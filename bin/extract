@@ -1,10 +1,10 @@
 #!/usr/bin/env sh
 
-. "$DOTFILES_DIR/lib/core.sh"
+. "$KRATOS_DIR/lib/core.sh"
 
 if [ -z "$1" ] ; then
   echo "ERROR: no input provided"
-  return 1
+  exit 1
 elif [ -f "$1" ] ; then
   case "$1" in
     *'.tar')
