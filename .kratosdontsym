@@ -1,0 +1,8 @@
+bin/
+config/
+config/pulse/
+config/sublime-text-3/
+local/
+local/share/
+ncmpcpp/
+ssh/
