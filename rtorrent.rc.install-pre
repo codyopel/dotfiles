@@ -1,0 +1,5 @@
+exist -dc "$HOME/Torrents/Complete"
+exist -dc "$HOME/Torrents/Incomplete"
+exist -dc "$HOME/Torrents/Watch"
+
+exist -dc "$HOME/.local/share/rtorrent"
