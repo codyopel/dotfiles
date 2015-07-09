@@ -4,6 +4,9 @@ config/pulse/
 config/sublime-text-3/
 local/
 local/share/
+minidlna/
+nixpkgs/
+nixpkgs/st/
 ncmpcpp/
 ssh/
 xmonad/
