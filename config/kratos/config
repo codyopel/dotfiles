@@ -1,0 +1,20 @@
+EMAIL="codyopel@gmail.com"
+
+KRATOS_REPO="https://github.com/chlorm/kratos.git"
+DOTFILES_REPO="https://github.com/codyopel/dotfiles.git"
+
+GIT_NAME="codyopel"
+GIT_EMAIL="$EMAIL"
+
+HIGH_DPI=false
+
+RTORRENT_COLOR_PATCH=true
+
+# Desktop environments in order of preference
+DESKENVS_PREFERENCE=(gnome3 xmonad wingo)
+
+# Shells in order of preference
+SHELLS_PREFERENCE=(bash zsh ksh pdksh)
+
+# Text editors in order of preference
+EDITORS_PREFERENCE=(nvim vim emacs nano vi)
