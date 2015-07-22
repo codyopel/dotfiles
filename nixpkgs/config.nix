@@ -57,7 +57,7 @@ pkgs : {
     user-env = self.buildEnv {
       name = "userEnv";
       paths = with self; [
-        steamEnv
+        #steamEnv
         # Default
           acpi
           atop
@@ -67,7 +67,7 @@ pkgs : {
           emacs
           git
           gptfdisk
-          hdparm
+          #hdparm
           htop
           iftop
           iotop
@@ -132,6 +132,7 @@ pkgs : {
           youtube-dl
 
         # Graphical
+          atom
           chromium
           dmenu
           #eagle
@@ -139,6 +140,7 @@ pkgs : {
           firefoxWrapper
           gimp
           guitarix
+          kde5.kate
           #libreoffice
           makemkv
           mixxx
@@ -152,11 +154,11 @@ pkgs : {
           sakura
           sublime3
           teamspeak_client
-          texLive
-          texstudio
+          #texLive
+          #texstudio
           #virtmanager
           vlc
-          xfe
+          #xfe
       ];
     };
 
