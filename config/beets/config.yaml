@@ -10,7 +10,7 @@ import:
     resume: yes
     write: no
 paths:
-    default: ${artist}/${original_year} - $album%aunique{}/${artist}_${original_year}-${album}_${track}-${title}_${channels}.${bitdepth}.${samplerate}
-    singleton: ${artist}/${original_year} - $album%aunique{} [single]/${artist}_${original_year}-${album}_${track}_${title}_${channels}.${bitdepth}.${samplerate}
+    default: ${albumartist}/${original_year} - $album%aunique{}/${albumartist}_${original_year}-${album}_${track}-${title}_${channels}.${bitdepth}.${samplerate}
+    singleton: ${albumartist}/${original_year} - $album%aunique{} [single]/${albumartist}_${original_year}-${album}_${track}_${title}_${channels}.${bitdepth}.${samplerate}
     comp: COMPILATIONS/$album%aunique{}/$album_$track-$title_${channels}.${bitdepth}.${samplerate}
     soundtrack: SOUNDTRACKS/$album/$album_$track-$title_${channels}.${bitdepth}.${samplerate}
