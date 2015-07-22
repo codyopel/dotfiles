@@ -1,1 +1,1 @@
-exist -dc "$HOME/.local/share/minidlna"
+EnsureDirExists "${HOME}/.local/share/minidlna"
