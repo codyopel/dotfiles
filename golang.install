@@ -1,2 +1,0 @@
-exist -dc "$HOME/Dev/go/bin"
-exist -dc "$HOME/Dev/go/src"
