@@ -1,16 +1,32 @@
-ui:
-    color: yes
-original_year: yes
-per_disc_numbering: no
-write: yes
+art_filename: folder
 directory: ~/Music
-library: ~/.local/share/beets_database.blb
 import:
+    autotag: yes
+    default_action: skip
+    link: no
     move: yes
     resume: yes
     write: no
+library: ~/.local/share/beets_database.blb
+match:
+    #ignored: missing_tracks
+    #max_rec:
+    #    missing_tracks: medium
+    #    unmatched_tracks: medium
+    preferred:
+        original_year: yes
+    strong_rec_match: 0.05
+musicbrainz:
+    searchlimit: 10
+original_year: yes
 paths:
-    default: ${albumartist}/${original_year} - $album%aunique{}/${albumartist}_${original_year}-${album}_${track}-${title}_${channels}.${bitdepth}.${samplerate}
+    default: ${albumartist}/%if{${original_year},${year}} - $album%aunique{}/${albumartist}_${original_year}-${album}_${track}-${title}_${channels}.${bitdepth}.${samplerate}
     singleton: ${albumartist}/${original_year} - $album%aunique{} [single]/${albumartist}_${original_year}-${album}_${track}_${title}_${channels}.${bitdepth}.${samplerate}
-    comp: COMPILATIONS/$album%aunique{}/$album_$track-$title_${channels}.${bitdepth}.${samplerate}
-    soundtrack: SOUNDTRACKS/$album/$album_$track-$title_${channels}.${bitdepth}.${samplerate}
+    comp: COMPILATIONS/$album%aunique{}/${album}_${track}-${title}_${channels}.${bitdepth}.${samplerate}
+    soundtrack: SOUNDTRACKS/${album}/${album}_${track}-${title}_${channels}.${bitdepth}.${samplerate}
+per_disc_numbering: no
+sort_case_insensitive: yes
+threaded: yes
+ui:
+    color: yes
+write: yes
