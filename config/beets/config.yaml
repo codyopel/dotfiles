@@ -20,10 +20,10 @@ musicbrainz:
     searchlimit: 10
 original_year: yes
 paths:
-    default: ${albumartist}/%if{${original_year},${original_year},${year}} - $album%aunique{}/${albumartist}_${original_year}-${album}_${track}-${title}_${channels}.${bitdepth}.${samplerate}
-    singleton: ${albumartist}/${original_year} - $album%aunique{} [single]/${albumartist}_${original_year}-${album}_${track}_${title}_${channels}.${bitdepth}.${samplerate}
-    comp: COMPILATIONS/$album%aunique{}/${album}_${track}-${title}_${channels}.${bitdepth}.${samplerate}
-    soundtrack: SOUNDTRACKS/${album}/${album}_${track}-${title}_${channels}.${bitdepth}.${samplerate}
+    default: ${albumartist}/%if{${original_year},${original_year},${year}} - $album%aunique{}/${albumartist}_%if{${original_year},${original_year},${year}}_${album}_${track}-${title}_${channels}.${bitdepth}.${samplerate}
+    singleton: ${albumartist}/%if{${original_year},${original_year},${year}} - $album%aunique{} [single]/${albumartist}_%if{${original_year},${original_year},${year}}_${album}_${track}_${title}_${channels}.${bitdepth}.${samplerate}
+    comp: COMPILATIONS/$album%aunique{}/${album}_%if{${original_year},${original_year},${year}}_${track}-${title}_${channels}.${bitdepth}.${samplerate}
+    soundtrack: SOUNDTRACKS/${album}/${album}_%if{${original_year},${original_year},${year}}_${track}-${title}_${channels}.${bitdepth}.${samplerate}
 per_disc_numbering: no
 sort_case_insensitive: yes
 threaded: yes
