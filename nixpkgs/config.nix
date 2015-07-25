@@ -140,7 +140,7 @@ pkgs : {
           firefoxWrapper
           gimp
           guitarix
-          kde5.kate
+          #kde5.kate
           #libreoffice
           makemkv
           mixxx
