@@ -22,14 +22,14 @@ find "$HOME/Music/$inputArtist" -depth -name '*' | \
 while read curWorkFile ; do
   curWorkFileExt="${curWorkFile##*.}"
   case "$curWorkFileExt" in
-    'ape'|'flac'|'mp3'|'m4a'|'wav'|'wma')
+    'ape'|'flac'|'ogg'|'m4a'|'mp3'|'wav'|'wma')
       # Path to current file
       curWorkDir=$(dirname "$curWorkFile")
       # Filename w/ ext
       fileName=$(basename "$curWorkFile")
       # Filename w/o ext
       fileName=$(echo "$fileName" | sed -r 's/\.[[:alnum:]]+$//')
-      ffmpeg -y -i "$curWorkFile" -c:a libvorbis -qscale:a 5 "$curWorkDir/$fileName.ogg" &
+      ffmpeg -y -i "$curWorkFile" -c:a libopus -b:a 96k -vbr on -compression_level 10 -frame_duration 60 -cutoff 20000 "$curWorkDir/$fileName.opus" &
       ffmpegPid=$!
       # Don't delete before encoding completes
       wait "$ffmpegPid"
