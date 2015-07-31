@@ -1,15 +1,8 @@
-## Title: Ncmpcpp Configuration File
-## Author: Cody Opel
-## E-mail: codyopel(at)gmail.com
-## Copyright (c) 2014 All Rights Reserved, http://www.chlorm.net
-## License: The MIT License - http://opensource.org/licenses/MIT
-## Comments:
-##    Assumed Directory & File Structure:
-##      ~/.ncmpcpp/ ------------ ncmpcpp directory
-##      ~/.ncmpcpp/config ------ ncmpcpp configuration file
-##      ~/.config/mpd/ --------- mpd directory
-##      ~/.config/mpd/lyrics --- mpd lyrics directory
-##      ~/.tmp/mpd.fifo -------- mpd fifo ouput file
+## Assumed Directory & File Structure:
+##  ~/.ncmpcpp/config ---------------------- ncmpcpp configuration file
+##  ~/.config/mpd/ ------------------------- mpd directory
+##  ~/.config/local/share/ncmpcpp/lyrics --- ncmpcpp lyrics directory
+##  ~/.tmp/mpd.fifo ------------------------ mpd fifo ouput file
 
 # MPD
 mpd_host = localhost
@@ -19,10 +12,10 @@ mpd_connection_timeout = 5
 mpd_crossfade_time = 5
 #mpd_communication_mode = "notifications" (polling/notifications)
 
-
 ###################
 # Global settings #
 ###################
+
 ncmpcpp_directory = ~/.ncmpcpp
 startup_screen = playlist
 search_engine_default_search_mode = 1
@@ -48,6 +41,7 @@ autocenter_mode = yes
 browser_display_mode = columns
 search_engine_display_mode = classic
 discard_colors_if_item_is_selected = yes
+song_library_format = {$7%n - }{$7%t}|{$7%f}
 
 # Mouse Support
 mouse_support = yes
@@ -57,7 +51,7 @@ mouse_list_scroll_whole_page = yes
 ## supported lyrics databases:
 ## - 1 - lyricsplugin.com
 #lyrics_database = 1
-lyrics_directory = ~/.config/mpd/lyrics
+lyrics_directory = ~/.local/share/ncmpcpp/lyrics
 follow_now_playing_lyrics = no
 store_lyrics_in_song_dir = no
 external_editor = nano
@@ -86,11 +80,11 @@ display_volume_level = yes
 display_bitrate = yes
 display_remaining_time = no
 header_visibility = yes
-#display_screens_numbers_on_start = no
 header_text_scrolling = yes
 cyclic_scrolling = no
 
 # Progress Bar
+seek_time = 1
 progressbar_look = ─░─
 progressbar_color = green
 
@@ -126,11 +120,11 @@ media_library_primary_tag = artist
 default_tag_editor_pattern = %n - %t
 tag_editor_album_format = {$8%a} - {$7%b}
 empty_tag_marker = <empty>
-#tags_separator =  | 
+#tags_separator =  |
 #tag_editor_extended_numeration = no
 
 # Visualizer Tab
-visualizer_fifo_path = $HOME/.tmp/mpd.fifo
+visualizer_fifo_path = ~/.tmp/mpd.fifo
 visualizer_in_stereo = no
 visualizer_sync_interval = 30
 visualizer_type = spectrum
@@ -140,9 +134,6 @@ visualizer_color = white
 
 ## TODO: move the following to proper categories
 #
-song_library_format = {$7%n - }{$7%t}|{$7%f}
-#
-seek_time = 1
 ## (wrapped/normal)
 default_find_mode = wrapped
 ## (add/select)

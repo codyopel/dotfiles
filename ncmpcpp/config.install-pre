@@ -1,0 +1,1 @@
+EnsureDirExists "${HOME}/.local/share/ncmpcpp/lyrics"
