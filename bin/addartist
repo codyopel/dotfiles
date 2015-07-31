@@ -29,7 +29,7 @@ while read curWorkFile ; do
       fileName=$(basename "$curWorkFile")
       # Filename w/o ext
       fileName=$(echo "$fileName" | sed -r 's/\.[[:alnum:]]+$//')
-      ffmpeg -y -i "$curWorkFile" -c:a libopus -b:a 96k -vbr on -compression_level 10 -frame_duration 60 -cutoff 20000 "$curWorkDir/$fileName.opus" &
+      ffmpeg -y -i "$curWorkFile" -c:a libopus -b:a 96k -vbr on -compression_level 10 "$curWorkDir/$fileName.opus" &
       ffmpegPid=$!
       # Don't delete before encoding completes
       wait "$ffmpegPid"
