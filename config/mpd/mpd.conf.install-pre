@@ -1,0 +1,5 @@
+EnsureDirExists "${HOME}/.config/mpd/playlists" || ErrWarn "failed to create: ${HOME}/.config/mpd/playlists"
+EnsureDirExists "${HOME}/.local/share/mpd" || ErrWarn "failed to create: ${HOME}/.local/share/mpd/"
+EnsureFileExists "${HOME}/.local/share/mpd/database" || ErrWarn "failed to create: ${HOME}/.local/share/mpd/database"
+EnsureFileExists "${HOME}/.local/share/mpd/log" || ErrWarn "failed to create: ${HOME}/.local/share/mpd/log"
+EnsureFileExists "${HOME}/.local/share/mpd/state" || ErrWarn "failed to create: ${HOME}/.local/share/mpd/state"
