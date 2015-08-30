@@ -114,7 +114,7 @@ browser_sort_mode = format
 browser_sort_format = {$8%a - }{$7%t}|{$7%f} {($3%l)}
 
 # Media Library Tab
-media_library_primary_tag = artist
+media_library_primary_tag = album_artist
 
 # Tag Editor Tab
 default_tag_editor_pattern = %n - %t
