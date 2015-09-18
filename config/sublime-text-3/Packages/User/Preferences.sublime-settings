@@ -1,3 +1,6 @@
 {
-	"font_size": 9
+	"font_size": 9,
+
+    // Columns in which to display vertical rulers
+    "rulers": [80,120],
 }
