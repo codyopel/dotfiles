@@ -39,6 +39,8 @@ SHELLS_PREFERENCE=(
 
 # Text editors in order of preference
 EDITORS_PREFERENCE=(
+  'subl'
+  'sublime'
   'nvim'
   'vim'
   'emacs'
