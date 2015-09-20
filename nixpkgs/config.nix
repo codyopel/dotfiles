@@ -151,11 +151,12 @@ pkgs : {
           networkmanagerapplet
           pavucontrol
           kde4.quasselClient
+          qbittorrent
           sakura
           sublime3
           teamspeak_client
-          #texLive
-          #texstudio
+          texLive
+          texstudio
           #virtmanager
           vlc
           #xfe
