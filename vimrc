@@ -7,7 +7,7 @@ endif
 " This must be first, because it changes other options as a side effect.
 set nocompatible
 
-" set background=dark
+"set background=dark
 set shiftwidth=4
 set tabstop=4
 set nobackup
@@ -22,9 +22,10 @@ set wildmenu
 set wildmode=list:longest
 set title
 set scrolloff=3
-colorscheme molokai
+set number
+set syntax=on
+colorscheme monokai
 let g:airline_theme='kalisi'
-
 
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
@@ -38,9 +39,6 @@ set history=50    " keep 50 lines of command line history
 set ruler   " show the cursor position all the time
 set showcmd   " display incomplete commands
 set incsearch   " do incremental searching
-
-" For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
-" let &guioptions = substitute(&guioptions, "t", "", "g")
 
 " Don't use Ex mode, use Q for formatting
 map Q gq
