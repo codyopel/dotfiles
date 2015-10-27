@@ -1,5 +1,6 @@
-EnsureDirExists "${HOME}/.config/mpd/playlists"
-EnsureDirExists "${HOME}/.local/share/mpd"
 EnsureFileExists "${HOME}/.local/share/mpd/database"
 EnsureFileExists "${HOME}/.local/share/mpd/log"
 EnsureFileExists "${HOME}/.local/share/mpd/state"
+EnsureFileExists "${HOME}/.local/share/mpd/sticker"
+
+symlink "${DOTFILES_DIR}/config/mpd/playlists" "${HOME}/.local/share/mpd/playlists"
