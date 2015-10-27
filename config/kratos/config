@@ -22,21 +22,6 @@ KRATOS_PLUGINS=(
   'wifi'
 )
 
-# Desktop environments in order of preference
-DESKENVS_PREFERENCE=(
-  'gnome3'
-  'xmonad'
-  'wingo'
-)
-
-# Shells in order of preference
-SHELLS_PREFERENCE=(
-  'bash'
-  'zsh'
-  'ksh'
-  'pdksh'
-)
-
 # Text editors in order of preference
 EDITORS_PREFERENCE=(
   'subl'
