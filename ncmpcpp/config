@@ -1,7 +1,6 @@
 ## Assumed Directory & File Structure:
 ##  ~/.ncmpcpp/config ---------------------- ncmpcpp configuration file
-##  ~/.config/mpd/ ------------------------- mpd directory
-##  ~/.config/local/share/ncmpcpp/lyrics --- ncmpcpp lyrics directory
+##  ~/.local/share/ncmpcpp/lyrics --- ncmpcpp lyrics directory
 ##  ~/.tmp/mpd.fifo ------------------------ mpd fifo ouput file
 
 # MPD
