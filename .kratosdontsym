@@ -1,5 +1,6 @@
 bin/
 config/
+config/mpd/playlists/
 config/pulse/
 config/sublime-text-3/
 local/
