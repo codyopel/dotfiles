@@ -18,18 +18,17 @@ pkgs : {
 
   packageOverrides = self : rec {
 
-    #chromium = self.chromium.override {
-    #  enableNaCl = false;
-    #  useOpenSSL = false;
-    #  gnomeSupport = true;
-    #  gnomeKeyringSupport = false;
-    #  enablePepperFlash = true;
-    #  enableWideVine = true;
-    #  proprietaryCodecs = true;
-    #  cupsSupport = true;
-    #  pulseSupport = true;
-    #  hiDPISupport = false;
-    #};
+    chromium = self.chromium.override {
+      #enableNaCl = false;
+      #useOpenSSL = false;
+      gnomeSupport = true;
+      gnomeKeyringSupport = false;
+      proprietaryCodecs = true;
+      pulseSupport = true;
+      enableWideVine = true;
+      #useOpenSSL = true;
+      enablePepperFlash = true;
+    };
     #emacs = self.emacs.override {
     #  withX = false;
     #};
@@ -43,9 +42,6 @@ pkgs : {
     };*/
     rtorrent-git = self.rtorrent-git.override {
       colorSupport = true;
-    };
-    x265 = self.x265.override {
-      highbitdepthSupport = true;
     };
     #desktop = self.haskellPackages.ghcWithPackages (self : with self; [
     #  haskell-ngPackages.xdgBasedir
@@ -139,10 +135,9 @@ pkgs : {
           filezilla
           firefoxWrapper
           gimp
-          guitarix
+          #guitarix
           #kde5.kate
           #libreoffice
-          makemkv
           mixxx
           mkvtoolnix-cli
           mpv
@@ -153,13 +148,15 @@ pkgs : {
           kde4.quasselClient
           qbittorrent
           sakura
-          sublime3
+          sublime-text
           teamspeak_client
           texLive
           texstudio
           #virtmanager
           vlc
           #xfe
+
+          steamEnv
       ];
     };
 
