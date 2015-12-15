@@ -19,14 +19,9 @@ pkgs : {
   packageOverrides = self : rec {
 
     chromium = self.chromium.override {
-      #enableNaCl = false;
-      #useOpenSSL = false;
-      gnomeSupport = true;
-      gnomeKeyringSupport = false;
       proprietaryCodecs = true;
       pulseSupport = true;
       enableWideVine = true;
-      #useOpenSSL = true;
       enablePepperFlash = true;
     };
     #emacs = self.emacs.override {
@@ -40,7 +35,7 @@ pkgs : {
       fdkaacExtlib = true;
       openglExtlib = true;
     };*/
-    rtorrent-git = self.rtorrent-git.override {
+    rtorrent = self.rtorrent.override {
       colorSupport = true;
     };
     #desktop = self.haskellPackages.ghcWithPackages (self : with self; [
@@ -115,7 +110,7 @@ pkgs : {
           pinentry
           psmisc
           pulseaudioFull
-          rtorrent-git
+          rtorrent
           scrot
           speedtest_cli
           subversion
@@ -135,7 +130,9 @@ pkgs : {
           filezilla
           firefoxWrapper
           gimp
-          #guitarix
+	  gnome-mpv
+          guitarix
+          jack2Full
           #kde5.kate
           #libreoffice
           mixxx
@@ -147,6 +144,7 @@ pkgs : {
           pavucontrol
           kde4.quasselClient
           qbittorrent
+          qjackctl
           sakura
           sublime-text
           teamspeak_client
