@@ -1,1 +1,2 @@
 EnsureDirExists "${HOME}/.local/share/ncmpcpp/lyrics"
+EnsureFileExists "${HOME}/.local/share/ncmpcpp/fifo"
