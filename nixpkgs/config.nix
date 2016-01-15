@@ -35,9 +35,9 @@ pkgs : {
       fdkaacExtlib = true;
       openglExtlib = true;
     };*/
-    rtorrent = self.rtorrent.override {
-      colorSupport = true;
-    };
+    #rtorrent = self.rtorrent.override {
+    #  colorSupport = true;
+    #};
     #desktop = self.haskellPackages.ghcWithPackages (self : with self; [
     #  haskell-ngPackages.xdgBasedir
      # xmonad
@@ -48,7 +48,6 @@ pkgs : {
     user-env = self.buildEnv {
       name = "userEnv";
       paths = with self; [
-        #steamEnv
         # Default
           acpi
           atop
@@ -68,7 +67,6 @@ pkgs : {
           lm_sensors
           meslo-lg
           mtr
-          neovim
           nftables
           nmap
           openssh
@@ -98,6 +96,7 @@ pkgs : {
           mosh
           most
           mpd
+          mpdris2
           ncdc
           ncdu
           ncmpcpp
@@ -130,31 +129,31 @@ pkgs : {
           filezilla
           firefoxWrapper
           gimp
-	  gnome-mpv
-          guitarix
+	        #gnome-mpv
+          #guitarix
           jack2Full
           #kde5.kate
           #libreoffice
           mixxx
           mkvtoolnix-cli
           mpv
-          mumble
+          mumble_git
           networkmanager
           networkmanagerapplet
           pavucontrol
-          kde4.quasselClient
-          qbittorrent
+          kde5.quasselClient
+          #qbittorrent
           qjackctl
           sakura
           sublime-text
           teamspeak_client
           texLive
-          texstudio
+          #texstudio
           #virtmanager
           vlc
           #xfe
 
-          steamEnv
+          #steamEnv
       ];
     };
 
