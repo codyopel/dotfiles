@@ -17,6 +17,7 @@ KRATOS_PLUGINS=(
   'pkg'
   'ssh'
   'torrent'
+  'triton'
   'user-agent'
   'volume'
   'wifi'
