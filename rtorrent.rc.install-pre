@@ -1,5 +1,5 @@
-EnsureDirExists "${HOME}/Torrents/Complete"
-EnsureDirExists "${HOME}/Torrents/Incomplete"
-EnsureDirExists "${HOME}/Torrents/Watch"
+KRATOS::Lib:ensure.dir_exists "${HOME}/Torrents/Complete"
+KRATOS::Lib:ensure.dir_exists "${HOME}/Torrents/Incomplete"
+KRATOS::Lib:ensure.dir_exists "${HOME}/Torrents/Watch"
 
-EnsureDirExists "${HOME}/.local/share/rtorrent"
+KRATOS::Lib:ensure.dir_exists "${HOME}/.local/share/rtorrent"
