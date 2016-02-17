@@ -1,10 +1,9 @@
 EMAIL="codyopel@gmail.com"
 
-KRATOS_REPO="https://github.com/chlorm/kratos.git"
 DOTFILES_REPO="https://github.com/codyopel/dotfiles.git"
 
 GIT_NAME="codyopel"
-GIT_EMAIL="$EMAIL"
+GIT_EMAIL="${EMAIL}"
 
 HIGH_DPI=false
 
@@ -14,6 +13,7 @@ KRATOS_PLUGINS=(
   'battery'
   'golang'
   'haskell'
+  'openssl'
   'pkg'
   'ssh'
   'torrent'
@@ -25,11 +25,12 @@ KRATOS_PLUGINS=(
 
 # Text editors in order of preference
 EDITORS_PREFERENCE=(
+  'emacs'
+  'vim'
+  'atom'
   'subl'
   'sublime'
   'nvim'
-  'vim'
-  'emacs'
   'nano'
   'vi'
 )
