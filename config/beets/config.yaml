@@ -1,5 +1,7 @@
-art_filename: folder Folder
+art_filename: folder
+
 directory: ~/Music
+
 import:
     autotag: yes
     default_action: skip
@@ -7,7 +9,10 @@ import:
     move: yes
     resume: yes
     write: no
+
 library: ~/.local/share/beets_database.blb
+#library: ~/.local/share/beets/library.db
+
 match:
     #ignored: missing_tracks
     #max_rec:
@@ -16,35 +21,72 @@ match:
     preferred:
         original_year: yes
     strong_rec_match: 0.05
+
 musicbrainz:
     searchlimit: 10
+
 original_year: yes
+
+replace:
+    # Replace spaces with periods
+    '\s+': .
+    # Replace space hyphen space
+    '\s+\-\s+': _
+    # Replace period hyphen period
+    '\.\-\.': _
+    # Replace space forward-slash space
+    '\s+\/\s+': _
+    # Replace space under-score space
+    '\s+\_\s+': _
+    # Replace space under-score space
+    '\.\_\.': _
+    # Remove forward and backslashes
+    '[\\/]': _
+    # Remove leading periods
+    '^\.': ''
+    # Remove control characters
+    '[\x00-\x1f]': _
+    # Remove Windows reserved characters
+    '[<>:"\?\*\|]': _
+    # Remove trailing periods
+    '\.$': ''
+    # Remove trailing whitespace
+    '\s+$': ''
+    # Remove leading whitespace
+    '^\s+': ''
+
 # beet ls -af '$albumtype $album'
 # TODO: handle singletons (tracks not associated with an album)
 # TODO: featured artists:
 #       -add featured artists to artist or album artist tag (probably album artist)
 #       -add featured artists to track title
 #       -remove featured artists that are already part of the title
+
 paths:
-    default: ${albumartist}/%if{${original_year},${original_year},${year}} - $album%aunique{}/${albumartist}_%if{${original_year},${original_year},${year}}_${album}_${track}-${title}_${channels}.${bitdepth}.${samplerate}
-    albumtype:ep: ${albumartist}/%if{${original_year},${original_year},${year}} - $album%aunique{} [EP]/${albumartist}_%if{${original_year},${original_year},${year}}_${album} [EP]_${track}_${title}_${channels}.${bitdepth}.${samplerate}
-    albumtype:live: ${albumartist}/%if{${original_year},${original_year},${year}} - $album%aunique{} [LIVE]/${albumartist}_%if{${original_year},${original_year},${year}}_${album} [LIVE]_${track}_${title}_${channels}.${bitdepth}.${samplerate}
-    albumtype:single: ${albumartist}/%if{${original_year},${original_year},${year}} - $album%aunique{} [single]/${albumartist}_%if{${original_year},${original_year},${year}}_${album} [single]_${track}_${title}_${channels}.${bitdepth}.${samplerate}
-    comp: COMPILATIONS/$album%aunique{}/${album}_%if{${original_year},${original_year},${year}}_${track}-${title}_${channels}.${bitdepth}.${samplerate}
-    soundtrack: SOUNDTRACKS/${album}/${album}_%if{${original_year},${original_year},${year}}_${track}-${title}_${channels}.${bitdepth}.${samplerate}
+    default: %lower{${albumartist}/%if{${original_year},${original_year},${year}}_$album%aunique{}/${albumartist}_%if{${original_year},${original_year},${year}}_${album}_${track}-${title}_${channels}.${bitdepth}.${samplerate}}
+    albumtype:ep: %lower{${albumartist}/%if{${original_year},${original_year},${year}}_$album%aunique{} [EP]/${albumartist}_%if{${original_year},${original_year},${year}}_${album}[EP]_${track}_${title}_${channels}.${bitdepth}.${samplerate}}
+    albumtype:live: %lower{${albumartist}/%if{${original_year},${original_year},${year}}_$album%aunique{} [LIVE]/${albumartist}_%if{${original_year},${original_year},${year}}_${album}[LIVE]_${track}_${title}_${channels}.${bitdepth}.${samplerate}}
+    albumtype:single: %lower{${albumartist}/%if{${original_year},${original_year},${year}}_$album%aunique{} [SINGLE]/${albumartist}_%if{${original_year},${original_year},${year}}_${album}[SINGLE]_${track}_${title}_${channels}.${bitdepth}.${samplerate}}
+    comp: COMPILATIONS/%lower{$album%aunique{}/${album}_%if{${original_year},${original_year},${year}}_${track}-${title}_${channels}.${bitdepth}.${samplerate}}
+    soundtrack: SOUNDTRACKS/%lower{${album}/${album}_%if{${original_year},${original_year},${year}}_${track}-${title}_${channels}.${bitdepth}.${samplerate}}
+
 per_disc_numbering: no
+
 sort_case_insensitive: yes
+
 threaded: yes
+
 ui:
     color: yes
+
 write: yes
 
 # Plugins
 plugins: badfiles chroma embedart fetchart fromfilename mbsync mpdupdate scrub
+
 # Plugin configuration
 #acoustid:
 #    apikey: AbCd1234
-# BPD only supports mpd protocol 0.13.0
 bpd:
     host: 127.0.0.1
     port: 6600
