@@ -10,11 +10,17 @@ HIGH_DPI=false
 RTORRENT_COLOR_PATCH=true
 
 KRATOS_PLUGINS=(
+  'archive'
+  'base64'
   'battery'
+  'calc'
+  'git'
   'golang'
   'haskell'
+  'ipfs'
   'openssl'
   'pkg'
+  'sprunge'
   'ssh'
   'torrent'
   'triton'
@@ -34,3 +40,13 @@ EDITORS_PREFERENCE=(
   'nano'
   'vi'
 )
+
+alias proj="cd ${HOME}/Projects"
+alias root="sudo_wrap su -"
+alias nixpaste="curl -F 'text=<-' http://nixpaste.noip.me"
+alias youtube="youtube-dl --max-quality --no-check-certificate --prefer-insecure --console-title"
+alias music="ncmpcpp"
+alias tarxz="tar cjvf"
+# Btrfs
+alias defragmentroot="sudo btrfs filesystem defragment -r -v /"
+alias defragmenthome="sudo btrfs filesystem defragment -r -v /home"
