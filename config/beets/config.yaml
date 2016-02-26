@@ -38,7 +38,7 @@ replace:
     '\s+\/\s+': _
     # Replace space under-score space
     '\s+\_\s+': _
-    # Replace space under-score space
+    # Replace period under-score period
     '\.\_\.': _
     # Remove forward and backslashes
     '[\\/]': _
