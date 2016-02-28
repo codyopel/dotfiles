@@ -1,2 +1,1 @@
 KRATOS::Lib:ensure.dir_exists "${HOME}/.local/share/ncmpcpp/lyrics"
-KRATOS::Lib:ensure.file_exists "${HOME}/.local/share/ncmpcpp/fifo"
