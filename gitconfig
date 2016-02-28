@@ -95,8 +95,12 @@
 	new = green # additions
 
 [color "status"]
-	added = yellow
-	changed = green
+  branch = white ul
+	added = green
+	changed = yellow
+  deleted = red
+  header = black bold
+  nobranch = red
 	untracked = cyan
 
 [diff]
