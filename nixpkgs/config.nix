@@ -7,16 +7,11 @@ pkgs : {
     enableGoogleTalkPlugin = true;
     icedtea = true;
   };
-  chromium = {
-    enablePepperFlash = true;
-  #  enableWideVine = true;
-    proprietaryCodecs = true;
-  };
   # Suckless
   st.conf = (builtins.readFile ./st/config.mach.h)
     + (builtins.readFile ./st/config.inc.h);
 
-  packageOverrides = self : rec {
+  packageOverrides = self: rec {
 
     chromium = self.chromium.override {
       proprietaryCodecs = true;
@@ -35,9 +30,13 @@ pkgs : {
       fdkaacExtlib = true;
       openglExtlib = true;
     };*/
-    #rtorrent = self.rtorrent.override {
-    #  colorSupport = true;
-    #};
+    pulseaudioFull = self.pulseaudioFull.override {
+      loopbackLatencyMsec = "20";
+      resampleMethod = "speex-float-10";
+    };
+    rtorrent = self.rtorrent.override {
+      colorSupport = true;
+    };
     #desktop = self.haskellPackages.ghcWithPackages (self : with self; [
     #  haskell-ngPackages.xdgBasedir
      # xmonad
@@ -82,7 +81,7 @@ pkgs : {
 
         # Headless
           beets
-          ffmpeg-full
+          ffmpeg-full_HEAD
           flac
           #gnupg1compat
           go
@@ -92,7 +91,6 @@ pkgs : {
           libpng
           libvpx
           mediainfo
-          mkvtoolnix-cli
           mosh
           most
           mpd
@@ -126,23 +124,30 @@ pkgs : {
           chromium
           dmenu
           #eagle
+          eog
+          file-roller
           filezilla
           firefoxWrapper
           gimp
+          gnome-calculator
 	        #gnome-mpv
+          gnome-screenshot
+          gnome-terminal
+          #gnome-tweak-tool
           #guitarix
           jack2Full
           #kde5.kate
           #libreoffice
           mixxx
-          mkvtoolnix-cli
+          mkvtoolnix
           mpv
           mumble_git
+          nautilus
           networkmanager
-          networkmanagerapplet
+          networkmanager-applet
           pavucontrol
-          kde5.quasselClient
-          #qbittorrent
+          #kde5.quasselClient
+          qbittorrent
           qjackctl
           sakura
           sublime-text
@@ -161,7 +166,7 @@ pkgs : {
       name = "steam-env";
       ignoreCollisions = true;
       paths = with self; [
-          steam
+        steam
       ];
     };
   };
