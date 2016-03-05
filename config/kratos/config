@@ -1,18 +1,25 @@
-EMAIL="codyopel@gmail.com"
+#!/usr/bin/env zsh
 
-DOTFILES_REPO="https://github.com/codyopel/dotfiles.git"
+EMAIL='codyopel@gmail.com'
 
-GIT_NAME="codyopel"
+DOTFILES_REPO='https://github.com/codyopel/dotfiles.git'
+
+GIT_NAME='Cody Opel'
 GIT_EMAIL="${EMAIL}"
 
 HIGH_DPI=false
 
 RTORRENT_COLOR_PATCH=true
 
+KRATOS_COLOR_SCHEME='monokai'
+
+KRATOS_PROMPT='kratos'
+
 KRATOS_PLUGINS=(
   'archive'
   'base64'
   'battery'
+  'btrfs'
   'calc'
   'git'
   'golang'
@@ -41,12 +48,30 @@ EDITORS_PREFERENCE=(
   'vi'
 )
 
+# List jobs in long format
+setopt long_list_jobs
+
+# recognize comments
+setopt interactivecomments
+
+# Prevent GUI password dialog
+unset SSH_ASKPASS
+
+# FIXME
+if [[ -d "${HOME}/.zsh/zsh-syntax-highlighting" ]] ; then
+  # Load zsh-syntax-highlighting.
+  source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
+
+# FIXME
+if [[ -d "${HOME}/.zsh/zsh-autosuggestions" ]] ; then
+  # Load zsh-autosuggestions.
+  source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+fi
+
 alias proj="cd ${HOME}/Projects"
 alias root="sudo_wrap su -"
 alias nixpaste="curl -F 'text=<-' http://nixpaste.noip.me"
 alias youtube="youtube-dl --max-quality --no-check-certificate --prefer-insecure --console-title"
 alias music="ncmpcpp"
 alias tarxz="tar cjvf"
-# Btrfs
-alias defragmentroot="sudo btrfs filesystem defragment -r -v /"
-alias defragmenthome="sudo btrfs filesystem defragment -r -v /home"
