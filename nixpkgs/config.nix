@@ -141,7 +141,7 @@ pkgs : {
           mixxx
           mkvtoolnix
           mpv
-          mumble_git
+          mumble
           nautilus
           networkmanager
           networkmanager-applet
