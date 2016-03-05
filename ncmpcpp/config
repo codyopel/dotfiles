@@ -85,7 +85,7 @@ cyclic_scrolling = no
 # Progress Bar
 seek_time = 1
 progressbar_look = ─░─
-progressbar_color = green
+progressbar_color = black
 
 # Status Bar
 statusbar_visibility = yes
@@ -101,7 +101,7 @@ statusbar_color = yellow
 # Playlist tab
 playlist_display_mode = columns
 song_list_format = {$8%a$9}$3•$9{$6%y - %b$9}$3•$9{$7%t$9}|{$7%f$9}$7$R{$3($b%l$/b)$9}
-song_columns_list_format = (6)[green]{l:Length} (20)[white]{a:Artist} (5)[magenta]{y:Year} (30)[magenta]{b:Album} (50)[cyan]{t|f:Track}
+song_columns_list_format = (7f)[green]{l:Length} (20)[white]{a:Artist} (5f)[magenta]{y:Year} (30)[magenta]{b:Album} (50)[cyan]{t|f:Track}
 now_playing_prefix = $9
 now_playing_suffix =  $4♫$9
 ask_before_clearing_playlists = yes
