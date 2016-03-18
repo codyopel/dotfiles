@@ -110,10 +110,10 @@ BLK 40;33;01
 CHR 40;33;01
 
 # Orphaned symlink
-ORPHAN 01;05;37;41
+ORPHAN 00;31
 
 # Orphaned symlink file
-MISSING 01;05;37;41
+MISSING 00;31
 SETUID 37;41	# file that is setuid (u+s)
 SETGID 30;43	# file that is setgid (g+s)
 CAPABILITY 30;41	# file with capability
@@ -196,7 +196,7 @@ EXEC 01;32 # File has execute permissions
 .xpm  01;35
 .tif  01;35
 .tiff 01;35
-.png  01;35 # portable nertwork graphics
+.png  01;35 # portable network graphics
 .svg  01;35 # scalable vector graphics
 .svgz 01;35 # compressed scalable vector graphics
 .mng  01;35
@@ -218,10 +218,10 @@ EXEC 01;32 # File has execute permissions
 # Video (bright purple)
 .anx  01;35
 .avc  01;35 # raw avc stream
-.avi  01;35
+.avi  01;35 # audio video interleave
 .axv  01;35
-.f4v  01;35
-.flv  01;35
+.f4v  01;35 # flash video
+.flv  01;35 # flash video
 .h264 01;35 # raw avc stream
 .h265 01;35 # raw hevc stream
 .hevc 01;35 # raw hevc stream
@@ -248,7 +248,7 @@ EXEC 01;32 # File has execute permissions
 .ps    00;32
 .txt   00;32 # text file
 .patch 00;32 # software patch diff
-.diff  00;32
+.diff  00;32 # software patch diff
 .log   00;32
 .tex   00;32 # tex typesetting system
 .doc   00;32 # word process document
