@@ -38,9 +38,9 @@ KRATOS_PLUGINS=(
 
 # Text editors in order of preference
 EDITORS_PREFERENCE=(
+  'atom'
   'emacs'
   'vim'
-  'atom'
   'subl'
   'sublime'
   'nvim'
