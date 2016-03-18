@@ -1,12 +1,6 @@
 pkgs : {
   allowUnfree = true;
   cabal.libraryProfiling = true;
-  firefox = {
-    jre = false;
-    enableAdobeFlash = true;
-    enableGoogleTalkPlugin = true;
-    icedtea = true;
-  };
   # Suckless
   st.conf = (builtins.readFile ./st/config.mach.h)
     + (builtins.readFile ./st/config.inc.h);
@@ -30,7 +24,7 @@ pkgs : {
       fdkaacExtlib = true;
       openglExtlib = true;
     };*/
-    pulseaudioFull = self.pulseaudioFull.override {
+    pulseaudio_full = self.pulseaudio_full.override {
       loopbackLatencyMsec = "20";
       resampleMethod = "speex-float-10";
     };
@@ -63,7 +57,7 @@ pkgs : {
           iperf
           ipset
           iptables
-          lm_sensors
+          lm-sensors
           meslo-lg
           mtr
           nftables
@@ -90,9 +84,8 @@ pkgs : {
           lame
           libpng
           libvpx
-          mediainfo
+          #mediainfo
           mosh
-          most
           mpd
           mpdris2
           ncdc
@@ -104,20 +97,22 @@ pkgs : {
           #notbit
           p7zip
           pcsclite
+          perl
           pinentry
           psmisc
-          pulseaudioFull
+          pulseaudio_full
           rtorrent
+          rustc
           scrot
           speedtest_cli
           subversion
           unzip
-          vobsub2srt
+          #vobsub2srt
           x264
           x265
           #xlibs.xbacklight
           xz
-          youtube-dl
+          pythonPackages.youtube-dl
 
         # Graphical
           atom
@@ -130,29 +125,30 @@ pkgs : {
           firefoxWrapper
           gimp
           gnome-calculator
-	        #gnome-mpv
+	        gnome-mpv
           gnome-screenshot
           gnome-terminal
           #gnome-tweak-tool
           #guitarix
-          jack2Full
+          jack2_full
           #kde5.kate
           #libreoffice
-          mixxx
-          mkvtoolnix
+          #mixxx
+          #mkvtoolnix
           mpv
           mumble
           nautilus
           networkmanager
           networkmanager-applet
+          noise
           pavucontrol
           #kde5.quasselClient
           qbittorrent
-          qjackctl
+          #qjackctl
           sakura
           sublime-text
-          teamspeak_client
-          texLive
+          #teamspeak_client
+          #texLive
           #texstudio
           #virtmanager
           vlc
