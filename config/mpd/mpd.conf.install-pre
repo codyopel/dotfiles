@@ -2,7 +2,3 @@ KRATOS::Lib:ensure.file_exists "${HOME}/.local/share/mpd/database"
 KRATOS::Lib:ensure.file_exists "${HOME}/.local/share/mpd/log"
 KRATOS::Lib:ensure.file_exists "${HOME}/.local/share/mpd/state"
 KRATOS::Lib:ensure.file_exists "${HOME}/.local/share/mpd/sticker"
-
-KRATOS::Lib:symlink \
-  "${DOTFILES_DIR}/config/mpd/playlists" \
-  "${HOME}/.local/share/mpd/playlists"
