@@ -40,8 +40,10 @@ replace:
     '\s+\_\s+': _
     # Replace period under-score period
     '\.\_\.': _
-    # Remove forward and backslashes
+    # Replace forward and backslashes
     '[\\/]': _
+    # Remove apostrophes
+    "'": ''
     # Remove leading periods
     '^\.': ''
     # Remove control characters
@@ -63,7 +65,7 @@ replace:
 #       -remove featured artists that are already part of the title
 
 paths:
-    default: %lower{${albumartist}/%if{${original_year},${original_year},${year}}_$album%aunique{}/${albumartist}_%if{${original_year},${original_year},${year}}_${album}_${track}-${title}_${channels}.${bitdepth}.${samplerate}}
+    default: %lower{${albumartist}/%if{${original_year},${original_year},${year}}_$album%aunique{}/${albumartist}_%if{${original_year},${original_year},${year}}_${album}_${track}_${title}_${channels}.${bitdepth}.${samplerate}}
     albumtype:ep: %lower{${albumartist}/%if{${original_year},${original_year},${year}}_$album%aunique{} [EP]/${albumartist}_%if{${original_year},${original_year},${year}}_${album}[EP]_${track}_${title}_${channels}.${bitdepth}.${samplerate}}
     albumtype:live: %lower{${albumartist}/%if{${original_year},${original_year},${year}}_$album%aunique{} [LIVE]/${albumartist}_%if{${original_year},${original_year},${year}}_${album}[LIVE]_${track}_${title}_${channels}.${bitdepth}.${samplerate}}
     albumtype:single: %lower{${albumartist}/%if{${original_year},${original_year},${year}}_$album%aunique{} [SINGLE]/${albumartist}_%if{${original_year},${original_year},${year}}_${album}[SINGLE]_${track}_${title}_${channels}.${bitdepth}.${samplerate}}
