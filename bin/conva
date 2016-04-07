@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+CurrentDirectory="$(pwd)"
+InputDirectory="$@"
+
+# Check for specified formats and convert to opus
+find "${InputDirectory}" -type f -regextype posix-extended -regex ".*\.(ape|flac|ogg|m4a|mp3|wav|wma)" | \
+while read curWorkFile ; do
+  if [ -n "$(echo "${curWorkFile}" | grep '/Music/')" ] ; then
+    RelOutDir="$(dirname "$(echo "$curWorkFile" | awk -F'/Music/' '{ print $2 ; exit }')")"
+    if [ ! -d "${CurrentDirectory}/${RelOutDir}" ] ; then
+      mkdir -p "${CurrentDirectory}/${RelOutDir}"
+    fi
+  fi
+  # Filename w/o ext
+  FileName="$(basename "$(echo "${curWorkFile}" | sed -r 's/\.[[:alnum:]]+$//')")"
+  ffmpeg \
+    -hide_banner \
+    -loglevel info \
+    -y \
+    -i "$curWorkFile" \
+    -c:a libopus \
+    -b:a 256k \
+    -vbr on \
+    -compression_level 10 \
+    "${CurrentDirectory}/${RelOutDir:+${RelOutDir}/}${FileName}.opus" &
+  FFmpegPid=$!
+  # Wait for one encode to finish before starting another
+  wait "${FFmpegPid}"
+  unset RelOutDir
+done
