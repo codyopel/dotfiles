@@ -20,9 +20,6 @@
 	# Commit all changes
 	ca = !git add -A && git commit -av
 
-	# Sign commit
-	cs = commit -S
-
 	# Switch to a branch, creating it if necessary
 	go = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; f"
 
@@ -118,8 +115,12 @@
 	# Automatically correct and execute mistyped commands
 	autocorrect = 1
 
+[commit]
+	gpgSign = 1
+
 [push]
   default = simple
+	gpgSign = if-asked
 
 [user]
 	name = Cody W. Opel
