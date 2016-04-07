@@ -44,6 +44,8 @@ replace:
     '[\\/]': _
     # Remove apostrophes
     "'": ''
+    # Remove exclamation points
+    '\!': ''
     # Remove leading periods
     '^\.': ''
     # Remove control characters
