@@ -20,6 +20,9 @@
 	# Commit all changes
 	ca = !git add -A && git commit -av
 
+	# Sign commit
+	cs = commit -S
+
 	# Switch to a branch, creating it if necessary
 	go = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; f"
 
@@ -119,8 +122,9 @@
   default = simple
 
 [user]
+	name = Cody W. Opel
   email = codyopel@gmail.com
-  name = Cody Opel
+	signingkey = 4ABF64E1
 
 # URL shorthands
 
