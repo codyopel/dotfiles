@@ -43,7 +43,8 @@ while read curWorkFile ; do
     -af "aresample=resampler=soxr:precision=28:cheby=1:isf=${InSF}:osf=s16:tsf=s32:isr=${InSR}:osr=48000:cutoff=0.91:dither_method=0" \
     -af "highpass=f=10:poles=1:width_type=h" \
     -af "lowpass=f=19600:poles=1:width_type=h" \
-    "${CurrentDirectory}/${RelOutDir:+${RelOutDir}/}${FileName}.opus" &
+    -map_metadata 0 \
+    "${CurrentDirectory}/${RelOutDir:+${RelOutDir}/}${FileName}.ogg" &
   FFmpegPid=$!
   # Wait for one encode to finish before starting another
   wait "${FFmpegPid}"
