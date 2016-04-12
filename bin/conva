@@ -3,7 +3,13 @@
 CurrentDirectory="$(pwd)"
 InputDirectory="$@"
 
-# Check for specified formats and convert to opus
+CpuCores=$(
+  lscpu |
+    grep --max-count 1 'Core(s) per socket:' |
+    grep --only-matching --perl-regexp '[0-9]+'
+)
+
+# Check for specified file formats and convert to opus
 find "${InputDirectory}" -type f -regextype posix-extended -regex ".*\.(ape|flac|ogg|m4a|mp3|wav|wma)" | \
 while read curWorkFile ; do
   if [ -n "$(echo "${curWorkFile}" | grep '/Music/')" ] ; then
@@ -14,18 +20,38 @@ while read curWorkFile ; do
   fi
   # Filename w/o ext
   FileName="$(basename "$(echo "${curWorkFile}" | sed -r 's/\.[[:alnum:]]+$//')")"
+
+  echo "${FileName}"
+
+  InSF="$(ffprobe -v error -select_streams 0 -show_entries stream=sample_fmt -of default=noprint_wrappers=1:nokey=1 ${curWorkFile})"
+  InSR="$(ffprobe -v error -select_streams 0 -show_entries stream=sample_rate -of default=noprint_wrappers=1:nokey=1 ${curWorkFile})"
+
   ffmpeg \
     -hide_banner \
-    -loglevel info \
+    -loglevel error \
     -y \
-    -i "$curWorkFile" \
+    -threads ${CpuCores} \
+    -i "${curWorkFile}" \
     -c:a libopus \
-    -b:a 256k \
+    -b:a 96k \
     -vbr on \
     -compression_level 10 \
+    -frame_duration 60 \
+    -cutoff 20000 \
+    -sample_fmt s16 \
+    -ar 48000 \
+    -af "aresample=resampler=soxr:precision=28:cheby=1:isf=${InSF}:osf=s16:tsf=s32:isr=${InSR}:osr=48000:cutoff=0.91:dither_method=0" \
+    -af "highpass=f=10:poles=1:width_type=h" \
+    -af "lowpass=f=19600:poles=1:width_type=h" \
     "${CurrentDirectory}/${RelOutDir:+${RelOutDir}/}${FileName}.opus" &
   FFmpegPid=$!
   # Wait for one encode to finish before starting another
   wait "${FFmpegPid}"
+
   unset RelOutDir
+  unset FFmpegPid
+  unset InSF
+  unset InSR
 done
+
+#-af "compand=attacks=0|0:decays=1|1:points=-90/-900|-70/-70|-21/-21|0/-15:soft-knee=0.01:gain=0:volume=0:delay=0" \
