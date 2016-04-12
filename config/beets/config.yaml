@@ -42,6 +42,8 @@ replace:
     '\.\_\.': _
     # Replace forward and backslashes
     '[\\/]': _
+    # Remove commas
+    '\,': ''
     # Remove apostrophes
     "'": ''
     # Remove exclamation points
@@ -58,6 +60,8 @@ replace:
     '\s+$': ''
     # Remove leading whitespace
     '^\s+': ''
+    # Combine double periods (caused by period space)
+    '\.\.': .
 
 # beet ls -af '$albumtype $album'
 # TODO: handle singletons (tracks not associated with an album)
