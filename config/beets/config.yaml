@@ -10,8 +10,7 @@ import:
     resume: yes
     write: no
 
-library: ~/.local/share/beets_database.blb
-#library: ~/.local/share/beets/library.db
+library: ~/.local/share/beets/library.db
 
 match:
     #ignored: missing_tracks
@@ -46,6 +45,8 @@ replace:
     '\,': ''
     # Remove apostrophes
     "'": ''
+    # Remove apostrophes
+    "’": ''
     # Remove exclamation points
     '\!': ''
     # Remove leading periods
