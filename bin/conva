@@ -87,9 +87,13 @@ source "$(readlink -f "$(dirname "$(readlink -f "${0}")")")/concurrent"
 
 TMPDIR="$(mktemp -d)"
 export OUTPUT_DIRECTORY="$(pwd)"
-InputRaw=("$@")
+if [ -z "$@" ] ; then
+  InputRaw=("${HOME}/.config/conva/music.list")
+else
+  InputRaw=("$@")
+fi
 
-if [ "$(basename "${InputRaw[0]}")" == 'music.index' ] ; then
+if [ "$(basename "${InputRaw[0]}")" == 'music.list' ] ; then
   TmpArray=($(cat "$(dirname ${InputRaw[0]})/music.index"))
   for i in "${TmpArray[@]}" ; do
     InputDirectories+=("${HOME}/Music/${i}")
