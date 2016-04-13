@@ -130,7 +130,7 @@ for Dir in "${InputDirectories[@]}" ; do
   # Clear previous file list
   echo '' > "$TMPDIR/filelist"
   # Check for valid audio files
-  find "${Dir}" -type f -regextype posix-extended -regex ".*\.(ape|flac|ogg|m4a|mp3|wav|wma)" |
+  find "${Dir}" -type f -regextype posix-extended -regex ".*\.(ape|flac|ogg|m4a|mp3|wav|wma)" 2>> "${TMPDIR}/errors" |
   while read AudioFile ; do
     if [ ! -f "${AudioFile}" ] ; then
       continue
@@ -143,3 +143,7 @@ for Dir in "${InputDirectories[@]}" ; do
   ConcurrentArgs=($(awk '{ print "- " $1 " encode_file " $2; }' ${TMPDIR}/filelist))
   concurrent "${ConcurrentArgs[@]}"
 done
+
+if [ -f "${TMPDIR}/errors" ] ; then
+  cat "${TMPDIR}/errors"
+fi
