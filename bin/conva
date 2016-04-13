@@ -1,58 +1,141 @@
 #!/usr/bin/env bash
 
-CurrentDirectory="$(pwd)"
-InputDirectory="$@"
+encode_file() {
+  local AlbumArt
+  local AlbumArtExt
+  local Dir
+  local File
+  local FileName
+  local InputDir
+  local InSF
+  local InSR
+  local IsSourceMusicDir
+  local OutputFile
+  local OutputDir
+  local RelOutDir
 
-CpuCores=$(
-  lscpu |
-    grep --max-count 1 'Core(s) per socket:' |
-    grep --only-matching --perl-regexp '[0-9]+'
-)
+  File="$@"
+  # Filename w/o ext
+  FileName="$(basename "$(echo "${File}" | sed -r 's/\.[[:alnum:]]+$//')")"
+  InputDir="$(dirname ${File})"
 
-# Check for specified file formats and convert to opus
-find "${InputDirectory}" -type f -regextype posix-extended -regex ".*\.(ape|flac|ogg|m4a|mp3|wav|wma)" | \
-while read curWorkFile ; do
-  if [ -n "$(echo "${curWorkFile}" | grep '/Music/')" ] ; then
-    RelOutDir="$(dirname "$(echo "$curWorkFile" | awk -F'/Music/' '{ print $2 ; exit }')")"
-    if [ ! -d "${CurrentDirectory}/${RelOutDir}" ] ; then
-      mkdir -p "${CurrentDirectory}/${RelOutDir}"
+  if [ -n "$(echo "${File}" | grep '/Music/')" ] ; then
+    IsSourceMusicDir="$(dirname "$(echo "${File}" | awk -F'/Music/' '{ print $2 ; exit }')")"
+    OutputDir="${OUTPUT_DIRECTORY}${IsSourceMusicDir:+/${IsSourceMusicDir}}"
+    if [ ! -d "${OutputDir}" ] ; then
+      mkdir -pv "${OutputDir}"
     fi
   fi
-  # Filename w/o ext
-  FileName="$(basename "$(echo "${curWorkFile}" | sed -r 's/\.[[:alnum:]]+$//')")"
 
-  echo "${FileName}"
+  OutputFile="${OutputDir}/${FileName}.opus"
 
-  InSF="$(ffprobe -v error -select_streams 0 -show_entries stream=sample_fmt -of default=noprint_wrappers=1:nokey=1 ${curWorkFile})"
-  InSR="$(ffprobe -v error -select_streams 0 -show_entries stream=sample_rate -of default=noprint_wrappers=1:nokey=1 ${curWorkFile})"
+  # Input Sample Format/Rate
+  if [ ! -f "${OutputFile}" ] ; then
+    InSF="$(
+      ffprobe -v error -select_streams 0 -show_entries stream=sample_fmt \
+        -of default=noprint_wrappers=1:nokey=1 ${File})"
+    InSR="$(
+      ffprobe -v error -select_streams 0 -show_entries stream=sample_rate \
+        -of default=noprint_wrappers=1:nokey=1 ${File})"
+  fi
 
-  ffmpeg \
-    -hide_banner \
-    -loglevel error \
-    -y \
-    -threads ${CpuCores} \
-    -i "${curWorkFile}" \
-    -c:a libopus \
-    -b:a 96k \
-    -vbr on \
-    -compression_level 10 \
-    -frame_duration 60 \
-    -cutoff 20000 \
-    -sample_fmt s16 \
-    -ar 48000 \
-    -af "aresample=resampler=soxr:precision=28:cheby=1:isf=${InSF}:osf=s16:tsf=s32:isr=${InSR}:osr=48000:cutoff=0.91:dither_method=0" \
-    -af "highpass=f=10:poles=1:width_type=h" \
-    -af "lowpass=f=19600:poles=1:width_type=h" \
-    -map_metadata 0 \
-    "${CurrentDirectory}/${RelOutDir:+${RelOutDir}/}${FileName}.ogg" &
-  FFmpegPid=$!
-  # Wait for one encode to finish before starting another
-  wait "${FFmpegPid}"
+  # Check for album art image file
+  if [ ! -f "${OutputDir}"/[Ff]older.*g ] ; then
+    AlbumArt="$(
+      find "${InputDir}" -type f -regextype posix-extended \
+        -regex ".*[Ff]older.([Jj][Pp][Gg]|[Jj][Pp][Ee][Gg]|[Pp][Nn][Gg])" -print -quit)"
+    AlbumArtExt="${AlbumArt##*.}"
+    if [ -f "${AlbumArt}" -a ! -f "${OutputDir}/$(basename "${AlbumArt}")" ] ; then
+      cp -v "${AlbumArt}" "${OutputDir}/$(basename "${AlbumArt}")"
+    fi
+  fi
 
-  unset RelOutDir
-  unset FFmpegPid
-  unset InSF
-  unset InSR
+  if [ ! -f "${OutputFile}" ] ; then
+    ffmpeg \
+      -hide_banner \
+      -loglevel error \
+      -y \
+      -threads 1 \
+      -i "${File}" \
+      -c:a libopus \
+      -b:a 128k \
+      -vbr on \
+      -compression_level 10 \
+      -frame_duration 60 \
+      -cutoff 20000 \
+      -sample_fmt s16 \
+      -ar 48000 \
+      -ac 2 \
+      -af "aresample=resampler=soxr:precision=28:cheby=1:isf=${InSF}:osf=s16:tsf=s32:isr=${InSR}:osr=48000:cutoff=0.91:dither_method=0" \
+      -af "highpass=f=10:poles=1:width_type=h" \
+      -af "lowpass=f=19600:poles=1:width_type=h" \
+      -map_metadata 0 \
+      -vn \
+      "${OutputFile}" &
+    FFmpegPid=$!
+    # Wait for one encode to finish before starting another
+    wait "${FFmpegPid}"
+  fi
+
+  #-af "compand=attacks=0|0:decays=1|1:points=-90/-900|-70/-70|-21/-21|0/-15:soft-knee=0.01:gain=0:volume=0:delay=0" \
+}
+
+type ffmpeg > /dev/null || exit 1
+type ffprobe > /dev/null || exit 1
+
+source "$(readlink -f "$(dirname "$(readlink -f "${0}")")")/concurrent"
+
+TMPDIR="$(mktemp -d)"
+export OUTPUT_DIRECTORY="$(pwd)"
+InputRaw=("$@")
+
+if [ "$(basename "${InputRaw[0]}")" == 'music.index' ] ; then
+  TmpArray=($(cat "$(dirname ${InputRaw[0]})/music.index"))
+  for i in "${TmpArray[@]}" ; do
+    InputDirectories+=("${HOME}/Music/${i}")
+  done
+else
+  InputDirectories=("${InputRaw[@]}")
+fi
+CpuSockets="$(
+  lscpu |
+    grep --max-count 1 'Socket(s):' |
+    grep --only-matching --perl-regexp "[0-9]+"
+)"
+CpuCores=$((
+  $(
+    lscpu |
+      grep --max-count 1 'Core(s) per socket:' |
+      grep --only-matching --perl-regexp '[0-9]+'
+  ) * ${CpuSockets}
+))
+
+CpuThreads=$((
+  $(
+    lscpu |
+      grep --max-count 1 'Thread(s) per core:' |
+      grep --only-matching --perl-regexp '[0-9]+'
+  ) * ${CpuCores}
+))
+
+export CONCURRENT_LIMIT=${CpuThreads}
+export CONCURRENT_COMPACT=0
+
+# Chunk encodes by directory until the issue with Concurrent is resolved
+for Dir in "${InputDirectories[@]}" ; do
+  # Clear previous file list
+  echo '' > "$TMPDIR/filelist"
+  # Check for valid audio files
+  find "${Dir}" -type f -regextype posix-extended -regex ".*\.(ape|flac|ogg|m4a|mp3|wav|wma)" |
+  while read AudioFile ; do
+    if [ ! -f "${AudioFile}" ] ; then
+      continue
+    fi
+    Fname="$(basename "$(echo "${AudioFile}" | sed -r 's/\.[[:alnum:]]+$//')").opus"
+    # Write list of audio files to a temp file
+    echo "$(basename "${Fname}")" "${AudioFile}" >> "${TMPDIR}/filelist"
+  done
+  # Generate concurrent args from temp file list
+  ConcurrentArgs=($(awk '{ print "- " $1 " encode_file " $2; }' ${TMPDIR}/filelist))
+  concurrent "${ConcurrentArgs[@]}"
 done
-
-#-af "compand=attacks=0|0:decays=1|1:points=-90/-900|-70/-70|-21/-21|0/-15:soft-knee=0.01:gain=0:volume=0:delay=0" \
