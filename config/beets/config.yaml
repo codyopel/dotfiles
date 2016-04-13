@@ -72,12 +72,12 @@ replace:
 #       -remove featured artists that are already part of the title
 
 paths:
-    default: %lower{${albumartist}/%if{${original_year},${original_year},${year}}_$album%aunique{}/${albumartist}_%if{${original_year},${original_year},${year}}_${album}_${track}_${title}_${channels}.${bitdepth}.${samplerate}}
-    albumtype:ep: %lower{${albumartist}/%if{${original_year},${original_year},${year}}_$album%aunique{} [EP]/${albumartist}_%if{${original_year},${original_year},${year}}_${album}[EP]_${track}_${title}_${channels}.${bitdepth}.${samplerate}}
-    albumtype:live: %lower{${albumartist}/%if{${original_year},${original_year},${year}}_$album%aunique{} [LIVE]/${albumartist}_%if{${original_year},${original_year},${year}}_${album}[LIVE]_${track}_${title}_${channels}.${bitdepth}.${samplerate}}
-    albumtype:single: %lower{${albumartist}/%if{${original_year},${original_year},${year}}_$album%aunique{} [SINGLE]/${albumartist}_%if{${original_year},${original_year},${year}}_${album}[SINGLE]_${track}_${title}_${channels}.${bitdepth}.${samplerate}}
-    comp: COMPILATIONS/%lower{$album%aunique{}/${album}_%if{${original_year},${original_year},${year}}_${track}-${title}_${channels}.${bitdepth}.${samplerate}}
-    soundtrack: SOUNDTRACKS/%lower{${album}/${album}_%if{${original_year},${original_year},${year}}_${track}-${title}_${channels}.${bitdepth}.${samplerate}}
+    default: %lower{${albumartist}/%if{${original_year},${original_year},${year}}_$album%aunique{}/${albumartist}_%if{${original_year},${original_year},${year}}_${album}_${track}_${title}}
+    albumtype:ep: %lower{${albumartist}/%if{${original_year},${original_year},${year}}_$album%aunique{} [EP]/${albumartist}_%if{${original_year},${original_year},${year}}_${album}[EP]_${track}_${title}}
+    albumtype:live: %lower{${albumartist}/%if{${original_year},${original_year},${year}}_$album%aunique{} [LIVE]/${albumartist}_%if{${original_year},${original_year},${year}}_${album}[LIVE]_${track}_${title}}
+    albumtype:single: %lower{${albumartist}/%if{${original_year},${original_year},${year}}_$album%aunique{} [SINGLE]/${albumartist}_%if{${original_year},${original_year},${year}}_${album}[SINGLE]_${track}_${title}}
+    comp: COMPILATIONS/%lower{$album%aunique{}/${album}_%if{${original_year},${original_year},${year}}_${track}-${title}}
+    soundtrack: SOUNDTRACKS/%lower{${album}/${album}_%if{${original_year},${original_year},${year}}_${track}-${title}}
 
 per_disc_numbering: no
 
