@@ -94,7 +94,7 @@ else
 fi
 
 if [ "$(basename "${InputRaw[0]}")" == 'music.list' ] ; then
-  TmpArray=($(cat "$(dirname ${InputRaw[0]})/music.index"))
+  TmpArray=($(cat "$(dirname ${InputRaw[0]})/music.list"))
   for i in "${TmpArray[@]}" ; do
     InputDirectories+=("${HOME}/Music/${i}")
   done
