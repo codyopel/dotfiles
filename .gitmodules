@@ -16,3 +16,6 @@
 [submodule "config/sublime-text-3/Packages/SublimeAllAutocomplete"]
 	path = config/sublime-text-3/Packages/SublimeAllAutocomplete
 	url = https://github.com/alienhard/SublimeAllAutocomplete
+[submodule "config/sublime-text-3/Packages/sublime_autotools"]
+	path = config/sublime-text-3/Packages/sublime_autotools
+	url = https://github.com/ptomato/sublime_autotools
