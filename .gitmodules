@@ -22,3 +22,6 @@
 [submodule "config/sublime-text-3/Packages/GoSublime"]
 	path = config/sublime-text-3/Packages/GoSublime
 	url = https://github.com/DisposaBoy/GoSublime
+[submodule "config/sublime-text-3/Packages/Vala"]
+	path = config/sublime-text-3/Packages/Vala
+	url = https://github.com/technosophos/Vala-TMBundle
