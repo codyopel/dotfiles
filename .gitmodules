@@ -25,3 +25,9 @@
 [submodule "config/sublime-text-3/Packages/sublime-rust"]
 	path = config/sublime-text-3/Packages/sublime-rust
 	url = https://github.com/rust-lang/sublime-rust
+[submodule "config/sublime-text-3/Packages/sublimetext-markdown-preview"]
+	path = config/sublime-text-3/Packages/sublimetext-markdown-preview
+	url = https://github.com/revolunet/sublimetext-markdown-preview
+[submodule "config/sublime-text-3/Packages/SublimeGit"]
+	path = config/sublime-text-3/Packages/SublimeGit
+	url = https://github.com/SublimeGit/SublimeGit
