@@ -1,0 +1,9 @@
+[submodule "config/sublime-text-3/Packages/sublime-nix"]
+	path = config/sublime-text-3/Packages/sublime-nix
+	url = https://github.com/wmertens/sublime-nix
+[submodule "config/sublime-text-3/Packages/GitGutter"]
+	path = config/sublime-text-3/Packages/GitGutter
+	url = https://github.com/jisaacks/GitGutter
+[submodule "config/sublime-text-3/Packages/SideBarEnhancements"]
+	path = config/sublime-text-3/Packages/SideBarEnhancements
+	url = https://github.com/titoBouzout/SideBarEnhancements
