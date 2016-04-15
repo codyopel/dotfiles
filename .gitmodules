@@ -10,9 +10,6 @@
 [submodule "config/sublime-text-3/Packages/cython"]
 	path = config/sublime-text-3/Packages/cython
 	url = https://github.com/petervaro/python
-[submodule "config/sublime-text-3/Packages/python"]
-	path = config/sublime-text-3/Packages/python
-	url = https://github.com/petervaro/python
 [submodule "config/sublime-text-3/Packages/SublimeAllAutocomplete"]
 	path = config/sublime-text-3/Packages/SublimeAllAutocomplete
 	url = https://github.com/alienhard/SublimeAllAutocomplete
