@@ -19,3 +19,6 @@
 [submodule "config/sublime-text-3/Packages/sublime_autotools"]
 	path = config/sublime-text-3/Packages/sublime_autotools
 	url = https://github.com/ptomato/sublime_autotools
+[submodule "config/sublime-text-3/Packages/GoSublime"]
+	path = config/sublime-text-3/Packages/GoSublime
+	url = https://github.com/DisposaBoy/GoSublime
