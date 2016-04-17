@@ -2,6 +2,7 @@
 
 encode_flac() {
   local Compression
+  local FFmpegPid
   local FlacPid
   local InputFile
   local OutputFile
@@ -10,6 +11,25 @@ encode_flac() {
   OutputFile="$(echo "${InputFile}" | sed -r 's/\.[[:alnum:]]+$//').flac"
 
   case "${InputFile##*.}" in
+    'ape')
+      ffmpeg \
+        -i "${InputFile}" \
+        "${OutputFile}" &
+      FFmpegPid=$!
+      wait $FFmpegPid
+      rm -v "${InputFile}"
+      flac \
+        "${OutputFile}" \
+        --force \
+        --verify \
+        --compression-level-8 \
+        --exhaustive-model-search &
+      FlacPid=$!
+      wait $FlacPid
+      metaflac \
+        "${OutputFile}" \
+        --set-tag=COMPRESSION=8
+      ;;
     'flac')
       Compression="$(metaflac --show-tag COMPRESSION "${InputFile}")"
       if [ -n "$(echo ${Compression} | grep 'COMPRESSION=8')" ] ; then
