@@ -83,10 +83,14 @@ encode_file() {
 type ffmpeg > /dev/null || exit 1
 type ffprobe > /dev/null || exit 1
 
-source "$(readlink -f "$(dirname "$(readlink -f "${0}")")")/concurrent"
+source "$(readlink -f "$(dirname "$(readlink -f "${0}")")")/concurrent.lib.sh"
 
 TMPDIR="$(mktemp -d)"
 export OUTPUT_DIRECTORY="$(pwd)"
+if [ "${OUTPUT_DIRECTORY}" == "${HOME}/Music" ] ; then
+  echo "Can't encode in music directory"
+  exit 1
+fi
 if [ -z "$@" ] ; then
   InputRaw=("${HOME}/.config/conva/music.list")
 else
@@ -122,10 +126,11 @@ CpuThreads=$((
   ) * ${CpuCores}
 ))
 
-export CONCURRENT_LIMIT=${CpuThreads}
+export CONCURRENT_LIMIT=${CpuCores}
 export CONCURRENT_COMPACT=0
 
-# Chunk encodes by directory until the issue with Concurrent is resolved
+# Chunk encodes by directory to prevent hitting the shell function
+# argument limit which is cause concurrent to fail.
 for Dir in "${InputDirectories[@]}" ; do
   # Clear previous file list
   echo '' > "$TMPDIR/filelist"
@@ -135,13 +140,36 @@ for Dir in "${InputDirectories[@]}" ; do
     if [ ! -f "${AudioFile}" ] ; then
       continue
     fi
-    Fname="$(basename "$(echo "${AudioFile}" | sed -r 's/\.[[:alnum:]]+$//')").opus"
+    Fname="$(basename "$(echo "${AudioFile}" | sed -r 's/\.[[:alnum:]]+$//')")"
     # Write list of audio files to a temp file
-    echo "$(basename "${Fname}")" "${AudioFile}" >> "${TMPDIR}/filelist"
+    echo "${Fname} ${AudioFile}" >> "${TMPDIR}/filelist"
   done
   # Generate concurrent args from temp file list
   ConcurrentArgs=($(awk '{ print "- " $1 " encode_file " $2; }' ${TMPDIR}/filelist))
-  concurrent "${ConcurrentArgs[@]}"
+  Metadata="${ConcurrentArgs[2]}"
+  # Remove invalid `- encode_file` created as first arg
+  if [ "${ConcurrentArgs[2]}" == '-' ] ; then
+    unset ConcurrentArgs[0]
+    unset ConcurrentArgs[1]
+    Metadata="${ConcurrentArgs[5]}"
+  fi
+
+  if [ -n "$(echo "${Metadata}" | grep '/Music/')" ] ; then
+    Artist="$(
+      echo "${Metadata}" |
+        awk -F'/' '/Music/ {print $5}'
+    )"
+    Album="$(
+      echo "${Metadata}" |
+        awk -F'/' '/Music/ {print $6}'
+    )"
+  fi
+  if [ -n "$(cat "${TMPDIR}/filelist")" ] ; then
+    echo
+    echo "Artist: ${Artist}"
+    echo "Album: ${Album}"
+    concurrent "${ConcurrentArgs[@]}"
+  fi
 done
 
 if [ -f "${TMPDIR}/errors" ] ; then
