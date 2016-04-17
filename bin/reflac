@@ -1,0 +1,112 @@
+#!/usr/bin/env bash
+
+encode_flac() {
+  local Compression
+  local FlacPid
+  local InputFile
+  local OutputFile
+
+  InputFile="${1}"
+  OutputFile="$(echo "${InputFile}" | sed -r 's/\.[[:alnum:]]+$//').flac"
+
+  case "${InputFile##*.}" in
+    'flac')
+      Compression="$(metaflac --show-tag COMPRESSION "${InputFile}")"
+      if [ -n "$(echo ${Compression} | grep 'COMPRESSION=8')" ] ; then
+        return 0
+      fi
+      flac \
+        "${InputFile}" \
+        --force \
+        --verify \
+        --compression-level-8 \
+        --exhaustive-model-search \
+        --decode-through-errors &
+      FlacPid=$!
+      wait $FlacPid
+      metaflac \
+        "${InputFile}" \
+        --set-tag=COMPRESSION=8
+      ;;
+    'wav')
+      flac \
+        "${InputFile}" \
+        --verify \
+        --compression-level-8 \
+        --exhaustive-model-search
+        "${OutputFile}" &
+      FlacPid=$!
+      wait $FlacPid
+      rm -v "${InputFile}"
+      metaflac \
+        "${OutputFile}" \
+        --set-tag=COMPRESSION=8
+      ;;
+    *)
+      echo "unsupported file type"
+      return 1
+      ;;
+  esac
+
+  return 0
+}
+
+source "$(readlink -f "$(dirname "$(readlink -f "${0}")")")/concurrent.lib.sh"
+
+type flac > /dev/null || {
+  echo "flac not installed"
+  exit 1
+}
+
+CpuSockets="$(
+  lscpu |
+    grep --max-count 1 'Socket(s):' |
+    grep --only-matching --perl-regexp "[0-9]+"
+)"
+CpuCores=$((
+  $(
+    lscpu |
+      grep --max-count 1 'Core(s) per socket:' |
+      grep --only-matching --perl-regexp '[0-9]+'
+  ) * ${CpuSockets}
+))
+
+export CONCURRENT_LIMIT=${CpuCores}
+export CONCURRENT_COMPACT=0
+
+TMPDIR="$(mktemp -d)"
+
+if [ -z "$@" ] ; then
+  InputDirectory="${HOME}/Music"
+else
+  InputDirectory="$@"
+  if [ ! -d "${InputDirectory}" ] ; then
+    echo "not a directory"
+    exit 1
+  fi
+fi
+
+find ${InputDirectory} -type d |
+while read MusicDirectory ; do
+  # Clear previous file list
+  echo '' > "${TMPDIR}/filelist"
+  find "${MusicDirectory}" -maxdepth 1 -type f -regextype posix-extended -regex ".*\.(ape|flac|wav)" |
+  while read MusicFile ; do
+    if [ ! -f "${MusicFile}" ] ; then
+      continue
+    fi
+    Fname="$(basename "$(echo "${MusicFile}" | sed -r 's/\.[[:alnum:]]+$//')")"
+    echo "${Fname} ${MusicFile}" >> "${TMPDIR}/filelist"
+  done
+  # Generate concurrent args from temp file list
+  ConcurrentArgs=($(awk '{ print "- " $1 " encode_flac " $2; }' ${TMPDIR}/filelist))
+  # Remove invalid `- encode_file` created as first arg
+  if [ "${ConcurrentArgs[2]}" == '-' ] ; then
+    unset ConcurrentArgs[0]
+    unset ConcurrentArgs[1]
+  fi
+  if [ -n "$(cat "${TMPDIR}/filelist")" ] ; then
+    echo
+    concurrent "${ConcurrentArgs[@]}"
+  fi
+done
