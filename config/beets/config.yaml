@@ -74,12 +74,12 @@ replace:
 #       -remove featured artists that are already part of the title
 
 paths:
-    default: %lower{${albumartist}/%if{${original_year},${original_year},${year}}_$album%aunique{}/${albumartist}_%if{${original_year},${original_year},${year}}_${album}_${track}_${title}}
-    albumtype:ep: %lower{${albumartist}/%if{${original_year},${original_year},${year}}_$album%aunique{} [EP]/${albumartist}_%if{${original_year},${original_year},${year}}_${album}[EP]_${track}_${title}}
-    albumtype:live: %lower{${albumartist}/%if{${original_year},${original_year},${year}}_$album%aunique{} [LIVE]/${albumartist}_%if{${original_year},${original_year},${year}}_${album}[LIVE]_${track}_${title}}
-    albumtype:single: %lower{${albumartist}/%if{${original_year},${original_year},${year}}_$album%aunique{} [SINGLE]/${albumartist}_%if{${original_year},${original_year},${year}}_${album}[SINGLE]_${track}_${title}}
-    comp: COMPILATIONS/%lower{$album%aunique{}/${album}_%if{${original_year},${original_year},${year}}_${track}-${title}}
-    soundtrack: SOUNDTRACKS/%lower{${album}/${album}_%if{${original_year},${original_year},${year}}_${track}-${title}}
+    default: %lower{%asciify{${albumartist}/%if{${year},${year},${original_year}}_$album%if{${catalognum},_[${catalognum}]}/${albumartist}_%if{${year},${year},${original_year}}_${album}%if{${catalognum},_[${catalognum}]}_${track}_${title}}}
+    albumtype:ep: %lower{%asciify{${albumartist}/%if{${year},${year},${original_year}}_$album%if{${catalognum},_[${catalognum}]}_[EP]/${albumartist}_%if{${year},${year},${original_year}}_${album}%if{${catalognum},_[${catalognum}]}_[EP]_${track}_${title}}}
+    albumtype:live: %lower{%asciify{${albumartist}/%if{${year},${year},${original_year}}_$album%if{${catalognum},_[${catalognum}]}_[LIVE]/${albumartist}_%if{${year},${year},${original_year}}_${album}%if{${catalognum},_[${catalognum}]}_[LIVE]_${track}_${title}}}
+    albumtype:single: %lower{%asciify{${albumartist}/%if{${year},${year},${original_year}}_$album%if{${catalognum},_[${catalognum}]}_[SINGLE]/${albumartist}_%if{${year},${year},${original_year}}_${album}%if{${catalognum},_[${catalognum}]}_[SINGLE]_${track}_${title}}}
+    comp: COMPILATIONS/%lower{%asciify{$album%aunique{}/${album}_%if{${original_year},${original_year},${year}}_${track}-${title}}}
+    soundtrack: SOUNDTRACKS/%lower{%asciify{${album}/${album}_%if{${original_year},${original_year},${year}}_${track}-${title}}}
 
 per_disc_numbering: no
 
