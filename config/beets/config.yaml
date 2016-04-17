@@ -27,6 +27,8 @@ musicbrainz:
 original_year: yes
 
 replace:
+    # Replace colon space with a hyphen
+    '\:\s+': '-'
     # Replace spaces with periods
     '\s+': .
     # Replace space hyphen space
