@@ -992,7 +992,7 @@ concurrent() (
 
     __crt__disable_echo() {
         # Disable local echo so the user can't mess up the pretty display.
-        stty -echo
+        stty -echo 2>/dev/null || true
     }
 
     __crt__enable_echo() {
