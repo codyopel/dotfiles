@@ -37,3 +37,6 @@
 [submodule "config/sublime-text-3/Packages/SublimeLinter3"]
 	path = config/sublime-text-3/Packages/SublimeLinter3
 	url = https://github.com/SublimeLinter/SublimeLinter3
+[submodule "config/sublime-text-3/Packages/SublimeLinter-annotations"]
+	path = config/sublime-text-3/Packages/SublimeLinter-annotations
+	url = https://github.com/SublimeLinter/SublimeLinter-annotations
