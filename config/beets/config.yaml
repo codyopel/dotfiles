@@ -93,7 +93,7 @@ ui:
 write: yes
 
 # Plugins
-plugins: badfiles chroma embedart fetchart fromfilename mbsync mpdupdate scrub
+plugins: badfiles chroma discogs embedart fetchart fromfilename inline mbsync mpdupdate scrub
 
 # Plugin configuration
 #acoustid:
