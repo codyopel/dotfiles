@@ -37,15 +37,10 @@ KRATOS_PLUGINS=(
 )
 
 # Text editors in order of preference
-EDITORS_PREFERENCE=(
-  'atom'
-  'emacs'
-  'vim'
+KRATOS_EDITOR_PREFERENCE=(
   'subl'
   'sublime'
-  'nvim'
-  'nano'
-  'vi'
+  'mg'
 )
 
 # List jobs in long format
@@ -57,12 +52,12 @@ setopt interactivecomments
 # Prevent GUI password dialog
 unset SSH_ASKPASS
 
-if [[ -d "${HOME}/.zsh/zsh-syntax-highlighting" ]] ; then
+if [ -d "${HOME}/.zsh/zsh-syntax-highlighting" ] ; then
   # Load zsh-syntax-highlighting.
   source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
 
-if [[ -d "${HOME}/.zsh/zsh-autosuggestions" ]] ; then
+if [ -d "${HOME}/.zsh/zsh-autosuggestions" ] ; then
   # Load zsh-autosuggestions.
   source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 fi
