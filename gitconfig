@@ -146,3 +146,9 @@
 	pushInsteadOf = "gist:"
 	pushInsteadOf = "git://gist.github.com/"
 	pushInsteadOf = "https://gist.github.com/"
+
+[url "git@gitlab.com:"]
+	insteadOf = "gl:"
+	pushInsteadOf = "gitlab:"
+	pushInsteadOf = "git://gitlab.com/"
+	pushInsteadOf = "https://gitlab.com/"
