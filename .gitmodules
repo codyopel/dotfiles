@@ -34,8 +34,8 @@
 [submodule "config/sublime-text-3/Packages/Sublime-ShellScriptImproved"]
 	path = config/sublime-text-3/Packages/Sublime-ShellScriptImproved
 	url = https://github.com/jfcherng/Sublime-ShellScriptImproved
-[submodule "config/sublime-text-3/Packages/SublimeLinter3"]
-	path = config/sublime-text-3/Packages/SublimeLinter3
+[submodule "config/sublime-text-3/Packages/SublimeLinter"]
+	path = config/sublime-text-3/Packages/SublimeLinter
 	url = https://github.com/SublimeLinter/SublimeLinter3
 [submodule "config/sublime-text-3/Packages/SublimeLinter-annotations"]
 	path = config/sublime-text-3/Packages/SublimeLinter-annotations
