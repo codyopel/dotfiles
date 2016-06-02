@@ -1,6 +1,6 @@
 art_filename: Folder
 
-directory: ~/Music/confimed
+directory: ~/Music/unconfirmed
 
 import:
     autotag: yes
@@ -8,17 +8,13 @@ import:
     link: no
     move: yes
     resume: yes
-    write: no
-    timid: yes
+    write: yes
+    timid: no
     detail: yes
 
-library: ~/.local/share/beets/library.db
+library: ~/.local/share/beets/library-unconfirmed.db
 
 match:
-    #ignored: missing_tracks
-    #max_rec:
-    #    missing_tracks: medium
-    #    unmatched_tracks: medium
     preferred:
         original_year: yes
     strong_rec_match: 0.05
@@ -27,13 +23,6 @@ musicbrainz:
     searchlimit: 10
 
 original_year: yes
-
-# TODO: Remove trailing underscores
-# TODO: strip leading characters (dead larry as the radio)
-# TODO: strip plus signs (lionize)
-# TODO: strip ep in titles
-# TODO: remove underscores (philip glass sym 3)
-# TODO: replace ' = ' (halford = halford)
 
 replace:
     # Replace colon space with a hyphen
@@ -75,29 +64,8 @@ replace:
     # Combine double periods (caused by period space)
     '\.\.': .
 
-item_fields:
-    # Get ISO 3166-2 code
-    country_code: |
-        from pycountry import countries
-        c = countries.get(name=country)
-        return c.alpha2
-    #albumtype_simple: |
-    #    def_types = {
-    #        'example'='example'
-    #    }
-
-# beet ls -af '$albumtype $album'
-# TODO: handle singletons (tracks not associated with an album)
-# TODO: featured artists:
-#       -add featured artists to artist or album artist tag (probably album artist)
-#       -add featured artists to track title
-#       -remove featured artists that are already part of the title
-
-# TODO: artist country code with artist name
-# TODO: file format, add custom function so that if flac, also include bit depth
-#       and sample rate, for mp3, include mp3 type
 paths:
-    default: %lower{%asciify{${albumartist}/%if{${year},${year},${original_year}}_$album%if{${catalognum},_[${catalognum}]}%if{${country_code},_[${country_code}]}%if{${media},_[${media}]}%if{${albumtype},_[${albumtype}]}/${albumartist}_%if{${year},${year},${original_year}}_${album}%if{${catalognum},_[${catalognum}]}%if{${country},_[${country}]}%if{${albumtype},_[${albumtype}]}%if{${media},_[${media}]}_${track}_${title}}}
+    default: %lower{%asciify{${albumartist}/%if{${original_year},${original_year},${year}}_$album%if{${albumtype},_[${albumtype}]}/${albumartist}_%if{${original_year},${original_year},${year}}_${album}%if{${albumtype},_[${albumtype}]}_${track}_${title}}}
     comp: COMPILATIONS/%lower{%asciify{$album%aunique{}/${album}_%if{${original_year},${original_year},${year}}_${track}-${title}}}
     soundtrack: SOUNDTRACKS/%lower{%asciify{${album}/${album}_%if{${original_year},${original_year},${year}}_${track}-${title}}}
 
@@ -137,9 +105,6 @@ bpd:
     volume: 100
 chroma:
     auto: yes
-#copyartifacts:
-#    extensions: .cue .log .jpg .png
-#    print_ignored: yes
 embedart:
     auto: yes
     compare_threshold: 0
