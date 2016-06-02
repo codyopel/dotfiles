@@ -5,47 +5,82 @@
 ##   ~/Torrents/Watch/ -------- The 'autoload' directory for rtorrent to use
 ##   ~/.local/share/rtorrent/ - For storing rtorrent session information
 
-# Directories
+dht.mode.set = disable
+dht.port.set = 6881
+
 directory.default.set = ~/Torrents/Incomplete/
+
+# TODO: https://github.com/rakshasa/rtorrent/wiki/LOG-Logging
+# log.add_output = "critical", "rtorrent.log"
+# debug
+# log.add_output = "dht_debug", "rtorrent.log"
+# error
+# log.add_output = "info", "rtorrent.log"
+# notice
+# log.add_output = "tracker_debug", "rtorrent.log"
+# warn
+# log.open_file = "rtorrent.log", "file path"
+
 method.set_key = event.download.finished,move_complete,"d.directory.set=~/Torrents/Complete;execute2=mv,-u,$d.base_path=,~/Torrents/Complete"
-session.path.set = ~/.local/share/rtorrent
-schedule2 = watch.directory.added,5,5,load.start=~/Torrents/Watch/*.torrent
 
-# Re-hash complete torrents
-pieces.hash.on_completion.set = yes
+# network.bind_address.set = 127.0.0.1
+network.http.max_open.set = 256
+# network.local_address.set = 127.0.0.1
+network.max_open_files.set = 1024
+network.max_open_sockets.set = 300
+network.port_random.set = yes
+network.port_range.set = 50000-60000
+network.receive_buffer.size.set = 131072
+network.send_buffer.size.set = 1M
+network.xmlrpc.size_limit.set = 2M
 
-# Throttle
-throttle.min_peers.normal.set = 40
-throttle.max_peers.normal.set = 100
-throttle.min_peers.seed.set = -1
-throttle.max_peers.seed.set = -1
-throttle.max_uploads.set = 50
-throttle.global_down.max_rate.set_kb = 0
-throttle.global_up.max_rate.set_kb = 0
+pieces.hash.on_completion.set = no
+pieces.memory.max.set = 3500M
+pieces.preload.min_rate.set = 5120
+pieces.preload.min_size.set = 262144
+pieces.preload.type.set = 1
+pieces.sync.always_safe.set = no
+pieces.sync.timeout.set = 600
+pieces.sync.timeout_safe.set = 900
 
-# Network
-#network.local_address.set = 127.0.0.1
-#network.local_address.set = example.com
-#network.bind_address.set = 127.0.0.1
-#network.bind_address.set = rakshasa.no
-network.port_range.set = 6890-6999
-port_random = yes
+protocol.encryption.set = require,require_RC4,allow_incoming,try_outgoing,enable_retry
+#protocol.encryption.set = allow_incoming,enable_retry,prefer_plaintext
+protocol.pex.set = no
 
 # XML-RPC
-scgi_port = 127.0.0.1:5000
+#scgi_port = 127.0.0.1:5000
+#scgi_local = ~/.local/share/rtorrent/socket
 
-# Trackers
-trackers.use_udp.set = no
+schedule = low_diskspace, 5, 120, close_low_diskspace=100
+schedule = untied_directory, 5, 60, stop_untied=
+schedule2 = watch.directory.added,5,5,load.start=~/Torrents/Watch/*.torrent
 
-# Encryption
-protocol.encryption.set = require,require_RC4,allow_incoming,try_outgoing,enable_retry
+session.name.set =
+session.use_lock.set = yes
+session.on_completion.set = yes
+session.path.set = ~/.local/share/rtorrent
 
-# DHT
-#dht.mode.set = enable
-#dht.port.set = 6881
+system.file_allocate.set = yes
+system.file.max_size.set = -1
+system.file.split_size.set = -1
+system.file.split_suffix.set = .part
+system.hash.interval.set = 50
+system.hash.max_tries.set = 3
+system.hash.read_ahead.set = 8
 
-# Peer exchange
-#protocol.pex.set = yes
+throttle.global_down.max_rate.set_kb = 0
+throttle.global_up.max_rate.set_kb = 0
+throttle.max_peers.normal.set = 1024
+throttle.max_peers.seed.set = 1024
+# throttle.max_uploads.set = 50
+throttle.min_peers.normal.set = 1
+throttle.min_peers.seed.set = 1
+
+trackers.numwant.set = -1
+trackers.use_udp.set = yes
+
+# Start rutorrent plugins automatically
+#execute = {sh,-c,php ~/.local/share/www/local/rutorrent/php/initplugins.php cwopel &}
 
 # Custom Colors
 color_bg_active = 8
