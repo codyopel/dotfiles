@@ -68,3 +68,4 @@ alias nixpaste="curl -F 'text=<-' http://nixpaste.noip.me"
 alias youtube="youtube-dl --max-quality --no-check-certificate --prefer-insecure --console-title"
 alias music="ncmpcpp"
 alias tarxz="tar cjvf"
+alias beetu='beet -c ${HOME}/.config/beets/config-unconfirmed.yaml'
