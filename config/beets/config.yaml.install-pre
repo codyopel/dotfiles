@@ -1,1 +1,1 @@
-KRATOS::Lib:ensure.dir_exists "${HOME}/.local/share/beets"
+Directory::Create "${HOME}/.local/share/beets"

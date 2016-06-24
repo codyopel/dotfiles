@@ -44,23 +44,23 @@ KRATOS_EDITOR_PREFERENCE=(
 )
 
 # List jobs in long format
-setopt long_list_jobs
+#setopt long_list_jobs
 
 # recognize comments
-setopt interactivecomments
+#setopt interactivecomments
 
 # Prevent GUI password dialog
 unset SSH_ASKPASS
 
-if [ -d "${HOME}/.zsh/zsh-syntax-highlighting" ] ; then
-  # Load zsh-syntax-highlighting.
-  source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-fi
+#if [ -d "${HOME}/.zsh/zsh-syntax-highlighting" ] ; then
+#  # Load zsh-syntax-highlighting.
+#  source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+#fi
 
-if [ -d "${HOME}/.zsh/zsh-autosuggestions" ] ; then
-  # Load zsh-autosuggestions.
-  source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-fi
+#if [ -d "${HOME}/.zsh/zsh-autosuggestions" ] ; then
+#  # Load zsh-autosuggestions.
+#  source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+#fi
 
 alias proj="cd ${HOME}/Projects"
 alias root="sudo_wrap su -"

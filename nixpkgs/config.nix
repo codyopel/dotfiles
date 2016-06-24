@@ -74,8 +74,8 @@ pkgs : {
           zsh
 
         # Headless
-          beets
-          ffmpeg-full_HEAD
+          pythonPackages.beets
+          ffmpeg
           flac
           #gnupg1compat
           go
@@ -87,7 +87,7 @@ pkgs : {
           #mediainfo
           mosh
           mpd
-          mpdris2
+          #mpdris2
           ncdc
           ncdu
           ncmpcpp
@@ -104,7 +104,7 @@ pkgs : {
           rtorrent
           rustc
           scrot
-          speedtest_cli
+          #speedtest-cli
           subversion
           unzip
           #vobsub2srt
@@ -121,8 +121,8 @@ pkgs : {
           #eagle
           eog
           file-roller
-          filezilla
-          firefoxWrapper
+          #filezilla
+          #firefoxWrapper
           gimp
           gnome-calculator
 	        gnome-mpv

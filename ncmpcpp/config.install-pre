@@ -1,1 +1,1 @@
-KRATOS::Lib:ensure.dir_exists "${HOME}/.local/share/ncmpcpp/lyrics"
+Directory::Create "${HOME}/.local/share/ncmpcpp/lyrics"
