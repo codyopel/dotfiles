@@ -9,21 +9,12 @@ pkgs : {
 
     chromium = self.chromium.override {
       proprietaryCodecs = true;
-      pulseSupport = true;
       enableWideVine = true;
       enablePepperFlash = true;
     };
     #emacs = self.emacs.override {
     #  withX = false;
     #};
-    /*ffmpeg-full = self.ffmpeg-full.override {
-      nonfreeLicensing = true;
-      gnutls = null;
-      opensslExtlib = true;
-      #decklinkExtlib = true;
-      fdkaacExtlib = true;
-      openglExtlib = true;
-    };*/
     pulseaudio_full = self.pulseaudio_full.override {
       loopbackLatencyMsec = "20";
       resampleMethod = "speex-float-10";
@@ -31,6 +22,9 @@ pkgs : {
     rtorrent = self.rtorrent.override {
       colorSupport = true;
     };
+    #x264 = self.x264.override {
+    #  enable10bit = true;
+    #};
     #desktop = self.haskellPackages.ghcWithPackages (self : with self; [
     #  haskell-ngPackages.xdgBasedir
      # xmonad
@@ -45,9 +39,11 @@ pkgs : {
           acpi
           atop
           bc
+          brotli
+          curl
           dash
           dnstop
-          emacs
+          #emacs
           git
           gptfdisk
           #hdparm
@@ -57,81 +53,96 @@ pkgs : {
           iperf
           ipset
           iptables
+          lib-bash
           lm-sensors
           meslo-lg
+          mg
           mtr
           nftables
           nmap
           openssh
           openssl
+          p7zip
           psmisc
+          screen
           smartmontools
+          speedtest-cli
           sysstat
           tcpdump
           tmux
-          vim
+          unrar
+          unzip
+          #vim
           wget
+          xz
           zsh
 
         # Headless
+          goPackages.hugo.bin
+          goPackages.ipfs.bin
+          goPackages.nomad.bin
+          goPackages.vault.bin
           pythonPackages.beets
+          pythonPackages.certbot
+          pythonPackages.deluge
+          pythonPackages.flexget
+          pythonPackages.pycountry
+          arkive
+          btsync
+          cdrtools
           ffmpeg
           flac
-          #gnupg1compat
+          gnupg
+          pinentry
           go
           #icedtea7_web
           imagemagick
           lame
-          libpng
-          libvpx
+          #libpng
+          #libvpx
           #mediainfo
           mosh
           mpd
           #mpdris2
           ncdc
-          ncdu
+          #ncdu
           ncmpcpp
           networkmanager
           #nix-repl
           #nixops
           #notbit
-          p7zip
           pcsclite
           perl
           pinentry
           psmisc
           pulseaudio_full
           rtorrent
-          rustc
+          #rustc
           scrot
-          #speedtest-cli
           subversion
-          unzip
           #vobsub2srt
           x264
           x265
           #xlibs.xbacklight
-          xz
-          pythonPackages.youtube-dl
+          #pythonPackages.youtube-dl
 
         # Graphical
-          atom
           chromium
           dmenu
           #eagle
           eog
           file-roller
-          #filezilla
-          #firefoxWrapper
+          #firefox
           gimp
           gnome-calculator
-	        gnome-mpv
+	  gnome-mpv
           gnome-screenshot
           gnome-terminal
           #gnome-tweak-tool
           #guitarix
-          jack2_full
+          #jack2_full
           #kde5.kate
+          lftp
           #libreoffice
           #mixxx
           #mkvtoolnix
@@ -140,23 +151,34 @@ pkgs : {
           nautilus
           networkmanager
           networkmanager-applet
-          noise
           pavucontrol
           #kde5.quasselClient
-          qbittorrent
           #qjackctl
           sakura
+          split2flac
           sublime-text
+          swig
+          syncthing
           #teamspeak_client
           #texLive
           #texstudio
           #virtmanager
-          vlc
+          #vlc
           #xfe
+
+          lego
+
+          #myHsEnv
 
           #steamEnv
       ];
     };
+
+    myHsEnv = self.haskellPackages.ghcWithPackages (self : with self; [
+      #pandoc
+      xmonad
+      xmonad-contrib
+    ]);
 
     steamEnv = self.buildEnv {
       name = "steam-env";
