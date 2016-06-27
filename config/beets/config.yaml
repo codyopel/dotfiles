@@ -86,8 +86,11 @@ item_fields:
             alt = {
                 'Russia': 'Russian Federation'
             }
-            if country.lower() == 'europe':
-              c = 'XE'
+            if country.lower() == 'europe' or country.lower() == 'xe':
+                # Use EU to represent European Union, does not meet the
+                # criteria for inclusion in ISO 3166-1, but EU is reserved
+                # for the purpose by ISO 3166/MA .
+                c = 'EU'
             else:
                 try:
                     c = countries.get(name=country).alpha2
