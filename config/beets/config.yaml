@@ -76,11 +76,29 @@ replace:
     '\.\.': .
 
 item_fields:
-    # Get ISO 3166-2 code
+    # Get ISO 3166-2 code from beets' country variable
     country_code: |
         from pycountry import countries
-        c = countries.get(name=country)
-        return c.alpha2
+        # Assume that if the length of the string is <= 2 that the
+        # country code is already ISO 3166-2.
+        if len(country) > 2:
+            # Translate common alternative spellings
+            alt = {
+                'Russia': 'Russian Federation'
+            }
+            if country.lower() == 'europe':
+              c = 'XE'
+            else:
+                try:
+                    c = countries.get(name=country).alpha2
+                except:
+                    try:
+                        c = countries.get(name=alt[country]).alpha2
+                    except:
+                        c = country
+        else:
+            c = country
+        return c
     #albumtype_simple: |
     #    def_types = {
     #        'example'='example'
