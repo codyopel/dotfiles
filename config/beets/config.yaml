@@ -174,7 +174,6 @@ fetchart:
     min_width: 800
     max_width: 10000
     enforce_ratio: no
-    remote_priority: no
     sources: wikipedia coverart albumart amazon
 mpd:
     host: localhost
