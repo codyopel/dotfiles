@@ -183,7 +183,7 @@ item_fields:
         return rt
     media_type: |
         translate_media_type = {
-            '12 vinyl': 'lp'
+            '12 vinyl': 'lp',
             'digital media': 'digital',
         }
         if media.lower() in translate_media_type:
