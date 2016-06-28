@@ -141,6 +141,45 @@ item_fields:
             # use musicbrainz's code for unknown country.
             c = "XU"
         return c
+    # Normalize relase types
+    release_type: |
+        # This is mainly to fix discogs metadata sources which allow multiple
+        # entries in the albm type field.
+        # FIXME: Should parse words into an array in order and than match
+        #        against a list of excepted keywords and match in order of
+        #        preference rather than the first match.
+        translate_release_type = {
+            # Album
+            'album, deluxe edition, enhanced': 'album',
+            'album, enhanced': 'album',
+            'album, limited edition': 'album',
+            'album, reissue': 'album',
+            'album, reissue, remastered': 'album',
+            'album, remastered': 'album',
+            'album, repress': 'album',
+            'album, special edition': 'album',
+            'album, unofficial release': 'album',
+            'hdcd, album': 'album',
+            'mini-album, enhanced': 'album',
+            'mini-album, reissue': 'album',
+            # Compilation
+            'album, compilation': 'compilation',
+            'compilation, reissue': 'compilation',
+            'promo, compilation': 'compilation',
+            # EP
+            'ep, limited edition': 'ep',
+            'ep, promo, limited edition': 'ep',
+            'shape, ep, limited edition': 'ep',
+            # LP
+            'lp, album': 'lp',
+            # Single
+            'single, promo': 'single'
+        }
+        if albumtype.lower() in translate_release_type:
+            rt = translate_release_type[albumtype.lower()]
+        else:
+            rt = albumtype
+        return rt
     #albumtype_simple: |
     #    def_types = {
     #        'example'='example'
@@ -157,7 +196,7 @@ item_fields:
 # TODO: file format, add custom function so that if flac, also include bit depth
 #       and sample rate, for mp3, include mp3 type
 paths:
-    default: %lower{%asciify{${albumartist}/%if{${year},${year},${original_year}}_$album%if{${catalognum},_[${catalognum}]}%if{${country_code},_[${country_code}]}%if{${media},_[${media}]}%if{${albumtype},_[${albumtype}]}/${albumartist}_%if{${year},${year},${original_year}}_${album}%if{${catalognum},_[${catalognum}]}%if{${country},_[${country}]}%if{${albumtype},_[${albumtype}]}%if{${media},_[${media}]}_${track}_${title}}}
+    default: %lower{%asciify{${albumartist}/%if{${year},${year},${original_year}}_$album%if{${catalognum},_[${catalognum}]}%if{${country_code},_[${country_code}]}%if{${media},_[${media}]}%if{${release_type},_[${release_type}]}/${albumartist}_%if{${year},${year},${original_year}}_${album}%if{${catalognum},_[${catalognum}]}%if{${country_code},_[${country_code}]}%if{${release_type},_[${release_type}]}%if{${media},_[${media}]}_${track}_${title}}}
     comp: COMPILATIONS/%lower{%asciify{$album%aunique{}/${album}_%if{${original_year},${original_year},${year}}_${track}-${title}}}
     soundtrack: SOUNDTRACKS/%lower{%asciify{${album}/${album}_%if{${original_year},${original_year},${year}}_${track}-${title}}}
 
