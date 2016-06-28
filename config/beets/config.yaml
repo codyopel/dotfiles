@@ -180,10 +180,16 @@ item_fields:
         else:
             rt = albumtype
         return rt
-    #albumtype_simple: |
-    #    def_types = {
-    #        'example'='example'
-    #    }
+    media_type: |
+        translate_media_type = {
+            '12 vinyl': 'lp'
+            'digital media': 'digital',
+        }
+        if media.lower() in translate_media_type:
+            m = translate_media_type[media.lower()]
+        else:
+            m = media
+        return m
 
 # beet ls -af '$albumtype $album'
 # TODO: handle singletons (tracks not associated with an album)
@@ -196,7 +202,7 @@ item_fields:
 # TODO: file format, add custom function so that if flac, also include bit depth
 #       and sample rate, for mp3, include mp3 type
 paths:
-    default: %lower{%asciify{${albumartist}/%if{${year},${year},${original_year}}_$album%if{${catalognum},_[${catalognum}]}%if{${country_code},_[${country_code}]}%if{${media},_[${media}]}%if{${release_type},_[${release_type}]}/${albumartist}_%if{${year},${year},${original_year}}_${album}%if{${catalognum},_[${catalognum}]}%if{${country_code},_[${country_code}]}%if{${release_type},_[${release_type}]}%if{${media},_[${media}]}_${track}_${title}}}
+    default: %lower{%asciify{${albumartist}/%if{${year},${year},${original_year}}_$album%if{${catalognum},_[${catalognum}]}%if{${country_code},_[${country_code}]}%if{${media_type},_[${media_type}]}%if{${release_type},_[${release_type}]}/${albumartist}_%if{${year},${year},${original_year}}_${album}%if{${catalognum},_[${catalognum}]}%if{${country_code},_[${country_code}]}%if{${release_type},_[${release_type}]}%if{${media_type},_[${media_type}]}_${track}_${title}}}
     comp: COMPILATIONS/%lower{%asciify{$album%aunique{}/${album}_%if{${original_year},${original_year},${year}}_${track}-${title}}}
     soundtrack: SOUNDTRACKS/%lower{%asciify{${album}/${album}_%if{${original_year},${original_year},${year}}_${track}-${title}}}
 
