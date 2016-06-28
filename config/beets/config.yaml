@@ -145,7 +145,7 @@ item_fields:
     release_type: |
         # This is mainly to fix discogs metadata sources which allow multiple
         # entries in the albm type field.
-        # FIXME: Should parse words into an array in order and than match
+        # FIXME: Should parse strings into an array in order and then match
         #        against a list of excepted keywords and match in order of
         #        preference rather than the first match.
         translate_release_type = {
@@ -160,8 +160,11 @@ item_fields:
             'album, special edition': 'album',
             'album, unofficial release': 'album',
             'hdcd, album': 'album',
+            'lp, album': 'album',
+            'mini-album': 'album',
             'mini-album, enhanced': 'album',
             'mini-album, reissue': 'album',
+            'mini-album, repress': 'album',
             # Compilation
             'album, compilation': 'compilation',
             'compilation, reissue': 'compilation',
@@ -170,8 +173,6 @@ item_fields:
             'ep, limited edition': 'ep',
             'ep, promo, limited edition': 'ep',
             'shape, ep, limited edition': 'ep',
-            # LP
-            'lp, album': 'lp',
             # Single
             'single, promo': 'single'
         }
