@@ -76,31 +76,70 @@ replace:
     '\.\.': .
 
 item_fields:
-    # Get ISO 3166-2 code from beets' country variable
+    # Make sure the release country is in ISO 3166-2 format
     country_code: |
         from pycountry import countries
-        # Assume that if the length of the string is <= 2 that the
-        # country code is already ISO 3166-2.
+        alternate_name = {
+            'Europe': 'European Union',
+            'Russia': 'Russian Federation',
+            # FIXME: Implement a way to parse for multiple countries
+            #        and make a list of alpha2 codes.
+            #      - Need to figure out a seperator character, can't be hypen
+            #        or other characters if any that are a part of ISO 3166
+            'UK & Europe': 'European Union',
+            'UK, Europe & US': 'World Wide',
+            'USA & Canada': 'North America'
+        }
+        custom_alpha2 = {
+            # The European Union does not meet the criteria for inclusion
+            # in ISO 3166-1, but EU is reserved for the purpose by
+            # ISO 3166/MA.
+            'European Union': 'EU',
+            # ISO 3166 establishes NA as the North American continent code,
+            # but it would conflict with the Namibia country code, so use
+            # an un-designated code.
+            'North America': 'NM',
+            'World Wide': 'WW'
+        }
+        translate_invalid_alpha2 = {
+            # Translate musicbrainz's alpha2 code for the European Union
+            'XE': 'EU',
+            'XW': 'WW'
+        }
         if len(country) > 2:
-            # Translate common alternative spellings
-            alt = {
-                'Russia': 'Russian Federation'
-            }
-            if country.lower() == 'europe' or country.lower() == 'xe':
-                # Use EU to represent European Union, does not meet the
-                # criteria for inclusion in ISO 3166-1, but EU is reserved
-                # for the purpose by ISO 3166/MA .
-                c = 'EU'
+            if country in alternate_name:
+                country2 = alternate_name[country]
+            else:
+                country2 = country
+
+            if country2 in custom_alpha2:
+                c = custom_alpha2[country2]
             else:
                 try:
-                    c = countries.get(name=country).alpha2
+                    c = countries.get(name=country2).alpha2
                 except:
                     try:
-                        c = countries.get(name=alt[country]).alpha2
+                        c = countries.get(name=custom_alpha2[country2]).alpha2
                     except:
-                        c = country
+                        # TODO: maybe this should return XU, because validation
+                        #       has already failed at this point.
+                        #     - this should also log files incase a work around
+                        #       need to be put in place to handle another
+                        #       exception.
+                        c = country2
+        # Attempt to fix known invalid ISO 3166 codes
+        elif len(country) == 2:
+            try:
+                c = countries.get(alpha2=country).alpha2
+            except:
+                if country.upper() in translate_invalid_alpha2:
+                    c = translate_invalid_alpha2[country]
+                else:
+                    c = country
         else:
-            c = country
+            # Incase `country` contains a single character or isn't set,
+            # use musicbrainz's code for unknown country.
+            c = "XU"
         return c
     #albumtype_simple: |
     #    def_types = {
