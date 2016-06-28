@@ -234,8 +234,8 @@ plugins: [
 ]
 
 # Plugin configuration
-#acoustid:
-#    apikey: AbCd1234
+acoustid:
+    apikey: 9WbF9763sG
 bpd:
     host: 127.0.0.1
     port: 6600
