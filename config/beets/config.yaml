@@ -35,23 +35,20 @@ original_year: yes
 # TODO: remove underscores (philip glass sym 3)
 # TODO: replace ' = ' (halford = halford)
 
+# WARNING: ordering of regex filters matters
 replace:
-    # Replace colon space with a hyphen
+    # `_ ` -> `-` (colon space to hyphen)
     '\:\s+': '-'
-    # Replace spaces with periods
-    '\s+': .
-    # Replace space hyphen space
+    # ` - ` -> `_` (space hyphen space to underscore)
     '\s+\-\s+': _
-    # Replace period hyphen period
-    '\.\-\.': _
-    # Replace space forward-slash space
+    # ` / ` -> `_` (space forward-slash space)
     '\s+\/\s+': _
-    # Replace space under-score space
+    # ` _ ` -> `_` (space under-score space to underscore)
     '\s+\_\s+': _
-    # Replace period under-score period
-    '\.\_\.': _
-    # Replace forward and backslashes
+    # `/` `\` -> `_` (forwardslash or backslash to underscore)
     '[\\/]': _
+    # `. ` -> `.` (period space to period)
+    '\.s+': .
     # Remove commas
     '\,': ''
     # Remove apostrophes
@@ -60,20 +57,21 @@ replace:
     "’": ''
     # Remove exclamation points
     '\!': ''
-    # Remove leading periods
-    '^\.': ''
     # Remove control characters
     '[\x00-\x1f]': _
     # Remove Windows reserved characters
     '[<>"\?\*\|]': ''
+    # Remove leading periods
+    '^\.': ''
     # Remove trailing periods
     '\.$': ''
-    # Remove trailing whitespace
-    '\s+$': ''
     # Remove leading whitespace
     '^\s+': ''
-    # Combine double periods (caused by period space)
-    '\.\.': .
+    # Remove trailing whitespace
+    '\s+$': ''
+    # This filter must be applied last
+    # ` ` -> `.` (space to period)
+    '\s+': .
 
 item_fields:
     # Make sure the release country is in ISO 3166-2 format
