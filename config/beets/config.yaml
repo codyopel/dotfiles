@@ -156,7 +156,13 @@ item_fields:
             'album, reissue': 'album',
             'album, reissue, remastered': 'album',
             'album, remastered': 'album',
-            'album, repress': 'album',
+            # aunique can't handle conditionals so allow `album repress`
+            # until this can be fixed.
+            # e.g. if album,catalognum,media_type,release_type,&,year
+            #      are identical between to releases, only then apply
+            #      a user specified method for handling unique senarios.
+            #      (i.e. the artist/album directory paths result in collisions)
+            #'album, repress': 'album',
             'album, special edition': 'album',
             'album, unofficial release': 'album',
             'hdcd, album': 'album',
