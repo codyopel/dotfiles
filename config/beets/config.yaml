@@ -1,5 +1,16 @@
 art_filename: Folder
 
+asciify_paths: yes
+
+clutter: [
+    'Thumbs.db',
+    '.DS_Store',
+    '*.cue',
+    '*.m3u',
+    '*.pls',
+    '*.sfv'
+]
+
 directory: ~/Music/confimed
 
 import:
@@ -22,6 +33,8 @@ match:
     preferred:
         original_year: yes
     strong_rec_match: 0.05
+
+max_filename_length: 200
 
 musicbrainz:
     searchlimit: 10
@@ -48,7 +61,7 @@ replace:
     # `/` `\` -> `_` (forwardslash or backslash to underscore)
     '[\\/]': _
     # `. ` -> `.` (period space to period)
-    '\.s+': .
+    '\.\s+': .
     # Remove commas
     '\,': ''
     # Remove apostrophes
