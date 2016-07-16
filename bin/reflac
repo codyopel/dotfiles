@@ -99,14 +99,14 @@ TMPDIR="$(mktemp -d)"
 if [ -z "$@" ] ; then
   InputDirectory="${HOME}/Music"
 else
-  InputDirectory="$@"
+  InputDirectory="$(readlink -f "$@")"
   if [ ! -d "${InputDirectory}" ] ; then
     echo "not a directory"
     exit 1
   fi
 fi
 
-find ${InputDirectory} -type d |
+find "${InputDirectory}" -type d |
 while read MusicDirectory ; do
   # Clear previous file list
   echo '' > "${TMPDIR}/filelist"

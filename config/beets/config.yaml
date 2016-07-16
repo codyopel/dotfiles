@@ -1,5 +1,16 @@
 art_filename: Folder
 
+asciify_paths: yes
+
+clutter: [
+    'Thumbs.db',
+    '.DS_Store',
+    '*.cue',
+    '*.m3u',
+    '*.pls',
+    '*.sfv'
+]
+
 directory: ~/Music/confimed
 
 import:
@@ -23,6 +34,8 @@ match:
         original_year: yes
     strong_rec_match: 0.05
 
+max_filename_length: 200
+
 musicbrainz:
     searchlimit: 10
 
@@ -35,23 +48,20 @@ original_year: yes
 # TODO: remove underscores (philip glass sym 3)
 # TODO: replace ' = ' (halford = halford)
 
+# WARNING: ordering of regex filters matters
 replace:
-    # Replace colon space with a hyphen
+    # `_ ` -> `-` (colon space to hyphen)
     '\:\s+': '-'
-    # Replace spaces with periods
-    '\s+': .
-    # Replace space hyphen space
+    # ` - ` -> `_` (space hyphen space to underscore)
     '\s+\-\s+': _
-    # Replace period hyphen period
-    '\.\-\.': _
-    # Replace space forward-slash space
+    # ` / ` -> `_` (space forward-slash space)
     '\s+\/\s+': _
-    # Replace space under-score space
+    # ` _ ` -> `_` (space under-score space to underscore)
     '\s+\_\s+': _
-    # Replace period under-score period
-    '\.\_\.': _
-    # Replace forward and backslashes
+    # `/` `\` -> `_` (forwardslash or backslash to underscore)
     '[\\/]': _
+    # `. ` -> `.` (period space to period)
+    '\.\s+': .
     # Remove commas
     '\,': ''
     # Remove apostrophes
@@ -60,31 +70,145 @@ replace:
     "’": ''
     # Remove exclamation points
     '\!': ''
-    # Remove leading periods
-    '^\.': ''
     # Remove control characters
     '[\x00-\x1f]': _
     # Remove Windows reserved characters
     '[<>"\?\*\|]': ''
+    # Remove leading periods
+    '^\.': ''
     # Remove trailing periods
     '\.$': ''
-    # Remove trailing whitespace
-    '\s+$': ''
     # Remove leading whitespace
     '^\s+': ''
-    # Combine double periods (caused by period space)
-    '\.\.': .
+    # Remove trailing whitespace
+    '\s+$': ''
+    # This filter must be applied last
+    # ` ` -> `.` (space to period)
+    '\s+': .
 
 item_fields:
-    # Get ISO 3166-2 code
+    # Make sure the release country is in ISO 3166-2 format
     country_code: |
         from pycountry import countries
-        c = countries.get(name=country)
-        return c.alpha2
-    #albumtype_simple: |
-    #    def_types = {
-    #        'example'='example'
-    #    }
+        alternate_name = {
+            'Europe': 'European Union',
+            'Russia': 'Russian Federation',
+            # FIXME: Implement a way to parse for multiple countries
+            #        and make a list of alpha2 codes.
+            #      - Need to figure out a seperator character, can't be hypen
+            #        or other characters if any that are a part of ISO 3166
+            'UK & Europe': 'European Union',
+            'UK, Europe & US': 'World Wide',
+            'USA & Canada': 'North America'
+        }
+        custom_alpha2 = {
+            # The European Union does not meet the criteria for inclusion
+            # in ISO 3166-1, but EU is reserved for the purpose by
+            # ISO 3166/MA.
+            'European Union': 'EU',
+            # ISO 3166 establishes NA as the North American continent code,
+            # but it would conflict with the Namibia country code, so use
+            # an un-designated code.
+            'North America': 'NM',
+            'World Wide': 'WW'
+        }
+        translate_invalid_alpha2 = {
+            # Translate musicbrainz's alpha2 code for the European Union
+            'XE': 'EU',
+            'XW': 'WW'
+        }
+        if len(country) > 2:
+            if country in alternate_name:
+                country2 = alternate_name[country]
+            else:
+                country2 = country
+
+            if country2 in custom_alpha2:
+                c = custom_alpha2[country2]
+            else:
+                try:
+                    c = countries.get(name=country2).alpha2
+                except:
+                    try:
+                        c = countries.get(name=custom_alpha2[country2]).alpha2
+                    except:
+                        # TODO: maybe this should return XU, because validation
+                        #       has already failed at this point.
+                        #     - this should also log files incase a work around
+                        #       needs to be put in place to handle another
+                        #       exception.
+                        c = country2
+        # Attempt to fix known invalid ISO 3166 codes
+        elif len(country) == 2:
+            try:
+                c = countries.get(alpha2=country).alpha2
+            except:
+                if country.upper() in translate_invalid_alpha2:
+                    c = translate_invalid_alpha2[country]
+                else:
+                    c = country
+        else:
+            # Incase `country` contains a single character or isn't set,
+            # use musicbrainz's code for unknown country.
+            c = "XU"
+        return c
+    # Normalize relase types
+    release_type: |
+        # This is mainly to fix discogs metadata sources which allow multiple
+        # entries in the albm type field.
+        # FIXME: Should parse strings into an array in order and then match
+        #        against a list of excepted keywords and match in order of
+        #        preference rather than the first match.
+        translate_release_type = {
+            # Album
+            'album, deluxe edition, enhanced': 'album',
+            'album, enhanced': 'album',
+            'album, limited edition': 'album',
+            'album, reissue': 'album',
+            'album, reissue, remastered': 'album',
+            'album, remastered': 'album',
+            # aunique can't handle conditionals so allow `album repress`
+            # until this can be fixed.
+            # e.g. if album,catalognum,media_type,release_type,&,year
+            #      are identical between to releases, only then apply
+            #      a user specified method for handling unique senarios.
+            #      (i.e. the artist/album directory paths result in collisions)
+            #'album, repress': 'album',
+            'album, special edition': 'album',
+            'album, unofficial release': 'album',
+            'hdcd, album': 'album',
+            'lp, album': 'album',
+            'mini-album': 'album',
+            'mini-album, enhanced': 'album',
+            'mini-album, reissue': 'album',
+            'mini-album, repress': 'album',
+            # Compilation
+            'album, compilation': 'compilation',
+            'compilation, reissue': 'compilation',
+            'promo, compilation': 'compilation',
+            # EP
+            'ep, limited edition': 'ep',
+            'ep, mp3': 'ep',
+            'ep, promo, limited edition': 'ep',
+            'shape, ep, limited edition': 'ep',
+            # Single
+            'single, promo': 'single'
+        }
+        if albumtype.lower() in translate_release_type:
+            rt = translate_release_type[albumtype.lower()]
+        else:
+            rt = albumtype
+        return rt
+    media_type: |
+        translate_media_type = {
+            '12 vinyl': 'lp',
+            'digital media': 'digital',
+        }
+        if media.lower() in translate_media_type:
+            m = translate_media_type[media.lower()]
+        else:
+            m = media
+        return m
 
 # beet ls -af '$albumtype $album'
 # TODO: handle singletons (tracks not associated with an album)
@@ -93,11 +217,11 @@ item_fields:
 #       -add featured artists to track title
 #       -remove featured artists that are already part of the title
 
-# TODO: artist country code with artist name
+# TODO: artist country of origin in ISO 3166-2 with artist name
 # TODO: file format, add custom function so that if flac, also include bit depth
 #       and sample rate, for mp3, include mp3 type
 paths:
-    default: %lower{%asciify{${albumartist}/%if{${year},${year},${original_year}}_$album%if{${catalognum},_[${catalognum}]}%if{${country_code},_[${country_code}]}%if{${media},_[${media}]}%if{${albumtype},_[${albumtype}]}/${albumartist}_%if{${year},${year},${original_year}}_${album}%if{${catalognum},_[${catalognum}]}%if{${country},_[${country}]}%if{${albumtype},_[${albumtype}]}%if{${media},_[${media}]}_${track}_${title}}}
+    default: %lower{%asciify{${albumartist}/%if{${year},${year},${original_year}}_$album%if{${catalognum},_[${catalognum}]}%if{${country_code},_[${country_code}]}%if{${media_type},_[${media_type}]}%if{${release_type},_[${release_type}]}/${albumartist}_%if{${year},${year},${original_year}}_${album}%if{${catalognum},_[${catalognum}]}%if{${country_code},_[${country_code}]}%if{${release_type},_[${release_type}]}%if{${media_type},_[${media_type}]}_${track}_${title}}}
     comp: COMPILATIONS/%lower{%asciify{$album%aunique{}/${album}_%if{${original_year},${original_year},${year}}_${track}-${title}}}
     soundtrack: SOUNDTRACKS/%lower{%asciify{${album}/${album}_%if{${original_year},${original_year},${year}}_${track}-${title}}}
 
@@ -129,8 +253,8 @@ plugins: [
 ]
 
 # Plugin configuration
-#acoustid:
-#    apikey: AbCd1234
+acoustid:
+    apikey: 9WbF9763sG
 bpd:
     host: 127.0.0.1
     port: 6600
@@ -153,7 +277,6 @@ fetchart:
     min_width: 800
     max_width: 10000
     enforce_ratio: no
-    remote_priority: no
     sources: wikipedia coverart albumart amazon
 mpd:
     host: localhost
