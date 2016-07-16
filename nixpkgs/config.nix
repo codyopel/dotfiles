@@ -42,6 +42,7 @@ pkgs : {
           brotli
           curl
           dash
+          dmidecode
           dnstop
           #emacs
           git
@@ -133,9 +134,9 @@ pkgs : {
           eog
           file-roller
           #firefox
-          gimp
+          #gimp
           gnome-calculator
-	  gnome-mpv
+          gnome-mpv
           gnome-screenshot
           gnome-terminal
           #gnome-tweak-tool
