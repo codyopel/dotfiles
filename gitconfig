@@ -115,8 +115,8 @@
 	# Automatically correct and execute mistyped commands
 	autocorrect = 1
 
-[commit]
-	gpgSign = 1
+#[commit]
+#	gpgSign = 1
 
 [push]
   default = simple
