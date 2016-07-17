@@ -79,10 +79,10 @@ pkgs : {
           zsh
 
         # Headless
-          goPackages.hugo.bin
-          goPackages.ipfs.bin
-          goPackages.nomad.bin
-          goPackages.vault.bin
+          #goPackages.hugo.bin
+          #goPackages.ipfs.bin
+          #goPackages.nomad.bin
+          #goPackages.vault.bin
           pythonPackages.beets
           pythonPackages.certbot
           pythonPackages.deluge
@@ -159,7 +159,7 @@ pkgs : {
           split2flac
           sublime-text
           swig
-          syncthing
+          #syncthing
           #teamspeak_client
           #texLive
           #texstudio
