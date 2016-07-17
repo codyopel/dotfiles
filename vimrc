@@ -1,14 +1,22 @@
-" When started as "evim", evim.vim will already have done these settings.
-if v:progname =~? "evim"
-  finish
-endif
-
-" Use Vim settings, rather than Vi settings (much better!).
-" This must be first, because it changes other options as a side effect.
+" Disable vi compatibility
 set nocompatible
 
-"set background=dark
+" Display line numbers
+set number
+
 set shiftwidth=4
+
+" Enable syntax highlighting
+if &t_Co > 7 || has("gui_running")
+  syntax on
+  set hlsearch
+  colorscheme monokai
+endif
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"set background=dark
 set tabstop=4
 set nobackup
 set nowb
@@ -22,9 +30,6 @@ set wildmenu
 set wildmode=list:longest
 set title
 set scrolloff=3
-set number
-set syntax=on
-colorscheme monokai
 let g:airline_theme='kalisi'
 
 " allow backspacing over everything in insert mode
@@ -47,17 +52,13 @@ map Q gq
 " so that you can undo CTRL-U after inserting a line break.
 inoremap <C-U> <C-G>u<C-U>
 
-" In many terminal emulators the mouse works just fine, thus enable it.
+" Enable mouse support
 if has('mouse')
   set mouse=a
 endif
 
-" Switch syntax highlighting on, when the terminal has colors
-" Also switch on highlighting the last used search pattern.
-if &t_Co > 2 || has("gui_running")
-  syntax on
-  set hlsearch
-endif
+hi WhiteSpaces gui=undercurl guifg=White
+match WhiteSpaces / \+/
 
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
@@ -96,6 +97,8 @@ if has("autocmd")
     \ set shiftwidth=2 |
     \ set tabstop=2 |
     \ set expandtab
+
+  autocmd ColorScheme * highlight WhiteSpaces gui=undercurl guifg=White | match WhiteSpaces / \+/
 else
 
   set autoindent    " always set autoindenting on
