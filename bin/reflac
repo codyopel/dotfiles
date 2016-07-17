@@ -1,6 +1,13 @@
 #!/usr/bin/env bash
 
-encode_flac() {
+set -o errexit
+set -o pipefail
+
+source "$(lib-bash)"
+
+Path::Check 'flac'
+
+Flac::Encode() {
   local Compression
   local FFmpegPid
   local FlacPid
@@ -71,27 +78,7 @@ encode_flac() {
   return 0
 }
 
-source "$(readlink -f "$(dirname "$(readlink -f "${0}")")")/concurrent.lib.sh"
-
-type flac > /dev/null || {
-  echo "flac not installed"
-  exit 1
-}
-
-CpuSockets="$(
-  lscpu |
-    grep --max-count 1 'Socket(s):' |
-    grep --only-matching --perl-regexp "[0-9]+"
-)"
-CpuCores=$((
-  $(
-    lscpu |
-      grep --max-count 1 'Core(s) per socket:' |
-      grep --only-matching --perl-regexp '[0-9]+'
-  ) * ${CpuSockets}
-))
-
-export CONCURRENT_LIMIT=${CpuCores}
+export CONCURRENT_LIMIT=$(Cpu::Physical)
 export CONCURRENT_COMPACT=0
 
 TMPDIR="$(mktemp -d)"
@@ -119,7 +106,7 @@ while read MusicDirectory ; do
     echo "${Fname} ${MusicFile}" >> "${TMPDIR}/filelist"
   done
   # Generate concurrent args from temp file list
-  ConcurrentArgs=($(awk '{ print "- " $1 " encode_flac " $2; }' ${TMPDIR}/filelist))
+  ConcurrentArgs=($(awk '{ print "- " $1 " Flac::Encode " $2; }' ${TMPDIR}/filelist))
   # Remove invalid `- encode_file` created as first arg
   if [ "${ConcurrentArgs[2]}" == '-' ] ; then
     unset ConcurrentArgs[0]
