@@ -44,7 +44,6 @@ pkgs : {
           dash
           dmidecode
           dnstop
-          #emacs
           git
           gptfdisk
           #hdparm
@@ -73,21 +72,24 @@ pkgs : {
           tmux
           unrar
           unzip
-          #vim
+          vim
           wget
           xz
           zsh
 
         # Headless
-          #goPackages.hugo.bin
+          goPackages.hugo.bin
           #goPackages.ipfs.bin
-          #goPackages.nomad.bin
-          #goPackages.vault.bin
-          pythonPackages.beets
-          pythonPackages.certbot
-          pythonPackages.deluge
-          pythonPackages.flexget
-          pythonPackages.pycountry
+          goPackages.nomad.bin
+          #goPackages.syncthing.bin
+          goPackages.vault.bin
+          python2Packages.beets
+          python2Packages.certbot
+          python2Packages.deluge
+          python2Packages.flexget
+          python2Packages.pycountry
+          #python2Packages.youtube-dl
+          python3Packages.python
           arkive
           btsync
           cdrtools
@@ -96,7 +98,7 @@ pkgs : {
           gnupg
           pinentry
           go
-          #icedtea7_web
+          #icedtea8_web
           imagemagick
           lame
           #libpng
@@ -112,7 +114,7 @@ pkgs : {
           #nix-repl
           #nixops
           #notbit
-          pcsclite
+          pcsc-lite_full
           perl
           pinentry
           psmisc
@@ -120,12 +122,12 @@ pkgs : {
           rtorrent
           #rustc
           scrot
+          slock
           subversion
           #vobsub2srt
           x264
           x265
           #xlibs.xbacklight
-          #pythonPackages.youtube-dl
 
         # Graphical
           chromium
@@ -159,10 +161,10 @@ pkgs : {
           split2flac
           sublime-text
           swig
-          #syncthing
           #teamspeak_client
           #texLive
           #texstudio
+          ufraw
           #virtmanager
           #vlc
           #xfe
