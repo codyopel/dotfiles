@@ -40,3 +40,6 @@
 [submodule "config/sublime-text-3/Packages/SublimeLinter-annotations"]
 	path = config/sublime-text-3/Packages/SublimeLinter-annotations
 	url = https://github.com/SublimeLinter/SublimeLinter-annotations
+[submodule "config/sublime-text-3/Packages/ModernPerl-sublime"]
+	path = config/sublime-text-3/Packages/ModernPerl-sublime
+	url = https://github.com/Blaizer/ModernPerl-sublime
