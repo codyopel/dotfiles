@@ -43,3 +43,6 @@
 [submodule "config/sublime-text-3/Packages/ModernPerl-sublime"]
 	path = config/sublime-text-3/Packages/ModernPerl-sublime
 	url = https://github.com/Blaizer/ModernPerl-sublime
+[submodule "config/sublime-text-3/Packages/Sublime-CMakeLists"]
+	path = config/sublime-text-3/Packages/Sublime-CMakeLists
+	url = https://github.com/codyopel/Sublime-CMakeLists
