@@ -78,18 +78,21 @@ pkgs : {
           zsh
 
         # Headless
-          goPackages.hugo.bin
+          #goPackages.hugo.bin
           #goPackages.ipfs.bin
+          goPackages.lego.bin
           goPackages.nomad.bin
           #goPackages.syncthing.bin
           goPackages.vault.bin
-          python2Packages.beets
+          python2Packages.bazaar
+          python3Packages.beets
           python2Packages.certbot
           python2Packages.deluge
-          python2Packages.flexget
-          python2Packages.pycountry
+          python3Packages.flexget
+          python3Packages.pycountry
           #python2Packages.youtube-dl
           python3Packages.python
+          python3Packages.youtube-dl
           arkive
           btsync
           cdrtools
@@ -135,9 +138,9 @@ pkgs : {
           #eagle
           eog
           file-roller
-          #firefox
+          firefox
           #gimp
-          gnome-calculator
+          #gnome-calculator
           gnome-mpv
           gnome-screenshot
           gnome-terminal
@@ -168,8 +171,6 @@ pkgs : {
           #virtmanager
           #vlc
           #xfe
-
-          lego
 
           #myHsEnv
 
