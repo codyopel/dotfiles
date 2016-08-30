@@ -1,4 +1,4 @@
-pkgs : {
+pkgs: {
   allowUnfree = true;
   cabal.libraryProfiling = true;
   # Suckless
@@ -17,7 +17,7 @@ pkgs : {
     #};
     pulseaudio_full = self.pulseaudio_full.override {
       loopbackLatencyMsec = "20";
-      resampleMethod = "speex-float-10";
+      resampleMethod = "speex-float-7";
     };
     rtorrent = self.rtorrent.override {
       colorSupport = true;
@@ -53,6 +53,7 @@ pkgs : {
           iperf
           ipset
           iptables
+          jq
           lib-bash
           lm-sensors
           meslo-lg
@@ -86,7 +87,7 @@ pkgs : {
           goPackages.vault.bin
           python2Packages.bazaar
           python3Packages.beets
-          python2Packages.certbot
+          #python2Packages.certbot
           python2Packages.deluge
           python3Packages.flexget
           python3Packages.pycountry
@@ -96,7 +97,7 @@ pkgs : {
           arkive
           btsync
           cdrtools
-          ffmpeg
+          ffmpeg_head
           flac
           gnupg
           pinentry
@@ -106,7 +107,7 @@ pkgs : {
           lame
           #libpng
           #libvpx
-          #mediainfo
+          mediainfo
           mosh
           mpd
           #mpdris2
@@ -157,6 +158,7 @@ pkgs : {
           nautilus
           networkmanager
           networkmanager-applet
+          nvidia-settings
           pavucontrol
           #kde5.quasselClient
           #qjackctl
