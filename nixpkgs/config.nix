@@ -95,6 +95,7 @@ pkgs: {
           python3Packages.python
           python3Packages.youtube-dl
           arkive
+          atom
           btsync
           cdrtools
           ffmpeg_head
