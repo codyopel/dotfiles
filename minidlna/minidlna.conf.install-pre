@@ -1,1 +1,1 @@
-KRATOS::Lib:ensure.dir_exists "${HOME}/.local/share/minidlna"
+Directory::Create "${HOME}/.local/share/minidlna"
