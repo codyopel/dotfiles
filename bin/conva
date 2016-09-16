@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+source `lib-bash`
+
 encode_file() {
   local AlbumArt
   local AlbumArtExt
@@ -80,10 +82,8 @@ encode_file() {
   #-af "compand=attacks=0|0:decays=1|1:points=-90/-900|-70/-70|-21/-21|0/-15:soft-knee=0.01:gain=0:volume=0:delay=0" \
 }
 
-type ffmpeg > /dev/null || exit 1
-type ffprobe > /dev/null || exit 1
-
-source "$(readlink -f "$(dirname "$(readlink -f "${0}")")")/concurrent.lib.sh"
+Path::Check 'ffmpeg' || exit 1
+Path::Check 'ffprobe' || exit 1
 
 TMPDIR="$(mktemp -d)"
 export OUTPUT_DIRECTORY="$(pwd)"
@@ -105,37 +105,16 @@ if [ "$(basename "${InputRaw[0]}")" == 'music.list' ] ; then
 else
   InputDirectories=("${InputRaw[@]}")
 fi
-CpuSockets="$(
-  lscpu |
-    grep --max-count 1 'Socket(s):' |
-    grep --only-matching --perl-regexp "[0-9]+"
-)"
-CpuCores=$((
-  $(
-    lscpu |
-      grep --max-count 1 'Core(s) per socket:' |
-      grep --only-matching --perl-regexp '[0-9]+'
-  ) * ${CpuSockets}
-))
 
-CpuThreads=$((
-  $(
-    lscpu |
-      grep --max-count 1 'Thread(s) per core:' |
-      grep --only-matching --perl-regexp '[0-9]+'
-  ) * ${CpuCores}
-))
-
-export CONCURRENT_LIMIT=${CpuCores}
+export CONCURRENT_LIMIT=`Cpu::Logical`
 export CONCURRENT_COMPACT=0
 
-# Chunk encodes by directory to prevent hitting the shell function
-# argument limit which is cause concurrent to fail.
+# Chunk encodes by directory to prevent hitting the BASH's function
+# argument limit.
 for Dir in "${InputDirectories[@]}" ; do
   # Clear previous file list
   echo '' > "$TMPDIR/filelist"
   # Check for valid audio files
-  find "${Dir}" -type f -regextype posix-extended -regex ".*\.(ape|flac|ogg|m4a|mp3|wav|wma)" 2>> "${TMPDIR}/errors" |
   while read AudioFile ; do
     if [ ! -f "${AudioFile}" ] ; then
       continue
@@ -143,7 +122,13 @@ for Dir in "${InputDirectories[@]}" ; do
     Fname="$(basename "$(echo "${AudioFile}" | sed -r 's/\.[[:alnum:]]+$//')")"
     # Write list of audio files to a temp file
     echo "${Fname} ${AudioFile}" >> "${TMPDIR}/filelist"
-  done
+  done <(
+    find "${Dir}" \
+      -type f \
+      -regextype posix-extended \
+      -regex ".*\.(ape|flac|ogg|m4a|mp3|wav|wma)" \
+      2>> "${TMPDIR}/errors"
+  )
   # Generate concurrent args from temp file list
   ConcurrentArgs=($(awk '{ print "- " $1 " encode_file " $2; }' ${TMPDIR}/filelist))
   Metadata="${ConcurrentArgs[2]}"
@@ -155,14 +140,8 @@ for Dir in "${InputDirectories[@]}" ; do
   fi
 
   if [ -n "$(echo "${Metadata}" | grep '/Music/')" ] ; then
-    Artist="$(
-      echo "${Metadata}" |
-        awk -F'/' '/Music/ {print $5}'
-    )"
-    Album="$(
-      echo "${Metadata}" |
-        awk -F'/' '/Music/ {print $6}'
-    )"
+    Artist="$(echo "${Metadata}" | awk -F'/' '/Music/ {print $5}')"
+    Album="$(echo "${Metadata}" | awk -F'/' '/Music/ {print $6}')"
   fi
   if [ -n "$(cat "${TMPDIR}/filelist")" ] ; then
     echo
