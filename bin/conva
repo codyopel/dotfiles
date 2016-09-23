@@ -29,7 +29,7 @@ encode_file() {
     fi
   fi
 
-  OutputFile="${OutputDir}/${FileName}.opus"
+  OutputFile="${OutputDir}/${FileName}.ogg"
 
   # Input Sample Format/Rate
   if [ ! -f "${OutputFile}" ] ; then
@@ -45,7 +45,9 @@ encode_file() {
   if [ ! -f "${OutputDir}"/[Ff]older.*g ] ; then
     AlbumArt="$(
       find "${InputDir}" -type f -regextype posix-extended \
-        -regex ".*[Ff]older.([Jj][Pp][Gg]|[Jj][Pp][Ee][Gg]|[Pp][Nn][Gg])" -print -quit)"
+        -regex ".*[Ff]older.([Jj][Pp][Gg]|[Jj][Pp][Ee][Gg]|[Pp][Nn][Gg])" \
+        -print -quit
+    )"
     AlbumArtExt="${AlbumArt##*.}"
     if [ -f "${AlbumArt}" -a ! -f "${OutputDir}/$(basename "${AlbumArt}")" ] ; then
       cp -v "${AlbumArt}" "${OutputDir}/$(basename "${AlbumArt}")"
@@ -115,6 +117,11 @@ for Dir in "${InputDirectories[@]}" ; do
   # Clear previous file list
   echo '' > "$TMPDIR/filelist"
   # Check for valid audio files
+  find "${Dir}" \
+    -type f \
+    -regextype posix-extended \
+    -regex ".*\.(ape|flac|ogg|m4a|mp3|wav|wma)" \
+    2>> "${TMPDIR}/errors" |
   while read AudioFile ; do
     if [ ! -f "${AudioFile}" ] ; then
       continue
@@ -122,13 +129,7 @@ for Dir in "${InputDirectories[@]}" ; do
     Fname="$(basename "$(echo "${AudioFile}" | sed -r 's/\.[[:alnum:]]+$//')")"
     # Write list of audio files to a temp file
     echo "${Fname} ${AudioFile}" >> "${TMPDIR}/filelist"
-  done <(
-    find "${Dir}" \
-      -type f \
-      -regextype posix-extended \
-      -regex ".*\.(ape|flac|ogg|m4a|mp3|wav|wma)" \
-      2>> "${TMPDIR}/errors"
-  )
+  done
   # Generate concurrent args from temp file list
   ConcurrentArgs=($(awk '{ print "- " $1 " encode_file " $2; }' ${TMPDIR}/filelist))
   Metadata="${ConcurrentArgs[2]}"
