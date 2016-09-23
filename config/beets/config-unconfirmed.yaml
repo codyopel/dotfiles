@@ -82,7 +82,7 @@ write: yes
 
 # Plugins
 plugins: [
-    alternatives,
+    #alternatives,
     badfiles,
     chroma,
     discogs,
@@ -92,7 +92,7 @@ plugins: [
     inline,
     mbsync,
     moveall,
-    mpdupdate,
+    #mpdupdate,
     scrub
 ]
 

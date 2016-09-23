@@ -52,13 +52,17 @@ original_year: yes
 replace:
     # `_ ` -> `-` (colon space to hyphen)
     '\:\s+': '-'
-    # ` - ` -> `_` (space hyphen space to underscore)
+    # ` - ` -> `_` (space hyphen space to under-score)
     '\s+\-\s+': _
     # ` / ` -> `_` (space forward-slash space)
     '\s+\/\s+': _
-    # ` _ ` -> `_` (space under-score space to underscore)
+    # ` _ ` -> `_` (space under-score space to under-score)
     '\s+\_\s+': _
-    # `/` `\` -> `_` (forwardslash or backslash to underscore)
+    # ` _ ` -> `_` (space under-score under-score space to under-score)
+    '\s+\_\_\s+': _
+    # ` _ ` -> `_` (under-score under-score to under-score)
+    '\_\_': _
+    # `/` `\` -> `_` (forwardslash or backslash to under-score)
     '[\\/]': _
     # `. ` -> `.` (period space to period)
     '\.\s+': .
@@ -238,9 +242,10 @@ write: yes
 
 # Plugins
 plugins: [
-    alternatives,
+    #alternatives,
     badfiles,
     chroma,
+    #copyartifacts,
     discogs,
     embedart,
     fetchart,
@@ -248,7 +253,7 @@ plugins: [
     inline,
     mbsync,
     moveall,
-    mpdupdate,
+    #mpdupdate,
     scrub
 ]
 
@@ -278,9 +283,9 @@ fetchart:
     max_width: 10000
     enforce_ratio: no
     sources: wikipedia coverart albumart amazon
-mpd:
-    host: localhost
-    port: 6600
-    rating: no
+#mpd:
+#    host: localhost
+#    port: 6600
+#    rating: no
 scrub:
     auto: yes
