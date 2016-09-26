@@ -11,7 +11,7 @@ clutter: [
     '*.sfv'
 ]
 
-directory: ~/Music/confimed
+directory: ~/Music/confirmed
 
 import:
     autotag: yes
