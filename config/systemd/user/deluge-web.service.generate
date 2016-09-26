@@ -1,0 +1,12 @@
+[Unit]
+Description=Deluge Web Interface
+After=network.target deluged.service
+
+[Service]
+ExecStart=@{HOME}@/.nix-profile/bin/deluge-web --do-not-daemonize
+Restart=on-abort
+User=%i
+Group=users
+
+[Install]
+WantedBy=default.target
