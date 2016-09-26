@@ -2,7 +2,7 @@
 Description=Create the cache directory
 
 [Service]
-ExecStart=/run/current-system/sw/bin/mkdir --mode=0700 --parents /dev/shm/@{USER}@
+ExecStart=@(type -P mkdir)@ --mode=0700 --parents /dev/shm/@{USER}@
 User=%i
 
 [Install]

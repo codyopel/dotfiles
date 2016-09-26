@@ -3,7 +3,7 @@ Description=Music Player Daemon
 After=network.target sound.target user-cache-mount.service
 
 [Service]
-ExecStart=@{HOME}@/.nix-profile/bin/mpd --no-daemon @{HOME}@/.config/mpd/mpd.conf
+ExecStart=@(type -P mpd)@ --no-daemon @{XDG_CONFIG_HOME}@/mpd/mpd.conf
 Restart=on-abort
 User=%i
 Group=users

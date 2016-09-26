@@ -3,7 +3,7 @@ Description=Create the cache directory
 Requires=user-cache-create.service
 
 [Service]
-ExecStart=/run/current-system/sw/bin/ln --symbolic --force /dev/shm/@{USER}@ @{HOME}@/.cache
+ExecStart=@(type -P ln)@ --symbolic --force /dev/shm/@{USER}@ @{XDG_CACHE_HOME}@
 User=%i
 
 [Install]

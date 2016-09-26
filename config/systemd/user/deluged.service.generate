@@ -3,7 +3,7 @@ Description=Deluge Daemon
 After=network.target
 
 [Service]
-ExecStart=@{HOME}@/.nix-profile/bin/deluged --do-not-daemonize
+ExecStart=@(type -P deluged)@ --do-not-daemonize
 Restart=on-abort
 User=%i
 Group=users
