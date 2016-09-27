@@ -46,3 +46,6 @@
 [submodule "config/sublime-text-3/Packages/Sublime-CMakeLists"]
 	path = config/sublime-text-3/Packages/Sublime-CMakeLists
 	url = https://github.com/codyopel/Sublime-CMakeLists
+[submodule "config/sublime-text-3/Packages/systemd-sublime-syntax"]
+	path = config/sublime-text-3/Packages/systemd-sublime-syntax
+	url = https://github.com/a5huynh/systemd-sublime-syntax
