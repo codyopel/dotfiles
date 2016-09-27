@@ -1,12 +1,13 @@
 [Unit]
 Description=Deluge Daemon
-After=network.target
+After=network.target user-cache.service
 
 [Service]
-ExecStart=@(type -P deluged)@ --do-not-daemonize
-Restart=on-abort
+Type=simple
 User=%i
 Group=users
+ExecStart=@(type -P deluged)@ --do-not-daemonize
+Restart=on-failure
 
 [Install]
 WantedBy=default.target

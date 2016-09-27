@@ -1,9 +1,0 @@
-[Unit]
-Description=Create the cache directory
-
-[Service]
-ExecStart=@(type -P mkdir)@ --mode=0700 --parents /dev/shm/@{USER}@
-User=%i
-
-[Install]
-WantedBy=default.target
