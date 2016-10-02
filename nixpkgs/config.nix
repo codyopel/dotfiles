@@ -19,6 +19,15 @@ pkgs: {
       loopbackLatencyMsec = "20";
       resampleMethod = "speex-float-5";
     };
+    /*python36Packages = self.python36Packages // {
+      oauthlib = self.python36Packages.oauthlib.override {
+        doCheck = false;
+      };
+    };
+    python3Packages = self.python3Packages.override rec {
+      python = self.python36;
+      self = self.python36Packages;
+    };*/
     #rtorrent = self.rtorrent.override {
       #  colorSupport = true;
       #};
@@ -50,15 +59,6 @@ pkgs: {
           #virtmanager
       ];
     };*/
-
-    /*
-    name-env = self.buildEnv {
-      name = "nameEnv";
-      paths = with self; [
-
-      ];
-    };
-    */
 
     default-tools-env = self.buildEnv  {
       name = "defaultToolsEnv";
@@ -92,9 +92,9 @@ pkgs: {
         openssl
         p7zip
         psmisc
+        python3Packages.speedtest-cli
         screen
         smartmontools
-        speedtest-cli
         subversion
         sysstat
         tcpdump
@@ -108,6 +108,7 @@ pkgs: {
 
         gnupg
         pcsc-lite_full
+        pinentry
       ];
     };
 
@@ -116,8 +117,9 @@ pkgs: {
       paths = with self; [
         dmenu
         eog
+        evince
         file-roller
-        #gnome-calculator
+        gnome-calculator
         gnome-screenshot
         gnome-terminal
         mumble
@@ -125,7 +127,7 @@ pkgs: {
         networkmanager
         networkmanager-applet
         nvidia-settings
-        #pavucontrol
+        pavucontrol
         pulseaudio_full
         sakura
         scrot
@@ -224,10 +226,17 @@ pkgs: {
       ];
     };
 
-    chromium-env = self.buildEnv  {
+    /*chromium-env = self.buildEnv  {
       name = "chromiumEnv";
       paths = with self; [
         chromium
+      ];
+    };*/
+
+    google-chrome-env = self.buildEnv  {
+      name = "googleChromeEnv";
+      paths = with self; [
+        google-chrome
       ];
     };
 
@@ -238,18 +247,18 @@ pkgs: {
       ];
     };
 
-    myHsEnv = self.haskellPackages.ghcWithPackages (self: with self; [
-      #pandoc
+    /*myHsEnv = self.haskellPackages.ghcWithPackages (self: with self; [
+      pandoc
       xmonad
       xmonad-contrib
-    ]);
+    ]);*/
 
-    steamEnv = self.buildEnv {
+    /*steamEnv = self.buildEnv {
       name = "steam-env";
       ignoreCollisions = true;
       paths = with self; [
         steam
       ];
-    };
+    };*/
   };
 }
