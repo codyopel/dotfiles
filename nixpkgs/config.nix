@@ -215,13 +215,13 @@ pkgs: {
     p2p-env = self.buildEnv {
       name = "p2pEnv";
       paths = with self; [
-        btsync
         #goPackages.syncthing.bin
         lftp
         ncdc
         python2Packages.deluge
         python3Packages.flexget
         python3Packages.youtube-dl
+        resilio
         rtorrent
       ];
     };
