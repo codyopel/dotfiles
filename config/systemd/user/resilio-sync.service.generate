@@ -1,0 +1,17 @@
+[Unit]
+Description=Resilio Sync
+After=network.target
+
+[Service]
+Type=simple
+User=%i
+Group=users
+ExecStart=@(type -P rslsync)@ \
+  --nodaemon \
+  --storage @{XDG_DATA_HOME}@/resilio/sync \
+  --log @{XDG_DATA_HOME}@/resilio/sync/log \
+  --webui.listen 127.0.0.1:8888
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
