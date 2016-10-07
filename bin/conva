@@ -6,7 +6,7 @@ encode_file() {
   local AlbumArt
   local AlbumArtExt
   local Dir
-  local File
+  local -r File="$@"
   local FileName
   local InputDir
   local InSF
@@ -16,16 +16,16 @@ encode_file() {
   local OutputDir
   local RelOutDir
 
-  File="$@"
   # Filename w/o ext
   FileName="$(basename "$(echo "${File}" | sed -r 's/\.[[:alnum:]]+$//')")"
   InputDir="$(dirname ${File})"
 
   if [ -n "$(echo "${File}" | grep '/Music/')" ] ; then
-    IsSourceMusicDir="$(dirname "$(echo "${File}" | awk -F'/Music/' '{ print $2 ; exit }')")"
+    # Return the path without the music directory in the path
+    IsSourceMusicDir="$(dirname "$(echo "${File}" | sed -e "s,$(music_dir "${File}")/,,")")"
     OutputDir="${OUTPUT_DIRECTORY}${IsSourceMusicDir:+/${IsSourceMusicDir}}"
     if [ ! -d "${OutputDir}" ] ; then
-      mkdir -pv "${OutputDir}"
+      Directory::Create "${OutputDir}"
     fi
   fi
 
@@ -49,8 +49,10 @@ encode_file() {
         -print -quit
     )"
     AlbumArtExt="${AlbumArt##*.}"
-    if [ -f "${AlbumArt}" -a ! -f "${OutputDir}/$(basename "${AlbumArt}")" ] ; then
-      cp -v "${AlbumArt}" "${OutputDir}/$(basename "${AlbumArt}")"
+    if [ -f "${AlbumArt}" ] && [ ! -f "${OutputDir}/Folder.${AlbumArtExt}" ] ; then
+      # Since we are running this function in parallel, it may attempt
+      # to clobber Folder.*g and fail, so ignore failures.
+      cp -v "${AlbumArt}" "${OutputDir}/Folder.${AlbumArtExt}" || :
     fi
   fi
 
@@ -66,13 +68,13 @@ encode_file() {
       -vbr on \
       -compression_level 10 \
       -frame_duration 60 \
+      -af "aresample=resampler=soxr:precision=28:cheby=1:isf=${InSF}:osf=s16:tsf=s32:isr=${InSR}:osr=48000:cutoff=0.91:dither_method=0" \
+      -af "highpass=f=10:poles=1:width_type=h" \
+      -af "lowpass=f=19600:poles=1:width_type=h" \
       -cutoff 20000 \
       -sample_fmt s16 \
       -ar 48000 \
       -ac 2 \
-      -af "aresample=resampler=soxr:precision=28:cheby=1:isf=${InSF}:osf=s16:tsf=s32:isr=${InSR}:osr=48000:cutoff=0.91:dither_method=0" \
-      -af "highpass=f=10:poles=1:width_type=h" \
-      -af "lowpass=f=19600:poles=1:width_type=h" \
       -map_metadata 0 \
       -vn \
       "${OutputFile}" &
@@ -84,17 +86,37 @@ encode_file() {
   #-af "compand=attacks=0|0:decays=1|1:points=-90/-900|-70/-70|-21/-21|0/-15:soft-knee=0.01:gain=0:volume=0:delay=0" \
 }
 
+# If a path contains $HOME/Music return the music directory.
+music_dir() {
+  echo "${1}" |
+    awk '{
+      music_dir=ENVIRON["HOME"] "/Music"
+      music_dir_confirmed=music_dir "/confirmed"
+      music_dir_unconfirmed=music_dir "/unconfirmed"
+      if ($0 ~ music_dir) {
+        if ($0 ~ music_dir_confirmed) {
+          print music_dir_confirmed
+        } else if ($0 ~ music_dir_unconfirmed) {
+          print music_dir_unconfirmed
+        } else {
+          print music_dir
+        }
+      }
+    }'
+}
+
 Path::Check 'ffmpeg' || exit 1
 Path::Check 'ffprobe' || exit 1
 
 TMPDIR="$(mktemp -d)"
 export OUTPUT_DIRECTORY="$(pwd)"
-if [ "${OUTPUT_DIRECTORY}" == "${HOME}/Music" ] ; then
+if [ -n "$(music_dir "${OUTPUT_DIRECTORY}")" ] ; then
   echo "Can't encode in music directory"
   exit 1
 fi
-if [ -z "$@" ] ; then
-  InputRaw=("${HOME}/.config/conva/music.list")
+
+if [ -z "${1}" ] ; then
+  InputRaw=("${XDG_CONFIG_HOME:-${HOME}/.config}/conva/music.list")
 else
   InputRaw=("$@")
 fi
@@ -102,6 +124,7 @@ fi
 if [ "$(basename "${InputRaw[0]}")" == 'music.list' ] ; then
   TmpArray=($(cat "$(dirname ${InputRaw[0]})/music.list"))
   for i in "${TmpArray[@]}" ; do
+    # FIXME: use xdg dir
     InputDirectories+=("${HOME}/Music/${i}")
   done
 else
@@ -114,6 +137,7 @@ export CONCURRENT_COMPACT=0
 # Chunk encodes by directory to prevent hitting the BASH's function
 # argument limit.
 for Dir in "${InputDirectories[@]}" ; do
+  Log::Message 'info' "dir: $Dir"
   # Clear previous file list
   echo '' > "$TMPDIR/filelist"
   # Check for valid audio files
@@ -141,8 +165,8 @@ for Dir in "${InputDirectories[@]}" ; do
   fi
 
   if [ -n "$(echo "${Metadata}" | grep '/Music/')" ] ; then
-    Artist="$(echo "${Metadata}" | awk -F'/' '/Music/ {print $5}')"
-    Album="$(echo "${Metadata}" | awk -F'/' '/Music/ {print $6}')"
+    Artist="$(echo "${Metadata}" | awk -F'/' '/Music/ {print $6}')"
+    Album="$(echo "${Metadata}" | awk -F'/' '/Music/ {print $7}')"
   fi
   if [ -n "$(cat "${TMPDIR}/filelist")" ] ; then
     echo
