@@ -1,13 +1,20 @@
 [Unit]
 Description=Deluge Daemon
-After=network.target user-cache.service
+After=network-online.target user-cache.service
 
 [Service]
 Type=simple
 User=%i
 Group=users
-ExecStart=@(type -P deluged)@ --do-not-daemonize
+ExecStart=@(type -P deluged)@ \
+  --do-not-daemonize \
+  --pidfile @{XDG_CACHE_HOME}@/deluge.pid \
+  --config @{XDG_CONFIG_HOME}@/deluge \
+  --loglevel info \
+  --logfile @{XDG_DATA_HOME}@/deluge/log \
+  --logrotate 2M
 Restart=on-failure
+TimeoutStopSec=300
 
 [Install]
 WantedBy=default.target

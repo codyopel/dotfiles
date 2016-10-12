@@ -1,0 +1,20 @@
+[Unit]
+Description=Transmission Daemon
+After=network-online.target user-cache.service
+
+[Service]
+Type=simple
+User=%i
+Group=users
+ExecStart=@(type -P transmission-daemon)@ \
+  --foreground \
+  --pid-file @{XDG_CACHE_HOME}@/transmission.pid \
+  --config-dir @{XDG_CONFIG_HOME}@/transmission \
+  --logfile @{XDG_DATA_HOME}@/transmission/log \
+  --port 9091 \
+  --portmap \
+  --no-auth
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

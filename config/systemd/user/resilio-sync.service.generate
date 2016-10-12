@@ -1,6 +1,6 @@
 [Unit]
 Description=Resilio Sync
-After=network.target
+After=network-online.target
 
 [Service]
 Type=simple
