@@ -22,9 +22,6 @@
 [submodule "config/sublime-text-3/Packages/Vala"]
 	path = config/sublime-text-3/Packages/Vala
 	url = https://github.com/technosophos/Vala-TMBundle
-[submodule "config/sublime-text-3/Packages/sublime-rust"]
-	path = config/sublime-text-3/Packages/sublime-rust
-	url = https://github.com/rust-lang/sublime-rust
 [submodule "config/sublime-text-3/Packages/sublimetext-markdown-preview"]
 	path = config/sublime-text-3/Packages/sublimetext-markdown-preview
 	url = https://github.com/revolunet/sublimetext-markdown-preview
