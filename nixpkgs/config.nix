@@ -140,6 +140,9 @@ pkgs: {
     development-env = self.buildEnv {
       name = "developmentEnv";
       paths = with self; [
+        cmake
+        gcc
+        gnumake
         go
         #goPackages.hugo.bin
         #goPackages.ipfs.bin
@@ -149,7 +152,8 @@ pkgs: {
         goPackages.nomad.bin
         goPackages.vault.bin
         #icedtea8_web
-        openjdk
+        ninja
+        #openjdk
         perl
         python3Packages.aws-cli
         python2Packages.bazaar
@@ -194,6 +198,7 @@ pkgs: {
         mediainfo
         #mixxx
         #mkvtoolnix
+        opus-tools
         split2flac
         #qjackctl
         ufraw
@@ -207,6 +212,7 @@ pkgs: {
       name = "editorEnv";
       paths = with self; [
         atom
+        atom_beta
         #libreoffice
         sublime-text
       ];
@@ -218,11 +224,12 @@ pkgs: {
         #goPackages.syncthing.bin
         lftp
         ncdc
-        python2Packages.deluge
         python3Packages.flexget
         python3Packages.youtube-dl
         resilio
         rtorrent
+        transmission_head
+        transmission-remote-gtk
       ];
     };
 
