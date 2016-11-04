@@ -15,19 +15,19 @@ pkgs: {
     #emacs = self.emacs.override {
     #  withX = false;
     #};
+    ffmpeg_head = self.ffmpeg_head.override {
+      nonfreeLicensing = true;
+      fdk_aac = self.fdk_aac;
+      libebur128 = self.libebur128;
+      mfx-dispatcher = self.mfx-dispatcher;
+      nvenc = true;
+    };
     pulseaudio_full = self.pulseaudio_full.override {
       loopbackLatencyMsec = "20";
-      resampleMethod = "speex-float-5";
+      resampleMethod = "speex-float-10";
     };
-    /*python36Packages = self.python36Packages // {
-      oauthlib = self.python36Packages.oauthlib.override {
-        doCheck = false;
-      };
-    };
-    python3Packages = self.python3Packages.override rec {
-      python = self.python36;
-      self = self.python36Packages;
-    };*/
+    python3 = self.python36;
+    python3Packages = self.python36Packages;
     #rtorrent = self.rtorrent.override {
       #  colorSupport = true;
       #};
@@ -142,17 +142,19 @@ pkgs: {
       paths = with self; [
         cmake
         gcc
+        gn
         gnumake
         go
         #goPackages.hugo.bin
         #goPackages.ipfs.bin
-        goPackages.lego.bin
-        goPackages.mc.bin
+        #goPackages.lego.bin
+        #goPackages.mc.bin
         #goPackages.minio.bin
         goPackages.nomad.bin
         goPackages.vault.bin
         #icedtea8_web
         ninja
+        nodejs
         #openjdk
         perl
         python3Packages.aws-cli
@@ -190,6 +192,7 @@ pkgs: {
         lame
         #libpng
         libvpx_head
+        libvpx_next # AV1/AOMedia
         python3Packages.beets
         python3Packages.pycountry
         cdrtools
@@ -243,7 +246,9 @@ pkgs: {
     google-chrome-env = self.buildEnv  {
       name = "googleChromeEnv";
       paths = with self; [
-        google-chrome
+        google-chrome_stable
+        google-chrome_beta
+        google-chrome_unstable
       ];
     };
 
