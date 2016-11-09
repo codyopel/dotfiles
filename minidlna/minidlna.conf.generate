@@ -1,21 +1,23 @@
 friendly_name=Chlorm DLNA Server
 port=8200
-user=$(whoami)
 
 # use different container as root of the tree
 # possible values:
 #   + "." - use standard container (this is the default)
 #   + "B" - "Browse Directory"
-#   + "M" - "Music"
+#   + "A" - "Music"
 #   + "V" - "Video"
 #   + "P" - "Pictures"
-# if you specify "B" and client device is audio-only then "Music/Folders" will be used as root
+# if you specify "B" and client device is audio-only then "Music/Folders"
+# will be used as root
 
-media_dir=V,~/Videos/Movies
-media_dir=V,~/Videos/Television
+media_dir=V,@{HOME}@/tmp/arkive-tests/src
+media_dir=V,@{HOME}@/Videos/Movies
+media_dir=V,@{HOME}@/Videos/Television
+media_dir=A,@{HOME}@/Music
 
-db_dir=~/.local/share/minidlna/db
-log_dir=~/.local/share/minidlna/log
+db_dir=@{HOME}@/.local/share/minidlna/db
+log_dir=@{HOME}@/.local/share/minidlna/log
 
 # List of file names to check for when searching for album art
 album_art_names=Cover.jpg/cover.jpg/AlbumArtSmall.jpg/albumartsmall.jpg/AlbumArt.jpg/albumart.jpg/Album.jpg/album.jpg/Folder.jpg/folder.jpg/Thumb.jpg/thumb.jpg
