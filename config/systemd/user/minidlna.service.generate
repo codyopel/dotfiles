@@ -1,0 +1,15 @@
+[Unit]
+Description=Minidlna DLNA Server
+After=network-online.target user-cache.service
+
+[Service]
+Type=simple
+User=%i
+Group=users
+ExecStart=@(type -P minidlnad)@ -S -v \
+  -f @{HOME}@/.minidlna/minidlna.conf \
+  -P @{XDG_CACHE_HOME}@/minidlna.pid
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
