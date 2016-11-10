@@ -7,20 +7,21 @@ pkgs: {
 
   packageOverrides = self: rec {
 
-    chromium = self.chromium.override {
-      proprietaryCodecs = true;
-      #enableWideVine = true;
-      #enablePepperFlash = true;
-    };
+    # chromium = self.chromium.override {
+    #   proprietaryCodecs = true;
+    #   #enableWideVine = true;
+    #   #enablePepperFlash = true;
+    # };
     #emacs = self.emacs.override {
     #  withX = false;
     #};
     ffmpeg_head = self.ffmpeg_head.override {
-      nonfreeLicensing = true;
-      fdk_aac = self.fdk_aac;
+      fdk-aac = self.fdk-aac;
+      flite = self.flite;
       libebur128 = self.libebur128;
       mfx-dispatcher = self.mfx-dispatcher;
       nvenc = true;
+      nonfreeLicensing = true;
     };
     pulseaudio_full = self.pulseaudio_full.override {
       loopbackLatencyMsec = "20";
@@ -31,9 +32,6 @@ pkgs: {
     #rtorrent = self.rtorrent.override {
       #  colorSupport = true;
       #};
-    #x264 = self.x264.override {
-    #  enable10bit = true;
-    #};
     #desktop = self.haskellPackages.ghcWithPackages (self : with self; [
     #  haskell-ngPackages.xdgBasedir
      # xmonad
@@ -120,7 +118,7 @@ pkgs: {
         evince
         file-roller
         gnome-calculator
-        gnome-screenshot
+        #gnome-screenshot
         gnome-terminal
         mumble
         nautilus
@@ -172,6 +170,7 @@ pkgs: {
       name = "multimediaEnv";
       paths = with self; [
         gnome-mpv
+        minidlna
         mpd
         #mpdris2
         mpv
