@@ -16,7 +16,7 @@ pkgs: {
     #  withX = false;
     #};
     ffmpeg_head = self.ffmpeg_head.override {
-      fdk-aac = self.fdk-aac;
+      fdk-aac = self.fdk-aac_head;
       flite = self.flite;
       libebur128 = self.libebur128;
       mfx-dispatcher = self.mfx-dispatcher;
@@ -144,12 +144,12 @@ pkgs: {
         gnumake
         go
         #goPackages.hugo.bin
-        #goPackages.ipfs.bin
+        ###goPackages.ipfs.bin
         #goPackages.lego.bin
         #goPackages.mc.bin
         #goPackages.minio.bin
         goPackages.nomad.bin
-        goPackages.vault.bin
+        #goPackages.vault.bin
         #icedtea8_web
         ninja
         nodejs
@@ -191,7 +191,7 @@ pkgs: {
         lame
         #libpng
         libvpx_head
-        libvpx_next # AV1/AOMedia
+        libvpx_next  # AV1/AOMedia
         python3Packages.beets
         python3Packages.pycountry
         cdrtools
@@ -251,12 +251,12 @@ pkgs: {
       ];
     };
 
-    firefox-env = self.buildEnv  {
+    /*firefox-env = self.buildEnv  {
       name = "firefoxEnv";
       paths = with self; [
         firefox
       ];
-    };
+    };*/
 
     /*myHsEnv = self.haskellPackages.ghcWithPackages (self: with self; [
       pandoc
