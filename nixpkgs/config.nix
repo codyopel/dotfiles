@@ -18,8 +18,6 @@ pkgs: {
     ffmpeg_head = self.ffmpeg_head.override {
       fdk-aac = self.fdk-aac_head;
       flite = self.flite;
-      libebur128 = self.libebur128;
-      mfx-dispatcher = self.mfx-dispatcher;
       nvenc = true;
       nonfreeLicensing = true;
     };
