@@ -46,3 +46,6 @@
 [submodule "config/sublime-text-3/Packages/systemd-sublime-syntax"]
 	path = config/sublime-text-3/Packages/systemd-sublime-syntax
 	url = https://github.com/a5huynh/systemd-sublime-syntax
+[submodule "config/plex/Webtools.bundle"]
+	path = config/plex/Webtools.bundle
+	url = https://github.com/dagalufh/WebTools.bundle
