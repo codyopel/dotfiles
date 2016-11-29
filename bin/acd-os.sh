@@ -141,10 +141,14 @@ function ACDOS::Retrieve {
     wait
   done
 
-  FindIndex="$(jq -r -c -M ".ZipFragments[]|select(.file|contains(\"7z.001\")).file" "${File}")"
+  FindIndex="$(
+    jq -r -c -M \
+        ".ZipFragments[]|select(.file|contains(\"7z.001\")).file" "${File}"
+  )"
   Var::Type.string "${FindIndex}"
 
-  ACDOS::7zip.extract "${File}" "${_tmpdir_}/zip-fragments/${FindIndex}" "${Password}"
+  ACDOS::7zip.extract "${File}" "${_tmpdir_}/zip-fragments/${FindIndex}" \
+      "${Password}"
 }
 
 function ACDOS::Send {
@@ -158,8 +162,8 @@ function ACDOS::Send {
 
   Password="$(
     echo "$RANDOM" |
-      openssl dgst -sha256 2>&- |
-      awk -F '= ' '{print $2 ; exit}'
+        openssl dgst -sha256 2>&- |
+        awk -F '= ' '{print $2 ; exit}'
   )"
 
   Hash="$(ACDOS::Openssl.hash "${File}")"
@@ -176,14 +180,14 @@ function ACDOS::Send {
   for i in "${ZipFragments[@]}" ; do
     ACDOS::AcdCli 'upload' "${i}" '/object-store/'
     echo "    { \"file\": \"$(basename "${i}")\" }," >> \
-      "${_tmpdir_}/${FileBase}.json"
+        "${_tmpdir_}/${FileBase}.json"
   done
   echo '  ]' >> "${_tmpdir_}/${FileBase}.json"
   echo '}' >> "${_tmpdir_}/${FileBase}.json"
 
   # Fix trailing comma in json
   perl -00pe 's/,(?!.*,)//s' "${_tmpdir_}/${FileBase}.json" > \
-    "${_tmpdir_}/${FileBase}.json.1"
+      "${_tmpdir_}/${FileBase}.json.1"
   mv "${_tmpdir_}/${FileBase}.json.1" "${_tmpdir_}/${FileBase}.json"
 
   cp -v "${_tmpdir_}/${FileBase}.json" "$(dirname "${File}")"
