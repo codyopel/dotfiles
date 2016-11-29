@@ -103,9 +103,11 @@ function ACDOS::AcdCli {
     #   Log::Message 'error' "transient network failure"
     #   return 1
     # fi
-    acd_cli "${Action}" ${AdditionalArgs[@]} "${Path1}" "${Path2}" && {
-      ContinueIter='false'
+    acd_cli sync
+    acd_cli "${Action}" ${AdditionalArgs[@]} "${Path1}" "${Path2}" || {
+      continue
     }
+    ContinueIter='false'
     # Iter=$(( ${Iter} + 1 ))
   done
 }
