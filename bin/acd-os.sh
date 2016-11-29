@@ -80,7 +80,7 @@ function ACDOS::AcdCli {
   local -r Action="${1}"
   local -a AdditionalArgs
   local ContinueIter='true'
-  local Iter=0
+  # local Iter=0
   local Path1
   local Path2
   local -r PathLocal="${2}"
@@ -99,12 +99,14 @@ function ACDOS::AcdCli {
   fi
 
   while [ "${ContinueIter}" == 'true' ] ; do
-    if [ ${Iter} -gt 5 ] ; then
-      Log::Message 'error' "transient network failure"
-      return 1
-    fi
-    acd_cli "${Action}" ${AdditionalArgs[@]} "${Path1}" "${Path2}" && ContinueIter='false'
-    Iter=$(( ${Iter} + 1 ))
+    # if [ ${Iter} -gt 5 ] ; then
+    #   Log::Message 'error' "transient network failure"
+    #   return 1
+    # fi
+    acd_cli "${Action}" ${AdditionalArgs[@]} "${Path1}" "${Path2}" && {
+      ContinueIter='false'
+    }
+    # Iter=$(( ${Iter} + 1 ))
   done
 }
 
