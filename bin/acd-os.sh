@@ -194,7 +194,7 @@ function ACDOS::Send {
 }
 
 function ACDOS::Main {
-  Function::RequiredArgs '2' "$#"
+  [ $# -ge 2 ]
   declare _tmpdir_
   local File
   local -r Mode="${1}" ; shift
@@ -211,7 +211,9 @@ function ACDOS::Main {
   fi
   acd_cli sync
 
-  File="$(readlink -f "${@}")"
+  # Declare $@ to a variable, because $@ is expanded by readlink.
+  File="${@}"
+  File="$(readlink -f "${File}")"
 
   _tmpdir_="$(dirname "${File}")/.acd-os.$RANDOM"
   mkdir -pv "${_tmpdir_}/zip-fragments"
