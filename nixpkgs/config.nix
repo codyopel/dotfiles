@@ -19,7 +19,15 @@ pkgs: {
       fdk-aac = self.fdk-aac_head;
       flite = self.flite;
       nvenc = true;
+      libnppSupport = false;
+      nvidia-cuda-toolkit = self.nvidia-cuda-toolkit;
+      nvidia-drivers = self.nvidia-drivers_long-lived;
       nonfreeLicensing = true;
+    };
+    mpv = self.mpv.override {
+      ffmpeg = ffmpeg_head;
+      nvidia-cuda-toolkit = self.nvidia-cuda-toolkit;
+      nvidia-drivers = self.nvidia-drivers_latest;
     };
     pulseaudio_full = self.pulseaudio_full.override {
       loopbackLatencyMsec = "20";
@@ -104,7 +112,7 @@ pkgs: {
 
         gnupg
         pcsc-lite_full
-        pinentry
+        pinentry_gtk
       ];
     };
 
@@ -138,7 +146,7 @@ pkgs: {
       paths = with self; [
         cmake
         gcc
-        gn
+        #gn
         gnumake
         go
         #goPackages.hugo.bin
@@ -147,12 +155,14 @@ pkgs: {
         #goPackages.mc.bin
         #goPackages.minio.bin
         goPackages.nomad.bin
-        #goPackages.vault.bin
+        goPackages.vault.bin
         #icedtea8_web
         ninja
         nodejs
         #openjdk
         perl
+        # FIXME: errors with python 3.6
+        python35Packages.acd-cli
         python3Packages.aws-cli
         python2Packages.bazaar
         #python2Packages.certbot
@@ -211,8 +221,6 @@ pkgs: {
     editor-env = self.buildEnv {
       name = "editorEnv";
       paths = with self; [
-        atom
-        atom_beta
         #libreoffice
         sublime-text
       ];
@@ -244,8 +252,8 @@ pkgs: {
       name = "googleChromeEnv";
       paths = with self; [
         google-chrome_stable
-        google-chrome_beta
-        google-chrome_unstable
+        # google-chrome_beta
+        # google-chrome_unstable
       ];
     };
 
