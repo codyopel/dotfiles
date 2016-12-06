@@ -1,0 +1,104 @@
+#!/usr/bin/env bash
+
+# A script to fix old ad-os json schemas
+
+source "$(lib-bash)"
+
+trap 'rm -rf ${_tmpdir_}' SIGTERM SIGINT ERR
+
+Main() {
+  local File="${1}"
+  local Contents
+  local Object
+  local -a ObjectFiles
+  local -a ObjectFilesOld
+  local Password
+
+  if [ ! -f "${File}" ] ; then
+    Log::Message 'error' "not a file"
+    return 1
+  fi
+
+  Filename="$(basename "${File}" | sed 's/.json//')"
+
+  _tmpdir_="$(dirname "${Input}")/.ad-fix.$RANDOM"
+  mkdir -p "${_tmpdir_}"/{content,build-json,final}
+
+  Password="$(jq -r -c -M '.Password' "${File}")"
+
+  mapfile -t ObjectFilesOld < <(jq -r -c -M '.Objects[].file' "${File}" 2>&- || jq -r -c -M '.ZipFragments[].file' "${File}")
+  for i in "${ObjectFilesOld[@]}" ; do
+    ObjectFiles+=("$(echo "${i}" | sed -n -e 's/^.*\.7z\.//p')")
+  done
+
+  Object="$(echo "${ObjectFilesOld[0]}" | sed -e 's/\.7z\..*$//')"
+
+cat <<EOF > "${_tmpdir_}/build-json/${Filename}.json"
+{
+  "Contents": "n/a",
+  "Password": "${Password}",
+  "Object": {
+    "Name": "${Object}",
+    "Files": [
+EOF
+
+  # Find last item in the array so that we don't have a trailing comma in json.
+  ObjectFilesFinalElement="${ObjectFiles[$(( ${#ObjectFiles[@]} - 1 ))]}"
+
+  # Enumerate object file list
+  for i in "${ObjectFiles[@]}" ; do
+    ObjectFile="      \"${i}\""
+    if [ "${i}" != "${ObjectFilesFinalElement}" ] ; then
+      ObjectFile+=','
+    fi
+    echo "${ObjectFile}" >> "${_tmpdir_}/build-json/${Filename}.json"
+  done
+
+cat <<EOF >> "${_tmpdir_}/build-json/${Filename}.json"
+    ]
+  }
+}
+EOF
+
+cp "${_tmpdir_}/build-json/${Filename}.json" "${_tmpdir_}/content/${Filename}.json"
+
+ad-os get "${_tmpdir_}/content/${Filename}.json"
+
+rm "${_tmpdir_}/content/${Filename}.json"
+
+cat <<EOF > "${_tmpdir_}/final/${Filename}.json"
+{
+  "Contents": "$(ls -RalhgG "${_tmpdir_}/content" | openssl base64 2>&- | tr -d '\n')",
+  "Password": "${Password}",
+  "Object": {
+    "Name": "${Object}",
+    "Files": [
+EOF
+
+  # Find last item in the array so that we don't have a trailing comma in json.
+  ObjectFilesFinalElement="${ObjectFiles[$(( ${#ObjectFiles[@]} - 1 ))]}"
+
+  # Enumerate object file list
+  for i in "${ObjectFiles[@]}" ; do
+    ObjectFile="      \"${i}\""
+    if [ "${i}" != "${ObjectFilesFinalElement}" ] ; then
+      ObjectFile+=','
+    fi
+    echo "${ObjectFile}" >> "${_tmpdir_}/final/${Filename}.json"
+  done
+
+cat <<EOF >> "${_tmpdir_}/final/${Filename}.json"
+    ]
+  }
+}
+EOF
+
+  rm "${File}"
+  cp -v "${_tmpdir_}/final/${Filename}.json" "$(dirname "${File}")"
+
+  rm -rf "${_tmpdir_}"
+}
+
+for i in "${@}" ; do
+  Main "$(readlink -f "${i}")"
+done
