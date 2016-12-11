@@ -36,6 +36,8 @@ set -o errtrace
 set -o functrace
 set -o pipefail
 
+ADOS_REMOTE_DIR="${ADOS_REMOTE_DIR:-/backups}"
+ADOS_RCLONE_REMOTE="${ADOS_RCLONE_REMOTE:-ad}"
 LOG_LEVEL='info'
 
 ########################### System/Vendored lib-bash ###########################
@@ -86,12 +88,14 @@ Function::RequiredArgs() {
   local -r ArgsExpected=${1}
   local -r ArgsRecieved=${2}
   local -r ArgsNumber=$#
-  local Plural
+  local Plural=
   if [ ! ${ArgsNumber} == 2 ] ; then
     Log::Message 'error' "expected \`2' arguments, but recieved \`${ArgsNumber}'"
     return 1
   fi
-  Plural="$(if [ ${ArgsExpected} -gt 1 ] ; then echo 's' ; fi)"
+  if [ ${ArgsExpected} -gt 1 ] ; then
+    Plural='s'
+  fi
   if [ ${ArgsExpected} -ne ${ArgsRecieved} ] ; then
     Log::Message 'error' \
         "expected \`${ArgsExpected}' argument${Plural}, but recieved \`${ArgsRecieved}'" \
@@ -249,15 +253,15 @@ fi
 # Make sure BASH meets version requirements
 String::Version.atleast "${BASH_VERSINFO[0]}.${BASH_VERSINFO[1]}" '4.4' || {
   Log::Message 'error' \
-    "acd-os requires BASH 4.4+, you have: ${BASH_VERSINFO[0]}.${BASH_VERSINFO[1]}"
+    "ad-os requires BASH 4.4+, you have: ${BASH_VERSINFO[0]}.${BASH_VERSINFO[1]}"
   exit 1
 }
 
 trap 'Log::Func' DEBUG
-trap 'AD_OS::Cleanup ; exit 1' SIGINT SIGTERM
-trap -- 'AD_OS::Cleanup ; Log::Trace ; exit 1' ERR
+trap 'ADOS::Cleanup ; exit 1' SIGINT SIGTERM
+trap -- 'ADOS::Cleanup ; Log::Trace ; exit 1' ERR
 
-function AD_OS::Compress {
+function ADOS::Compress {
   Function::RequiredArgs '3' "$#"
   local -a Arguments
   local -r Input="${1}"
@@ -285,7 +289,7 @@ function AD_OS::Compress {
   7za "${Arguments[@]}"
 }
 
-function AD_OS::Extract {
+function ADOS::Extract {
   Function::RequiredArgs '3' "$#"
   local -a Arguments
   local -r File="${1}"
@@ -304,7 +308,7 @@ function AD_OS::Extract {
   7za "${Arguments[@]}"
 }
 
-function AD_OS::ACD {
+function ADOS::ACD {
   Function::RequiredArgs '3' "$#"
   local -r Action="${1}"
   local -a Arguments
@@ -313,14 +317,35 @@ function AD_OS::ACD {
 
   # Fix ordering of arguments passed to acd_cli
   case "${Action}" in
+    'checksum')
+      Arguments=(
+        'md5sum'
+        '--quiet'
+        "${ADOS_RCLONE_REMOTE}:${PathRemote}"
+      )
+      rclone "${Arguments[@]}" | awk -F' ' '{print $1 ; exit}'
+      return 0
+      ;;
     'download')
-      Arguments=("${PathRemote}" "${PathLocal}")
+      Arguments=(
+        'sync'
+        "${ADOS_RCLONE_REMOTE}:${PathRemote}"
+        "${PathLocal}"
+      )
       ;;
     'trash')
-      Arguments=("${PathRemote}")
+      Arguments=(
+        'delete'
+        '--drive-use-trash'
+        "${ADOS_RCLONE_REMOTE}:${PathRemote}"
+      )
       ;;
     'upload')
-      Arguments=('--overwrite' "${PathLocal}" "${PathRemote}")
+      Arguments=(
+        'sync'
+        "${PathLocal}"
+        "${ADOS_RCLONE_REMOTE}:${PathRemote}"
+      )
       ;;
     *)
       Log::Message 'error' "invalid action: ${Action}"
@@ -328,37 +353,78 @@ function AD_OS::ACD {
       ;;
   esac
 
-  # Sync changes before every upload operation
-  if [ "${Action}" == 'upload' ] ; then
-    acd_cli sync >&-  # Ignore all output
-  fi
-
   # Retry until a zero exit staus is returned
   while true ; do
-    acd_cli "${Action}" "${Arguments[@]}" || {
+    if [ "${Action}" == 'upload' ] ; then
+      # rclone doesn't seem to correctly overwrite files, always try
+      # removing files with the same name in case of collisions.
+      rclone 'delete' '--drive-use-trash' "${PathRemote}" || :
+    fi
+    rclone "${Arguments[@]}" || {
       echo 'retrying' >&2
-      acd_cli sync >&-  # Ignore all output
+      if [ "${Action}" == 'upload' ] ; then
+        # ensure partial files are replaced
+        rclone 'delete' '--drive-use-trash' "${PathRemote}" || :
+      fi
       continue
     }
     break
   done
 }
 
-function AD_OS::Cleanup {
+# This function is meant mainly for catching cases where rclone doesn't
+# properly overwrite files.
+function ADOS::Checksum {
+  local -r Input="${1}"
+  local Iter=1
+  local Object
+  local -a Objects
+
+  Object="$(jq -r -c -M '.Object.Name' "${Input}")"
+  mapfile -t Objects < <(jq -r -c -M '.Object.Files[].Name' "${Input}")
+
+  for i in "${Objects[@]}" ; do
+    Log::Message 'info' "file ${Iter} of ${#Objects[@]}"
+    ChecksumStored="$(
+        jq -r -c -M \
+            ".Object.Files[]|select(.Name|contains(\"${i}\")).Md5" \
+            "${Input}"
+    )"
+    ChecksumRemote="$(
+        ADOS::ACD 'checksum' '-' "${ADOS_REMOTE_DIR}/${Object}.7z.${i}"
+    )"
+    if [ "${ChecksumStored}" != "${ChecksumRemote}" ] ; then
+      Log::Message 'error' \
+          "recieved ${ChecksumRemote}, when ${ChecksumStored} was expected"
+      return 1
+    fi
+    echo 'passed' >&2
+    Iter=$(( ${Iter} + 1 ))
+  done
+}
+
+function ADOS::Cleanup {
   if [ -d "${_tmpdir_}" ] ; then
     Directory::Remove "${_tmpdir_}" || :
   fi
 }
 
-function AD_OS::Hash {
+function ADOS::Contents {
+  local -r Input="${1}"
+  local Iter=1
+  local Object
+  local -a Objects
+
+  jq -r -c -M '.Contents' "${Input}" | openssl enc -base64 -d
+}
+
+function ADOS::Hash {
   Function::RequiredArgs '1' "$#"
   local -r Input="${1}"
 
   if [ "${Input}" == '-' ] ; then
     # Return a random sha256 hash
-    echo "$RANDOM" |
-        openssl dgst -sha256 2>&- |
-        awk -F '= ' '{print $2 ; exit}'
+    openssl rand -rand /dev/urandom -hex 32 2>&-
   elif [ -f "${Input}" ] ; then
     # Hash the files hash so that we aren't returning the hash of the
     # actual file.
@@ -380,44 +446,52 @@ function AD_OS::Hash {
   fi
 }
 
-function AD_OS::Get {
-  Function::RequiredArgs '1' "$#"
-  local -a Objects
-  local -r File="${1}"
-  local Index
-  local Password
-
-  Password="$(jq -r -c -M '.Password' "${File}")"
-
-  Object="$(jq -r -c -M '.Object.Name' "${File}")"
-  mapfile -t ObjectFiles < <(jq -r -c -M '.Object.Files[]' "${File}")
-
-  for i in "${ObjectFiles[@]}" ; do
-    AD_OS::ACD 'download' "${_tmpdir_}/objects" "/object-store/${Object}.7z.${i}"
-  done
-
-  AD_OS::Extract "${File}" "${_tmpdir_}/objects/${Object}.7z.001" "${Password}"
-}
-
-function AD_OS::Put {
+function ADOS::Get {
   Function::RequiredArgs '1' "$#"
   local -r Input="${1}"
-  local Filename
+  local Index
   local Iter=1
   local Object
-  local -a ObjectFiles
-  local ObjectFilesFinalElement
+  local -a Objects
+  local Password
+
+  Password="$(jq -r -c -M '.Password' "${Input}")"
+
+  Object="$(jq -r -c -M '.Object.Name' "${Input}")"
+  mapfile -t Objects < <(jq -r -c -M '.Object.Files[].Name' "${Input}")
+
+  for i in "${Objects[@]}" ; do
+    Log::Message 'info' "file ${Iter} of ${#Objects[@]}"
+    ADOS::ACD 'download' "${_tmpdir_}/objects" "${ADOS_REMOTE_DIR}/${Object}.7z.${i}"
+    Iter=$(( ${Iter} + 1 ))
+  done
+
+  ADOS::Extract "${Input}" "${_tmpdir_}/objects/${Object}.7z.001" "${Password}"
+}
+
+function ADOS::Put {
+  Function::RequiredArgs '1' "$#"
+  local ChecksumMd5
+  local ChecksumSha1
+  local ChecksumSha256
+  local Filename
+  local -r Input="${1}"
+  local Iter=1
+  local Name
+  local Object
+  local -a Objects
+  local ObjectsFinalElement
   local Password
 
   Filename="$(basename "${Input}")"
 
-  Password="$(AD_OS::Hash '-')"
+  Password="$(ADOS::Hash '-')"
 
-  Object="$(AD_OS::Hash "${Input}")"
+  Object="$(ADOS::Hash "${Input}")"
 
-  AD_OS::Compress "${Input}" "${Object}" "${Password}"
+  ADOS::Compress "${Input}" "${Object}" "${Password}"
 
-  mapfile -t ObjectFiles < <(find "${_tmpdir_}/objects" -name '*.7z.*')
+  mapfile -t Objects < <(find "${_tmpdir_}/objects" -name '*.7z.*')
 
   # Generate json file and upload each object file
   # {
@@ -426,14 +500,23 @@ function AD_OS::Put {
   #   "Object": {
   #     "Name": "4321",
   #     "Files": [
-  #       "001",
-  #       "002"
+  #       { "Name": "001",
+  #         "Sha1": "ahsdfghjkasdf",
+  #         "Md5": "asdfjkhasdfkl" },
+  #       { "Name": "002",
+  #         "Sha1": "ahsdfghjkasdf",
+  #         "Md5": "asdfjkhasdfkl" }
   #     ]
   #   }
   # }
 cat <<EOF > "${_tmpdir_}/${Filename}.json"
 {
-  "Contents": "$(ls -RalhgG "${Input}" | openssl base64 2>&- | tr -d '\n')",
+  "Contents": "$(
+      ls -RalhgG "${Input}" |
+          sed "s,$(dirname "${Input}")/,,g" |
+          openssl enc -base64 2>&- |
+          tr -d '\n'
+  )",
   "Password": "${Password}",
   "Object": {
     "Name": "${Object}",
@@ -441,17 +524,33 @@ cat <<EOF > "${_tmpdir_}/${Filename}.json"
 EOF
 
   # Find last item in the array so that we don't have a trailing comma in json.
-  ObjectFilesFinalElement="${ObjectFiles[$(( ${#ObjectFiles[@]} - 1 ))]}"
+  ObjectsFinalElement="${Objects[$(( ${#Objects[@]} - 1 ))]}"
 
   # Enumerate object file list
-  for i in "${ObjectFiles[@]}" ; do
-    Log::Message 'info' "file ${Iter} of ${#ObjectFiles[@]}"
-    AD_OS::ACD 'upload' "${i}" '/object-store/'
-    ObjectFile="      \"$(echo "${i}" | sed -n -e 's/^.*\.7z\.//p')\""
-    if [ "${i}" != "${ObjectFilesFinalElement}" ] ; then
-      ObjectFile+=','
+  for i in "${Objects[@]}" ; do
+    Log::Message 'info' "file ${Iter} of ${#Objects[@]}"
+    ADOS::ACD 'upload' "${i}" "${ADOS_REMOTE_DIR}/"
+    Name="$(echo "${i}" | sed -n -e 's/^.*\.7z\.//p')"
+    ChecksumMd5="$(openssl md5 "${i}" 2>&- | awk -F '= ' '{print $2 ; exit}')"
+    ChecksumSha1="$(
+        openssl sha1 "${i}" 2>&- |
+            awk -F '= ' '{print $2 ; exit}'
+    )"
+    ChecksumSha256="$(
+        openssl sha256 "${i}" 2>&- |
+            awk -F '= ' '{print $2 ; exit}'
+    )"
+    if [ "${i}" != "${ObjectsFinalElement}" ] ; then
+      JsonSep=','
+    else
+      JsonSep=
     fi
-    echo "${ObjectFile}" >> "${_tmpdir_}/${Filename}.json"
+cat <<EOF >> "${_tmpdir_}/${Filename}.json"
+      { "Name": "${Name}",
+        "Md5": "${ChecksumMd5}",
+        "Sha1": "${ChecksumSha1}",
+        "Sha256": "${ChecksumSha256}" }${JsonSep}
+EOF
     Iter=$(( ${Iter} + 1 ))
   done
 
@@ -464,65 +563,73 @@ EOF
   cp -v "${_tmpdir_}/${Filename}.json" "$(dirname "${Input}")"
 }
 
-function AD_OS::Trash {
+function ADOS::Trash {
   Function::RequiredArgs '1' "$#"
   local -r File="${1}"
+  local Iter=1
   local Object
-  local -a ObjectFiles
+  local -a Objects
 
   Object="$(jq -r -c -M '.Object.Name' "${File}")"
-  mapfile -t ObjectFiles < <(jq -r -c -M '.Object.Files[]' "${File}")
+  mapfile -t Objects < <(jq -r -c -M '.Object.Files[].Name' "${File}")
 
-  for i in "${ObjectFiles[@]}" ; do
-    AD_OS::ACD 'trash' '-' "/object-store/${Object}.7z.${i}"
+  for i in "${Objects[@]}" ; do
+    Log::Message 'info' "file ${Iter} of ${#Objects[@]}"
+    ADOS::ACD 'trash' '-' "${ADOS_REMOTE_DIR}/${Object}.7z.${i}"
+    Iter=$(( ${Iter} + 1 ))
   done
+
+  rm "${File}"
 }
 
-function AD_OS::Main {
+function ADOS::Main {
   Function::RequiredArgs '2' "$#"
   declare _tmpdir_
   local Input="${2}"
   local -r Mode="${1}"
 
   if [ ! -f "${Input}" ] && [ ! -d "${Input}" ] ; then
-    Log::Message 'error' "\`${Mode}\` requires a file or directory"
+    Log::Message 'error' "${Mode} requires a file or directory"
     return 1
   fi
 
   Path::Check '7za'
-  Path::Check 'acd_cli'
   Path::Check 'awk'
   Path::Check 'find'
   Path::Check 'jq'
   Path::Check 'openssl'
+  Path::Check 'rclone'
   Path::Check 'sed'
   Path::Check 'xargs'
 
-  # Test to see if acd_cli is configured
-  if [ ! -f "${HOME}/.cache/acd_cli/oauth_data" ] ; then
-    Log::Message 'error' 'acd_cli not initialized'
-    return 1
-  fi
-  acd_cli sync
+  #rclone ls "${ADOS_RCLONE_REMOTE}:/" 1>&-
 
   Input="$(readlink -f "${Input}")"
 
   if [ "${Mode}" != 'trash' ] ; then
-    _tmpdir_="$(dirname "${Input}")/.acd-os.$RANDOM"
+    _tmpdir_="$(dirname "${Input}")/.ad-os.$RANDOM"
     Directory::Create "${_tmpdir_}/objects"
   fi
 
   case "${Mode}" in
+    'check')
+      jq '' "${Input}" > /dev/null
+      ADOS::Checksum "${Input}"
+      ;;
     'get')
-      [ -f "${Input}" ]
-      AD_OS::Get "${Input}"
+      jq '' "${Input}" > /dev/null
+      ADOS::Get "${Input}"
+      ;;
+    'ls')
+      jq '' "${Input}" > /dev/null
+      ADOS::Contents "${Input}"
       ;;
     'put')
-      AD_OS::Put "${Input}"
+      ADOS::Put "${Input}"
       ;;
     'trash')
-      [ -f "${Input}" ]
-      AD_OS::Trash "${Input}"
+      jq '' "${Input}" > /dev/null
+      ADOS::Trash "${Input}"
       ;;
     *)
       Log::Message 'error' "invalid mode: ${Mode}"
@@ -530,9 +637,9 @@ function AD_OS::Main {
       ;;
   esac
 
-  AD_OS::Cleanup
+  ADOS::Cleanup
 }
 
-AD_OS::Main "${@}"
+ADOS::Main "${@}"
 
 exit 0
