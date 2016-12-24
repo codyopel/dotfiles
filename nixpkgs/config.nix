@@ -29,12 +29,12 @@ pkgs: {
       nvidia-cuda-toolkit = self.nvidia-cuda-toolkit;
       nvidia-drivers = self.nvidia-drivers_latest;
     };
-    pulseaudio_full = self.pulseaudio_full.override {
-      loopbackLatencyMsec = "20";
-      resampleMethod = "speex-float-10";
-    };
-    python3 = self.python36;
-    python3Packages = self.python36Packages;
+    # pulseaudio_full = self.pulseaudio_full.override {
+    #   loopbackLatencyMsec = "20";
+    #   resampleMethod = "speex-float-10";
+    # };
+    # python3 = self.python36;
+    # python3Packages = self.python36Packages;
     #rtorrent = self.rtorrent.override {
       #  colorSupport = true;
       #};
@@ -76,6 +76,7 @@ pkgs: {
         dash
         dmidecode
         dnstop
+        fish
         git
         gptfdisk
         #hdparm
@@ -97,6 +98,7 @@ pkgs: {
         p7zip
         psmisc
         python3Packages.speedtest-cli
+        rsync
         screen
         smartmontools
         subversion
@@ -108,7 +110,6 @@ pkgs: {
         vim
         wget
         xz
-        zsh
 
         gnupg
         pcsc-lite_full
@@ -162,7 +163,6 @@ pkgs: {
         #openjdk
         perl
         # FIXME: errors with python 3.6
-        python35Packages.acd-cli
         python3Packages.aws-cli
         python2Packages.bazaar
         #python2Packages.certbot
@@ -229,15 +229,18 @@ pkgs: {
     p2p-env = self.buildEnv {
       name = "p2pEnv";
       paths = with self; [
+        goPackages.rclone.bin
         #goPackages.syncthing.bin
         lftp
         ncdc
-        python3Packages.flexget
+        #python35Packages.acd-cli
+        python2Packages.flexget
         python3Packages.youtube-dl
         resilio
-        rtorrent
+        #rtorrent
         transmission_head
         transmission-remote-gtk
+        task-spooler
       ];
     };
 
@@ -257,12 +260,12 @@ pkgs: {
       ];
     };
 
-    /*firefox-env = self.buildEnv  {
+    firefox-env = self.buildEnv  {
       name = "firefoxEnv";
       paths = with self; [
         firefox
       ];
-    };*/
+    };
 
     /*myHsEnv = self.haskellPackages.ghcWithPackages (self: with self; [
       pandoc
