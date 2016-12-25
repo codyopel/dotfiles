@@ -29,6 +29,8 @@ set encoding=utf8
 set wildmenu
 set wildmode=list:longest
 set title
+" Restore previous title when exiting Vim
+set titleold=
 set scrolloff=3
 let g:airline_theme='kalisi'
 
