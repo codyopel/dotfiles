@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o errtrace
+set -o functrace
+set -o pipefail
+
+PREFIX="${PREFIX:-/usr/local/bin}"
+
+if ! type go > /dev/null ; then
+  echo 'golang is not install, attempting installation'
+  if type dnf > /dev/null ; then
+    dnf install -y golang
+  elif type yum > /dev/null ; then
+    yum install -y golang
+  elif type apt > /dev/null ; then
+    apt install go
+  elif type apt-get > /dev/null ; then
+    apt-get install go
+  else
+    echo 'no method to install golang'
+    exit 1
+  fi
+fi
+
+mkdir -p "${HOME}/gopath"
+
+export GOPATH="${HOME}/gopath"
+
+if type rclone > /dev/null ; then
+  go get -u github.com/ncw/rclone
+else
+  go get github.com/ncw/rclone
+fi
+
+if type install > /dev/null ; then
+  install -D -m 0755 -v "${HOME}/gopath/bin/rclone" "${PREFIX}"
+else
+  cp "${HOME}/gopath/bin/rclone" "%{PREFIX}"
+fi
+
+rclone --version > /dev/null
+
+exit 0
+
