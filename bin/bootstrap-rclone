@@ -23,16 +23,35 @@ if ! type go > /dev/null ; then
   fi
 fi
 
-mkdir -p "${HOME}/gopath"
+if ! type git > /dev/null ; then
+  echo 'git is not install, attempting installation'
+  if type dnf > /dev/null ; then
+    dnf install -y git
+  elif type yum > /dev/null ; then
+    yum install -y git
+  elif type apt > /dev/null ; then
+    apt install git
+  elif type apt-get > /dev/null ; then
+    apt-get install git
+  else
+    echo 'no method to install git'
+    exit 1
+  fi
+fi
 
+echo 'Configuring GOPATH'
+mkdir -p "${HOME}/gopath"
 export GOPATH="${HOME}/gopath"
 
 if type rclone > /dev/null ; then
-  go get -u github.com/ncw/rclone
+  echo 'Rebuilding rclone'
+  go get -u -v github.com/ncw/rclone
 else
-  go get github.com/ncw/rclone
+  echo 'Building rclone'
+  go get -v github.com/ncw/rclone
 fi
 
+echo 'Installing rclone'
 if type install > /dev/null ; then
   install -D -m 0755 -v "${HOME}/gopath/bin/rclone" "${PREFIX}"
 else
