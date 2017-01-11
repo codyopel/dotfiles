@@ -38,6 +38,9 @@ pkgs: {
     #rtorrent = self.rtorrent.override {
       #  colorSupport = true;
       #};
+    transmission_head = self.transmission_head.override {
+      useStableVersionUserAgent = true;
+    };
     #desktop = self.haskellPackages.ghcWithPackages (self : with self; [
     #  haskell-ngPackages.xdgBasedir
      # xmonad
