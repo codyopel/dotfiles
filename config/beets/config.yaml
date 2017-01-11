@@ -34,7 +34,7 @@ match:
         original_year: yes
     strong_rec_match: 0.05
 
-max_filename_length: 200
+max_filename_length: 156
 
 musicbrainz:
     searchlimit: 10
