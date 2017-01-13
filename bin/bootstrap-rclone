@@ -40,6 +40,22 @@ if ! type git > /dev/null 2>&1 ; then
   fi
 fi
 
+if ! type fusermount > /dev/null 2>&1 ; then
+  echo 'fuse is not install, attempting installation'
+  if type dnf > /dev/null 2>&1 ; then
+    dnf -y install fuse
+  elif type yum > /dev/null 2>&1 ; then
+    yum -y install fuse
+  elif type apt > /dev/null 2>&1 ; then
+    apt install fuse
+  elif type apt-get > /dev/null 2>&1 ; then
+    apt-get install fuse
+  else
+    echo 'no method to install fuse'
+    exit 1
+  fi
+fi
+
 if [ ! -d "${GOPATH}" ] ; then
   echo 'Configuring GOPATH'
   mkdir -p "${GOPATH}"/{bin,pkg,src}
