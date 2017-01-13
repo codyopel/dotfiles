@@ -5,6 +5,7 @@ set -o errtrace
 set -o functrace
 set -o pipefail
 
+GOPATH="${GOPATH:-${HOME}/go}"
 PREFIX="${PREFIX:-/usr/local/bin}"
 
 if ! type go > /dev/null ; then
@@ -40,8 +41,9 @@ if ! type git > /dev/null ; then
 fi
 
 echo 'Configuring GOPATH'
-mkdir -p "${HOME}/gopath"
-export GOPATH="${HOME}/gopath"
+if [ ! -d "${GOPATH}" ] ; then
+  mkdir -p "${GOPATH}"/{bin,pkg,src}
+fi
 
 if type rclone > /dev/null ; then
   echo 'Rebuilding rclone'
@@ -53,9 +55,9 @@ fi
 
 echo 'Installing rclone'
 if type install > /dev/null ; then
-  install -D -m 0755 -v "${HOME}/gopath/bin/rclone" "${PREFIX}"
+  install -D -m 0755 -v "${GOPATH}/bin/rclone" "${PREFIX}"
 else
-  cp "${HOME}/gopath/bin/rclone" "%{PREFIX}"
+  cp "${GOPATH}/bin/rclone" "${PREFIX}"
 fi
 
 rclone --version > /dev/null
