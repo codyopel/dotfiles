@@ -1,0 +1,33 @@
+defaults.pcm.rate_converter "speexrate_best"
+
+pcm.!surround71 {
+  slave.pcm "default"
+}
+
+pcm.!surround51 {
+  slave.pcm "default"
+}
+
+pcm.!surround50 {
+  slave.pcm "default"
+}
+
+pcm.!surround41 {
+  slave.pcm "default"
+}
+
+pcm.!surround40 {
+  slave.pcm "default"
+}
+
+pcm.!surround20 {
+  slave.pcm "default"
+}
+
+ctl.!default {
+  type pulse
+}
+
+pcm.!default {
+  type pulse
+}
