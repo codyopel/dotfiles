@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+
+XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
+
+if [ ! -d "${XDG_DATA_HOME}" ] ; then
+  mkdir -p "${XDG_DATA_HOME}"
+fi
+
+RCLONE_MOUNT_DIR="${XDG_DATA_HOME}/rclone_mounts"
+
+if [ ! -f "${RCLONE_CONFIG_FILE}" ] ; then
+  if [ -f "${XDG_CONFIG_HOME}/rclone/rclone.conf" ] ; then
+    RCLONE_CONFIG_FILE="${XDG_CONFIG_HOME}/rclone/rclone.conf"
+  elif [ -f "${HOME}/.rclone.conf" ] ; then
+    RCLONE_CONFIG_FILE="${HOME}/.rclone.conf"
+  else
+    echo 'ERROR: could not find rclone config file'
+    exit 1
+  fi
+fi
+
+# Find names of all mounts in rclone config file
+mapfile -t RcloneMounts < <(
+  grep -o -P '(?<=\[).*(?=\])' "${RCLONE_CONFIG_FILE}"
+)
+
+for i in "${RcloneMounts[@]}" ; do
+  fusermount -u "${RCLONE_MOUNT_DIR}/${i}" || :
+  if [ ! -d "${RCLONE_MOUNT_DIR}/${i}" ] ; then
+    mkdir -p "${RCLONE_MOUNT_DIR}/${i}"
+  fi
+  rclone mount \
+    --quiet \
+    --stats 0 \
+    --read-only \
+    --allow-non-empty \
+    --checkers 32 \
+    --contimeout 15s \
+    --timeout 30s \
+    --low-level-retries 1 \
+    --retries 3 \
+    --dir-cache-time 1m \
+    --max-read-ahead 14G \
+    --acd-templink-threshold 0 \
+    ${i}:/ "${RCLONE_MOUNT_DIR}/${i}" &
+done
