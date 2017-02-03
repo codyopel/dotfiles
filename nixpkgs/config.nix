@@ -21,8 +21,11 @@ pkgs: {
       nvenc = true;
       libnppSupport = false;
       nvidia-cuda-toolkit = self.nvidia-cuda-toolkit;
-      nvidia-drivers = self.nvidia-drivers_long-lived;
+      nvidia-drivers = self.nvidia-drivers_latest;
       nonfreeLicensing = true;
+    };
+    mpd = self.mpd.override {
+      ffmpeg = self.ffmpeg_head;
     };
     mpv = self.mpv.override {
       ffmpeg = ffmpeg_head;
@@ -153,6 +156,7 @@ pkgs: {
         #gn
         gnumake
         go
+        goPackages.consul.bin
         #goPackages.hugo.bin
         ###goPackages.ipfs.bin
         #goPackages.lego.bin
@@ -258,17 +262,17 @@ pkgs: {
       name = "googleChromeEnv";
       paths = with self; [
         google-chrome_stable
-        # google-chrome_beta
-        # google-chrome_unstable
+        #google-chrome_beta
+        #google-chrome_unstable
       ];
     };
 
-    firefox-env = self.buildEnv  {
+    /*firefox-env = self.buildEnv  {
       name = "firefoxEnv";
       paths = with self; [
         firefox
       ];
-    };
+    };*/
 
     /*myHsEnv = self.haskellPackages.ghcWithPackages (self: with self; [
       pandoc
