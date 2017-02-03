@@ -1,6 +1,6 @@
 [Unit]
 Description=Deluge Daemon
-After=network-online.target user-cache.service
+After=network.target user-cache.service
 
 [Service]
 Type=simple

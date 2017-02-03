@@ -1,6 +1,6 @@
 [Unit]
 Description=Deluge Web Interface
-After=network-online.target deluged.service user-cache.service
+After=network.target deluged.service user-cache.service
 
 [Service]
 Type=simple
