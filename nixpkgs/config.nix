@@ -131,7 +131,7 @@ pkgs: {
         evince
         file-roller
         gnome-calculator
-        #gnome-screenshot
+        gnome-screenshot
         gnome-terminal
         mumble
         nautilus
@@ -162,7 +162,7 @@ pkgs: {
         #goPackages.lego.bin
         #goPackages.mc.bin
         #goPackages.minio.bin
-        goPackages.nomad.bin
+        #goPackages.nomad.bin
         goPackages.vault.bin
         #icedtea8_web
         ninja
