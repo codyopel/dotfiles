@@ -1,5 +1,6 @@
 [Unit]
 Description=Deluge Web Interface
+Requires=deluged.service
 After=network.target deluged.service user-cache.service
 
 [Service]
