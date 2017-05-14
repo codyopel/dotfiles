@@ -49,3 +49,6 @@
 [submodule "config/plex/Webtools.bundle"]
 	path = config/plex/Webtools.bundle
 	url = https://github.com/dagalufh/WebTools.bundle
+[submodule "config/sublime-text-3/Packages/Docker"]
+	path = config/sublime-text-3/Packages/Docker
+	url = https://github.com/asbjornenge/Docker.tmbundle

@@ -18,19 +18,20 @@ pkgs: {
     ffmpeg_head = self.ffmpeg_head.override {
       fdk-aac = self.fdk-aac_head;
       flite = self.flite;
-      nvenc = true;
-      libnppSupport = false;
-      nvidia-cuda-toolkit = self.nvidia-cuda-toolkit;
-      nvidia-drivers = self.nvidia-drivers_latest;
+      #nvenc = true;
+      #libnppSupport = false;
+      #nvidia-cuda-toolkit = self.nvidia-cuda-toolkit;
+      #nvidia-drivers = self.nvidia-drivers_latest;
       nonfreeLicensing = true;
     };
     mpd = self.mpd.override {
       ffmpeg = self.ffmpeg_head;
+      opus = self.opus_head;
     };
     mpv = self.mpv.override {
       ffmpeg = ffmpeg_head;
-      nvidia-cuda-toolkit = self.nvidia-cuda-toolkit;
-      nvidia-drivers = self.nvidia-drivers_latest;
+      #nvidia-cuda-toolkit = self.nvidia-cuda-toolkit;
+      #nvidia-drivers = self.nvidia-drivers_latest;
     };
     # pulseaudio_full = self.pulseaudio_full.override {
     #   loopbackLatencyMsec = "20";
@@ -38,9 +39,9 @@ pkgs: {
     # };
     # python3 = self.python36;
     # python3Packages = self.python36Packages;
-    #rtorrent = self.rtorrent.override {
-      #  colorSupport = true;
-      #};
+    # rtorrent = self.rtorrent.override {
+    #   colorSupport = true;
+    # };
     transmission_head = self.transmission_head.override {
       useStableVersionUserAgent = true;
     };
@@ -157,20 +158,21 @@ pkgs: {
         gnumake
         go
         goPackages.consul.bin
+        #goPackages.docker.bin
         #goPackages.hugo.bin
         ###goPackages.ipfs.bin
         #goPackages.lego.bin
         #goPackages.mc.bin
         #goPackages.minio.bin
         #goPackages.nomad.bin
-        goPackages.vault.bin
+        #goPackages.vault.bin
         #icedtea8_web
         ninja
         nodejs
         #openjdk
         perl
         # FIXME: errors with python 3.6
-        python3Packages.aws-cli
+        #python3Packages.aws-cli
         python2Packages.bazaar
         #python2Packages.certbot
         python3Packages.python
@@ -206,7 +208,7 @@ pkgs: {
         lame
         #libpng
         libvpx_head
-        libvpx_next  # AV1/AOMedia
+        #libvpx_next  # AV1/AOMedia
         python3Packages.beets
         python3Packages.pycountry
         cdrtools
@@ -221,7 +223,7 @@ pkgs: {
         ufraw
         #vobsub2srt
         x264
-        x265
+        x265_head
       ];
     };
 
@@ -233,16 +235,24 @@ pkgs: {
       ];
     };
 
+    rclone-env = self.buildEnv {
+      name = "rcloneEnv";
+      paths = with self; [
+        goPackages.rclone.bin
+      ];
+    };
+
     p2p-env = self.buildEnv {
       name = "p2pEnv";
       paths = with self; [
-        goPackages.rclone.bin
         #goPackages.syncthing.bin
+        python3Packages.guessit
         lftp
         ncdc
         #python35Packages.acd-cli
+        python2Packages.deluge
         python2Packages.flexget
-        python3Packages.youtube-dl
+        #python3Packages.youtube-dl
         resilio
         #rtorrent
         transmission_head
@@ -262,8 +272,6 @@ pkgs: {
       name = "googleChromeEnv";
       paths = with self; [
         google-chrome_stable
-        #google-chrome_beta
-        #google-chrome_unstable
       ];
     };
 
