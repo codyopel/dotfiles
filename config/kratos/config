@@ -28,7 +28,7 @@ KRATOS_PLUGINS=(
   'openssl'
   'pkg'
   'sprunge'
-  #'ssh'
+  'ssh'
   'torrent'
   'triton'
   #'user-agent'
