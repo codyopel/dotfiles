@@ -97,21 +97,32 @@ find "${InputDirectory}" -type d |
 while read MusicDirectory ; do
   # Clear previous file list
   echo '' > "${TMPDIR}/filelist"
-  find "${MusicDirectory}" -maxdepth 1 -type f -regextype posix-extended -regex ".*\.(ape|flac|wav)" |
+
   while read MusicFile ; do
     if [ ! -f "${MusicFile}" ] ; then
       continue
     fi
     Fname="$(basename "$(echo "${MusicFile}" | sed -r 's/\.[[:alnum:]]+$//')")"
     echo "${Fname} ${MusicFile}" >> "${TMPDIR}/filelist"
-  done
+  done < <(
+    find "${MusicDirectory}" \
+      -maxdepth 1 \
+      -type f \
+      -regextype posix-extended \
+      -regex ".*\.(ape|flac|wav)"
+  )
+
   # Generate concurrent args from temp file list
-  ConcurrentArgs=($(awk '{ print "- " $1 " Flac::Encode " $2; }' ${TMPDIR}/filelist))
+  ConcurrentArgs=(
+    $(awk '{ print "- " $1 " Flac::Encode " $2; }' ${TMPDIR}/filelist)
+  )
+
   # Remove invalid `- encode_file` created as first arg
   if [ "${ConcurrentArgs[2]}" == '-' ] ; then
     unset ConcurrentArgs[0]
     unset ConcurrentArgs[1]
   fi
+
   if [ -n "$(cat "${TMPDIR}/filelist")" ] ; then
     echo
     concurrent "${ConcurrentArgs[@]}"
