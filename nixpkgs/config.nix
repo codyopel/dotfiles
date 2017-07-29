@@ -200,6 +200,7 @@ pkgs: {
     multimedia-tools-env = self.buildEnv {
       name = "multimediaToolsEnv";
       paths = with self; [
+        aomedia
         arkive
         imagemagick
         #gimp
@@ -208,7 +209,6 @@ pkgs: {
         lame
         #libpng
         libvpx_head
-        #libvpx_next  # AV1/AOMedia
         python3Packages.beets
         python3Packages.pycountry
         cdrtools
@@ -258,6 +258,13 @@ pkgs: {
         transmission_head
         transmission-remote-gtk
         task-spooler
+      ];
+    };
+
+    factorio-env = self.buildEnv {
+      name = "factorioEnv";
+      paths = with self; [
+        factorio
       ];
     };
 
