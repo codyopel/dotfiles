@@ -5,7 +5,7 @@ After=network.target
 [Service]
 Type=simple
 User=%i
-Group=users
+Group=%i
 ExecStart=@(type -P rslsync)@ \
   --nodaemon \
   --storage @{XDG_DATA_HOME}@/resilio/sync \

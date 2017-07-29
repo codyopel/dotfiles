@@ -5,7 +5,7 @@ After=network.target user-cache.service
 [Service]
 Type=forking
 User=%i
-Group=users
+Group=%i
 ExecStart=@(type -P task-spooler)@
 ExecStop=@(type -P task-spooler)@ -K
 Restart=on-failure

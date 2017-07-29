@@ -5,7 +5,7 @@ After=network.target user-cache.service
 [Service]
 Type=simple
 User=%i
-Group=users
+Group=%i
 ExecStart=@(type -P minidlnad)@ -S -v \
   -f @{HOME}@/.minidlna/minidlna.conf \
   -P @{XDG_CACHE_HOME}@/minidlna.pid
