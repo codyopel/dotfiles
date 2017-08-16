@@ -106,7 +106,7 @@ bpd:
     port: 6600
     volume: 100
 chroma:
-    auto: yes
+    auto: no
 embedart:
     auto: yes
     compare_threshold: 0
