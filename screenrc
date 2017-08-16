@@ -1,0 +1,19 @@
+autodetach on
+startup_message off
+#shelltitle $SHELL
+defshell -$SHELL
+
+# Fix NCurses apps not clearing after exiting
+altscreen on
+
+#colorterm truecolor
+term screen-256color-bce
+defbce on  # erase background with current bg color
+termcapinfo xterm* ti@:te@
+truecolor on
+
+hardstatus off
+hardstatus alwayslastline
+hardstatus string '%{gk}[%{wk}%?%-Lw%?%{=b kR}(%{W}%n*%f %t%?(%u)%?%{=b kR})%{= w}%?%+Lw%?%? %{g}][%{d}%l%{g}][ %{= w}%Y/%m/%d %0C:%s%a%{g} ]%{W}'
+
+windowlist string "%4n %h%=%f"
