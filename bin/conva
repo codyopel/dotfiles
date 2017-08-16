@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-source `lib-bash`
+# Usage: conva <artist>
+
+source "$(lib-bash)"
 
 encode_file() {
   local AlbumArt
@@ -45,7 +47,7 @@ encode_file() {
   if [ ! -f "${OutputDir}"/[Ff]older.*g ] ; then
     AlbumArt="$(
       find "${InputDir}" -type f -regextype posix-extended \
-        -regex ".*[Ff]older.([Jj][Pp][Gg]|[Jj][Pp][Ee][Gg]|[Pp][Nn][Gg])" \
+        -regex ".*[Ff]older.([Jj][Pp]([Ee]|)[Gg]|[Pp][Nn][Gg])" \
         -print -quit
     )"
     AlbumArtExt="${AlbumArt##*.}"
@@ -56,32 +58,11 @@ encode_file() {
     fi
   fi
 
-  if [ ! -f "${OutputFile}" ] ; then
-    ffmpeg \
-      -hide_banner \
-      -loglevel error \
-      -y \
-      -threads 1 \
-      -i "${File}" \
-      -c:a libopus \
-      -b:a 128k \
-      -vbr on \
-      -compression_level 10 \
-      -frame_duration 20 \
-      -af "aresample=resampler=soxr:precision=28:cheby=1:isf=${InSF}:osf=s16:tsf=s32:isr=${InSR}:osr=48000:cutoff=0.91:dither_method=0" \
-      -af "highpass=f=10:poles=1:width_type=h" \
-      -af "lowpass=f=19600:poles=1:width_type=h" \
-      -cutoff 20000 \
-      -sample_fmt s16 \
-      -ar 48000 \
-      -ac 2 \
-      -map_metadata 0 \
-      -vn \
-      "${OutputFile}" &
-    FFmpegPid=$!
-    # Wait for one encode to finish before starting another
-    wait "${FFmpegPid}"
-  fi
+  # if [ -f "${OutputFile}" ] ; then
+  #   return 0
+  # fi
+
+  bash /home/cwopel/Projects/arkive/src/bin/arkive-audio -p ogg-opus -i "$File" -o "$OutputDir"
 
   #-af "compand=attacks=0|0:decays=1|1:points=-90/-900|-70/-70|-21/-21|0/-15:soft-knee=0.01:gain=0:volume=0:delay=0" \
 }
@@ -109,7 +90,8 @@ Path::Check 'ffmpeg' || exit 1
 Path::Check 'ffprobe' || exit 1
 
 TMPDIR="$(mktemp -d)"
-export OUTPUT_DIRECTORY="$(pwd)"
+#export OUTPUT_DIRECTORY="$(pwd)"
+export OUTPUT_DIRECTORY="$HOME/Sync/resilio/music"
 if [ -n "$(music_dir "${OUTPUT_DIRECTORY}")" ] ; then
   echo "Can't encode in music directory"
   exit 1
@@ -134,7 +116,7 @@ fi
 export CONCURRENT_LIMIT=`Cpu::Logical`
 export CONCURRENT_COMPACT=0
 
-# Chunk encodes by directory to prevent hitting the BASH's function
+# Chunk encodes by directory to prevent hitting BASH's function
 # argument limit.
 for Dir in "${InputDirectories[@]}" ; do
   Log::Message 'info' "dir: $Dir"
