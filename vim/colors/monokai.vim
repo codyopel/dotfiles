@@ -23,7 +23,7 @@ let s:monokai_original = 1
 "
 " Support for 256-color terminal
 "
-hi Normal       ctermfg=15 ctermbg=0 """
+hi Normal       ctermfg=15 ctermbg=none """
 hi CursorLine               ctermbg=234 cterm=none
 hi CursorLineNr ctermfg=9               cterm=none
 hi Boolean      ctermfg=5
