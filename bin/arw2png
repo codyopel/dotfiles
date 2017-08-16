@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+source "${HOME}/Projects/lib-bash/src/share/lib-bash/lib.bash" || \
+source "$(lib-bash)"
+
+Path::Check 'ufraw-batch' || {
+  Debug::Message 'fatal' 'ufraw-batch not installed'
+  exit 1
+}
+
+declare -a FilesList
+declare -r Input="${1}"
+
+if [ -f "${Input}" ] ; then
+  echo "is file"
+  FilesList=("${Input}")
+elif [ -d "${Input}" ] ; then
+  echo "is directory"
+  while read RawFile ; do
+    FilesList+=("${RawFile}")
+  done < <(find "${Input}" -type f -name '*.ARW' -or -name '*.arw')
+else
+  Debug::Message 'error' "no input"
+  exit 1
+fi
+
+if [ ! ${#FilesList[@]} -gt 0 ] ; then
+  Debug::Message 'warn' "no files found to convert"
+  exit 1
+fi
+
+for i in "${FilesList[@]}" ; do
+  Debug::Message 'info' "converting: ${i}"
+  BaseName="$(basename "${i}")"
+  ufraw-batch \
+    --out-type=tiff \
+    --output=${HOME}/tmp/photos/${BaseName}.tiff \
+    ${i} ; wait
+done
