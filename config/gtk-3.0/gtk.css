@@ -1,0 +1,5 @@
+/* Disable drop shadows to improve performance */
+.window-frame {
+    box-shadow: none;
+    margin: 0;
+}
