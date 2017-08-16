@@ -18,6 +18,7 @@ endif
 nnoremap <leader>w :silent !xdg-open <C-R>=escape("<C-R><C-F>", "#?&;\|%")<CR><CR>
 
 
+set colorcolumn=81
 "set background=dark
 set tabstop=4
 set nobackup
