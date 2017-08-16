@@ -134,7 +134,7 @@ pkgs: {
         gnome-calculator
         gnome-screenshot
         gnome-terminal
-        mumble
+        mumble_git
         nautilus
         networkmanager
         networkmanager-applet
@@ -157,7 +157,7 @@ pkgs: {
         #gn
         gnumake
         go
-        goPackages.consul.bin
+        #goPackages.consul.bin
         #goPackages.docker.bin
         #goPackages.hugo.bin
         ###goPackages.ipfs.bin
@@ -253,6 +253,7 @@ pkgs: {
         python2Packages.deluge
         python2Packages.flexget
         #python3Packages.youtube-dl
+        qbittorrent_nox_head
         resilio
         #rtorrent
         transmission_head
