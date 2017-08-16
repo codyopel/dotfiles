@@ -16,6 +16,7 @@ KRATOS_COLOR_SCHEME='monokai'
 KRATOS_PROMPT='kratos'
 
 KRATOS_PLUGINS=(
+  'acdcli'
   'archive'
   'base64'
   'battery'
@@ -37,30 +38,10 @@ KRATOS_PLUGINS=(
 )
 
 # Text editors in order of preference
-KRATOS_EDITOR_PREFERENCE=(
-  'subl'
-  'sublime'
-  'mg'
-)
-
-# List jobs in long format
-#setopt long_list_jobs
-
-# recognize comments
-#setopt interactivecomments
+KRATOS_EDITOR_PREFERENCE=("vim")
 
 # Prevent GUI password dialog
 unset SSH_ASKPASS
-
-#if [ -d "${HOME}/.zsh/zsh-syntax-highlighting" ] ; then
-#  # Load zsh-syntax-highlighting.
-#  source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-#fi
-
-#if [ -d "${HOME}/.zsh/zsh-autosuggestions" ] ; then
-#  # Load zsh-autosuggestions.
-#  source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-#fi
 
 alias proj="cd ${HOME}/Projects"
 alias root="sudo_wrap su -"
