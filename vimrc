@@ -4,8 +4,6 @@ set nocompatible
 " Display line numbers
 set number
 
-set shiftwidth=4
-
 " Enable syntax highlighting
 if &t_Co > 7 || has("gui_running")
   syntax on
@@ -17,10 +15,15 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap <leader>w :silent !xdg-open <C-R>=escape("<C-R><C-F>", "#?&;\|%")<CR><CR>
 
+"
+filetype plugin indent on
 
+" Indenation (tab)
+set tabstop=2 softtabstop=0 expandtab shiftwidth=2 smarttab
+
+set cursorline  " highligh current line
 set colorcolumn=81
 "set background=dark
-set tabstop=4
 set nobackup
 set nowb
 set noswapfile
@@ -104,10 +107,6 @@ if has("autocmd")
     \ set expandtab
 
   autocmd ColorScheme * highlight WhiteSpaces gui=undercurl guifg=White | match WhiteSpaces / \+/
-else
-
-  set autoindent    " always set autoindenting on
-
 endif " has("autocmd")
 
 " Convenient command to see the difference between the current buffer and the
