@@ -13,6 +13,8 @@ syn keyword nixRecKeyword  rec
 
 syn keyword nixOperator or
 syn match   nixOperator '!=\|!'
+syn match   nixOperator '<=\?'
+syn match   nixOperator '>=\?'
 syn match   nixOperator '&&'
 syn match   nixOperator '//\='
 syn match   nixOperator '=='
@@ -43,16 +45,17 @@ syn match nixFunctionCall "[a-zA-Z_][a-zA-Z0-9_'-]*"
 syn match nixPath "[a-zA-Z0-9._+-]*\%(/[a-zA-Z0-9._+-]\+\)\+"
 syn match nixHomePath "\~\%(/[a-zA-Z0-9._+-]\+\)\+"
 syn match nixSearchPath "[a-zA-Z0-9._+-]\+\%(\/[a-zA-Z0-9._+-]\+\)*" contained
-syn region nixSearchPathRef matchgroup=nixPathDelimiter start="<" end=">" contains=nixSearchPath
+syn match nixPathDelimiter "[<>]" contained
+syn match nixSearchPathRef "<[a-zA-Z0-9._+-]\+\%(\/[a-zA-Z0-9._+-]\+\)*>" contains=nixSearchPath,nixPathDelimiter
 syn match nixURI "[a-zA-Z][a-zA-Z0-9.+-]*:[a-zA-Z0-9%/?:@&=$,_.!~*'+-]\+"
 
 syn match nixAttributeDot "\." contained
-syn match nixAttribute "[a-zA-Z_][a-zA-Z0-9_'-]*" contained
+syn match nixAttribute "[a-zA-Z_][a-zA-Z0-9_'-]*\ze\%([^a-zA-Z0-9_'-.]\|$\)" contained
 syn region nixAttributeAssignment start="=" end="\ze;" contained contains=@nixExpr
 syn region nixAttributeDefinition start=/\ze[a-zA-Z_"$]/ end=";" contained contains=nixComment,nixAttribute,nixInterpolation,nixSimpleString,nixAttributeDot,nixAttributeAssignment
 
-syn region nixInheritAttributeScope start="(" end=")" contained contains=nixComment,nixAttribute,nixAttributeDot
-syn region nixAttributeDefinition matchgroup=nixInherit start="\<inherit\>" matchgroup=NONE end=";" contained contains=nixComment,nixInheritAttributeScope,nixAttribute
+syn region nixInheritAttributeScope start="(" end=")" contained contains=nixComment,nixAttributeDot
+syn region nixAttributeDefinition matchgroup=nixInherit start="\<inherit\>" end=";" contained contains=nixComment,nixInheritAttributeScope,nixAttribute
 
 syn region nixAttributeSet start="{" end="}" contains=nixComment,nixAttributeDefinition
 
@@ -112,7 +115,7 @@ syn region nixWithExpr matchgroup=nixWithExprKeyword start="\<with\>" matchgroup
 
 syn region nixAssertExpr matchgroup=nixAssertKeyword start="\<assert\>" matchgroup=NONE end=";" contains=@nixExpr
 
-syn cluster nixExpr contains=nixBoolean,nixNull,nixOperator,nixParen,nixInteger,nixConditional,nixBuiltin,nixSimpleBuiltin,nixComment,nixFunctionCall,nixFunctionArgument,nixSimpleFunctionArgument,nixPath,nixHomePath,nixSearchPathRef,nixURI,nixAttributeSet,nixList,nixSimpleString,nixString,nixLetExpr,nixIfExpr,nixWithExpr,nixAssertExpr
+syn cluster nixExpr contains=nixBoolean,nixNull,nixOperator,nixParen,nixInteger,nixRecKeyword,nixConditional,nixBuiltin,nixSimpleBuiltin,nixComment,nixFunctionCall,nixFunctionArgument,nixSimpleFunctionArgument,nixPath,nixHomePath,nixSearchPathRef,nixURI,nixAttributeSet,nixList,nixSimpleString,nixString,nixLetExpr,nixIfExpr,nixWithExpr,nixAssertExpr
 
 " These definitions override @nixExpr and have to come afterwards:
 

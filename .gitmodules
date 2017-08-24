@@ -52,3 +52,48 @@
 [submodule "config/sublime-text-3/Packages/Docker"]
 	path = config/sublime-text-3/Packages/Docker
 	url = https://github.com/asbjornenge/Docker.tmbundle
+[submodule "vim/pack/default-plugins/start/vim-nix"]
+	path = vim/pack/default-plugins/start/vim-nix
+	url = https://github.com/LnL7/vim-nix
+[submodule "vim/pack/default-plugins/start/vim-go"]
+	path = vim/pack/default-plugins/start/vim-go
+	url = https://github.com/fatih/vim-go
+[submodule "vim/pack/default-plugins/start/nerdcommenter"]
+	path = vim/pack/default-plugins/start/nerdcommenter
+	url = https://github.com/scrooloose/nerdcommenter
+[submodule "vim/pack/default-plugins/start/vim-fugitive"]
+	path = vim/pack/default-plugins/start/vim-fugitive
+	url = https://github.com/tpope/vim-fugitive
+[submodule "vim/pack/default-plugins/start/nerdtree"]
+	path = vim/pack/default-plugins/start/nerdtree
+	url = https://github.com/scrooloose/nerdtree
+[submodule "vim/pack/default-plugins/start/vim-surround"]
+	path = vim/pack/default-plugins/start/vim-surround
+	url = https://github.com/tpope/vim-surround
+[submodule "vim/pack/default-plugins/start/tagbar"]
+	path = vim/pack/default-plugins/start/tagbar
+	url = https://github.com/majutsushi/tagbar
+[submodule "vim/pack/default-plugins/start/vim-gitgutter"]
+	path = vim/pack/default-plugins/start/vim-gitgutter
+	url = https://github.com/airblade/vim-gitgutter
+[submodule "vim/pack/default-plugins/start/tabular"]
+	path = vim/pack/default-plugins/start/tabular
+	url = https://github.com/godlygeek/tabular
+[submodule "vim/pack/default-plugins/start/vim-multiple-cursors"]
+	path = vim/pack/default-plugins/start/vim-multiple-cursors
+	url = https://github.com/terryma/vim-multiple-cursors
+[submodule "vim/pack/default-plugins/start/editorconfig-vim"]
+	path = vim/pack/default-plugins/start/editorconfig-vim
+	url = https://github.com/editorconfig/editorconfig-vim
+[submodule "vim/pack/default-plugins/start/gv.vim"]
+	path = vim/pack/default-plugins/start/gv.vim
+	url = https://github.com/junegunn/gv.vim
+[submodule "vim/pack/default-plugins/start/vimux"]
+	path = vim/pack/default-plugins/start/vimux
+	url = https://github.com/benmills/vimux
+[submodule "vim/pack/default-plugins/start/vim-airline"]
+	path = vim/pack/default-plugins/start/vim-airline
+	url = https://github.com/vim-airline/vim-airline
+[submodule "vim/pack/default-plugins/start/vim-airline-themes"]
+	path = vim/pack/default-plugins/start/vim-airline-themes
+	url = https://github.com/vim-airline/vim-airline-themes

@@ -18,6 +18,9 @@ nnoremap <leader>w :silent !xdg-open <C-R>=escape("<C-R><C-F>", "#?&;\|%")<CR><C
 "
 filetype plugin indent on
 
+packloadall
+set laststatus=2
+
 " Indenation (tab)
 set tabstop=2 softtabstop=0 expandtab shiftwidth=2 smarttab
 
