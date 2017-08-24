@@ -41,7 +41,7 @@ set title
 " Restore previous title when exiting Vim
 set titleold=
 set scrolloff=3
-let g:airline_theme='kalisi'
+let g:airline_theme='murmur'
 
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start

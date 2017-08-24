@@ -73,18 +73,12 @@
 [submodule "vim/pack/default-plugins/start/tagbar"]
 	path = vim/pack/default-plugins/start/tagbar
 	url = https://github.com/majutsushi/tagbar
-[submodule "vim/pack/default-plugins/start/vim-gitgutter"]
-	path = vim/pack/default-plugins/start/vim-gitgutter
-	url = https://github.com/airblade/vim-gitgutter
 [submodule "vim/pack/default-plugins/start/tabular"]
 	path = vim/pack/default-plugins/start/tabular
 	url = https://github.com/godlygeek/tabular
 [submodule "vim/pack/default-plugins/start/vim-multiple-cursors"]
 	path = vim/pack/default-plugins/start/vim-multiple-cursors
 	url = https://github.com/terryma/vim-multiple-cursors
-[submodule "vim/pack/default-plugins/start/editorconfig-vim"]
-	path = vim/pack/default-plugins/start/editorconfig-vim
-	url = https://github.com/editorconfig/editorconfig-vim
 [submodule "vim/pack/default-plugins/start/gv.vim"]
 	path = vim/pack/default-plugins/start/gv.vim
 	url = https://github.com/junegunn/gv.vim
@@ -97,3 +91,6 @@
 [submodule "vim/pack/default-plugins/start/vim-airline-themes"]
 	path = vim/pack/default-plugins/start/vim-airline-themes
 	url = https://github.com/vim-airline/vim-airline-themes
+[submodule "vim/pack/default-plugins/start/vim-signify"]
+	path = vim/pack/default-plugins/start/vim-signify
+	url = https://github.com/mhinz/vim-signify
