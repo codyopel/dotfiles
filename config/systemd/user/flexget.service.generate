@@ -1,0 +1,17 @@
+[Unit]
+Description=Flexget Daemon
+After=network.target
+
+[Service]
+Type=simple
+User=%i
+Group=%i
+UMask=000
+WorkingDirectory=@{XDG_CONFIG_HOME}@/flexget
+ExecStart=@(type -P flexget)@ daemon start
+ExecStop=@(type -P flexget)@ daemon stop
+ExecReload=@(type -P flexget)@ daemon reload
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
