@@ -1,0 +1,23 @@
+series:
+  television-list:
+    - "Ugly American"
+    - "Umbre"
+    - "Unbreakable Kimmy Schmidt"
+    - "Uncle"
+    - "Undateable (2014)":
+        set:
+          tvdb_id: 269618
+    - "Under the Mountain"
+    - "Underbelly"
+    - "Undercover"
+    - "Underground":
+        set:
+          tvdb_id: 300929
+    - "The Undertaker"
+    - "Unfabulous"
+    - "Unforgotten"
+    - "Unsend"
+    - "Up All Night"
+    - "Upper Middle Bogan"
+    - "Utopia"
+    - "Utopia: In search of the Dream"

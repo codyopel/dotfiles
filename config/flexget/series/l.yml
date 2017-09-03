@@ -1,0 +1,46 @@
+###
+
+series:
+  television-list:
+    - "The Last Man On Earth"
+    - "Last Man Standing (2011)":
+        set:
+          tvdb_id: 248834
+    - "The Last Ship"
+    - "The Last Tycoon":
+        set:
+          tvdb_id: 315364
+    - "Law and Order: SVU":
+        alternate_name:
+          - "Law and Order Special Victims Unit"
+        set:
+          tvdb_id: 75692
+    - "Law and Order: True Crime"
+    - "The Legend of Master Legend"
+    - "Legends of Tomorrow":
+        alternate_name:
+          - "DC's Legends of Tomorrow"
+        set:
+          tvdb_id: 295760
+    - "Legion":
+        set:
+          tvdb_id: 320724
+    - "Lethal Weapon":
+        set:
+          tvdb_id: 311790
+    - "The Librarians (2014)":
+        alternate_name:
+          - "Библиотекари /The Librarians"  # Russian
+        set:
+          tvdb_id: 281709
+    - "Life in Pieces":
+        set:
+          tvdb_id: 295778
+    - "Lion Kingdom"
+    - "The Lion Guard"
+    - "Lopez":
+        set:
+          tvdb_id: 308734
+    - "Lucifer":
+        set:
+          tvdb_id: 295685

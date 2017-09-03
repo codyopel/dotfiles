@@ -1,0 +1,5 @@
+series:
+  television-list:
+    - "8 Simple Rules":
+        set:
+          tvdb_id: 78461

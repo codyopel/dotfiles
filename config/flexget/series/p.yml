@@ -1,0 +1,19 @@
+###
+
+series:
+  television-list:
+    - "The Path"
+    - "Patriot"
+    - "Penny Dreadful"
+    - "People of Earth"
+    - "Power"
+    - "Power Rangers"
+    - "Powerless"
+    - "The Powerpuff Girls 2016"
+    - "The Pretender"
+    - "Pretty Little Liars"
+    - "Prime Suspect 1973"
+    - "Pulse":
+        alternate_name:
+          - "Pulse AU"
+    - "Pure"

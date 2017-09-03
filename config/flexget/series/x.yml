@@ -1,0 +1,11 @@
+series:
+  television-list:
+    - "X Company":
+        set:
+          tvdb_id: 289965
+    - "The X-Files":
+        set:
+          tvdb_id: 77398
+    - "Xena: Warrior Princess":
+        set:
+          tvdb_id: 77799

@@ -1,0 +1,40 @@
+###
+
+series:
+  television-list:
+    - "MacGyver":
+        set:
+          tvdb_id: 77847
+    - "MacGyver (2016)":
+        set:
+          tvdb_id: 311902
+    - "Mad Men":
+        set:
+          tvdb_id: 80337
+    - "The Man in the High Castle":
+        set:
+          tvdb_id: 295829
+    - "Making History (2017)":
+        set:
+          tvdb_id: 311833
+    - "Major Crimes"
+    - "Marlon"
+    - "Mary Kills People"
+    - "The Magicians"
+    - "The Marvelous Mrs. Maisel"
+    - "Marvels Agents of S H I E L D"
+    - "Masters of Sex"
+    - "Me, Myself & I"
+    - "Metropolis"
+    - "The Mick"
+    - "The Middle"
+    - "The Mindy Project"
+    - "Misfit Garage"
+    - "The Missing"
+    - "The Mist"
+    - "Modern Family"
+    - "Mom"
+    - "A Mothers Son"
+    - "Mr. Mercedes"
+    - "Mr Robot"
+    - "Mysticons"

@@ -1,0 +1,19 @@
+###
+
+series:
+  television-list:
+    - "Naked SNCTM"
+    - "Narcos"
+    - "Nashville (2012)"
+    - "Natural World"
+    - "No Ordinary Family"
+    - "NCIS"
+    - "NCIS: New Orleans":
+        alternate_name:
+          - "Морская полиция: Новый Орлеан"  # Russian
+    - "New Girl"
+    - "Newtons Law"
+    - "The Night Shift"
+    - "No Tomorrow"
+    - "Nobility"
+    - "NOVA"

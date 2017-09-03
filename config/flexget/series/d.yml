@@ -1,0 +1,122 @@
+series:
+  television-list:
+    - "Da Ali G Show"
+    - "Dallas"
+    - "Damien"
+    - "Danger 5"
+    - "Dangerous Earth"
+    - "Danis Castle"
+    - "Daredevil"
+    - "Dark Matter":
+        set:
+          tvdb_id: 292174
+    - "Dark Matters: Twisted But True"
+    - "Dark Net"
+    - "Dark Side of the Sun":
+        set:
+          tvdb_id: 163161
+    - "Darkness"
+    - "Date My Dad"
+    - "Dates"
+    - "Davey and Goliath":
+        set:
+          tvdb_id: 71261
+    - "David Attenborough's Conquest of the Skies"
+    - "Dawn of the  Croods"
+    - "Day 5"
+    - "Day Break"
+    - "The Day of the Triffids (2009)"
+    - "The Day the Universe Changed"
+    - "Day Zero"
+    - "Days of our Lives":
+        set:
+          tvdb_id: 70366
+    - "Dead Like Me"
+    - "Dead of Summer"
+    - "Deadbeat"
+    - "Deadliest Catch":
+        set:
+          tvdb_id: 78957
+    - "Deadly Suns"
+    - "Deadwood"
+    - "Dear White People"
+    - "Death Note"
+    - "Decline and Fall":
+        set:
+          tvdb_id: 322122
+    - "The Deep"
+    - "The Defenders (2010)":
+        set:
+          tvdb_id: 164521
+    - "Defiance"
+    - "The Defiant Ones"
+    - "Degrassi: Next Class"
+    - "The Deleted"
+    - "Delicious"
+    - "Delirium":
+        alternate_name:
+          - "Делириум"  # Russian
+    - "Designated Survivor":
+        set:
+          tvdb_id: 311876
+    - "Desperate Housewives"
+    - "Detectorists"
+    - "The Detour"
+    - "The Deuce"
+    - "Deutschland 83"
+    - "The Dick Van Dyke Show"
+    - "Difficult People"
+    - "Different Strokes"
+    - "Dig"
+    - "Dilbert"
+    - "Dimension 404"
+    - "Dinosaurs"
+    - "Dinotopia"
+    - "Dirk Gently's Holistic Detective Agency"
+    - "Dirty Sexy Money"
+    - "Disjointed"
+    - "Divorce":
+        set:
+          tvdb_id: 314599
+    - "Doctor Doctor"
+    - "Doctor Foster"
+    - "Doctor Who":
+        alternate_name:
+          - "Doctor Who (1963)"
+        set:
+          tvdb_id: 76107
+    - "Doctor Who (2005)":
+        set:
+          tvdb_id: 78804
+    - "Documentary Now"
+    - "Dog the Bounty Hunter"
+    - "Dollhouse"
+    - "Dominion"
+    - "Don't Trust the B---- in Apartment 23":
+        set:
+          tvdb_id: 248812
+    - "Doubt":
+        set:
+          tvdb_id: 311968
+    - "Dow Hour of Great Mysteries"
+    - "Downtown Abbey":
+        alternate_name:
+          - "Аббатство Даунтон"  # Russian
+        set:
+          tvdb_id: 193131
+    - "Downward Dog"
+    - "Dr Katz Professional Therapist"
+    - "Dr Vegas"
+    - "Dracula"
+    - "Dragon Ball Z"
+    - "Dragons":
+        alternate_name:
+          - "Dragons: Defenders of Berk"
+          - "Dreamworks Dragons"
+    - "Drawn Together"
+    - "Dream Corp"
+    - "The Driver"
+    - "Drop the Dead Donkey"
+    - "Duck Dynasty"
+    - "Ducktales"
+    - "Ducktales (2017)"

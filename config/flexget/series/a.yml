@@ -1,0 +1,117 @@
+series:
+  television-list:
+    - "The A Team"
+    - "Abandoned Engineering"
+    - "Accidentally on Purpose"
+    - "According to Jim"
+    - "Accused"
+    - "Ackley Bridge"
+    - "Adventure Time":
+        set:
+          tvdb_id: 152831
+    - "The Adventures of Jimmy Neutron Boy Genius"
+    - "The Adventures of Tom Sawyer"
+    - "Aeon Flux"
+    - "Africa"
+    - "Africa's Deadliest":
+        set:
+          tvdb_id: 269733
+    - "Africa's Hunters":
+        set:
+          tvdb_id: 324407
+    - "Aftermash"
+    - "Aftermath 2016":
+        set:
+          tvdb_id: 315179
+    - "Agatha Christies Poirot"
+    - "Agent X":
+        set:
+          tvdb_id: 291517
+    - "Agents of Shield":
+        alternate_name:
+          - "Marvel's Agents of Shield"
+    - "Akil: The Fugitive Hunter"
+    - "ALF"
+    - "The Alfred Hitchcock Hour"
+    - "Alfred Hitchcock Presents"
+    - "Alias"
+    - "Alias Grace"
+    - "Alien Nation"
+    - "All Hail King Julien"
+    - "Almost Human"
+    - "Alpha House"
+    - "The Amanda Show"
+    - "The Amazing World of Gumball"
+    - "Amazon"
+    - "Ambulance"
+    - "American Crime Story"
+    - "American Dad!":
+        alternate_name:
+          - "American Dad"
+        set:
+          tvdb_id: 73141
+    - "American Gods"
+    - "American Gothic"
+    - "American Horror Story":
+        set:
+          tvdb_id: 250487
+    - "American Housewife":
+        set:
+          tvdb_id: 253478
+    - "American Playboy: The Hugh Hefner Story"
+    - "American Restoration"
+    - "The American Revolution"
+    - "American Ripper"
+    - "American Vandal"
+    - "The American West"
+    - "The Americans":
+        set:
+          tvdb_id: 261690
+    - "Americarna"
+    - "And Then There Were None"
+    - "Andromeda"
+    - "Andy Griffith"
+    - "Andy Milonakis"
+    - "Angel"
+    - "Anger Management"
+    - "The Angry Beavers"
+    - "Animal Kingdom 2016":
+        set:
+          tvdb_id: 304262
+    - "Animals":
+        set:
+          tvdb_id: 303586
+    - "Anne":
+        set:
+          tvdb_id: 322971
+    - "Ant Man"
+    - "APB"
+    - "Apollo Gauntlet"
+    - "Apparitions"
+    - "Aqua Teen Hunger Force"
+    - "Aquarius"
+    - "Archer":
+        set:
+          tvdb_id: 110381
+    - "Are You Afraid of the Dark"
+    - "Arn: The Knight Templar"
+    - "Around the World in 80 Gardens"
+    - "The Arrangement (2017)":
+        set:
+          tvdb_id: 306915
+    - "Arrow":
+        set:
+          tvdb_id: 257655
+    - "Arthur"
+    - "Ascension"
+    - "Ash vs Evil Dead":
+        set:
+          tvdb_id: 296295
+    - "Ask this Old House"
+    - "Astronauts: Do You Have What it Takes"
+    - "Atlanta"
+    - "Atlantis"
+    - "Atypical"
+    - "Avatar: The Last Airbender"
+    - "Avengers"
+    - "Awake"

@@ -1,0 +1,31 @@
+###
+
+series:
+  television-list:
+    - "V (2009)":
+        set:
+          tvdb_id: 94971
+    - "Valor"
+    - "The Vampire Diaries"
+    - "Van Helsing"
+    - "Veep"
+    - "Venture"
+    - "The Venture Brothers"
+    - "Vera"
+    - "Veritas: The Quest"
+    - "Veronica Mars"
+    - "Versailles"
+    - "Victoria"
+    - "Victorian Slum House"
+    - "Vikings":
+        alternate_name:
+          - "Викинги"  # Russian
+        set:
+          tvdb_id: 260449
+    - "The VIP"
+    - "The Visitor"
+    - "Viva La Bam":
+        set:
+          tvdb_id: 73193
+    - "Voltron: Legendary Defender"
+    - "Voyagers"

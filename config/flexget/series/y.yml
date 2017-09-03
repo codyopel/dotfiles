@@ -1,0 +1,41 @@
+series:
+  television-list:
+    - "Year Million":
+        set:
+          tvdb_id: 328143
+    - "Yes Minister":
+        set:
+          tvdb_id: 76829
+    - "Yonderland":
+        set:
+          tvdb_id: 270668
+    - "You Are Wanted":
+        set:
+          tvdb_id: 323033
+    - "You Me Her":
+        set:
+          tvdb_id: 309130
+    - "Young and Hungry":
+        set:
+          tvdb_id: 277021
+    - "Young Hercules":
+        set:
+          tvdb_id: 75491
+    - "Young Sheldon":
+        set:
+          tvdb_id: 328724
+    - "Young Justice":
+        set:
+          tvdb_id: 192061
+    - "Younger":
+        set:
+          tvdb_id: 280706
+    - "Your Pretty Face is Going to Hell":
+        set:
+          tvdb_id: 268386
+    - "Your Worst Nightmare":
+        set:
+          tvdb_id: 286981
+    - "You're the Worst":
+        set:
+          tvdb_id: 281776

@@ -1,0 +1,14 @@
+series:
+  settings:
+    television-list:
+      assume_special: yes
+      exact: yes  # Series name must be immediately followed by season
+      identified_by: auto
+      propers: 30 days
+      quality: 360p+
+      season_packs: yes
+      specials: yes
+      target: 1080p+ remux+
+      timeframe: 4 hours
+      tracking: no  # Always upgrade all older episodes
+      upgrade: yes

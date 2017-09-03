@@ -1,0 +1,42 @@
+series:
+  television-list:
+    - "Early Edition"
+    - "Eastbound and DOwn"
+    - "Eastsiders"
+    - "Easy":
+        set:
+          tvdb_id: 314884
+    - "Ed Edd n Eddy"
+    - "The Eighties"
+    - "El Chapo"
+    - "El Marginal"
+    - "Elementary":
+        set:
+          tvdb_id: 255316
+    - "Emerald City":
+        set:
+          tvdb_id: 295779
+    - "Empire 2015":
+        set:
+          tvdb_id: 281617
+    - "The Enfield Haunting"
+    - "Entourage"
+    - "Episodes"
+    - "The Equalizer"
+    - "Escape the Night"
+    - "Eureka"
+    - "Everest Air"
+    - "Everest Rescue"
+    - "The Evermoor Chronicles"
+    - "Everwood"
+    - "Everybody Hates Chris"
+    - "Everybody Loves Raymond"
+    - "Evil Con Carne"
+    - "The Exorcist"
+    - "The Expanse":
+        set:
+          tvdb_id: 280619
+    - "Explorer"
+    - "Extinct"
+    - "Eye Candy"
+    - "Eyewitness"

@@ -1,0 +1,128 @@
+series:
+  television-list:
+    - "Call me Fitz"
+    - "Call the Midwife"
+    - "Camelot"
+    - "Can't Cope, Won't Cope"
+    - "The Cape"
+    - "Caprica"
+    - "Captain Scarlet and the Mysterons"
+    - "Captive"
+    - "Cardinal"
+    - "The Carmichael Show"
+    - "Carnivale"
+    - "Carter's Get Rich"
+    - "The Case: Book of Sherlock Holmes"
+    - "Castle"
+    - "Castlevania"
+    - "Casual"
+    - "Catastrophe (2015)"
+    - "The Catch":
+        set:
+          tvdb_id: 295696
+    - "Chance"
+    - "Channel Zero":
+        set:
+          tvdb_id: 315178
+    - "Chappelle's Show"
+    - "Chasing Classic Cars":
+        set:
+          tvdb_id: 172181
+    - "Chasing Life"
+    - "Chasing Shadows"
+    - "Chemistry"
+    - "Chemistry: A Volatile History"
+    - "Chewing Gum":
+        set:
+          tvdb_id: 301562
+    - "Chicago Fire":
+        set:
+          tvdb_id: 258541
+    - "Chicago Justice":
+        set:
+          tvdb_id: 311896
+    - "Chicago Med":
+        set:
+          tvdb_id: 295640
+    - "Chicago PD":
+        set:
+          tvdb_id: 269641
+    - "Chico and the Man"
+    - "Childhoods End"
+    - "Children of Dune"
+    - "Children of Fire Mountain"
+    - "Chillers"
+    - "Chilly Willy"
+    - "Chip n Dale: Rescue Rangers"
+    - "Chosen"
+    - "Chuck"
+    - "Citizen Khan"
+    - "Class":
+        set:
+          tvdb_id: 309893
+    - "Claws"
+    - "Clerks: The Animated Series"
+    - "Cleverman"
+    - "Clipped"
+    - "Clique":
+        set:
+          tvdb_id: 324488
+    - "Close to the Enemy":
+        set:
+          tvdb_id: 307831
+    - "Club de Cuervos"
+    - "Code Black":
+        set:
+          tvdb_id: 295780
+    - "Coast: New Zealand"
+    - "Colony":
+        set:
+          tvdb_id: 284210
+    - "Come Fly With Me"
+    - "Community"
+    - "Complete Savages"
+    - "Con Man"
+    - "Containment":
+        set:
+          tvdb_id: 295767
+    - "Continent 7: Antarctica"
+    - "Continuum"
+    - "Conviction"
+    - "Covert Affairs":
+        set:
+          tvdb_id: 104281
+    - "Cow and Chicken"
+    - "Crackanory"
+    - "Crank Yankers"
+    - "Crashing"
+    - "Crashing (2017)":
+        set:
+          tvdb_id: 319153
+    - "Crazy Ex-Girlfriend":
+        set:
+          tvdb_id: 295777
+    - "Crazyhead":
+        set:
+          tvdb_id: 318000
+    - "Criminal Minds":
+        set:
+          tvdb_id: 75710
+    - "Criminal Minds: Beyond Borders":
+        set:
+          tvdb_id: 296654
+    - "Crisis in Six Scenes":
+        set:
+          tvdb_id: 315314
+    - "Crossbones"
+    - "The Crow: Stairway to Heaven"
+    - "The Crown":
+        set:
+          tvdb_id: 305574
+    - "Crunch Time":
+        set:
+          tvdb_id: 315963
+    - "Crusoe"
+    - "The Cul de Sac"
+    - "Curb Your Enthusiasm"
+    - "Curious George"
+    - "Cyberwar"

@@ -1,0 +1,64 @@
+###
+
+series:
+  television-list:
+    - "Galapagos 2017":
+        set:
+          tvdb_id: 326252
+    - "Game of Thrones":
+        set:
+          tvdb_id: 121361
+    - "Gang Related":
+        alternate_name:
+          - "Преступные связи"  # Russian
+        set:
+          tvdb_id: 269590
+    - "George Lopez":
+        set:
+          tvdb_id: 76713
+    - "Get Krackn"
+    - "Get Shorty"
+    - "Ghosted"
+    - "Girls":
+        set:
+          tvdb_id: 220411
+    - "Glitch"
+    - "Goldbergs (2013)":
+        set:
+          tvdb_id: 269653
+    - "Goliath":
+        set:
+          tvdb_id: 315321
+    - "Gomorrah"
+    - "Good Behavior"
+    - "Good Bones"
+    - "The Good Fight":
+        set:
+          tvdb_id: 320766
+    - "The Good Place"
+    # - "The Gorburger Show":
+    #     set:
+    #       tvdb_id: 276567
+    - "The Gorburger Show":  # (2017)":
+        set:
+          tvdb_id: 326701
+    - "Gotham":
+        set:
+          tvdb_id: 274431
+    - "The Grand Tour":
+        set:
+          tvdb_id: 314087
+    - "Gravity Falls"
+    - "The Great Indoors":
+        set:
+          tvdb_id: 311948
+    - "Greenleaf":
+        set:
+          tvdb_id: 306391
+    - "Grey's Anatomy":
+        set:
+          tvdb_id: 73762
+    - "Grimm":
+        set:
+          tvdb_id: 248736
+    - "Growing Up Gracefully"

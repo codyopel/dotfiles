@@ -1,0 +1,30 @@
+series:
+  television-list:
+    - "Z Nation":
+        set:
+          tvdb_id: 280494
+    - "Z: The Beginning of Everything":
+        set:
+          tvdb_id: 313880
+    - "The Z Virus":
+        set:
+          tvdb_id: 329798
+    - "Zapped!":
+        set:
+          tvdb_id: 317169
+    - "Zeke & Luther":
+        alternate_name:
+          - "Zeke and Luther"
+        set:
+          tvdb_id: 126891
+    - "Zoboomafoo":
+        set:
+          tvdb_id: 78794
+    - "Zoo":
+        set:
+          tvdb_id: 283318
+    - "The Zoo (2017)":
+        from_group:
+          - DIMENSION
+        set:
+          tvdb_id: 323697

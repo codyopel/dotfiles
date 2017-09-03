@@ -1,0 +1,104 @@
+###
+
+series:
+  television-list:
+    - "Wacky Races":
+        set:
+          tvdb_id: 76261
+    - "The Walking Dead":
+        set:
+          tvdb_id: 153021
+    - "Wallander"
+    - "Walter"
+    - "Wanted"
+    - "Warehouse 13":
+        set:
+          tvdb_id: 84676
+    - "The Warriors"
+    - "Wasted 2016":
+        set:
+          tvdb_id: 314650
+    - "Wasteland 2016":
+        set:
+          tvdb_id: 318387
+    - "Wayward Pines":
+        set:
+          tvdb_id: 269750
+    - "Weediquette"
+    - "The Weekly with Charlie Pickering"
+    - "Weissensee"
+    - "Wentworth"
+    - "The West Wing"
+    - "Westside"
+    - "Westworld":
+        set:
+          tvdb_id: 296762
+    - "Wet Hot American Summer: 10 Years Later"
+    - "Wet Hot American Summer: First Day of Camp"
+    - "Wham Bam Thank You Maam"
+    - "The Whispers":
+        set:
+          tvdb_id: 281536
+    - "What Exit"
+    - "What Remains"
+    - "When Calls the Heart"
+    - "Where on Earth is Carmen Sandiego"
+    - "White Gold"
+    - "The White Princess"
+    - "White Rabbit Project":
+        set:
+          tvdb_id: 316581
+    - "Whose line is it Anyway":
+        alternate_name:
+          - "Whose line is it Anyway US"
+    - "Wild Amazon"
+    - "Wild New Zealand"
+    - "Wild Things with Dominic Monaghan"
+    - "Wild UK"
+    - "The Wild Wild West"
+    - "Wildboyz"
+    - "Wildest Europe"
+    - "Wilfred"
+    - "Will"
+    - "The Windsors"
+    - "The Wire"
+    - "Wisdom of the Crowd"
+    - "Witless"
+    - "Wizards of Waverly Place"
+    - "Wolf Creek"
+    - "Wolf Hall"
+    - "Wolf Lake"
+    - "Wolfblood":
+        set:
+          tvdb_id: 262554
+    - "Wonder Woman"
+    - "Wonders of the Solar System":
+        set:
+          tvdb_id: 147071
+    - "Workaholics":
+        set:
+          tvdb_id: 211751
+    - "Workin Moms"
+    - "Working Girls in Bed"
+    - "The World at War":
+        set:
+          tvdb_id: 79309
+    #- "World War II"  # ???
+    - "World without End":
+        set:
+          tvdb_id: 261656
+    - "The Worst Witch":  # 1998
+        set:
+          tvdb_id: 75431
+    - "The Worst Witch 2017":
+        set:
+          tvdb_id: 321884
+    - "Wrecked 2016":
+        set:
+          tvdb_id: 310555
+    - "The Wrong Girl":
+        set:
+          tvdb_id: 316772
+    - "Wynonna Earp":
+        set:
+          tvdb_id: 305582

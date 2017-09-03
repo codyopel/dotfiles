@@ -1,0 +1,28 @@
+###
+
+series:
+  television-list:
+    - "Family Guy":
+        set:
+          tvdb_id: 75978
+    - "Fargo":
+        set:
+          tvdb_id: 269613
+    - "Fear the Walking Dead"
+    - "FEUD":
+        set:
+          tvdb_id: 322466
+    - "The Flash (2014)":
+        set:
+          tvdb_id: 279121
+    - "Fluffy's Food Adventures"
+    - "The Fosters"
+    - "Frequency":
+        set:
+          tvdb_id: 311958
+    - "Fresh Off the Boat":
+        set:
+          tvdb_id: 281618
+    - "From Dusk Till Dawn: The Series"
+    - "Frontier (2016)"
+    - "Fuller House"

@@ -1,0 +1,19 @@
+###
+
+series:
+  television-list:
+    - "Ill Behaviour"
+    - "I'm Sorry"
+    - "Impossible Engineering"
+    - "Imposters":
+        set:
+          tvdb_id: 320520
+    - "Incorporated":
+        set:
+          tvdb_id: 315177
+    - "Inhumans"
+    - "Insecure"
+    - "Inside Balmoral"
+    - "Into the Badlands":
+        set:
+          tvdb_id: 289079

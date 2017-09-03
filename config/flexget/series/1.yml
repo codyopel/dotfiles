@@ -1,0 +1,23 @@
+series:
+  television-list:
+    - "10 Things I Hate About You":
+        set:
+          tvdb_id: 95761
+    - "11.22.63":
+        set:
+          tvdb_id: 301824
+    - "12 Monkeys":
+        set:
+          tvdb_id: 272644
+    - "13 Reasons Why":
+        set:
+          tvdb_id: 323168
+    - "19-2 (2014)":
+        set:
+          tvdb_id: 276360
+    - "The 100":
+        set:
+          tvdb_id: 268592
+    - "1600 Penn":
+        set:
+          tvdb_id: 259016

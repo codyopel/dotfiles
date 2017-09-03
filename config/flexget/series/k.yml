@@ -1,0 +1,23 @@
+###
+
+series:
+  television-list:
+    - "K C Undercover"
+    - "Kate and Mim-Mim"
+    - "Kendra On Top"
+    - "Kevin Can Wait":
+        set:
+          tvdb_id: 311944
+    - "Khloe and Lamar"
+    - "Kicking and Screaming"
+    - "Killing Fields":
+        set:
+          tvdb_id: 304951
+    - "Killjoys":
+        begin: S03E00
+        set:
+          tvdb_id: 281534
+    - "KLEM":
+        begin: S02E00
+        set:
+          tvdb_id: 321148
