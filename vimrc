@@ -11,14 +11,16 @@ if &t_Co > 7 || has("gui_running")
   colorscheme monokai
 endif
 
+" Load plugins (.vim/pack/*/start/*/*)
+packloadall
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nnoremap <leader>w :silent !xdg-open <C-R>=escape("<C-R><C-F>", "#?&;\|%")<CR><CR>
+" Plugin settings
+let g:signify_vcs_list = [ 'git' ]
+let g:signify_realtime=1
+let g:airline_theme='murmur'
 
-"
 filetype plugin indent on
 
-packloadall
 set laststatus=2
 
 " Indenation (tab)
@@ -56,6 +58,8 @@ set ruler   " show the cursor position all the time
 set showcmd   " display incomplete commands
 set incsearch   " do incremental searching
 
+""""""""""""""""""""""""""""""""" Key binds """"""""""""""""""""""""""""""""""""
+nnoremap <leader>w :silent !xdg-open <C-R>=escape("<C-R><C-F>", "#?&;\|%")<CR><CR>
 " Don't use Ex mode, use Q for formatting
 map Q gq
 
