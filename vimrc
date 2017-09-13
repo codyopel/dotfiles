@@ -1,9 +1,6 @@
 " Disable vi compatibility
 set nocompatible
 
-" Display line numbers
-set number
-
 " Enable syntax highlighting
 if &t_Co > 7 || has("gui_running")
   syntax on
@@ -25,10 +22,10 @@ set laststatus=2
 
 " Indenation (tab)
 set tabstop=2 softtabstop=0 expandtab shiftwidth=2 smarttab
-
-set cursorline  " highligh current line
-set colorcolumn=81
-"set background=dark
+set number " Line numbers
+set cursorline  " Highligh current line
+set colorcolumn=81  " Line length ruler
+"set background=none " Don't set to use terminals background
 set nobackup
 set nowb
 set noswapfile
@@ -39,11 +36,9 @@ set ffs=unix,dos,mac
 set encoding=utf8
 set wildmenu
 set wildmode=list:longest
-set title
-" Restore previous title when exiting Vim
-set titleold=
+set title  " Set terminal title
+set titleold=  " Restore previous title when exiting Vim
 set scrolloff=3
-let g:airline_theme='murmur'
 
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
