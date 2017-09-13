@@ -5,12 +5,16 @@ series:
     - "Halt and Catch Fire":
         set:
           tvdb_id: 271910
+    - "Hamilton's Pharmacopeia"
     - "Hap and Leonard":
         set:
           tvdb_id: 305687
     - "Hawaii Five-0 (2010)":
         set:
           tvdb_id: 164541
+    - "The Heart, She Holler"
+    - "Heros Reborn"
+    - "The Hitch Hiker's Guide to the Galaxy"
     - "Home from Home"
     - "Homeland":
         set:

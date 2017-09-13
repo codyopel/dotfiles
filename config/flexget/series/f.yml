@@ -12,6 +12,8 @@ series:
     - "FEUD":
         set:
           tvdb_id: 322466
+    - "Fillmore"
+    - "Filty Rich"
     - "The Flash (2014)":
         set:
           tvdb_id: 279121

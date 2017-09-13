@@ -1,3 +1,7 @@
 series:
   television-list:
+    - "The 3 Stooges"
+    - "3rd Rock From the Sun":
+        alternate_name:
+          - "Third Rock From the Sun"
     - "30 Rock"

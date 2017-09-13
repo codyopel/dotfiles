@@ -3,9 +3,11 @@ series:
     - "2 Broke Girls":
         set:
           tvdb_id: 248741
+    - "21 Jump Street"
     - "21 Thunder":
         set:
           tvdb_id: 329615
+    - "24"
     - "24: Legacy":
         set:
           tvdb_id: 311787

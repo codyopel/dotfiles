@@ -1,19 +1,46 @@
-###
-
 series:
   television-list:
+    - "I am Weasel"
+    - "I Dream of Jeannie"
+    - "I Love Dick"
+    - "I Love Lucy"
+    - "I Shouldn't Be Alive"
+    - "iCarly"
+    - "Ice"
+    - "Idiotsitter"
     - "Ill Behaviour"
+    - "I'm Dying Up Here"
     - "I'm Sorry"
+    - "Imaginary Mary"
+    - "The Immortal"
+    - "Impastor"
     - "Impossible Engineering"
     - "Imposters":
         set:
           tvdb_id: 320520
+    - "In Living Color"
+    - "In the Dark"
+    - "In the Flesh"
+    - "The Inbetweeners"
     - "Incorporated":
         set:
           tvdb_id: 315177
+    - "The Incredible Hulk"
+    - "Ingobernable"
     - "Inhumans"
     - "Insecure"
     - "Inside Balmoral"
+    - "Inspector Gadget"
+    - "Inspector George Gently"
+    - "Intelligence (2014)":
+        alternate_name:
+          - "Intelligence US"
     - "Into the Badlands":
         set:
           tvdb_id: 289079
+    - "Invader Zim"
+    - "The Invisible Man"
+    - "Iron Fist"
+    - "The IT Crowd"
+    - "It's Always Sunny in Philadelphia"
+    - "iZombie"

@@ -1,23 +1,44 @@
-###
-
 series:
   television-list:
     - "K C Undercover"
+    - "Kat and Alfie: Redwater":
+        alternate_name:
+          - "Redwater"
     - "Kate and Mim-Mim"
-    - "Kendra On Top"
+    - "Kath and Kim"
+    - "Kath and Kim (2008)"
+    - "The Keepers"
+    - "The Keith and Paddy Picture Show"
+    - "Kenan and Kel"
+    - "Kenny vs. Spenny"
     - "Kevin Can Wait":
         set:
           tvdb_id: 311944
-    - "Khloe and Lamar"
-    - "Kicking and Screaming"
+    - "Kevin Spencer"
+    - "The Kill Point"
+    - "The Killing"
     - "Killing Fields":
         set:
           tvdb_id: 304951
+    - "The Killing Season"
     - "Killjoys":
         begin: S03E00
         set:
           tvdb_id: 281534
+    - "Kim Possible"
+    - "King of the Hill"
+    - "The King of Queens"
+    - "Kingdom"
+    - "Kingdom of Plants":
+        alternate_name:
+          - "Kingdom of Plants with David Attenborough"
+    - "Kings"
     - "KLEM":
         begin: S02E00
         set:
           tvdb_id: 321148
+    - "Knight Rider"
+    - "Knight Rider (2008)"
+    - "Kong King of the Apes"
+    - "Kung Fu Panda: Legends of Awesomeness"
+    - "Kyle XY"

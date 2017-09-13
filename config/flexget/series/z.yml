@@ -20,6 +20,7 @@ series:
     - "Zoboomafoo":
         set:
           tvdb_id: 78794
+    - "Zoey 101"
     - "Zoo":
         set:
           tvdb_id: 283318
@@ -28,3 +29,4 @@ series:
           - DIMENSION
         set:
           tvdb_id: 323697
+    - "Zoom"

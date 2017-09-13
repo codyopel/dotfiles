@@ -55,6 +55,7 @@ series:
     - "Chilly Willy"
     - "Chip n Dale: Rescue Rangers"
     - "Chosen"
+    - "Chowder"
     - "Chuck"
     - "Citizen Khan"
     - "Class":
@@ -71,10 +72,11 @@ series:
         set:
           tvdb_id: 307831
     - "Club de Cuervos"
+    - "Coast: New Zealand"
     - "Code Black":
         set:
           tvdb_id: 295780
-    - "Coast: New Zealand"
+    - "Cold Feet"
     - "Colony":
         set:
           tvdb_id: 284210

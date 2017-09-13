@@ -3,6 +3,7 @@ series:
     - "X Company":
         set:
           tvdb_id: 289965
+    - "X-Men"
     - "The X-Files":
         set:
           tvdb_id: 77398

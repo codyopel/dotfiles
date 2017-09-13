@@ -11,6 +11,8 @@ series:
     - "Mad Men":
         set:
           tvdb_id: 80337
+    - "MADtv"
+      #regexp: "^madtv?"
     - "The Man in the High Castle":
         set:
           tvdb_id: 295829
@@ -25,9 +27,11 @@ series:
     - "Marvels Agents of S H I E L D"
     - "Masters of Sex"
     - "Me, Myself & I"
+    - "MECH-X4"
     - "Metropolis"
     - "The Mick"
     - "The Middle"
+    - "Midnight, Texas"
     - "The Mindy Project"
     - "Misfit Garage"
     - "The Missing"
@@ -35,6 +39,7 @@ series:
     - "Modern Family"
     - "Mom"
     - "A Mothers Son"
+    - "Mountain: Life at the Extreme"
     - "Mr. Mercedes"
     - "Mr Robot"
     - "Mysticons"

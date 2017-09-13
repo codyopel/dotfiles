@@ -4,6 +4,7 @@ series:
   television-list:
     - "The Saboteurs"
     - "Sabrina: The Teenage Witch"
+    - "Safe House"
     - "Salem"
     - "Salvation"
     - "Samurai Jack"  # 2001
@@ -50,14 +51,19 @@ series:
     - "Sleepy Hollow"
     - "The Sniffer"
     - "Snowfall"
-    - "So Sharp"
     - "Somewhere Between"
     - "The Son"
     - "The Sopranos"
     - "South of Hell"
     - "South Park"
+    - "South Riding"
+    - "Space's Deepest Secrets"
     - "Speechless"
+    - "Spider-Man":
+        alternate_name:
+          - "Marvel's Spider-Man"
     - "Spongebob Squarepants"
+    - "Spotless"
     - "Squidbillies"
     - "Stan Against Evil"
     - "Stan Lees Lucky Man"
@@ -79,5 +85,6 @@ series:
     - "Supermax"
     - "Supernatural"
     - "Superstore"
+    - "Survivors Remorse"
     - "Sweet Vicious"
     - "Switched at Birth"

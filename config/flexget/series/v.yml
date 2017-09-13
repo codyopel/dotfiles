@@ -17,11 +17,13 @@ series:
     - "Versailles"
     - "Victoria"
     - "Victorian Slum House"
+    - "Victorious"
     - "Vikings":
         alternate_name:
           - "Викинги"  # Russian
         set:
           tvdb_id: 260449
+    - "The Village"
     - "The VIP"
     - "The Visitor"
     - "Viva La Bam":

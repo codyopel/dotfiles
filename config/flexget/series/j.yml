@@ -1,8 +1,27 @@
-###
-
 series:
   television-list:
+    - "Jackass"
+    - "Jackie Chan Adventures"
+    - "James May: The Reassembler"
+    - "James Mays Man Lab"
+    - "Jamestown"
+    - "The Jamie Foxx Show"
     - "Jane the Virign"
     - "Jay Leno's Garage (2015)":
         set:
           tvdb_id: 301592
+    - "The Jeffersons"
+    - "Jekyll and Hyde"
+    - "Jeremiah"
+    - "Jericho"
+    - "Jericho (2016)"
+    - "The Jetsons"
+    - "John Adams"
+    - "John Doe"
+    - "Johnny Bravo"
+    - "Johnny Test"
+    - "Jonathan Strange and Mr. Norrell"
+    - "Journeyman"
+    - "Justice"
+    - "Justuce League Action"
+    - "Justified"

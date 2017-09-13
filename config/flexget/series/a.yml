@@ -6,7 +6,10 @@ series:
     - "According to Jim"
     - "Accused"
     - "Ackley Bridge"
+    - "Adam Ruins Everything"
     - "Adventure Time":
+        alternate_name:
+          - "Adventure Time with Finn and Jake"
         set:
           tvdb_id: 152831
     - "The Adventures of Jimmy Neutron Boy Genius"
@@ -38,12 +41,12 @@ series:
     - "Alias Grace"
     - "Alien Nation"
     - "All Hail King Julien"
+    - "All Grown Up"
     - "Almost Human"
     - "Alpha House"
     - "The Amanda Show"
     - "The Amazing World of Gumball"
     - "Amazon"
-    - "Ambulance"
     - "American Crime Story"
     - "American Dad!":
         alternate_name:
@@ -103,11 +106,12 @@ series:
         set:
           tvdb_id: 257655
     - "Arthur"
+    - "As Told By Ginger"
     - "Ascension"
     - "Ash vs Evil Dead":
         set:
           tvdb_id: 296295
-    - "Ask this Old House"
+    - "Ask This Old House"
     - "Astronauts: Do You Have What it Takes"
     - "Atlanta"
     - "Atlantis"

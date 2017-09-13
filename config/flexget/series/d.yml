@@ -64,9 +64,10 @@ series:
     - "The Detour"
     - "The Deuce"
     - "Deutschland 83"
+    - "Dice"
     - "The Dick Van Dyke Show"
     - "Difficult People"
-    - "Different Strokes"
+    - "Diff'rent Strokes"
     - "Dig"
     - "Dilbert"
     - "Dimension 404"
@@ -98,8 +99,9 @@ series:
     - "Doubt":
         set:
           tvdb_id: 311968
+    - "Doug"
     - "Dow Hour of Great Mysteries"
-    - "Downtown Abbey":
+    - "Downton Abbey":
         alternate_name:
           - "Аббатство Даунтон"  # Russian
         set:

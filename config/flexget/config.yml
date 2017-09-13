@@ -81,9 +81,9 @@ templates:
       series/4.yml,
       #series/5.yml,
       series/6.yml,
-      #series/7.yml,
+      series/7.yml,
       series/8.yml,
-      #series/9.yml,
+      series/9.yml,
       series/a.yml,
       series/b.yml,
       series/c.yml,
@@ -373,6 +373,17 @@ tasks:
   # This caches all rss feeds, then entries are pulled from the cache.  Allows
   # for a backlog when adding new series to track that may have been previously
   # announced.
+
+  rss-alpharatio:
+    archive: [ alpharatio ]
+    make_rss:
+      file: ~/.config/flexget/rss-alpharatio.rss
+      days: -1
+    rss:
+      url: 'https://alpharatio.cc/feeds.php?feed=torrents_notify_{?alpharatio.filterid?}_{?alpharatio.passkey?}&user={?alpharatio.user?}&auth={?alpharatio.auth?}&passkey={?alpharatio.passkey?}&authkey={?alpharatio.authkey?}&name={?alpharatio.name?}'
+    template: [
+      rss-feed
+    ]
 
   rss-avistaz:
     archive: [ avistaz ]

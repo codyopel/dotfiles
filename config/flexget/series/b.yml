@@ -2,6 +2,7 @@ series:
   television-list:
     - "Baby Daddy"
     - "Babylon 5"
+    - "Back"
     - "Back to the Future"
     - "Bad Education":
         set:
@@ -34,6 +35,7 @@ series:
     - "Battlestar Galactica 2004"
     - "Baywatch"
     # - "The BBC at War"
+    - "Bear Grylls: Survival School"
     - "Beast Wars"
     - "Beat Bugs"
     - "Beauty and the Beast 2012"
@@ -60,6 +62,7 @@ series:
           - "Лучше звоните Солу"  # Russian
         set:
           tvdb_id: 273181
+    - "Better Things"
     - "Between"
     - "Between Two Ferns with Zach Galifianakis"
     - "Beyond":
@@ -101,6 +104,7 @@ series:
     - "The Blacklist: Redemption":
         set:
           tvdb_id: 311903
+    - "Blackstone"
     - "Blackwork"
     - "Blade: The Series"
     - "Blaze and the Monster Machines"
@@ -147,12 +151,13 @@ series:
           tvdb_id: 266398
     - "Brockmire"
     - "Broken"
-    - "Broklyn Nine-Nine"
+    - "Brooklyn Nine-Nine"
     - "Buck Rogers in the 25th Century"
     - "Bucket"
     - "Budding Prospect":
         set:
           tvdb_id: 000000  # FIXME: Not yet added
+    - "Buffy the Vampire Slayer"
     - "Bull"
     - "Bullet in the Face"
     - "Buzz Lightyear of Star Command"

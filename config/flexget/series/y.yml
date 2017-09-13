@@ -37,5 +37,7 @@ series:
         set:
           tvdb_id: 286981
     - "You're the Worst":
+        alternate_name:
+          - "Youre the Worst"
         set:
           tvdb_id: 281776

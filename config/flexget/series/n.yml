@@ -2,6 +2,7 @@
 
 series:
   television-list:
+    - "Naked News"  # FIXME: need regexp
     - "Naked SNCTM"
     - "Narcos"
     - "Nashville (2012)"
@@ -16,4 +17,5 @@ series:
     - "The Night Shift"
     - "No Tomorrow"
     - "Nobility"
+    - "North and South"
     - "NOVA"

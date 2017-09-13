@@ -5,10 +5,14 @@ series:
       exact: yes  # Series name must be immediately followed by season
       identified_by: auto
       propers: 30 days
-      quality: 360p+
+      #quality: 360p+
+      qualities:
+        - 360p+
+        - 1080p+ webdl+
+        - 1080p+ remux+
       season_packs: yes
       specials: yes
-      target: 1080p+ remux+
+      #target: 1080p+ remux+
       timeframe: 4 hours
       tracking: no  # Always upgrade all older episodes
       upgrade: yes

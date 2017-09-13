@@ -7,6 +7,7 @@ series:
         set:
           tvdb_id: 314884
     - "Ed Edd n Eddy"
+    - "The Ed Sullivan Show"
     - "The Eighties"
     - "El Chapo"
     - "El Marginal"
@@ -21,10 +22,14 @@ series:
           tvdb_id: 281617
     - "The Enfield Haunting"
     - "Entourage"
+    - "Epicly Later'd"
     - "Episodes"
     - "The Equalizer"
+    - "ER"
     - "Escape the Night"
     - "Eureka"
+    - "Even Stevens"
+    - "The Event"
     - "Everest Air"
     - "Everest Rescue"
     - "The Evermoor Chronicles"
@@ -37,6 +42,7 @@ series:
         set:
           tvdb_id: 280619
     - "Explorer"
+    - "Extant"
     - "Extinct"
     - "Eye Candy"
     - "Eyewitness"

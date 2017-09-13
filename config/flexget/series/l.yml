@@ -2,8 +2,9 @@
 
 series:
   television-list:
+    - "Last Chance High"
     - "The Last Man On Earth"
-    - "Last Man Standing (2011)":
+    - "Last Man Standing":
         set:
           tvdb_id: 248834
     - "The Last Ship"
@@ -28,6 +29,7 @@ series:
     - "Lethal Weapon":
         set:
           tvdb_id: 311790
+    - "Liar"
     - "The Librarians (2014)":
         alternate_name:
           - "Библиотекари /The Librarians"  # Russian
@@ -38,6 +40,7 @@ series:
           tvdb_id: 295778
     - "Lion Kingdom"
     - "The Lion Guard"
+    - "Lloyd in Space"
     - "Lopez":
         set:
           tvdb_id: 308734
