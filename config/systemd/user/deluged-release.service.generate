@@ -1,5 +1,5 @@
 [Unit]
-Description=Deluge Daemon
+Description=Deluge Daemon (Release Version)
 After=network.target user-cache.service
 
 [Service]
@@ -9,7 +9,8 @@ ExecStart=@(type -P deluged)@ \
   --do-not-daemonize \
   --pidfile @{XDG_CACHE_HOME}@/deluge.pid \
   --config @{XDG_CONFIG_HOME}@/deluge \
-  --loglevel info
+  --loglevel info \
+  --logfile @{XDG_DATA_HOME}@/deluge/log
 Restart=on-failure
 TimeoutStopSec=300
 

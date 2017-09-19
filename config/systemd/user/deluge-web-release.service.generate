@@ -1,14 +1,13 @@
 [Unit]
-Description=Deluge Web Interface
+Description=Deluge Web Interface (Release Version)
 Requires=deluged.service
-After=network.target deluged.service user-cache.service
+After=network.target deluged-release.service user-cache.service
 
 [Service]
 Type=simple
 User=%i
 ExecStart=@(type -P deluge-web)@ \
-  --do-not-daemonize \
-  --log-level info
+  --loglevel info
 Restart=on-failure
 
 [Install]
