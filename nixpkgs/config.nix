@@ -45,7 +45,7 @@ pkgs: {
     transmission_head = self.transmission_head.override {
       useStableVersionUserAgent = true;
     };
-    #desktop = self.haskellPackages.ghcWithPackages (self : with self; [
+    #desktop = self.haskellPackages.ghcWithPackages (self: with self; [
     #  haskell-ngPackages.xdgBasedir
      # xmonad
       #yi
@@ -169,7 +169,7 @@ pkgs: {
         #icedtea8_web
         ninja
         nodejs
-        #openjdk
+        openjdk
         perl
         # FIXME: errors with python 3.6
         #python3Packages.aws-cli
@@ -203,7 +203,7 @@ pkgs: {
         aomedia
         arkive
         imagemagick
-        #gimp
+        gimp
         #guitarix
         #jack2_full
         lame
@@ -214,7 +214,7 @@ pkgs: {
         cdrtools
         ffmpeg_head
         flac
-        mediainfo
+        #mediainfo
         #mixxx
         #mkvtoolnix
         opus-tools
@@ -230,7 +230,7 @@ pkgs: {
     editor-env = self.buildEnv {
       name = "editorEnv";
       paths = with self; [
-        #libreoffice
+        atom_beta
         sublime-text
       ];
     };
@@ -247,17 +247,17 @@ pkgs: {
       paths = with self; [
         #goPackages.syncthing.bin
         python3Packages.guessit
-        lftp
+        #lftp
         ncdc
-        #python35Packages.acd-cli
         python2Packages.deluge
+        #python2Packages.deluge_head
         python2Packages.flexget
-        #python3Packages.youtube-dl
+        python3Packages.youtube-dl
         qbittorrent_nox_head
         resilio
         #rtorrent
-        transmission_head
-        transmission-remote-gtk
+        #transmission_head
+        #transmission-remote-gtk
         task-spooler
       ];
     };
