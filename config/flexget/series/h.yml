@@ -9,16 +9,20 @@ series:
     - "Hap and Leonard":
         set:
           tvdb_id: 305687
+    - "HarmonQuest"
     - "Hawaii Five-0 (2010)":
         set:
           tvdb_id: 164541
     - "The Heart, She Holler"
+    - "Heartland"
     - "Heros Reborn"
     - "The Hitch Hiker's Guide to the Galaxy"
     - "Home from Home"
     - "Homeland":
         set:
           tvdb_id: 247897
+    - "Honeymooners"
+    - "How It's Made"
     - "How to Get Away with Murder":
         alternate_name:
           - "Как избежать наказания за убийство"  # Russian

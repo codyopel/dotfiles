@@ -8,6 +8,8 @@ series:
       #quality: 360p+
       qualities:
         - 360p+
+        - 720p+
+        - 1080p+
         - 1080p+ webdl+
         - 1080p+ remux+
       season_packs: yes

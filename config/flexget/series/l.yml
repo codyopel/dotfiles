@@ -29,6 +29,7 @@ series:
     - "Lethal Weapon":
         set:
           tvdb_id: 311790
+    - "The Level"
     - "Liar"
     - "The Librarians (2014)":
         alternate_name:
@@ -41,9 +42,11 @@ series:
     - "Lion Kingdom"
     - "The Lion Guard"
     - "Lloyd in Space"
+    - "Longmire"
     - "Lopez":
         set:
           tvdb_id: 308734
+    - "Lost in Space"
     - "Lucifer":
         set:
           tvdb_id: 295685

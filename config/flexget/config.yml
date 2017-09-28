@@ -57,10 +57,10 @@ templates:
     verify_ssl_certificates: yes
   client:
     deluge:
-      host: '{?deluge.host?}'
-      port: 21096
-      username: '{?deluge.username?}'
-      password: '{?deluge.password?}'
+      host: '{?delugeindiana.host?}'
+      port: 58846
+      username: '{?delugeindiana.username?}'
+      password: '{?delugeindiana.password?}'
       addpaused: yes
       #label: `{{trakt_series_network}}`
       queuetotop: yes
@@ -591,4 +591,3 @@ schedules:
   #- tasks: [ remux-* ]
   #  interval:
   #    minutes: 15
-

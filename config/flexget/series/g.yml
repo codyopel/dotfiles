@@ -18,6 +18,7 @@ series:
           tvdb_id: 76713
     - "Get Krackn"
     - "Get Shorty"
+    - "Get Smart"
     - "Ghosted"
     - "The Gifted (2017)"
     - "Girls":
@@ -33,6 +34,7 @@ series:
     - "Gomorrah"
     - "Good Behavior"
     - "Good Bones"
+    - "The Good Doctor"
     - "The Good Fight":
         set:
           tvdb_id: 320766
@@ -63,3 +65,4 @@ series:
         set:
           tvdb_id: 248736
     - "Growing Up Gracefully"
+    - "Guilt"

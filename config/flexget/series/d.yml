@@ -3,6 +3,7 @@ series:
     - "Da Ali G Show"
     - "Dallas"
     - "Damien"
+    - "Dan Vs."
     - "Danger 5"
     - "Dangerous Earth"
     - "Danis Castle"
@@ -64,6 +65,7 @@ series:
     - "The Detour"
     - "The Deuce"
     - "Deutschland 83"
+    - "Diagnosis Murder"
     - "Dice"
     - "The Dick Van Dyke Show"
     - "Difficult People"
@@ -79,7 +81,8 @@ series:
     - "Divorce":
         set:
           tvdb_id: 314599
-    - "Doctor Doctor"
+    - "Doc Martin"
+    - "Doctor Doctor (AU)"
     - "Doctor Foster"
     - "Doctor Who":
         alternate_name:
@@ -110,6 +113,7 @@ series:
     - "Dr Katz Professional Therapist"
     - "Dr Vegas"
     - "Dracula"
+    - "Dragnet"
     - "Dragon Ball Z"
     - "Dragons":
         alternate_name:

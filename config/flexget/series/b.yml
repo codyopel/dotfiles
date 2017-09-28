@@ -4,9 +4,11 @@ series:
     - "Babylon 5"
     - "Back"
     - "Back to the Future"
+    - "Bad Blood"
     - "Bad Education":
         set:
           tvdb_id: 261277
+    - "Bad Move"
     - "Ballers"
     - "Bam's Unholy Union"
     - "Band of Brothers"
@@ -26,6 +28,7 @@ series:
           - "Batman (1966)"
         set:
           tvdb_id: 77871
+    - "The Batman"
     - "Batman: The Animated Series":
         set:
           tvdb_id: 76168
@@ -53,6 +56,7 @@ series:
     - "Benidorm":
         set:
           tvdb_id: 79912
+    - "Bellevue"
     - "Bennington Gothique"
     - "Beowulf: Return to the Shieldlands"
     - "Berlin Station"
@@ -90,6 +94,7 @@ series:
     - "Black Books"
     - "The Black Donnellys"
     - "Black Dynamite"
+    - "Black Lake"
     - "Black Mirror"
     - "Black Sails":
         alternate_name:
@@ -133,6 +138,7 @@ series:
           tvdb_id: 75682
     - "Bong Appetit"
     - "Borderline (2016)"
+    - "Borgia"
     - "Born to Kill (2017)"
     - "Bosch"
     - "Botched"

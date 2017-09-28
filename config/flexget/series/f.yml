@@ -2,6 +2,7 @@
 
 series:
   television-list:
+    - "F Troop"
     - "Family Guy":
         set:
           tvdb_id: 75978
