@@ -1,6 +1,7 @@
 {
 	"color_scheme": "Packages/User/SublimeLinter/Monokai (SL).tmTheme",
 	"draw_white_space": "selection",
+	"enable_tab_scrolling": false,
 	"font_size": 10,
 	"ignored_packages":
 	[
@@ -12,6 +13,7 @@
 		120
 	],
 	"tab_size": 2,
+	"theme": "Adaptive.sublime-theme",
 	"translate_tabs_to_spaces": true,
 	"trim_trailing_white_space_on_save": true
 }
