@@ -7,7 +7,7 @@ Type=simple
 User=%i
 Group=%i
 ExecStart=@(type -P java)@ -jar @{XDG_DATA_HOME}@/../lib/gitbucket.war \
-  --port 8886 \
+  --port=8886 \
   --gitbucket.home=@{XDG_CONFIG_HOME}@/gitbucket/
 Restart=on-failure
 
