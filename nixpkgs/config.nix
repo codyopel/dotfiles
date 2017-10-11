@@ -108,6 +108,7 @@ pkgs: {
         rsync
         screen
         smartmontools
+        sshfs
         subversion
         sysstat
         tcpdump
@@ -192,6 +193,7 @@ pkgs: {
         #mpdris2
         mpv
         ncmpcpp
+        totem
         #python2Packages.mopidy
         #vlc
       ];
