@@ -1,0 +1,15 @@
+[Unit]
+Description=GitBucket
+After=network.target
+
+[Service]
+Type=simple
+User=%i
+Group=%i
+ExecStart=@(type -P java)@ -jar @{XDG_DATA_HOME}@/../lib/gitbucket.war \
+  --port 8887 \
+  --gitbucket.home=@{XDG_CONFIG_HOME}@/gitbucket/
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
