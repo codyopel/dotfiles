@@ -10,6 +10,7 @@ series:
         set:
           tvdb_id: 305687
     - "HarmonQuest"
+    - "Have I Got News for You"
     - "Hawaii Five-0 (2010)":
         set:
           tvdb_id: 164541

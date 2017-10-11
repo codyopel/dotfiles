@@ -39,6 +39,7 @@ series:
         set:
           tvdb_id: 320766
     - "The Good Place"
+    - "Good Witch"
     # - "The Gorburger Show":
     #     set:
     #       tvdb_id: 276567
@@ -51,10 +52,12 @@ series:
     - "The Grand Tour":
         set:
           tvdb_id: 314087
+    - "Graves"
     - "Gravity Falls"
     - "The Great Indoors":
         set:
           tvdb_id: 311948
+    - "Great News"
     - "Greenleaf":
         set:
           tvdb_id: 306391

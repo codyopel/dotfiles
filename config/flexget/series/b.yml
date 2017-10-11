@@ -75,11 +75,13 @@ series:
     - "Beyond Belief: Fact or Fiction"
     - "Beyond Reality"
     - "The Big Bang Theory":
+        from_group: [ DIMENSION ]
         set:
           tvdb_id: 80379
     - "Big Little Lies":
         set:
           tvdb_id: 305719
+    - "Big Mouth"
     - "Big Pacific"
     - "Big School"
     - "Bill Nye Saves the World":
@@ -94,7 +96,9 @@ series:
     - "Black Books"
     - "The Black Donnellys"
     - "Black Dynamite"
-    - "Black Lake"
+    - "Black Lake":
+        alternate_name:
+          - "Svartsjön"
     - "Black Mirror"
     - "Black Sails":
         alternate_name:

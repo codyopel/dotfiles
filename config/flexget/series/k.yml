@@ -14,6 +14,7 @@ series:
     - "Kevin Can Wait":
         set:
           tvdb_id: 311944
+    - "Kevin Probably Saves the World"
     - "Kevin Spencer"
     - "The Kill Point"
     - "The Killing"
@@ -26,6 +27,7 @@ series:
         set:
           tvdb_id: 281534
     - "Kim Possible"
+    - "Kim's Convenience"
     - "King of the Hill"
     - "The King of Queens"
     - "Kingdom"
