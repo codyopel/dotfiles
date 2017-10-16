@@ -283,6 +283,7 @@ tasks:
     ]
 
   television-hd4free:
+    delay: 1 days  # Last resort, tracker commonly timesout
     rss:
       url: file:///home/cwopel/.config/flexget/rss-hd4free.rss
     template: [
