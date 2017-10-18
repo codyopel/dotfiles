@@ -10,6 +10,7 @@ series:
           tvdb_id: 261277
     - "Bad Move"
     - "Ballers"
+    - "Balls Deep"
     - "Bam's Unholy Union"
     - "Band of Brothers"
     - "Bankerot":
@@ -46,17 +47,17 @@ series:
     - "Beavis and Butthead"
     - "Beetle Juice"
     - "Being Erica"
-    - "Being Human 2008":
+    - "Being Human (2008)":
         alternate_name:
           - "Being Human UK"
     - "Being Mary Jane":
         set:
           tvdb_id: 268872
+    - "Bellevue"
     - "Benders"
     - "Benidorm":
         set:
           tvdb_id: 79912
-    - "Bellevue"
     - "Bennington Gothique"
     - "Beowulf: Return to the Shieldlands"
     - "Berlin Station"
@@ -75,7 +76,6 @@ series:
     - "Beyond Belief: Fact or Fiction"
     - "Beyond Reality"
     - "The Big Bang Theory":
-        from_group: [ DIMENSION ]
         set:
           tvdb_id: 80379
     - "Big Little Lies":
@@ -106,6 +106,7 @@ series:
         set:
           tvdb_id: 262407
     - "Black Scorpion"
+    - "Black-ish"
     - "Blackadder"
     - "The Blacklist":
         set:
@@ -134,6 +135,7 @@ series:
     - "The Bold Type"
     - "Bomb Girls"
     - "The Boondocks"
+    - "The Booth at the End"
     - "Bonanza"
     - "Bones":
         alternate_name:
@@ -142,6 +144,7 @@ series:
           tvdb_id: 75682
     - "Bong Appetit"
     - "Borderline (2016)"
+    - "Bored to Death"
     - "Borgia"
     - "Born to Kill (2017)"
     - "Bosch"
@@ -153,6 +156,7 @@ series:
     - "Braquo"
     - "The Brave"
     - "Breaking Bad"
+    - "Breaking In"
     - "Brickleberry"
     - "The Bridge (2013)"
     - "Broad City"
@@ -164,9 +168,11 @@ series:
     - "Brooklyn Nine-Nine"
     - "Buck Rogers in the 25th Century"
     - "Bucket"
+    - "Bucky O'Hare and the Toad Wars!"
     - "Budding Prospect":
         set:
           tvdb_id: 000000  # FIXME: Not yet added
+    - "Buddy Thunderstruck"
     - "Buffy the Vampire Slayer"
     - "Bull"
     - "Bullet in the Face"

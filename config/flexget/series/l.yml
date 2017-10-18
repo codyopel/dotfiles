@@ -7,6 +7,7 @@ series:
     - "Last Man Standing":
         set:
           tvdb_id: 248834
+    - "The Last O.G."
     - "The Last Ship"
     - "The Last Tycoon":
         set:
@@ -47,6 +48,7 @@ series:
         set:
           tvdb_id: 308734
     - "Lost in Space"
+    - "Loudermilk"
     - "Lucifer":
         set:
           tvdb_id: 295685

@@ -10,6 +10,7 @@ series:
         set:
           tvdb_id: 269613
     - "Fear the Walking Dead"
+    - "Fearless"
     - "FEUD":
         set:
           tvdb_id: 322466
@@ -20,6 +21,7 @@ series:
           tvdb_id: 279121
     - "Fluffy's Food Adventures"
     - "The Fosters"
+    - "Freakish"
     - "Frequency":
         set:
           tvdb_id: 311958

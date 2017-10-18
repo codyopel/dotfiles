@@ -1,7 +1,7 @@
 series:
   television-list:
     - "Californication"
-    - "Call me Fitz"
+    - "Call Me Fitz"
     - "Call the Midwife"
     - "Camelot"
     - "Can't Cope, Won't Cope"
@@ -13,6 +13,7 @@ series:
     - "The Carmichael Show"
     - "Carnivale"
     - "Carter's Get Rich"
+    - "Case"
     - "The Case: Book of Sherlock Holmes"
     - "Castle"
     - "Castlevania"
@@ -33,6 +34,7 @@ series:
     - "Chasing Shadows"
     - "Chemistry"
     - "Chemistry: A Volatile History"
+    - "Chesapeake Shores"
     - "Chewing Gum":
         set:
           tvdb_id: 301562
@@ -78,9 +80,11 @@ series:
         set:
           tvdb_id: 295780
     - "Cold Feet"
+    - "The Collection"
     - "Colony":
         set:
           tvdb_id: 284210
+    - "Combat"
     - "Come Fly With Me"
     - "Community"
     - "Complete Savages"

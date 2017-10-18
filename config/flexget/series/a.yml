@@ -8,6 +8,7 @@ series:
     - "Accused"
     - "Ackley Bridge"
     - "Adam Ruins Everything"
+    - "The Addams Family"
     - "Adventure Time":
         alternate_name:
           - "Adventure Time with Finn and Jake"
@@ -40,11 +41,14 @@ series:
     - "Alfred Hitchcock Presents"
     - "Alias"
     - "Alias Grace"
+    - "Alice"
     - "Alien Nation"
     - "All Hail King Julien"
     - "All Grown Up"
+    - "All Wrong"
     - "Almost Human"
     - "Alpha House"
+    - "Alvinnn and the Chipmunks"
     - "The Amanda Show"
     - "The Amazing World of Gumball"
     - "Amazon"
@@ -74,12 +78,15 @@ series:
           tvdb_id: 261690
     - "Americarna"
     - "And Then There Were None"
+    - "Andi Mack"
     - "Andromeda"
     - "Andy Griffith"
-    - "Andy Milonakis"
+    - "The Andy Milonakis Show"
     - "Angel"
     - "Anger Management"
+    - "Angie Tribeca"
     - "The Angry Beavers"
+    - "Angry Boys"
     - "Animal Kingdom 2016":
         set:
           tvdb_id: 304262
@@ -113,7 +120,9 @@ series:
     - "Ash vs Evil Dead":
         set:
           tvdb_id: 296295
+    - "Ask the Storybots"
     - "Ask This Old House"
+    - "The Assets"
     - "Astronauts: Do You Have What it Takes"
     - "Atlanta"
     - "Atlantis"

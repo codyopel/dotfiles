@@ -12,7 +12,7 @@ series:
     - "Zapped!":
         set:
           tvdb_id: 317169
-    - "Zeke & Luther":
+    - "Zeke and Luther":
         alternate_name:
           - "Zeke and Luther"
         set:
