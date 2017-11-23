@@ -1,130 +1,87 @@
-#!/usr/bin/env bash
+#!/usr/bin/env python3
 
-set -o errexit
-set -o pipefail
+# Ensures all lossless files in a given path are encoded as FLAC with
+# compression level 8.
 
-source "$(lib-bash)"
+import os
+import multiprocessing
+import shutil
+import subprocess
+import sys
 
-Path::Check 'flac'
+# FIXME: use something other than asserts
+assert shutil.which('flac') != None
+assert shutil.which('ffmpeg') != None
+assert shutil.which('metaflac') != None
 
-Flac::Encode() {
-  local Compression
-  local FFmpegPid
-  local FlacPid
-  local InputFile
-  local OutputFile
+def convert2flac(ifile):
+  filename, extension = os.path.splitext(ifile)
+  print('converting: ' + ifile + ' -> ' + filename + '.flac')
+  p = subprocess.Popen(["ffmpeg", "-i", ifile, filename + ".flac"],
+                       stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+  p.wait()
+  if p.returncode != 0:
+    raise IOError("ffmpeg failed: %s" % error)
+  return filename + '.flac'
 
-  InputFile="${1}"
-  OutputFile="$(echo "${InputFile}" | sed -r 's/\.[[:alnum:]]+$//').flac"
+def flac_reencode(ifile):
+  filename, extension = os.path.splitext(ifile)
+  if extension == '.flac':
+    # Don't re-process processed files
+    if is_flac_compressed(ifile):
+      print('already compressed: ' + ifile)
+      return True
+  else:
+    ifile = convert2flac(ifile)
 
-  case "${InputFile##*.}" in
-    'ape')
-      ffmpeg \
-        -i "${InputFile}" \
-        "${OutputFile}" &
-      FFmpegPid=$!
-      wait $FFmpegPid
-      rm -v "${InputFile}"
-      flac \
-        "${OutputFile}" \
-        --force \
-        --verify \
-        --compression-level-8 \
-        --exhaustive-model-search &
-      FlacPid=$!
-      wait $FlacPid
-      metaflac \
-        "${OutputFile}" \
-        --set-tag=COMPRESSION=8
-      ;;
-    'flac')
-      Compression="$(metaflac --show-tag COMPRESSION "${InputFile}")"
-      if [ -n "$(echo ${Compression} | grep 'COMPRESSION=8')" ] ; then
-        return 0
-      fi
-      flac \
-        "${InputFile}" \
-        --force \
-        --verify \
-        --compression-level-8 \
-        --exhaustive-model-search \
-        --decode-through-errors &
-      FlacPid=$!
-      wait $FlacPid
-      metaflac \
-        "${InputFile}" \
-        --set-tag=COMPRESSION=8
-      ;;
-    'wav')
-      flac \
-        "${InputFile}" \
-        --verify \
-        --compression-level-8 \
-        --exhaustive-model-search
-        "${OutputFile}" &
-      FlacPid=$!
-      wait $FlacPid
-      rm -v "${InputFile}"
-      metaflac \
-        "${OutputFile}" \
-        --set-tag=COMPRESSION=8
-      ;;
-    *)
-      echo "unsupported file type"
-      return 1
-      ;;
-  esac
+  print('compressing: ' + ifile)
 
-  return 0
-}
+  # XXX: maybe add a way to support decode through errors
+  f = subprocess.Popen(['flac', ifile, '--force', '--verify',
+                       '--compression-level-8', '--exhaustive-model-search'],
+                       stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+  f.wait()
+  if f.returncode != 0:
+    raise IOError("flac failed: %s" % ferror)
 
-export CONCURRENT_LIMIT=$(Cpu::Physical)
-export CONCURRENT_COMPACT=0
+  m = subprocess.Popen(["metaflac", "--set-tag=COMPRESSION=8", ifile],
+                       stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+  m.wait()
+  if m.returncode != 0:
+    raise IOError("metaflac failed: %s" % merror)
 
-TMPDIR="$(mktemp -d)"
+  # Check to see if subprocess succeeded
+  exit = is_flac_compressed(ifile)
 
-if [ -z "$@" ] ; then
-  InputDirectory="${HOME}/Music"
-else
-  InputDirectory="$(readlink -f "$@")"
-  if [ ! -d "${InputDirectory}" ] ; then
-    echo "not a directory"
-    exit 1
-  fi
-fi
+  if exit:
+    print('compressed: ' + ifile)
 
-find "${InputDirectory}" -type d |
-while read MusicDirectory ; do
-  # Clear previous file list
-  echo '' > "${TMPDIR}/filelist"
+  return exit
 
-  while read MusicFile ; do
-    if [ ! -f "${MusicFile}" ] ; then
-      continue
-    fi
-    Fname="$(basename "$(echo "${MusicFile}" | sed -r 's/\.[[:alnum:]]+$//')")"
-    echo "${Fname} ${MusicFile}" >> "${TMPDIR}/filelist"
-  done < <(
-    find "${MusicDirectory}" \
-      -maxdepth 1 \
-      -type f \
-      -regextype posix-extended \
-      -regex ".*\.(ape|flac|wav)"
-  )
+def is_flac_compressed(ifile):
+  l = subprocess.Popen(["metaflac", "--show-tag=COMPRESSION", ifile],
+                       stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+  output, error = l.communicate()
+  if l.returncode != 0:
+    raise IOError("metaflac failed: %s" % error)
+  out = output.rstrip().decode("utf-8")
+  return True if out == 'COMPRESSION=8' else False
 
-  # Generate concurrent args from temp file list
-  ConcurrentArgs=(
-    $(awk '{ print "- " $1 " Flac::Encode " $2; }' ${TMPDIR}/filelist)
-  )
+idir = str(sys.argv[1])
+assert os.path.isdir(idir)  # FIXME
 
-  # Remove invalid `- encode_file` created as first arg
-  if [ "${ConcurrentArgs[2]}" == '-' ] ; then
-    unset ConcurrentArgs[0]
-    unset ConcurrentArgs[1]
-  fi
+audioFiles = []
+for r, dirs, files in os.walk(idir):
+  for f in files:
+    if os.path.isfile(os.path.join(r, f)):
+      filename, extension = os.path.splitext(f)
+      if extension not in ['.ape', '.flac', '.wav']:
+        continue
+      audioFiles.append(os.path.join(r, f))
 
-  if [ -n "$(cat "${TMPDIR}/filelist")" ] ; then
-    echo
-    concurrent "${ConcurrentArgs[@]}"
-  fi
-done
+
+threads = multiprocessing.cpu_count()
+pool = multiprocessing.Pool(processes=8)
+results = pool.map_async(flac_reencode, audioFiles)
+pool.close()
+pool.join()
