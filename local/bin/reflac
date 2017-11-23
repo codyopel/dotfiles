@@ -51,12 +51,12 @@ def flac_reencode(ifile):
     raise IOError("metaflac failed: %s" % merror)
 
   # Check to see if subprocess succeeded
-  exit = is_flac_compressed(ifile)
+  exitstatus = is_flac_compressed(ifile)
 
-  if exit:
+  if exitstatus:
     print('compressed: ' + ifile)
 
-  return exit
+  return exitstatus
 
 def is_flac_compressed(ifile):
   l = subprocess.Popen(["metaflac", "--show-tag=COMPRESSION", ifile],
