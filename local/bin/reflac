@@ -81,7 +81,7 @@ for r, dirs, files in os.walk(idir):
 
 
 threads = multiprocessing.cpu_count()
-pool = multiprocessing.Pool(processes=8)
+pool = multiprocessing.Pool(processes=threads)
 results = pool.map_async(flac_reencode, audioFiles)
 pool.close()
 pool.join()
