@@ -6,7 +6,7 @@ After=network.target sound.target user-cache.service
 Type=simple
 User=%i
 Group=%i
-ExecStart=@(type -P mpd)@ --no-daemon @{XDG_CONFIG_HOME}@/mpd/mpd.conf
+ExecStart=@(type -P mpd)@ -v --no-daemon @{XDG_CONFIG_HOME}@/mpd/mpd.conf
 ExecStop=@(type -P mpd)@ --kill
 Restart=on-failure
 
