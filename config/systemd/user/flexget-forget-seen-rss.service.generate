@@ -1,0 +1,16 @@
+[Unit]
+Description=Forget flexget logged seen entries for rss feeds
+
+[Service]
+Type=forking
+Environment=XDG_CONFIG_HOME=@{XDG_CONFIG_HOME}@
+Environment=GREPEXE=@(type -P grep)@
+Environment=FLEXGETEXE=@(type -P flexget)@
+Environment=XARGSEXE=@(type -P xargs)@
+WorkingDirectory=@{XDG_CONFIG_HOME}@/flexget
+ExecStart=@(type -P bash)@ -c '${GREPEXE} -oP "^(?!.*#.*).*rss-.*(?=:)" config.yml | ${XARGSEXE} -I{} ${FLEXGETEXE} seen forget "{}"'
+# Takes longer than default 90
+TimeoutStartSec=10min
+
+[Install]
+WantedBy=default.target

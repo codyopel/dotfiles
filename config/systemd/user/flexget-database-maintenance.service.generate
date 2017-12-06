@@ -1,0 +1,11 @@
+[Unit]
+Description=Flexget database maintenance
+
+[Service]
+Type=oneshot
+WorkingDirectory=@{XDG_CONFIG_HOME}@/flexget
+ExecStart=@(type -P flexget)@ database cleanup
+ExecStart=@(type -P flexget)@ database vacuum
+
+[Install]
+WantedBy=default.target

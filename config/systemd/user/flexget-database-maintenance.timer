@@ -1,0 +1,9 @@
+[Unit]
+Description=Flexget database maintenance
+
+[Timer]
+OnCalendar=daily
+Persistent=true
+
+[Install]
+WantedBy=default.target
