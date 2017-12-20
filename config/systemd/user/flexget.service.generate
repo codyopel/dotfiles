@@ -13,7 +13,7 @@ ExecStart=@(type -P flexget)@ daemon start
 ExecStop=@(type -P flexget)@ daemon stop
 ExecReload=@(type -P flexget)@ daemon reload
 Restart=on-failure
-TimeoutSec=10
+TimeoutStopSec=10
 
 [Install]
 WantedBy=default.target
