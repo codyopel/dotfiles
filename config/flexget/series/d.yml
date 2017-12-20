@@ -3,11 +3,13 @@ series:
     - "Da Ali G Show"
     - "Dallas"
     - "Damien"
+    - "Damnation"
     - "Dan Vs."
     - "Danger 5"
     - "Dangerous Earth"
     - "Danis Castle"
     - "Daredevil"
+    - "DARK"
     - "Dark Matter":
         set:
           tvdb_id: 292174

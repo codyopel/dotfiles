@@ -5,6 +5,7 @@ series:
     - "The Path"
     - "Patriot"
     - "Paw Patrol"
+    - "Peaky Blinders"
     - "Pelswick"
     - "Penny Dreadful"
     - "People of Earth"
@@ -27,4 +28,7 @@ series:
     - "Pulse":
         alternate_name:
           - "Pulse AU"
+    - "The Punisher":
+        alternate_name:
+          - "Marvels The Punisher"
     - "Pure"

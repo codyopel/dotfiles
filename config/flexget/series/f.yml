@@ -16,11 +16,13 @@ series:
           tvdb_id: 322466
     - "Fillmore"
     - "Filty Rich"
+    - "Fixer Upper"
     - "The Flash (2014)":
         set:
           tvdb_id: 279121
     - "Fluffy's Food Adventures"
     - "The Fosters"
+    - "The Frankenstein Chronicles"
     - "Freakish"
     - "Frequency":
         set:
@@ -31,3 +33,5 @@ series:
     - "From Dusk Till Dawn: The Series"
     - "Frontier (2016)"
     - "Fuller House"
+    - "Futurama"
+    - "Future Man"

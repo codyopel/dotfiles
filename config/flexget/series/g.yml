@@ -8,6 +8,7 @@ series:
     - "Game of Thrones":
         set:
           tvdb_id: 121361
+    - "Gameface"
     - "Gang Related":
         alternate_name:
           - "Преступные связи"  # Russian
@@ -16,7 +17,9 @@ series:
     - "George Lopez":
         set:
           tvdb_id: 76713
-    - "Get Krackn"
+    - "Get Krack!n":
+        alternate_name:
+          - "Get Krackn"
     - "Get Shorty"
     - "Get Smart"
     - "Ghosted"

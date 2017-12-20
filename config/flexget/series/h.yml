@@ -9,6 +9,7 @@ series:
     - "Hap and Leonard":
         set:
           tvdb_id: 305687
+    - "Happy"
     - "HarmonQuest"
     - "Haters Back Off"
     - "Have I Got News for You"
@@ -29,6 +30,7 @@ series:
     - "How to Get Away with Murder":
         alternate_name:
           - "Как избежать наказания за убийство"  # Russian
+    - "Howards End"
     - "Humans":
         set:
           tvdb_id: 292124
