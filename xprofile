@@ -1,1 +1,8 @@
 feh --bg-fill ~/.config/wallpaper/waves.jpg
+
+nm-applet &
+# Hacky fix for race condition where if staleonetray comes up before nm-applet,
+# then nm-applet never appears in the tray.
+sleep 3
+
+stalonetray &
