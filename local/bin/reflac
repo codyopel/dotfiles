@@ -19,7 +19,7 @@ def convert2flac(ifile):
   print('converting: ' + ifile + ' -> ' + filename + '.flac')
   p = subprocess.Popen(["ffmpeg", "-i", ifile, filename + ".flac"],
                        stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-  p.wait()
+  _, error = p.communicate()
   if p.returncode != 0:
     raise IOError("ffmpeg failed: %s" % error)
   return filename + '.flac'
@@ -40,13 +40,13 @@ def flac_reencode(ifile):
   f = subprocess.Popen(['flac', ifile, '--force', '--verify',
                        '--compression-level-8', '--exhaustive-model-search'],
                        stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-  f.wait()
+  _, ferror = f.communicate()
   if f.returncode != 0:
     raise IOError("flac failed: %s" % ferror)
 
   m = subprocess.Popen(["metaflac", "--set-tag=COMPRESSION=8", ifile],
                        stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-  m.wait()
+  _, merror = m.communicate()
   if m.returncode != 0:
     raise IOError("metaflac failed: %s" % merror)
 
