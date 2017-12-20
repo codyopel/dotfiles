@@ -48,6 +48,9 @@ set title  " Set terminal title
 set titleold=  " Restore previous title when exiting Vim
 set scrolloff=3
 
+" Automatically strip whitespace
+"autocmd BufWritePre * :call TrimWhitespace()
+
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 
