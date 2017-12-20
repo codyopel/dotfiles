@@ -23,6 +23,9 @@ pkgs: {
       #nvidia-cuda-toolkit = self.nvidia-cuda-toolkit;
       #nvidia-drivers = self.nvidia-drivers_latest;
       nonfreeLicensing = true;
+      opus = self.opus_head;
+      x265 = self.x265_head;
+      zimg = self.zimg;
     };
     mpd = self.mpd.override {
       ffmpeg = self.ffmpeg_head;
@@ -33,10 +36,6 @@ pkgs: {
       #nvidia-cuda-toolkit = self.nvidia-cuda-toolkit;
       #nvidia-drivers = self.nvidia-drivers_latest;
     };
-    # pulseaudio_full = self.pulseaudio_full.override {
-    #   loopbackLatencyMsec = "20";
-    #   resampleMethod = "speex-float-10";
-    # };
     # python3 = self.python36;
     # python3Packages = self.python36Packages;
     # rtorrent = self.rtorrent.override {
@@ -44,6 +43,9 @@ pkgs: {
     # };
     transmission_head = self.transmission_head.override {
       useStableVersionUserAgent = true;
+    };
+    vapoursynth_head = self.python3Packages.vapoursynth_head.override {
+      ffmpeg = self.ffmpeg_head;
     };
     #desktop = self.haskellPackages.ghcWithPackages (self: with self; [
     #  haskell-ngPackages.xdgBasedir
@@ -128,6 +130,7 @@ pkgs: {
     desktop-env = self.buildEnv {
       name = "desktopEnv";
       paths = with self; [
+        discord_canary
         dmenu
         eog
         evince
@@ -145,7 +148,9 @@ pkgs: {
         sakura
         scrot
         slock
+        stalonetray
         #teamspeak_client
+        totem
         #xfe
       ];
     };
@@ -168,6 +173,7 @@ pkgs: {
         #goPackages.nomad.bin
         #goPackages.vault.bin
         #icedtea8_web
+        libxml2
         ninja
         nodejs
         openjdk
@@ -193,7 +199,6 @@ pkgs: {
         #mpdris2
         mpv
         ncmpcpp
-        totem
         #python2Packages.mopidy
         #vlc
       ];
@@ -203,9 +208,9 @@ pkgs: {
       name = "multimediaToolsEnv";
       paths = with self; [
         aomedia
-        arkive
+        #arkive
         imagemagick
-        gimp
+        #gimp
         #guitarix
         #jack2_full
         lame
@@ -223,6 +228,7 @@ pkgs: {
         split2flac
         #qjackctl
         ufraw
+        vapoursynth_head
         #vobsub2srt
         x264
         x265_head
@@ -233,7 +239,6 @@ pkgs: {
       name = "editorEnv";
       paths = with self; [
         atom_beta
-        sublime-text
       ];
     };
 
@@ -251,15 +256,16 @@ pkgs: {
         python3Packages.guessit
         #lftp
         ncdc
-        python2Packages.deluge
+        #python2Packages.deluge
         #python2Packages.deluge_head
-        python2Packages.flexget
+        python3Packages.flexget
+        python3Packages.transmission-remote-gnome
         python3Packages.youtube-dl
-        qbittorrent_nox_head
+        #qbittorrent_nox_head
         resilio
         #rtorrent
-        #transmission_head
-        #transmission-remote-gtk
+        transmission_head
+        transmission-remote-gtk
         task-spooler
       ];
     };
@@ -267,7 +273,8 @@ pkgs: {
     factorio-env = self.buildEnv {
       name = "factorioEnv";
       paths = with self; [
-        factorio
+        #factorio_0-15
+        factorio_0-16
       ];
     };
 
@@ -281,6 +288,7 @@ pkgs: {
     google-chrome-env = self.buildEnv  {
       name = "googleChromeEnv";
       paths = with self; [
+        google-chrome_beta
         google-chrome_stable
       ];
     };
