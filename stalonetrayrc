@@ -1,0 +1,18 @@
+decorations none
+display :0
+transparent true
+dockapp_mode none
+# If more icons appear than the initial tray size, the window gets shift left
+# off screen by the number of items added beyond the initial size.
+geometry 5x1+0-0
+#max_geometry "5x1+325-10"
+kludges fix_window_pos,force_icons_size
+grow_gravity SE
+icon_gravity NW
+icon_size 12
+sticky false
+window_strut none
+window_type dock
+window_layer bottom
+no_shrink false
+skip_taskbar true
