@@ -26,6 +26,14 @@ set number " Line numbers
 set cursorline  " Highligh current line
 set colorcolumn=81  " Line length ruler
 "set background=none " Don't set to use terminals background
+set list
+set listchars=tab:→\ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨
+" Can't find a clean way to highlight spaces or trail
+"if has('patch-7.4.710')
+"  set listchars+=space:.
+"endif
+set showbreak=↪\
+"set listchars+=space:x
 set nobackup
 set nowb
 set noswapfile
