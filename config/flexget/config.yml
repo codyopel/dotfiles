@@ -56,14 +56,9 @@ templates:
       max_retries: 6
     verify_ssl_certificates: yes
   client:
-    deluge:
-      host: '{?delugeindiana.host?}'
-      port: 58846
-      username: '{?delugeindiana.username?}'
-      password: '{?delugeindiana.password?}'
-      addpaused: yes
-      #label: `{{trakt_series_network}}`
-      queuetotop: yes
+    transmission:
+      host: localhost
+      port: 9091
   content-remux:
     pending_approval: yes
     regexp:
