@@ -371,7 +371,6 @@ tasks:
   # announced.
 
   rss-alpharatio:
-    archive: [ alpharatio ]
     make_rss:
       file: ~/.config/flexget/rss-alpharatio.rss
       days: -1
@@ -382,7 +381,6 @@ tasks:
     ]
 
   rss-avistaz:
-    archive: [ avistaz ]
     make_rss:
       file: ~/.config/flexget/rss-avistaz.rss
       days: -1
@@ -393,7 +391,6 @@ tasks:
     ]
 
   rss-cinemaz:
-    archive: [ cinemaz ]
     make_rss:
       file: ~/.config/flexget/rss-cinemaz.rss
       days: -1
@@ -404,7 +401,6 @@ tasks:
     ]
 
   # rss-fendomcult:
-  #   archive: [ fendomcult ]
   #   make_rss:
   #     file: ~/.config/flexget/rss-fendomcult.rss
   #     days: -1
@@ -416,7 +412,6 @@ tasks:
   #   ]
 
   rss-hd4free:
-    archive: [ hd4free ]
     make_rss:
       file: ~/.config/flexget/rss-hd4free.rss
       days: -1
@@ -427,7 +422,6 @@ tasks:
     ]
 
   rss-hdspace:
-    archive: [ hdspace ]
     make_rss:
       file: ~/.config/flexget/rss-hdspace.rss
       days: -1
@@ -438,7 +432,6 @@ tasks:
     ]
 
   rss-myxz:
-    archive: [ myxz ]
     make_rss:
       file: ~/.config/flexget/rss-myxz.rss
       days: -1
@@ -451,7 +444,6 @@ tasks:
     verify_ssl_certificates: no  # Redirects to cloudflare
 
   rss-nebulance:
-    archive: [ nebulance ]
     make_rss:
       file: ~/.config/flexget/rss-nebulance.rss
       days: -1
@@ -462,7 +454,6 @@ tasks:
     ]
 
   rss-pisexy:
-    archive: [ pisexy ]
     make_rss:
       file: ~/.config/flexget/rss-pisexy.rss
       days: -1
@@ -473,7 +464,6 @@ tasks:
     ]
 
   # rss-pornbay:
-  #   archive: [ pornbay ]
   #   make_rss:
   #     file: ~/.config/flexget/rss-pornbay.rss
   #     days: -1
@@ -486,7 +476,6 @@ tasks:
 
   # FIXME: ssl cert verification failed
   # rss-pornbits:
-  #   archive: [ pornbits ]
   #   make_rss:
   #     file: ~/.config/flexget/rss-pornbits.rss
   #     days: -1
@@ -497,7 +486,6 @@ tasks:
   #   ]
 
   # rss-privatehd:
-  #   archive: [ privatehd ]
   #   make_rss:
   #     file: ~/.config/flexget/rss-privatehd.rss
   #     days: -1
@@ -508,7 +496,6 @@ tasks:
   #   ]
 
   # rss-scenetime:
-  #   archive: [ scenetime ]
   #   make_rss:
   #     file: ~/.config/flexget/rss-scenetime.rss
   #     days: -1
@@ -520,7 +507,6 @@ tasks:
   #   ]
 
   rss-torrentbytes:
-    archive: [ torrentbytes ]
     make_rss:
       file: ~/.config/flexget/rss-torrentbytes.rss
       days: -1
@@ -531,7 +517,6 @@ tasks:
     ]
 
   rss-torrenting:
-    archive: [ torrenting ]
     make_rss:
       file: ~/.config/flexget/rss-torrenting.rss
       days: -1
@@ -543,7 +528,6 @@ tasks:
     ]
 
   rss-torrentleech:
-    archive: [ torrentleech ]
     make_rss:
       file: ~/.config/flexget/rss-torrentleech.rss
       days: -1
@@ -554,7 +538,6 @@ tasks:
     ]
 
   rss-uhdbits:
-    archive: [ uhdbits ]
     make_rss:
       file: ~/.config/flexget/rss-uhdbits.rss
       days: -1
@@ -565,7 +548,6 @@ tasks:
     ]
 
   rss-worldofp2p:
-    archive: [ worldofp2p ]
     make_rss:
       file: ~/.config/flexget/rss-worldofp2p.rss
       days: -1
