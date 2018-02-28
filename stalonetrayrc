@@ -4,8 +4,8 @@ transparent true
 dockapp_mode none
 # If more icons appear than the initial tray size, the window gets shift left
 # off screen by the number of items added beyond the initial size.
-geometry 5x1+0-0
-#max_geometry "5x1+325-10"
+geometry 5x1+1-1
+max_geometry "5x1+325-10"
 kludges fix_window_pos,force_icons_size
 grow_gravity SE
 icon_gravity NW
