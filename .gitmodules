@@ -1,57 +1,6 @@
-[submodule "config/sublime-text-3/Packages/sublime-nix"]
-	path = config/sublime-text-3/Packages/sublime-nix
-	url = https://github.com/wmertens/sublime-nix
-[submodule "config/sublime-text-3/Packages/GitGutter"]
-	path = config/sublime-text-3/Packages/GitGutter
-	url = https://github.com/jisaacks/GitGutter
-[submodule "config/sublime-text-3/Packages/SideBarEnhancements"]
-	path = config/sublime-text-3/Packages/SideBarEnhancements
-	url = https://github.com/titoBouzout/SideBarEnhancements
-[submodule "config/sublime-text-3/Packages/cython"]
-	path = config/sublime-text-3/Packages/cython
-	url = https://github.com/petervaro/python
-[submodule "config/sublime-text-3/Packages/SublimeAllAutocomplete"]
-	path = config/sublime-text-3/Packages/SublimeAllAutocomplete
-	url = https://github.com/alienhard/SublimeAllAutocomplete
-[submodule "config/sublime-text-3/Packages/sublime_autotools"]
-	path = config/sublime-text-3/Packages/sublime_autotools
-	url = https://github.com/ptomato/sublime_autotools
-[submodule "config/sublime-text-3/Packages/GoSublime"]
-	path = config/sublime-text-3/Packages/GoSublime
-	url = https://github.com/DisposaBoy/GoSublime
-[submodule "config/sublime-text-3/Packages/Vala"]
-	path = config/sublime-text-3/Packages/Vala
-	url = https://github.com/technosophos/Vala-TMBundle
-[submodule "config/sublime-text-3/Packages/sublimetext-markdown-preview"]
-	path = config/sublime-text-3/Packages/sublimetext-markdown-preview
-	url = https://github.com/revolunet/sublimetext-markdown-preview
-[submodule "config/sublime-text-3/Packages/SublimeGit"]
-	path = config/sublime-text-3/Packages/SublimeGit
-	url = https://github.com/SublimeGit/SublimeGit
-[submodule "config/sublime-text-3/Packages/Sublime-ShellScriptImproved"]
-	path = config/sublime-text-3/Packages/Sublime-ShellScriptImproved
-	url = https://github.com/jfcherng/Sublime-ShellScriptImproved
-[submodule "config/sublime-text-3/Packages/SublimeLinter"]
-	path = config/sublime-text-3/Packages/SublimeLinter
-	url = https://github.com/SublimeLinter/SublimeLinter3
-[submodule "config/sublime-text-3/Packages/SublimeLinter-annotations"]
-	path = config/sublime-text-3/Packages/SublimeLinter-annotations
-	url = https://github.com/SublimeLinter/SublimeLinter-annotations
-[submodule "config/sublime-text-3/Packages/ModernPerl-sublime"]
-	path = config/sublime-text-3/Packages/ModernPerl-sublime
-	url = https://github.com/Blaizer/ModernPerl-sublime
-[submodule "config/sublime-text-3/Packages/Sublime-CMakeLists"]
-	path = config/sublime-text-3/Packages/Sublime-CMakeLists
-	url = https://github.com/codyopel/Sublime-CMakeLists
-[submodule "config/sublime-text-3/Packages/systemd-sublime-syntax"]
-	path = config/sublime-text-3/Packages/systemd-sublime-syntax
-	url = https://github.com/a5huynh/systemd-sublime-syntax
 [submodule "config/plex/Webtools.bundle"]
 	path = config/plex/Webtools.bundle
 	url = https://github.com/dagalufh/WebTools.bundle
-[submodule "config/sublime-text-3/Packages/Docker"]
-	path = config/sublime-text-3/Packages/Docker
-	url = https://github.com/asbjornenge/Docker.tmbundle
 [submodule "vim/pack/default-plugins/start/vim-nix"]
 	path = vim/pack/default-plugins/start/vim-nix
 	url = https://github.com/LnL7/vim-nix
