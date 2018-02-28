@@ -20,6 +20,7 @@ pkgs: {
       flite = self.flite;
       #nvenc = true;
       #libnppSupport = false;
+      libvpx = self.libvpx_head;
       #nvidia-cuda-toolkit = self.nvidia-cuda-toolkit;
       #nvidia-drivers = self.nvidia-drivers_latest;
       nonfreeLicensing = true;
@@ -32,6 +33,7 @@ pkgs: {
       opus = self.opus_head;
     };
     mpv = self.mpv.override {
+      channel = "999";
       ffmpeg = ffmpeg_head;
       #nvidia-cuda-toolkit = self.nvidia-cuda-toolkit;
       #nvidia-drivers = self.nvidia-drivers_latest;
@@ -86,6 +88,7 @@ pkgs: {
         dmidecode
         dnstop
         fish
+        elvish
         git
         gptfdisk
         #hdparm
@@ -130,7 +133,7 @@ pkgs: {
     desktop-env = self.buildEnv {
       name = "desktopEnv";
       paths = with self; [
-        discord_canary
+        discord
         dmenu
         eog
         evince
@@ -257,15 +260,14 @@ pkgs: {
         #lftp
         ncdc
         #python2Packages.deluge
-        #python2Packages.deluge_head
+        python2Packages.deluge_head
         python3Packages.flexget
         python3Packages.transmission-remote-gnome
         python3Packages.youtube-dl
-        #qbittorrent_nox_head
         resilio
         #rtorrent
         transmission_head
-        transmission-remote-gtk
+        #transmission-remote-gtk
         task-spooler
       ];
     };
