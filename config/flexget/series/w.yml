@@ -5,6 +5,7 @@ series:
     - "Wacky Races":
         set:
           tvdb_id: 76261
+    - "Waco"
     - "The Walking Dead":
         set:
           tvdb_id: 153021

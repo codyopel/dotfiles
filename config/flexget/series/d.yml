@@ -59,10 +59,12 @@ series:
     - "Delirium":
         alternate_name:
           - "Делириум"  # Russian
+    - "Derry Girls"
     - "Designated Survivor":
         set:
           tvdb_id: 311876
     - "Desperate Housewives"
+    - "The Detectives"
     - "Detectorists"
     - "The Detour"
     - "The Deuce"

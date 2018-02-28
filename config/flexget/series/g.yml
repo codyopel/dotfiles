@@ -24,6 +24,7 @@ series:
     - "Get Smart"
     - "Ghosted"
     - "The Gifted (2017)"
+    - "Girlfriends"
     - "Girls":
         set:
           tvdb_id: 220411
@@ -41,6 +42,7 @@ series:
     - "The Good Fight":
         set:
           tvdb_id: 320766
+    - "Good Girls"
     - "The Good Place"
     - "Good Witch"
     # - "The Gorburger Show":
@@ -71,5 +73,6 @@ series:
         set:
           tvdb_id: 248736
     - "Growing Up Gracefully"
+    - "Grown-ish"
     - "Guilt"
     - "Gunpowder"

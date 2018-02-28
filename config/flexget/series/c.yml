@@ -38,6 +38,7 @@ series:
     - "Chewing Gum":
         set:
           tvdb_id: 301562
+    - "The Chi"
     - "Chicago Fire":
         set:
           tvdb_id: 258541
@@ -95,6 +96,7 @@ series:
     - "Continent 7: Antarctica"
     - "Continuum"
     - "Conviction"
+    - "Counterpart"
     - "Covert Affairs":
         set:
           tvdb_id: 104281

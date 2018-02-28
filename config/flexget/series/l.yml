@@ -2,6 +2,7 @@
 
 series:
   television-list:
+    - "LA to Vegas"
     - "Last Chance High"
     - "The Last Man On Earth"
     - "Last Man Standing":
@@ -30,8 +31,10 @@ series:
     - "Lethal Weapon":
         set:
           tvdb_id: 311790
+    - "Let's Get Physical"
     - "The Level"
     - "Liar"
+    - "Liberty Crossing"
     - "The Librarians (2014)":
         alternate_name:
           - "Библиотекари /The Librarians"  # Russian
@@ -40,8 +43,10 @@ series:
     - "Life in Pieces":
         set:
           tvdb_id: 295778
+    - "Life Sentence"
     - "Lion Kingdom"
     - "The Lion Guard"
+    - "Living Biblically"
     - "Lloyd in Space"
     - "The Long Road Home"
     - "Longmire"
@@ -50,6 +55,7 @@ series:
           tvdb_id: 308734
     - "Lost in Space"
     - "Loudermilk"
+    - "Lovesick"
     - "Lucifer":
         set:
           tvdb_id: 295685

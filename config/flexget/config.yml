@@ -60,7 +60,7 @@ templates:
       host: localhost
       port: 9091
   content-remux:
-    pending_approval: yes
+    pending_list: pending-remuxes
     regexp:
       accept:
         - remux: {from: title}
@@ -141,15 +141,15 @@ templates:
     priority: 9
   priority-10:
     delay: 1 weeks
-    pending_approval: yes
+    pending_list: pending-television
     priority: 10
   priority-20:
     delay: 2 weeks
-    pending_approval: yes
+    pending_list: pending-television
     priority: 20
   priority-30:
     delay: 3 weeks
-    pending_approval: yes
+    pending_list: pending-television
     priority: 20
   rss-feed:
     accept_all: yes
