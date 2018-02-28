@@ -1,12 +1,18 @@
-#!/usr/bin/env bash
+#!/usr/bin/env elvish
 
-if [ -z "${1}" ] ; then
-  fixDir="$(pwd)"
-else
-  fixDir="${1}"
-fi
+fixDir = $pwd
+if (> (count $args) 0) {
+  if (> (count $args) 1) {
+    fail 'Only one argument allowed'
+  }
+  fixDir = $args[0]
+}
 
-find "${fixDir}" -type d -exec chmod 775 {} \;
-find "${fixDir}" -type f -exec chmod 664 {} \;
+if (not ?(e:test -d $fixDir)) {
+  fail "Not a valid directory: "$fixDir
+}
 
-exit 0
+find $fixDir '-type' 'd' '-exec' 'chmod' '775' '{}' ';'
+find $fixDir '-type' 'f' '-exec' 'chmod' '664' '{}' ';'
+
+exit
