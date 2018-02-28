@@ -1,12 +1,26 @@
-" Copyright (c) 2015-2016, Cody Opel <codyopel@gmail.com>.
+" Copyright (c) 2015-2017, Cody Opel <codyopel@gmail.com>.
 "
 " Use of this source code is governed by the terms of the
 " BSD-3 license.  A copy of the license can be found in
 " the `LICENSE' file in the top level source directory.
 
+" TODO:
+" - Fix shell quotes being matched as `Operator`
+" - Fix shell highlighting matching command arguments
+" - Fix shell function brackets matching function highlighting
+" - Fix shell if statement test brackets being matched as `Operator`
+" - Fix vimscript if/else be matched as Statement instead of Conditional
+" - Fix C function highlighting
+" - Fix C operator highlighting
+" - Fix C pointer highlighting ???
+" - Fix C function call highlighting
+" - Fix Python function argument highlighting
+
 highlight clear
 syntax reset
 let g:colors_name="monokai"
+
+syntax sync fromstart
 
 " Terminal color definitions
 let s:cterm00 = "00"
@@ -68,97 +82,136 @@ fun! <sid>hi(group, guifg, guibg, ctermfg, ctermbg, attr, guisp)
   endif
 endfun
 
+" https://github.com/vim/vim/blob/master/runtime/doc/syntax.txt
+" See: highlight-groups
+"call <sid>hi("name", "xxx", "xxx", "xxx", "xxx", "xxx", "xxx")
+
 call <sid>hi("Normal", s:gui15, s:gui00, s:cterm15, "none", "", "")
+
+call <sid>hi("Comment", s:gui08, "", s:cterm08, "", "", "")
+
 call <sid>hi("Cursor", s:gui15, s:gui15, s:cterm15, s:cterm15, "bold", "")
-call <sid>hi("CursorLine", "", s:gui00, "", s:cterm00, "none", "")
-call <sid>hi("CursorLineNr", s:gui15, "", s:cterm15, "", "none", "")  " FIXME: move to line numbers
+"call <sid>hi("CursorIM", "", "", "", "", "", "")
+call <sid>hi("CursorColumn", "", "303030", "", "237", "none", "")
+call <sid>hi("CursorLine", "", "303030", "", "237", "none", "")
+
+call <sid>hi("ColorColumn", "303030", "", "", "237", "none", "")
+
+call <sid>hi("LineNr", s:gui08, "121212", s:cterm08, "016", "none", "")
+call <sid>hi("CursorLineNr", s:gui15, "", s:cterm15, "", "none", "")
+
 call <sid>hi("Boolean", s:gui05, "", s:cterm05, "", "", "")
-highlight Character ctermfg=3
+call <sid>hi("Character", s:gui03, "", s:cterm03. "", "", "", "")
 call <sid>hi("Number", s:gui05, "", s:cterm05, "", "", "")
 call <sid>hi("String", s:gui03, "", s:cterm03, "", "", "")
-highlight Conditional ctermfg=1
-highlight Constant ctermfg=6 cterm=bold
-highlight Debug ctermfg=225 cterm=bold
-highlight Define ctermfg=14
-highlight Delimiter ctermfg=241
 
-highlight DiffAdd ctermbg=24
-highlight DiffChange ctermfg=114 ctermbg=239
-highlight DiffDelete ctermfg=162 ctermbg=53
-highlight DiffText                    ctermbg=102 cterm=bold
+call <sid>hi("Conditional", s:gui01, "", s:cterm01, "", "", "")
+call <sid>hi("Constant", s:gui06, "", s:cterm06, "", "bold", "")
+call <sid>hi("Debug", s:gui15, "", s:cterm15, "", "bold", "")
+call <sid>hi("Define", s:gui14, "", s:cterm14, "", "", "")
+call <sid>hi("Delimiter", s:gui08, "", s:cterm08, "", "", "")
+
+" TODO
+highlight EndOfBuffer ctermbg=237
+
+highlight DiffAdd               ctermbg=24
+highlight DiffChange ctermfg=03 ctermbg=09
+highlight DiffDelete ctermfg=02 ctermbg=06
+highlight DiffText              ctermbg=09 cterm=bold
 
 highlight Directory       ctermfg=10               cterm=bold
-highlight Error           ctermfg=219 ctermbg=89
+highlight Error           ctermfg=08 ctermbg=06
 call <sid>hi("ErrorMsg", s:gui00, s:gui09, s:cterm00, s:cterm09, "", "")
 highlight Exception       ctermfg=10               cterm=bold
-highlight Float           ctermfg=5
-highlight FoldColumn      ctermfg=67  ctermbg=16
-highlight Folded          ctermfg=67  ctermbg=16
-highlight Function        ctermfg=10
-highlight Identifier      ctermfg=10              cterm=none
-highlight Ignore          ctermfg=244 ctermbg=232
-highlight IncSearch       ctermfg=193 ctermbg=16
+highlight Float           ctermfg=05
+highlight FoldColumn      ctermfg=05  ctermbg=00
+highlight Folded          ctermfg=05  ctermbg=00
+highlight Function        ctermfg=02
+highlight Identifier      ctermfg=15              cterm=none
+highlight Ignore          ctermfg=08 ctermbg=00
+highlight IncSearch       ctermfg=03 ctermbg=00
 
-highlight keyword         ctermfg=1
-highlight Label           ctermfg=229               cterm=none
-highlight Macro           ctermfg=193
-highlight SpecialKey      ctermfg=14
+highlight Typedef         ctermfg=06
+highlight Type            ctermfg=06 cterm=none
+highlight Structure       ctermfg=06
+highlight StorageClass    ctermfg=06
 
-highlight MatchParen      ctermfg=233  ctermbg=9 cterm=bold
-highlight ModeMsg         ctermfg=229
-highlight MoreMsg         ctermfg=229
-highlight Operator        ctermfg=3
+" Pre processor
+call <sid>hi("Include", s:gui01, "", s:cterm01, "", "", "")
+call <sid>hi("Define", s:gui01, "", s:cterm01, "", "", "")
+call <sid>hi("Macro", s:gui03, "", s:cterm03, "", "", "")
+call <sid>hi("PreCondit", s:gui10, "", s:cterm10, "", "bold", "")
+call <sid>hi("PreProc", s:gui03, "", s:cterm03, "", "", "")
+
+highlight Keyword         ctermfg=01
+highlight Label           ctermfg=04               cterm=none
+
+highlight MatchParen      ctermfg=09 ctermbg=none cterm=bold
+highlight ModeMsg         ctermfg=03
+highlight MoreMsg         ctermfg=04
+highlight Operator        ctermfg=01
 
 " complete menu
-highlight Pmenu           ctermfg=14  ctermbg=16
-highlight PmenuSel        ctermfg=255 ctermbg=242
-highlight PmenuSbar                   ctermbg=232
+highlight Pmenu           ctermfg=14  ctermbg=00
+highlight PmenuSel        ctermfg=15 ctermbg=08
+highlight PmenuSbar                   ctermbg=00
 highlight PmenuThumb      ctermfg=14
 
-highlight PreCondit       ctermfg=10               cterm=bold
-highlight PreProc         ctermfg=9
 highlight Question        ctermfg=14
-highlight Repeat          ctermfg=15
-highlight Search          ctermfg=0   ctermbg=222   cterm=NONE
+highlight Repeat          ctermfg=01
+highlight Search          ctermfg=00   ctermbg=04   cterm=none
 
 " marks column
-highlight SignColumn      ctermfg=10 ctermbg=235
-highlight SpecialChar     ctermfg=1
-highlight SpecialComment  ctermfg=245               cterm=bold
+highlight SignColumn      ctermfg=10 ctermbg=237
+highlight SpecialChar     ctermfg=01
+highlight SpecialComment  ctermfg=08               cterm=bold
 highlight Special         ctermfg=14
 if has("spell")
-  highlight SpellBad                ctermbg=52
-  highlight SpellCap                ctermbg=17
-  highlight SpellLocal              ctermbg=17
+  highlight SpellBad                ctermbg=06
+  highlight SpellCap                ctermbg=04
+  highlight SpellLocal              ctermbg=04
   highlight SpellRare  ctermfg=none ctermbg=none  cterm=reverse
 endif
-highlight Statement       ctermfg=1
-highlight StatusLine      term=reverse ctermfg=233 ctermbg=15
+highlight Statement       ctermfg=06
+highlight StatusLine      term=reverse ctermfg=00 ctermbg=15
 set laststatus=2
-highlight StatusLineNC    ctermfg=244 ctermbg=232
-highlight StorageClass    ctermfg=9
-highlight Structure       ctermfg=14
-highlight Tag             ctermfg=1
-highlight Title           ctermfg=166
-highlight Todo            ctermfg=231 ctermbg=232   cterm=bold
+highlight StatusLineNC    ctermfg=08 ctermbg=00
+highlight Tag             ctermfg=01
+highlight Title           ctermfg=10
+highlight Todo            ctermfg=06 ctermbg=none cterm=italic
 
-highlight Typedef         ctermfg=14
-highlight Type            ctermfg=14                cterm=none
-highlight Underlined      ctermfg=244               cterm=underline
+highlight Underlined      ctermfg=08               cterm=underline
 
-highlight VertSplit       ctermfg=244 ctermbg=232   cterm=bold
-highlight VisualNOS                   ctermbg=238
-highlight Visual                      ctermbg=235
-highlight WarningMsg      ctermfg=231 ctermbg=238   cterm=bold
-highlight WildMenu        ctermfg=14  ctermbg=16
+highlight VertSplit       ctermfg=08 ctermbg=00   cterm=bold
+highlight VisualNOS                   ctermbg=09
+highlight Visual                      ctermbg=237
+highlight WarningMsg      ctermfg=15 ctermbg=09   cterm=bold
+highlight WildMenu        ctermfg=14  ctermbg=00
 
-highlight Comment         ctermfg=8
-highlight CursorColumn                ctermbg=236
-highlight ColorColumn                 ctermbg=236
-highlight LineNr          ctermfg=8 ctermbg=233
-highlight NonText         ctermfg=8
+" needs to be one shade lighter than bg color
+highlight NonText ctermfg=237 guifg=gray
+highlight SpecialKey ctermfg=237
 
-highlight SpecialKey      ctermfg=8
+""""""""""""""""""""""""""""""" Syntax Overrides """""""""""""""""""""""""""""""
+
+hi link goConstants Boolean  " Arbitrarily use boolean for the correct color
+
+" NOT for builtin python syntax
+" See: https://github.com/vim-python/python-syntax
+let g:python_highlight_all = 1
+let g:python_print_as_function = 0
+" syn keyword pythonFuncStatement def class nextgroup=pythonFunction skipwhite
+" hi link pythonFuncStatement Statement
+hi link pythonStatement Keyword
+hi link pythonBuiltinFunc Statement
+hi link pythonRun Comment
+hi link pythonNone Boolean  " Arbitrarily use boolean for the correct color
+
+hi link shOperator Normal  " shOperator also includes !, &, and |
+hi link shExSingleQuote Normal
+hi link shQuote String
+
+hi link vimCommand Keyword
 
 unlet s:cterm00
 unlet s:cterm01
