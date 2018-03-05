@@ -49,3 +49,6 @@
 [submodule "vim/pack/default-plugins/start/vim-nix"]
 	path = vim/pack/default-plugins/start/vim-nix
 	url = https://github.com/LnL7/vim-nix
+[submodule "vim/pack/default-plugins/start/vim-editorconfig"]
+	path = vim/pack/default-plugins/start/vim-editorconfig
+	url = https://github.com/sgur/vim-editorconfig
