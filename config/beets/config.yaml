@@ -244,7 +244,7 @@ write: yes
 plugins: [
     #alternatives,
     badfiles,
-    chroma,
+    #chroma,
     #copyartifacts,
     discogs,
     embedart,
