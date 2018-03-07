@@ -45,7 +45,7 @@ let s:gui00 = "272822"
 let s:gui01 = "f92672"
 let s:gui02 = "a6e22e"
 let s:gui03 = "e6db74"
-let s:gui04 = "2196e8"
+let s:gui04 = "1a1919"
 let s:gui05 = "ae81ff"
 let s:gui06 = "66d9ef"
 let s:gui07 = "f8f8f2"
@@ -88,36 +88,36 @@ endfun
 
 call <sid>hi("Normal", s:gui15, s:gui00, s:cterm15, "none", "", "")
 
-call <sid>hi("Comment", s:gui08, "", s:cterm08, "", "", "")
+call <sid>hi("Comment", s:gui07, "", s:cterm07, "", "", "")
 
 call <sid>hi("Cursor", s:gui15, s:gui15, s:cterm15, s:cterm15, "bold", "")
 "call <sid>hi("CursorIM", "", "", "", "", "", "")
-call <sid>hi("CursorColumn", "", "303030", "", "237", "none", "")
-call <sid>hi("CursorLine", "", "303030", "", "237", "none", "")
+call <sid>hi("CursorColumn", "", s:gui08, "", s:cterm08, "none", "")
+call <sid>hi("CursorLine", "", s:gui08, "none", s:cterm08, "none", "")
 
-call <sid>hi("ColorColumn", "303030", "", "", "237", "none", "")
+call <sid>hi("ColorColumn", "", s:gui08, "", s:cterm08, "none", "")
 
-call <sid>hi("LineNr", s:gui08, "121212", s:cterm08, "016", "none", "")
-call <sid>hi("CursorLineNr", s:gui15, "", s:cterm15, "", "none", "")
+call <sid>hi("LineNr", s:gui07, s:gui08, s:cterm07, s:cterm08, "none", "")
+call <sid>hi("CursorLineNr", s:gui15, "", s:cterm03, "", "none", "")
 
 call <sid>hi("Boolean", s:gui05, "", s:cterm05, "", "", "")
 call <sid>hi("Character", s:gui03, "", s:cterm03. "", "", "", "")
 call <sid>hi("Number", s:gui05, "", s:cterm05, "", "", "")
 call <sid>hi("String", s:gui03, "", s:cterm03, "", "", "")
 
+call <sid>hi("Builtin", s:gui06, "", s:cterm06, "", "", "")
 call <sid>hi("Conditional", s:gui01, "", s:cterm01, "", "", "")
 call <sid>hi("Constant", s:gui06, "", s:cterm06, "", "bold", "")
 call <sid>hi("Debug", s:gui15, "", s:cterm15, "", "bold", "")
 call <sid>hi("Define", s:gui14, "", s:cterm14, "", "", "")
 call <sid>hi("Delimiter", s:gui08, "", s:cterm08, "", "", "")
 
-" TODO
-highlight EndOfBuffer ctermbg=237
+call <sid>hi("EndOfBuffer", s:gui01, s:gui08, s:cterm01, s:cterm08, "", "")
 
-highlight DiffAdd               ctermbg=24
-highlight DiffChange ctermfg=03 ctermbg=09
-highlight DiffDelete ctermfg=02 ctermbg=06
-highlight DiffText              ctermbg=09 cterm=bold
+call <sid>hi("DiffAdd", s:gui02, s:gui00, s:cterm02, s:cterm00, "", "")
+call <sid>hi("DiffChange", s:gui03, s:gui00, s:cterm03, s:cterm00, "", "")
+call <sid>hi("DiffDelete", s:gui01, s:gui00, s:cterm01, s:cterm00, "", "")
+call <sid>hi("DiffText", s:gui15, s:gui00, s:cterm15, s:cterm00, "bold", "")
 
 highlight Directory       ctermfg=10               cterm=bold
 highlight Error           ctermfg=08 ctermbg=06
@@ -194,7 +194,17 @@ highlight SpecialKey ctermfg=237
 
 """"""""""""""""""""""""""""""" Syntax Overrides """""""""""""""""""""""""""""""
 
-hi link goConstants Boolean  " Arbitrarily use boolean for the correct color
+hi def link diffAdded DiffAdd
+hi def link diffChanged DiffChange
+hi def link diffRemoved DiffDelete
+hi def link diffNewFile DiffDelete
+hi def link diffOldFile DiffText
+hi def link diffFile DiffAdd
+
+hi def link elvishException Keyword
+hi def link elvishBuiltins Builtin
+
+hi def link goConstants Boolean  " Arbitrarily use boolean for the correct color
 
 " NOT for builtin python syntax
 " See: https://github.com/vim-python/python-syntax
@@ -202,16 +212,16 @@ let g:python_highlight_all = 1
 let g:python_print_as_function = 0
 " syn keyword pythonFuncStatement def class nextgroup=pythonFunction skipwhite
 " hi link pythonFuncStatement Statement
-hi link pythonStatement Keyword
-hi link pythonBuiltinFunc Statement
-hi link pythonRun Comment
-hi link pythonNone Boolean  " Arbitrarily use boolean for the correct color
+hi def link pythonStatement Keyword
+hi def link pythonBuiltinFunc Statement
+hi def link pythonRun Comment
+hi def link pythonNone Boolean  " Arbitrarily use boolean for the correct color
 
-hi link shOperator Normal  " shOperator also includes !, &, and |
-hi link shExSingleQuote Normal
-hi link shQuote String
+hi def link shOperator Normal  " shOperator also includes !, &, and |
+hi def link shExSingleQuote Normal
+hi def link shQuote String
 
-hi link vimCommand Keyword
+hi def link vimCommand Keyword
 
 unlet s:cterm00
 unlet s:cterm01
