@@ -10,8 +10,6 @@
 " - Fix shell function brackets matching function highlighting
 " - Fix shell if statement test brackets being matched as `Operator`
 " - Fix vimscript if/else be matched as Statement instead of Conditional
-" - Fix C function highlighting
-" - Fix C operator highlighting
 " - Fix C pointer highlighting ???
 " - Fix C function call highlighting
 " - Fix Python function argument highlighting
@@ -107,10 +105,10 @@ call <sid>hi("String", s:gui03, "", s:cterm03, "", "", "")
 
 call <sid>hi("Builtin", s:gui06, "", s:cterm06, "", "", "")
 call <sid>hi("Conditional", s:gui01, "", s:cterm01, "", "", "")
-call <sid>hi("Constant", s:gui06, "", s:cterm06, "", "bold", "")
+call <sid>hi("Constant", s:gui05, "", s:cterm05, "", "bold", "")
 call <sid>hi("Debug", s:gui15, "", s:cterm15, "", "bold", "")
 call <sid>hi("Define", s:gui14, "", s:cterm14, "", "", "")
-call <sid>hi("Delimiter", s:gui08, "", s:cterm08, "", "", "")
+call <sid>hi("Delimiter", s:gui07, "", s:cterm07, "", "", "")
 
 call <sid>hi("EndOfBuffer", s:gui01, s:gui08, s:cterm01, s:cterm08, "", "")
 
@@ -126,8 +124,9 @@ highlight Exception       ctermfg=10               cterm=bold
 highlight Float           ctermfg=05
 highlight FoldColumn      ctermfg=05  ctermbg=00
 highlight Folded          ctermfg=05  ctermbg=00
-highlight Function        ctermfg=02
-highlight Identifier      ctermfg=15              cterm=none
+call <sid>hi("Function", s:gui02, "", s:cterm02, "", "", "")
+call <sid>hi("FunctionArgument", s:gui09, "", s:cterm09, "", "", "")  " Should be for overload
+highlight Identifier      ctermfg=02              cterm=none
 highlight Ignore          ctermfg=08 ctermbg=00
 highlight IncSearch       ctermfg=03 ctermbg=00
 
@@ -194,6 +193,10 @@ highlight SpecialKey ctermfg=237
 
 """"""""""""""""""""""""""""""" Syntax Overrides """""""""""""""""""""""""""""""
 
+hi def link cDefine Keyword
+hi def link cSpecial Builtin
+
+" Bundled diff.vim
 hi def link diffAdded DiffAdd
 hi def link diffChanged DiffChange
 hi def link diffRemoved DiffDelete
@@ -201,13 +204,25 @@ hi def link diffNewFile DiffDelete
 hi def link diffOldFile DiffText
 hi def link diffFile DiffAdd
 
+" Custom"
 hi def link elvishException Keyword
 hi def link elvishBuiltins Builtin
 
-hi def link goConstants Boolean  " Arbitrarily use boolean for the correct color
+" Bundled go.vim
+hi def link goConstants Constant
 
-" NOT for builtin python syntax
-" See: https://github.com/vim-python/python-syntax
+" https://github.com/LnL7/vim-nix
+hi def link nixArgumentDefinition FunctionArgument
+hi def link nixAttribute Function
+hi def link nixList FunctionArgument
+hi def link nixNamespacedBuiltin Builtin
+hi def link nixSimpleFunctionArgument FunctionArgument
+hi def link nixPath String
+hi def link nixSimpleBuiltin Builtin
+hi def link nixStringDelimiter String
+hi def link nixURI String
+
+" https://github.com/vim-python/python-syntax
 let g:python_highlight_all = 1
 let g:python_print_as_function = 0
 " syn keyword pythonFuncStatement def class nextgroup=pythonFunction skipwhite
@@ -217,10 +232,16 @@ hi def link pythonBuiltinFunc Statement
 hi def link pythonRun Comment
 hi def link pythonNone Boolean  " Arbitrarily use boolean for the correct color
 
-hi def link shOperator Normal  " shOperator also includes !, &, and |
+" Bundled sh.vim
+hi def link shCommandSub Normal
 hi def link shExSingleQuote Normal
+hi def link shLoop Keyword
+hi def link shOperator Normal  " shOperator also includes !, &, and |
 hi def link shQuote String
+hi def link shSetList Normal
+hi def link bashStatement Normal  " These are not builtins
 
+" Bundled vim.vim
 hi def link vimCommand Keyword
 
 unlet s:cterm00
