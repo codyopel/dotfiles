@@ -141,6 +141,7 @@ pkgs: {
         gnome-calculator
         gnome-screenshot
         gnome-terminal
+        light-locker
         mumble_git
         nautilus
         networkmanager
