@@ -43,9 +43,6 @@ pkgs: {
     # rtorrent = self.rtorrent.override {
     #   colorSupport = true;
     # };
-    transmission_head = self.transmission_head.override {
-      useStableVersionUserAgent = true;
-    };
     vapoursynth_head = self.python3Packages.vapoursynth_head.override {
       ffmpeg = self.ffmpeg_head;
     };
@@ -263,20 +260,16 @@ pkgs: {
         #python2Packages.deluge
         python2Packages.deluge_head
         python3Packages.flexget
-        python3Packages.transmission-remote-gnome
         python3Packages.youtube-dl
         resilio
         #rtorrent
-        transmission_head
-        #transmission-remote-gtk
-        task-spooler
+        #task-spooler
       ];
     };
 
     factorio-env = self.buildEnv {
       name = "factorioEnv";
       paths = with self; [
-        #factorio_0-15
         factorio_0-16
       ];
     };
