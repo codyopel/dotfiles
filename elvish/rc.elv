@@ -107,8 +107,3 @@ fn youtube [@args]{
 
 fn dotfiles-dir { put $E:HOME'/.dotfiles' }
 
-# Test completers
-use github.com/zzamboni/elvish-completions/cd
-use github.com/zzamboni/elvish-completions/git
-use github.com/xiaq/edit.elv/compl/go
-go:apply
