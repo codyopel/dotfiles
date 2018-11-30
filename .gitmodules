@@ -52,3 +52,6 @@
 [submodule "vim/pack/default-plugins/start/vim-editorconfig"]
 	path = vim/pack/default-plugins/start/vim-editorconfig
 	url = https://github.com/sgur/vim-editorconfig
+[submodule "vim/pack/default-plugins/start/vim-better-whitespace"]
+	path = vim/pack/default-plugins/start/vim-better-whitespace
+	url = https://github.com/ntpeters/vim-better-whitespace
