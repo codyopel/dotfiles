@@ -22,6 +22,7 @@ series:
     - "The Catch":
         set:
           tvdb_id: 295696
+    - "Caught"
     - "Chance"
     - "Channel Zero":
         set:
@@ -32,6 +33,7 @@ series:
           tvdb_id: 172181
     - "Chasing Life"
     - "Chasing Shadows"
+    - "Cheers"
     - "Chemistry"
     - "Chemistry: A Volatile History"
     - "Chesapeake Shores"
@@ -58,6 +60,7 @@ series:
     - "Chillers"
     - "Chilly Willy"
     - "Chip n Dale: Rescue Rangers"
+    - "CHiPs"
     - "Chosen"
     - "Chowder"
     - "Chuck"
@@ -77,6 +80,7 @@ series:
           tvdb_id: 307831
     - "Club de Cuervos"
     - "Coast: New Zealand"
+    - "Cobra Kai"
     - "Code Black":
         set:
           tvdb_id: 295780
@@ -96,6 +100,7 @@ series:
     - "Continent 7: Antarctica"
     - "Continuum"
     - "Conviction"
+    - "Corporate"
     - "Counterpart"
     - "Covert Affairs":
         set:
@@ -123,6 +128,8 @@ series:
         set:
           tvdb_id: 315314
     - "Crossbones"
+    - "Crossing Lines"
+    - "The Crossing"
     - "The Crow: Stairway to Heaven"
     - "The Crown":
         set:

@@ -11,6 +11,7 @@ series:
     - "Mad Men":
         set:
           tvdb_id: 80337
+    - "Madam Secretary"
     - "MADtv"
       #regexp: "^madtv?"
     - "The Man in the High Castle":
@@ -20,8 +21,11 @@ series:
         set:
           tvdb_id: 311833
     - "Major Crimes"
+    - "Malcolm in the Middle"
     - "Mammon"
+    - "Man Down"
     - "Man Seeking Woman"
+    - "Man With a Plan"
     - "Marlon"
     - "Mary Kills People"
     - "The Magicians"
@@ -33,12 +37,15 @@ series:
     - "Me, Myself & I":
         alternate_name: "Me, Myself and I"
     - "MECH-X4"
+    - "Metalocalypse"
     - "Metropolis"
+    - "Miami Vice"
     - "The Mick"
     - "The Middle"
     - "Midnight, Texas"
     - "Mighty Max"
     - "Mike Judge Presents Tales From the Tour Bus"
+    - "Mike Tyson Mysteries"
     - "Mindhunter"
     - "The Mindy Project"
     - "Misfit Garage"
@@ -47,12 +54,17 @@ series:
     - "Modern Family"
     - "Mom"
     - "Monk"
+    - "Monster (2017)"
     - "Mosiac"
     - "Motherland"
     - "A Mothers Son"
     - "Mountain: Life at the Extreme"
     - "Mr. D"
     - "Mr. Mercedes"
+    - "Mr. Pickles"
     - "Mr. Robot"
     - "Murdoch Mysteries"
+    - "My Wife and Kids"
+    - "Mystery Science Theater 3000"
+    - "Mystery Science Theater 3000: The Return"
     - "Mysticons"

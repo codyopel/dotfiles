@@ -2,6 +2,7 @@
 
 series:
   television-list:
+    - "Nailed It"
     - "Naked News"  # FIXME: need regexp
     - "Naked SNCTM"
     - "Narcos"

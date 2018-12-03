@@ -17,7 +17,7 @@ series:
     - "Emerald City":
         set:
           tvdb_id: 295779
-    - "Empire 2015":
+    - "Empire (2015)":
         set:
           tvdb_id: 281617
     - "The End of the F***ing World"
@@ -37,6 +37,7 @@ series:
     - "Everwood"
     - "Everybody Hates Chris"
     - "Everybody Loves Raymond"
+    - "Everything Sucks"
     - "Evil Con Carne"
     - "The Exorcist"
     - "The Expanse":

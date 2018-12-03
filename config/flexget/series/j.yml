@@ -2,12 +2,14 @@ series:
   television-list:
     - "Jackass"
     - "Jackie Chan Adventures"
+    - "JAG"
     - "James May: The Reassembler"
     - "James Mays Man Lab"
     - "Jamestown"
     - "The Jamie Foxx Show"
     - "Jamies Quick and Easy Food"
     - "Jane the Virign"
+    - "Janet King"
     - "Jay Leno's Garage (2015)":
         set:
           tvdb_id: 301592
@@ -17,6 +19,7 @@ series:
     - "Jeremiah"
     - "Jericho"
     - "Jericho (2016)"
+    - "Jessie"
     - "The Jetsons"
     - "John Adams"
     - "John Doe"

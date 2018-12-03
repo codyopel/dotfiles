@@ -10,6 +10,7 @@ series:
     - "The Keepers"
     - "The Keith and Paddy Picture Show"
     - "Kenan and Kel"
+    - "Kenny Starfighter"
     - "Kenny vs. Spenny"
     - "Kevin Can Wait":
         set:
@@ -18,6 +19,7 @@ series:
     - "Kevin Spencer"
     - "The Kill Point"
     - "The Killing"
+    - "Killing Eve"
     - "Killing Fields":
         set:
           tvdb_id: 304951
@@ -43,5 +45,6 @@ series:
     - "Knight Rider (2008)"
     - "Knightfall"
     - "Kong King of the Apes"
+    - "Krypton"
     - "Kung Fu Panda: Legends of Awesomeness"
     - "Kyle XY"

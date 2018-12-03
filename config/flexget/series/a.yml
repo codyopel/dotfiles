@@ -37,6 +37,7 @@ series:
         alternate_name:
           - "Marvel's Agents of Shield"
     - "Akil: The Fugitive Hunter"
+    - "Alex, Inc."
     - "ALF"
     - "The Alfred Hitchcock Hour"
     - "Alfred Hitchcock Presents"
@@ -47,6 +48,7 @@ series:
     - "The Alienist"
     - "All Hail King Julien"
     - "All Grown Up"
+    - "All Round to Mrs Brown's"
     - "All Wrong"
     - "Almost Human"
     - "Alone Together"
@@ -91,7 +93,7 @@ series:
     - "Angie Tribeca"
     - "The Angry Beavers"
     - "Angry Boys"
-    - "Animal Kingdom 2016":
+    - "Animal Kingdom (2016)":
         set:
           tvdb_id: 304262
     - "Animals":

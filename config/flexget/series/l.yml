@@ -44,16 +44,21 @@ series:
         set:
           tvdb_id: 295778
     - "Life Sentence"
+    - "Lilo and Stitch"
+    - "Line of Duty"
     - "Lion Kingdom"
     - "The Lion Guard"
     - "Living Biblically"
     - "Lloyd in Space"
+    - "Locked Up"
+    - "The Lone Gunmen"
     - "The Long Road Home"
     - "Longmire"
     - "Lopez":
         set:
           tvdb_id: 308734
     - "Lost in Space"
+    - "Lost in Space (2018)"
     - "Loudermilk"
     - "Lovesick"
     - "Lucifer":

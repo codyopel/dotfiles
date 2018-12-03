@@ -1,7 +1,9 @@
 series:
   television-list:
     - "Da Ali G Show"
+    - "Da Vincis Deamons"
     - "Dallas"
+    - "Damages"
     - "Damien"
     - "Damnation"
     - "Dan Vs."
@@ -44,10 +46,12 @@ series:
     - "Deadwood"
     - "Dear White People"
     - "Death Note"
+    - "Deception"
     - "Decline and Fall":
         set:
           tvdb_id: 322122
     - "The Deep"
+    - "Deep State"
     - "The Defenders (2010)":
         set:
           tvdb_id: 164521
@@ -103,6 +107,7 @@ series:
     - "Don't Trust the B---- in Apartment 23":
         set:
           tvdb_id: 248812
+    - "Dope"
     - "Doubt":
         set:
           tvdb_id: 311968
@@ -127,7 +132,9 @@ series:
     - "Dream Corp"
     - "The Driver"
     - "Drop the Dead Donkey"
+    - "Drunk History"
     - "Duck Dynasty"
-    - "Ducktales"
-    - "Ducktales (2017)"
+    - "DuckTales"
+    - "DuckTales (2017)"
+    - "The Durrells"
     - "Dynasty"

@@ -2,6 +2,7 @@
 
 series:
   television-list:
+    - "Halfworlds"
     - "Halt and Catch Fire":
         set:
           tvdb_id: 271910
@@ -10,8 +11,11 @@ series:
         set:
           tvdb_id: 305687
     - "Happy"
+    - "Happy Town"
     - "Hard Sun"
     - "HarmonQuest"
+    - "Harrow"
+    - "Harvey Beaks"
     - "Haters Back Off"
     - "Have I Got News for You"
     - "Hawaii Five-0 (2010)":
@@ -19,7 +23,10 @@ series:
           tvdb_id: 164541
     - "The Heart, She Holler"
     - "Heartland"
+    - "Heathers"
+    - "Here and Now"
     - "Heros Reborn"
+    - "High Maintenance"
     - "Hit the Road"
     - "The Hitch Hiker's Guide to the Galaxy"
     - "Home from Home"
@@ -28,6 +35,7 @@ series:
           tvdb_id: 247897
     - "Honeymooners"
     - "How It's Made"
+    - "How the Universe Works"
     - "How to Get Away with Murder":
         alternate_name:
           - "Как избежать наказания за убийство"  # Russian

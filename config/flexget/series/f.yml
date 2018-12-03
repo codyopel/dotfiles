@@ -3,9 +3,12 @@
 series:
   television-list:
     - "F Troop"
+    - "Falling Skies"
+    - "False Flag"
     - "Family Guy":
         set:
           tvdb_id: 75978
+    - "Famous in Love"
     - "Fargo":
         set:
           tvdb_id: 269613
@@ -16,11 +19,13 @@ series:
           tvdb_id: 322466
     - "Fillmore"
     - "Filty Rich"
+    - "Final Space"
     - "Fixer Upper"
     - "The Flash (2014)":
         set:
           tvdb_id: 279121
     - "Fluffy's Food Adventures"
+    - "For the People"
     - "The Fosters"
     - "The Frankenstein Chronicles"
     - "Freakish"
@@ -30,6 +35,8 @@ series:
     - "Fresh Off the Boat":
         set:
           tvdb_id: 281618
+    - "Friends"
+    - "Fringe"
     - "From Dusk Till Dawn: The Series"
     - "Frontier (2016)"
     - "Fuller House"
