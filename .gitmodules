@@ -7,27 +7,18 @@
 [submodule "vim/pack/default-plugins/start/nerdcommenter"]
 	path = vim/pack/default-plugins/start/nerdcommenter
 	url = https://github.com/scrooloose/nerdcommenter
-[submodule "vim/pack/default-plugins/start/vim-fugitive"]
-	path = vim/pack/default-plugins/start/vim-fugitive
-	url = https://github.com/tpope/vim-fugitive
 [submodule "vim/pack/default-plugins/start/nerdtree"]
 	path = vim/pack/default-plugins/start/nerdtree
 	url = https://github.com/scrooloose/nerdtree
 [submodule "vim/pack/default-plugins/start/vim-surround"]
 	path = vim/pack/default-plugins/start/vim-surround
 	url = https://github.com/tpope/vim-surround
-[submodule "vim/pack/default-plugins/start/tagbar"]
-	path = vim/pack/default-plugins/start/tagbar
-	url = https://github.com/majutsushi/tagbar
 [submodule "vim/pack/default-plugins/start/tabular"]
 	path = vim/pack/default-plugins/start/tabular
 	url = https://github.com/godlygeek/tabular
 [submodule "vim/pack/default-plugins/start/vim-multiple-cursors"]
 	path = vim/pack/default-plugins/start/vim-multiple-cursors
 	url = https://github.com/terryma/vim-multiple-cursors
-[submodule "vim/pack/default-plugins/start/gv.vim"]
-	path = vim/pack/default-plugins/start/gv.vim
-	url = https://github.com/junegunn/gv.vim
 [submodule "vim/pack/default-plugins/start/vimux"]
 	path = vim/pack/default-plugins/start/vimux
 	url = https://github.com/benmills/vimux
@@ -55,3 +46,6 @@
 [submodule "vim/pack/default-plugins/start/vim-better-whitespace"]
 	path = vim/pack/default-plugins/start/vim-better-whitespace
 	url = https://github.com/ntpeters/vim-better-whitespace
+[submodule "vim/pack/default-plugins/start/vim-monokai-truecolor"]
+	path = vim/pack/default-plugins/start/vim-monokai-truecolor
+	url = https://github.com/chlorm/vim-monokai-truecolor
