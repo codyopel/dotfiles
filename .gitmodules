@@ -46,3 +46,6 @@
 [submodule "vim/pack/default-plugins/start/vim-monokai-truecolor"]
 	path = vim/pack/default-plugins/start/vim-monokai-truecolor
 	url = https://github.com/chlorm/vim-monokai-truecolor
+[submodule "vim/pack/default-plugins/start/vim-elvish-syntax"]
+	path = vim/pack/default-plugins/start/vim-elvish-syntax
+	url = https://github.com/chlorm/vim-elvish-syntax
