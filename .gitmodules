@@ -31,9 +31,6 @@
 [submodule "vim/pack/default-plugins/start/vim-signify"]
 	path = vim/pack/default-plugins/start/vim-signify
 	url = https://github.com/mhinz/vim-signify
-[submodule "vim/pack/default-plugins/start/elvish"]
-	path = vim/pack/default-plugins/start/elvish
-	url = https://github.com/dmix/elvish.vim
 [submodule "vim/pack/default-plugins/start/python-syntax"]
 	path = vim/pack/default-plugins/start/python-syntax
 	url = https://github.com/vim-python/python-syntax
