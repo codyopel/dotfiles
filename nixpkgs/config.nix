@@ -96,7 +96,6 @@ pkgs: {
         ipset
         iptables
         jq
-        lib-bash
         lm-sensors
         mg
         mtr
@@ -139,11 +138,11 @@ pkgs: {
         gnome-screenshot
         gnome-terminal
         light-locker
-        mumble_git
+        #mumble_git
         nautilus
         networkmanager
         networkmanager-applet
-        nvidia-settings
+        #nvidia-settings
         pavucontrol
         pulseaudio_full
         sakura
@@ -185,7 +184,7 @@ pkgs: {
         #python2Packages.certbot
         python3Packages.python
         #rustc
-        swig
+        #swig
         #texLive
         #texstudio
       ];
@@ -243,6 +242,13 @@ pkgs: {
       ];
     };
 
+    ipfs-env = self.buildEnv {
+      name = "ipfsEnv";
+      paths = with self; [
+        goPackages.ipfs.bin
+      ];
+    };
+
     rclone-env = self.buildEnv {
       name = "rcloneEnv";
       paths = with self; [
@@ -258,7 +264,7 @@ pkgs: {
         #lftp
         ncdc
         #python2Packages.deluge
-        python2Packages.deluge_head
+        #python2Packages.deluge_head
         python3Packages.flexget
         python3Packages.youtube-dl
         resilio
@@ -267,12 +273,12 @@ pkgs: {
       ];
     };
 
-    factorio-env = self.buildEnv {
+    /*factorio-env = self.buildEnv {
       name = "factorioEnv";
       paths = with self; [
         factorio_0-16
       ];
-    };
+    };*/
 
     /*chromium-env = self.buildEnv  {
       name = "chromiumEnv";
@@ -284,7 +290,7 @@ pkgs: {
     google-chrome-env = self.buildEnv  {
       name = "googleChromeEnv";
       paths = with self; [
-        google-chrome_beta
+        #google-chrome_beta
         google-chrome_stable
       ];
     };
