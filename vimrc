@@ -132,8 +132,8 @@ endif
 
 set nomodeline
 
-if isdirectory($HOME . "/.tmp/")
-  let &viminfo = &viminfo . ",n" . $HOME . "/.tmp/viminfo"
+if isdirectory($XDG_RUNTIME_DIR)
+  let &viminfo = &viminfo . ",n" . $XDG_RUNTIME_DIR . "/viminfo"
 else
   let &viminfo = ""
 endif
