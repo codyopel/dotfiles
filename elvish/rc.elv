@@ -86,9 +86,22 @@ edit:prompt = {
 edit:rprompt = { }
 
 fn update-machines {
-  nix:rebuild-system 'boot'
-  nix:rebuild-envs
-  nix:copy-closures '10.1.1.7'  # Raenok
+  nix:rebuild-system 'boot' --option binary-caches '""'
+  nix:rebuild-envs --option binary-caches '""'
+  nixos-closures = (nix:find-nixos-closures)
+  nix-config-closures = [(nix:find-nixconfig-closures)]
+
+  local:machines = [ ]
+  local:hostname = (hostname)
+  if (!=s $hostname 'NOS-4-A2') {
+    machines = [ $@machines '10.1.1.5' ]
+  }
+  if (!=s $hostname 'Raenok') {
+    machines = [ $@machines '10.1.1.7' ]
+  }
+  for local:i $machines {
+    nix:copy-closures $i $@nixos-closures $@nix-config-closures
+  }
 }
 
 fn mssh {
