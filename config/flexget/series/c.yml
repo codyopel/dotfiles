@@ -1,33 +1,53 @@
 series:
   television-list:
+    - "Cable Girls"
     - "Californication"
     - "Call Me Fitz"
+    - "Call My Agent!":
+        alternate_name:
+          - "Dix pour cent"
     - "Call the Midwife"
     - "Camelot"
+    - "Camping":
+        alternate_name:
+          "Camping US"
+    - "Cannabis"
     - "Can't Cope, Won't Cope"
+    - "Canterburys Law"
     - "The Cape"
     - "Caprica"
+    - "Captain Planet and the Planeteers"
     - "Captain Scarlet and the Mysterons"
     - "Captive"
+    - "The Carbonaro Effect"
     - "Cardinal"
+    - "Carl's Pissed"
     - "The Carmichael Show"
     - "Carnivale"
+    - "Carter"
     - "Carter's Get Rich"
     - "Case"
     - "The Case: Book of Sherlock Holmes"
     - "Castle"
+    - "Castle Rock"
     - "Castlevania"
     - "Casual"
     - "Catastrophe (2015)"
     - "The Catch":
         set:
           tvdb_id: 295696
+    - "Catdog"
     - "Caught"
+    - "Cavendish"
+    - "Champaign Ill"
     - "Chance"
     - "Channel Zero":
         set:
           tvdb_id: 315178
+    - "El Chapo"
     - "Chappelle's Show"
+    - "Charlie's Angels"
+    - "Charmed"
     - "Chasing Classic Cars":
         set:
           tvdb_id: 172181
@@ -58,6 +78,7 @@ series:
     - "Children of Dune"
     - "Children of Fire Mountain"
     - "Chillers"
+    - "Chilling Adventures of Sabrina"
     - "Chilly Willy"
     - "Chip n Dale: Rescue Rangers"
     - "CHiPs"
@@ -65,12 +86,16 @@ series:
     - "Chowder"
     - "Chuck"
     - "Citizen Khan"
+    - "The City and the City"
+    - "Clarissa Explains it All"
     - "Class":
         set:
           tvdb_id: 309893
     - "Claws"
+    - "Cleaning Up"
     - "Clerks: The Animated Series"
     - "Cleverman"
+    - "The Climb"
     - "Clipped"
     - "Clique":
         set:
@@ -84,32 +109,50 @@ series:
     - "Code Black":
         set:
           tvdb_id: 295780
+    - "Code Monkeys"
+    - "Code of a Killer"
     - "Cold Feet"
+    - "Collateral"
     - "The Collection"
     - "Colony":
         set:
           tvdb_id: 284210
     - "Combat"
     - "Come Fly With Me"
+    - "Comic Book Men"
     - "Community"
     - "Complete Savages"
     - "Con Man"
+    - "Condor"
+    - "Confess"
+    - "The Conners"
     - "Containment":
         set:
           tvdb_id: 295767
     - "Continent 7: Antarctica"
     - "Continuum"
     - "Conviction"
+    - "The Cool Kids"
+    - "Cops"
+    - "Corner Gas"
     - "Corporate"
+    - "Cougar Town"
+    - "Count Arthur Strong"
     - "Counterpart"
+    - "Cousins For Life"
     - "Covert Affairs":
         set:
           tvdb_id: 104281
     - "Cow and Chicken"
     - "Crackanory"
     - "Crank Yankers"
-    - "Crashing"
+    - "Crashing":
+        alternate_name:
+          - "Crashing (2016)"
+          - "Crashing UK"
     - "Crashing (2017)":
+        alternate_name:
+          - "Crashing US"
         set:
           tvdb_id: 319153
     - "Crazy Ex-Girlfriend":
@@ -118,12 +161,15 @@ series:
     - "Crazyhead":
         set:
           tvdb_id: 318000
+    - "Creeped Out"
+    - "Crikey its the Irwins"
     - "Criminal Minds":
         set:
           tvdb_id: 75710
     - "Criminal Minds: Beyond Borders":
         set:
           tvdb_id: 296654
+    - "Crims"
     - "Crisis in Six Scenes":
         set:
           tvdb_id: 315314
@@ -138,7 +184,10 @@ series:
         set:
           tvdb_id: 315963
     - "Crusoe"
+    - "The Cry"
+    - "Cuckoo"
     - "The Cul de Sac"
+    - "Cult"
     - "Curb Your Enthusiasm"
     - "Curious George"
     - "Cyberwar"

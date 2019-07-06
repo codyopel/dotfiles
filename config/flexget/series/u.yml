@@ -1,8 +1,14 @@
 series:
   television-list:
+    # G
     - "Ugly Americans"
     - "Ugly Betty"
+    # L
+    - "Ultimate Spider-Man"
+    - "Ultraviolet"
+    # M
     - "Umbre"
+    # N
     - "Unbreakable Kimmy Schmidt"
     - "Uncle"
     - "Undateable (2014)":
@@ -19,9 +25,15 @@ series:
     - "Unforgotten"
     - "The Unit"
     - "The Universe"
+    - "Unreal"
     - "Unsend"
+    - "Unsolved Mysteries"
+    - "The Unusuals"
+    # P
     - "Up All Night"
     - "Upper Middle Bogan"
     - "Upstart Crow"
+    # T
     - "Utopia"
     - "Utopia: In search of the Dream"
+

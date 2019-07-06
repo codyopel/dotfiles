@@ -16,9 +16,11 @@ series:
     - "19-2 (2014)":
         set:
           tvdb_id: 276360
+    - "1983"
     - "The 100":
         set:
           tvdb_id: 268592
+    - "100 Deeds"
     - "100 Year Old Driving School"
     - "1000 Ways to Die"
     - "1600 Penn":

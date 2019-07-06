@@ -3,9 +3,12 @@ series:
     - "I Am Frankie"
     - "I Am Weasel"
     - "I Dream of Jeannie"
+    - "I Feel Bad"
     - "I Love Dick"
     - "I Love Lucy"
-    - "I Love You America"
+    - "I Love You America":
+        alternate_name:
+          "I Love You America with Sarah Silverman"
     - "I Shouldn't Be Alive"
     - "iCarly"
     - "Ice"
@@ -20,18 +23,23 @@ series:
     - "Imposters":
         set:
           tvdb_id: 320520
+    - "Impulse"
     - "In Living Color"
     - "In the Dark"
     - "In the Flesh"
+    - "In Treatment"
     - "The Inbetweeners"
     - "Incorporated":
         set:
           tvdb_id: 315177
     - "The Incredible Hulk"
+    - "Informer"
     - "Ingobernable"
     - "Inhumans"
+    - "Inquistion"
     - "Insecure"
     - "Inside Balmoral"
+    - "Insomnia"
     - "Inspector Gadget"
     - "Inspector George Gently"
     - "Instinct"
@@ -41,9 +49,15 @@ series:
     - "Into the Badlands":
         set:
           tvdb_id: 289079
+    - "Into the Dark"
+    - "Intruders"
     - "Invader Zim"
+    - "The Inbetweeners"
+    - "The Incredible Hulk"
+    - "The Innocents"
     - "The Invisible Man"
     - "Iron Fist"
+    - "IT"
     - "The IT Crowd"
     - "It's Always Sunny in Philadelphia"
     - "iZombie"

@@ -1,6 +1,7 @@
 series:
   television-list:
     - "K C Undercover"
+    - "K9 and Company"
     - "Kat and Alfie: Redwater":
         alternate_name:
           - "Redwater"
@@ -8,6 +9,7 @@ series:
     - "Kath and Kim"
     - "Kath and Kim (2008)"
     - "The Keepers"
+    - "Keeping Faith"
     - "The Keith and Paddy Picture Show"
     - "Kenan and Kel"
     - "Kenny Starfighter"
@@ -17,6 +19,9 @@ series:
           tvdb_id: 311944
     - "Kevin Probably Saves the World"
     - "Kevin Spencer"
+    - "A Kid Called Mayonnaise"
+    - "Kidding"
+    - "The Kids are Alright"
     - "The Kill Point"
     - "The Killing"
     - "Killing Eve"
@@ -30,20 +35,25 @@ series:
           tvdb_id: 281534
     - "Kim Possible"
     - "Kim's Convenience"
+    - "King Maxwell"
     - "King of the Hill"
     - "The King of Queens"
     - "Kingdom"
+    - "Kingdom (2019)"
     - "Kingdom of Plants":
         alternate_name:
           - "Kingdom of Plants with David Attenborough"
     - "Kings"
+    - "Kiri"
     - "KLEM":
         begin: S02E00
         set:
           tvdb_id: 321148
+    - "The Knick"
     - "Knight Rider"
     - "Knight Rider (2008)"
     - "Knightfall"
+    - "The Kominsky Method"
     - "Kong King of the Apes"
     - "Krypton"
     - "Kung Fu Panda: Legends of Awesomeness"

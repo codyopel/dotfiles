@@ -3,6 +3,7 @@ series:
     - "2 Broke Girls":
         set:
           tvdb_id: 248741
+    - "2 Dope Queens"
     - "21 Jump Street"
     - "21 Thunder":
         set:

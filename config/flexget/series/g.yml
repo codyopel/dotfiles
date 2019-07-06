@@ -6,6 +6,9 @@ series:
     - "Galapagos 2017":
         set:
           tvdb_id: 326252
+    - "Galavant"
+    - "Gallipoli"
+    - "The Game"
     - "Game of Thrones":
         set:
           tvdb_id: 121361
@@ -15,26 +18,57 @@ series:
           - "Преступные связи"  # Russian
         set:
           tvdb_id: 269590
+    - "Gangland Undercover"
+    - "Gap Year"
+    - "Gardening Australia"
+    - "Garfunkel and Oates"
+    - "Gargantia on the Verurous Planet"
+    - "Gargoyles"
+    - "Gary and His Demons"
     - "Gary Unmarried"
+    - "Gavin and Stacey"
+    - "Gearz"
     - "Genius"
+    - "Geordie Shore"
     - "George Lopez":
         set:
           tvdb_id: 76713
+    - "George of the Jungle"
     - "Get Krack!n":
         alternate_name:
           - "Get Krackn"
+    - "Get Out"
+    - "Get Out Alive with Bear Grylls"
     - "Get Shorty"
     - "Get Smart"
+    - "Ghost in the Shell: Stand Alone Complex"
+    - "Ghost Wars"
+    - "Ghost Whisperer"
     - "Ghosted"
+    - "Ghoul"
     - "The Gifted (2017)"
+    - "Gilligans Island"
+    - "Gilmore Girls"
+    - "Gilmore Girls: A Year in the Life"
+    - "Girl Girl Scene"
+    - "Girlboss"
+    - "The Girlfriend Experience"
     - "Girlfriends"
     - "Girls":
         set:
           tvdb_id: 220411
+    - "The Glades"
     - "Glitch"
-    - "Goldbergs (2013)":
+    - "Glow"
+    - "Glow: Gorgeous Ladies of Wrestling"
+    - "Glue"
+    - "God Friended Me"
+    - "Godless"
+    - "The Goldbergs (2013)":
         set:
           tvdb_id: 269653
+    - "The Golden Girls"
+    - "The Golden Palace"
     - "Goliath":
         set:
           tvdb_id: 315321
@@ -47,27 +81,41 @@ series:
         set:
           tvdb_id: 320766
     - "Good Girls"
+    - "The Good Life"
     - "The Good Place"
+    - "Good Trouble"
+    - "Good Vibes"
+    - "The Good Wife"
     - "Good Witch"
+    - "Goodnight Sweetheart"
+    - "Goosebumps"
     # - "The Gorburger Show":
     #     set:
     #       tvdb_id: 276567
     - "The Gorburger Show":  # (2017)":
         set:
           tvdb_id: 326701
+    - "Gordon Ramsay on Cocaine"
     - "Gotham":
         set:
           tvdb_id: 274431
     - "Grace and Frankie"
+    - "Grantchester"
     - "The Grand Tour":
         set:
           tvdb_id: 314087
     - "Graves"
+    - "Graveyard Carz"
     - "Gravity Falls"
+    - "Great American Railroad Journeys"
+    - "The Great Barrier Reef with David Attenborough"
+    - "Great Canadian Railway Journeys"
+    - "Great Continental Railway Journeys"
     - "The Great Indoors":
         set:
           tvdb_id: 311948
     - "Great News"
+    - "Green Acres"
     - "Greenleaf":
         set:
           tvdb_id: 306391
@@ -77,8 +125,14 @@ series:
     - "Grimm":
         set:
           tvdb_id: 248736
+    - "Grow Op"
     - "Growing Up Fisher"
     - "Growing Up Gracefully"
     - "Grown-ish"
+    - "Guerrilla"
     - "Guilt"
     - "Gunpowder"
+    - "Gunslingers"
+    - "The Gymkhana Files"
+    - "Gypsy"
+

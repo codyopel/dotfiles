@@ -6,31 +6,42 @@ series:
         set:
           tvdb_id: 76261
     - "Waco"
+    - "The Wages of Fear"
     - "The Walking Dead":
         set:
           tvdb_id: 153021
     - "Wallander"
+    - "Wally Gator"
     - "Walter"
+    - "Wanderlust"
+    - "Wannabe"
     - "Wanted"
+    - "The War"
     - "Warehouse 13":
         set:
           tvdb_id: 84676
     - "The Warriors"
-    - "Wasted 2016":
+    - "Wasted (2016)":
         set:
           tvdb_id: 314650
-    - "Wasteland 2016":
+    - "Wasteland (2016)":
         set:
           tvdb_id: 318387
+    - "Watership Down"
+    - "Wayne"
     - "Wayward Pines":
         set:
           tvdb_id: 269750
     - "We Bare Bears"
     - "Wedding Band"
     - "Weediquette"
+    - "Weeds"
     - "The Weekly with Charlie Pickering"
+    - "Weird Science"
     - "Weissensee"
+    - "Welcome to the Family"
     - "Welcome to the Wayne"
+    - "Wellington Paranormal"
     - "Wentworth"
     - "The West Wing"
     - "Westside"
@@ -44,19 +55,25 @@ series:
         set:
           tvdb_id: 281536
     - "What Exit"
+    - "What Next"
     - "What Remains"
+    - "What Would Sal Do"
     - "When Calls the Heart"
+    - "When Heros Fly"
     - "Where on Earth is Carmen Sandiego"
     - "White Collar"
     - "White Famous"
     - "White Gold"
+    - "White Heat"
     - "The White Princess"
     - "White Rabbit Project":
         set:
           tvdb_id: 316581
+    - "Whitechapel"
     - "Whose line is it Anyway":
         alternate_name:
-          - "Whose line is it Anyway US"
+          - "Whose line is it Anyway (US)"
+    - "Wicked City"
     - "Wild Amazon"
     - "Wild New Zealand"
     - "Wild Things with Dominic Monaghan"
@@ -67,21 +84,31 @@ series:
     - "Wilfred"
     - "Will"
     - "Will and Grace"
+    - "Will vs the Future"
     - "The Windsors"
     - "The Wire"
     - "Wisdom of the Crowd"
     - "Witless"
     - "Wizards of Waverly Place"
+    - "Wolf":
+        alternate_name:
+          - "Börü"
     - "Wolf Creek"
     - "Wolf Hall"
     - "Wolf Lake"
     - "Wolfblood":
         set:
           tvdb_id: 262554
+    - "The Woman in White"
+    - "Women in Love"
+    - "Women on the Verge"
     - "Wonder Woman"
+    - "The Wonder Years"
+    - "Wonderfalls"
     - "Wonders of the Solar System":
         set:
           tvdb_id: 147071
+    - "Woody Woodpecker"
     - "Workaholics":
         set:
           tvdb_id: 211751
@@ -91,21 +118,23 @@ series:
         set:
           tvdb_id: 79309
     #- "World War II"  # ???
-    - "World without End":
+    - "World Without End":
         set:
           tvdb_id: 261656
     - "The Worst Witch":  # 1998
         set:
           tvdb_id: 75431
-    - "The Worst Witch 2017":
+    - "The Worst Witch (2017)":
         set:
           tvdb_id: 321884
     - "Wrecked 2016":
         set:
           tvdb_id: 310555
+    - "Wrecked (2016)"
     - "The Wrong Girl":
         set:
           tvdb_id: 316772
     - "Wynonna Earp":
         set:
           tvdb_id: 305582
+

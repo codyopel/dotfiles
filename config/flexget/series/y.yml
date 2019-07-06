@@ -3,15 +3,20 @@ series:
     - "Year Million":
         set:
           tvdb_id: 328143
+    - "Yellowstone"
     - "Yes Minister":
         set:
           tvdb_id: 76829
+    - "Yes Prime Minister"
     - "Yonderland":
         set:
           tvdb_id: 270668
+    - "You"
     - "You Are Wanted":
         set:
           tvdb_id: 323033
+    - "You Me and the Apocalypse"
+    - "You Me and Them"
     - "You Me Her":
         set:
           tvdb_id: 309130
@@ -21,6 +26,8 @@ series:
     - "Young Hercules":
         set:
           tvdb_id: 75491
+    - "Young Justice"
+    - "The Young Offenders"
     - "Young Sheldon":
         set:
           tvdb_id: 328724
@@ -41,3 +48,4 @@ series:
           - "Youre the Worst"
         set:
           tvdb_id: 281776
+

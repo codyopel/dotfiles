@@ -1,19 +1,22 @@
 series:
   television-list:
     - "Early Edition"
-    - "Eastbound and DOwn"
+    - "Eastbound and Down"
     - "Eastsiders"
     - "Easy":
         set:
           tvdb_id: 314884
     - "Ed Edd n Eddy"
     - "The Ed Sullivan Show"
+    - "Edha"
+    - "Eerie Indiana"
     - "The Eighties"
-    - "El Chapo"
-    - "El Marginal"
     - "Elementary":
         set:
           tvdb_id: 255316
+    - "Elizabeth I"
+    - "Ellery Queen Mysteries"
+    - "Elven"
     - "Emerald City":
         set:
           tvdb_id: 295779
@@ -21,12 +24,14 @@ series:
         set:
           tvdb_id: 281617
     - "The End of the F***ing World"
+    - "Endeavour"
     - "The Enfield Haunting"
     - "Entourage"
     - "Epicly Later'd"
     - "Episodes"
     - "The Equalizer"
     - "ER"
+    - "Escape at Dannemora"
     - "Escape the Night"
     - "Eureka"
     - "Even Stevens"
@@ -39,6 +44,7 @@ series:
     - "Everybody Loves Raymond"
     - "Everything Sucks"
     - "Evil Con Carne"
+    - "Evil Touch"
     - "The Exorcist"
     - "The Expanse":
         set:
@@ -46,5 +52,7 @@ series:
     - "Explorer"
     - "Extant"
     - "Extinct"
+    - "Extrano Enemigo"
+    - "Extreme Ghostbusters"
     - "Eye Candy"
     - "Eyewitness"

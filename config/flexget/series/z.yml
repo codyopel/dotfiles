@@ -9,6 +9,7 @@ series:
     - "The Z Virus":
         set:
           tvdb_id: 329798
+    - "Zach Stone is Gonna be Famous"
     - "Zapped!":
         set:
           tvdb_id: 317169
@@ -27,4 +28,6 @@ series:
     - "The Zoo (2017)":
         set:
           tvdb_id: 323697
+    - "Zorro"
     - "Zoom"
+

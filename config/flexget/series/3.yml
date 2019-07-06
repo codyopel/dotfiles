@@ -5,4 +5,6 @@ series:
         alternate_name:
           - "Third Rock From the Sun"
     - "30 Rock"
-    - "3%"
+    - "3%":
+        alternate_name:
+          - "3 Percent"

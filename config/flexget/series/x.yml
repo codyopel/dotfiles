@@ -7,6 +7,8 @@ series:
     - "The X-Files":
         set:
           tvdb_id: 77398
+    - "Xavier Renegade Angel"
     - "Xena: Warrior Princess":
         set:
           tvdb_id: 77799
+
