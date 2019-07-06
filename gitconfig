@@ -155,3 +155,5 @@
   pushInsteadOf = "gitlab:"
   pushInsteadOf = "git://gitlab.com/"
   pushInsteadOf = "https://gitlab.com/"
+[submodule]
+	recurse = true
