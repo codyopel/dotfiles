@@ -58,7 +58,7 @@ if ?(has-env 'SSH_ASKPASS' >/dev/null) {
 E:EDITOR = 'vim'
 E:VISUAL = 'vim'
 
-E:NIX_PATH = 'nixpkgs='$E:HOME'/Projects/triton:nixos-config=/etc/nixos/configuration.nix:'$E:NIX_PATH
+E:NIX_PATH = 'nixpkgs='(get-env HOME)'/Projects/triton:nixos-config=/etc/nixos/configuration.nix:'
 
 fn ls [@a]{ e:ls '--color' $@a }
 
