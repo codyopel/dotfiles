@@ -49,3 +49,9 @@
 [submodule "vim/pack/default-plugins/start/vim-elvish-syntax"]
 	path = vim/pack/default-plugins/start/vim-elvish-syntax
 	url = https://github.com/chlorm/vim-elvish-syntax
+[submodule "vim/pack/default-plugins/start/vim-codefmt"]
+	path = vim/pack/default-plugins/start/vim-codefmt
+	url = https://github.com/google/vim-codefmt
+[submodule "vim/pack/default-plugins/start/vim-maktaba"]
+	path = vim/pack/default-plugins/start/vim-maktaba
+	url = https://github.com/google/vim-maktaba
