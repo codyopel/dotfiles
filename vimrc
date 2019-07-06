@@ -16,53 +16,55 @@ let g:signify_vcs_list = [ 'git' ]
 let g:signify_realtime=1
 let g:airline_theme='murmur'
 
-filetype plugin indent on
+set
+  \ ai
+  "\ set background=none " Don't set to use terminals background
+  "\ Allow backspacing over everything in insert mode
+  \ backspace=indent,eol,start
+  "\ Line length ruler
+  \ colorcolumn=81
+  "\ Highligh current line
+  \ cursorline
+  \ encoding=utf8
+  \ expandtab
+  \ ffs=unix,dos,mac
+  "\ Keep 50 lines of command line history
+  \ history=50
+  \ incsearch
+  \ laststatus=2
+  \ list
+  \ listchars=tab:→\ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨,space:•
+  \ nobackup
+  \ nomodeline
+  \ noswapfile
+  \ nowb
+  "\ Line numbers
+  \ number
+  "\ Show the cursor position all the time
+  \ ruler
+  \ scrolloff=3
+  \ shiftwidth=2
+  \ si
+  \ showbreak=↪
+  "\ Display incomplete commands
+  \ showcmd
+  \ smarttab
+  \ softtabstop=0
+  \ tabstop=2
+  "\ Set terminal title
+  \ title
+  "\ Restore previous title when exiting Vim
+  \ titleold=
+  \ wildmenu
+  \ wildmode=list:longest
 
-set laststatus=2
-
-" Indenation (tab)
-set tabstop=2 softtabstop=0 expandtab shiftwidth=2 smarttab
-set number " Line numbers
-set cursorline  " Highligh current line
-set colorcolumn=81  " Line length ruler
-"set background=none " Don't set to use terminals background
-set list
-set listchars=tab:→\ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨
-" Can't find a clean way to highlight spaces or trail
-"if has('patch-7.4.710')
-"  set listchars+=space:.
-"endif
-set showbreak=↪\
-"set listchars+=space:x
-set nobackup
-set nowb
-set noswapfile
-set smarttab
-set ai
-set si
-set ffs=unix,dos,mac
-set encoding=utf8
-set wildmenu
-set wildmode=list:longest
-set title  " Set terminal title
-set titleold=  " Restore previous title when exiting Vim
-set scrolloff=3
+" Enable mouse support
+if has('mouse')
+  set mouse=a
+endif
 
 " Automatically strip whitespace
 "autocmd BufWritePre * :call TrimWhitespace()
-
-" allow backspacing over everything in insert mode
-set backspace=indent,eol,start
-
-"if has("vms")
-"  set nobackup   " do not keep a backup file, use versions instead
-"else
-"  set backup   " keep a backup file
-"endif
-set history=50    " keep 50 lines of command line history
-set ruler   " show the cursor position all the time
-set showcmd   " display incomplete commands
-set incsearch   " do incremental searching
 
 """"""""""""""""""""""""""""""""" Key binds """"""""""""""""""""""""""""""""""""
 nnoremap <leader>w :silent !xdg-open <C-R>=escape("<C-R><C-F>", "#?&;\|%")<CR><CR>
@@ -73,17 +75,11 @@ map Q gq
 " so that you can undo CTRL-U after inserting a line break.
 inoremap <C-U> <C-G>u<C-U>
 
-" Enable mouse support
-if has('mouse')
-  set mouse=a
-endif
-
-hi WhiteSpaces gui=undercurl guifg=White
+highlight WhiteSpaces gui=undercurl guifg=White
 match WhiteSpaces / \+/
 
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
-
   " Enable file type detection.
   " Use the default filetype settings, so that mail gets 'tw' set to 72,
   " 'cindent' is on in C files, etc.
@@ -94,8 +90,7 @@ if has("autocmd")
   augroup vimrcEx
   au!
 
-  " For all text files set 'textwidth' to 78 characters.
-  autocmd FileType text setlocal textwidth=78
+  autocmd FileType text setlocal textwidth=80
 
   " When editing a file, always jump to the last known cursor position.
   " Don't do it when the position is invalid or when inside an event handler
@@ -106,20 +101,18 @@ if has("autocmd")
     \ if line("'\"") > 1 && line("'\"") <= line("$") |
     \   exe "normal! g`\"" |
     \ endif
-
+  "autocmd BufLeave * let b:winview = winsaveview()
+  "autocmd BufEnter * if(exists('b:winview')) | call winrestview(b:winview) | endif
   augroup END
 
   " Special Settings For Specific Files
   autocmd BufNewFile,BufRead *.nix
     \ set shiftwidth=2 |
-    \ set tabstop=2 |
-    \ set expandtab
-  autocmd Syntax {*sh,python,html,vim}
-    \ set shiftwidth=2 |
-    \ set tabstop=2 |
-    \ set expandtab
-
-  autocmd ColorScheme * highlight WhiteSpaces gui=undercurl guifg=White | match WhiteSpaces / \+/
+    \ set tabstop=2
+  autocmd Syntax python
+    \ set shiftwidth=4 |
+    \ set softtabstop=4 |
+    \ set tabstop=4
 endif " has("autocmd")
 
 " Convenient command to see the difference between the current buffer and the
@@ -130,7 +123,6 @@ if !exists(":DiffOrig")
       \ | wincmd p | diffthis
 endif
 
-set nomodeline
 
 if isdirectory($XDG_RUNTIME_DIR)
   let &viminfo = &viminfo . ",n" . $XDG_RUNTIME_DIR . "/viminfo"
