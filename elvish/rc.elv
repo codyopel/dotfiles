@@ -37,7 +37,9 @@ use epm
 epm:install &silent-if-installed=$true github.com/chlorm/kratos
 #use github.com/chlorm/kratos/kratos
 use github.com/chlorm/kratos/kratos-init
-use github.com/chlorm/elvish-nix/nix
+epm:install &silent-if-installed=$true github.com/chlorm/elvish-util-wrappers
+use github.com/chlorm/elvish-util-wrappers/btrfs
+use github.com/chlorm/elvish-util-wrappers/nix
 
 edit:abbr['~t'] = ~/Projects/triton
 
