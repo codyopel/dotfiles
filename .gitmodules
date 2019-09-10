@@ -55,3 +55,6 @@
 [submodule "vim/pack/default-plugins/start/vim-maktaba"]
 	path = vim/pack/default-plugins/start/vim-maktaba
 	url = https://github.com/google/vim-maktaba
+[submodule "vim/pack/default-plugins/start/rust.vim"]
+	path = vim/pack/default-plugins/start/rust.vim
+	url = https://github.com/rust-lang/rust.vim
