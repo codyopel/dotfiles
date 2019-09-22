@@ -109,6 +109,10 @@ if has("autocmd")
   autocmd BufNewFile,BufRead *.nix
     \ set shiftwidth=2 |
     \ set tabstop=2
+  autocmd Syntax go
+    \ set shiftwidth=4 |
+    \ set softtabstop=4 |
+    \ set tabstop=4
   autocmd Syntax python
     \ set shiftwidth=4 |
     \ set softtabstop=4 |
