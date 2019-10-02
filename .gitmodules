@@ -58,3 +58,6 @@
 [submodule "vim/pack/default-plugins/start/rust.vim"]
 	path = vim/pack/default-plugins/start/rust.vim
 	url = https://github.com/rust-lang/rust.vim
+[submodule "vim/pack/default-plugins/start/vim-jsonnet"]
+	path = vim/pack/default-plugins/start/vim-jsonnet
+	url = https://github.com/google/vim-jsonnet
