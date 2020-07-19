@@ -1,1 +1,9 @@
-Directory::Create "${XDG_DATA_HOME}/resilio/sync"
+#!/usr/bin/env elvish
+
+
+use github.com/chlorm/elvish-stl/os
+use github.com/chlorm/elvish-stl/path
+use github.com/chlorm/elvish-xdg/xdg
+
+
+os:makedirs (path:join (xdg:get-dir XDG_DOWNLOAD_DIR) 'resilio' 'sync')

@@ -1,5 +1,7 @@
-if [ $HIGH_DPI = true ] ; then
-  SUCKLESS_FONT_SIZE=18
-else
-  SUCKLESS_FONT_SIZE=12
-fi
+#!/usr/bin/env elvish
+
+if (==s 'true' $E:HIGH_DPI) {
+  E:SUCKLESS_FONT_SIZE=18
+} else {
+  E:SUCKLESS_FONT_SIZE=12
+}

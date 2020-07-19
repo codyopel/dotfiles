@@ -1,1 +1,10 @@
-Directory::Create "${HOME}/.local/share/beets"
+#!/usr/bin/env elvish
+
+
+use github.com/chlorm/elvish-stl/os
+use github.com/chlorm/elvish-xdg/xdg
+
+
+if (==s 'unix' (os:ostype)) {
+  os:makedirs (xdg:get-dir XDG_DATA_HOME)'/beets'
+}
