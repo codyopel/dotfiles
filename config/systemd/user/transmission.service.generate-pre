@@ -1,1 +1,0 @@
-Directory::Create "${XDG_DATA_HOME}/transmission"

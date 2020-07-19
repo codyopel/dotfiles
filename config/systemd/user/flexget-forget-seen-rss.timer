@@ -1,9 +1,0 @@
-[Unit]
-Description=Forget flexget logged seen entries for rss feeds
-
-[Timer]
-OnCalendar=monthly
-Persistent=true
-
-[Install]
-WantedBy=default.target
