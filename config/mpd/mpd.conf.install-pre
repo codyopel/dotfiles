@@ -1,5 +1,0 @@
-Directory::Create "${HOME}/.config/mpd"
-File::Create "${HOME}/.config/mpd/database"
-File::Create "${HOME}/.config/mpd/log"
-File::Create "${HOME}/.config/mpd/state"
-File::Create "${HOME}/.config/mpd/sticker"

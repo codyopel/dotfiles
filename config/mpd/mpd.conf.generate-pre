@@ -1,0 +1,22 @@
+#!/usr/bin/env elvish
+
+
+use github.com/chlorm/elvish-stl/os
+use github.com/chlorm/elvish-xdg/xdg
+
+
+if (==s 'unix' (os:ostype)) {
+  cache = (xdg:get-dir XDG_CACHE_HOME)'/mpd'
+  os:makdirs &mode=700 $cache
+  os:touch $cache'/log'
+  os:touch $cache'/state'
+  os:touch $cache'/sticker'
+  config = (xdg:get-dir XDG_CONFIG_HOME)'/mpd'
+  os:makedirs &mode=700 $config
+  data = (xdg:get-dir XDG_DATA_HOME)'/mpd'
+  os:makedirs &mode=700 $data
+  os:touch $data'/database'
+  runtime = (xdg:get-dir XDG_RUNTIME_DIR)'/mpd'
+  os:makedirs &mode=700 $runtime
+
+}
