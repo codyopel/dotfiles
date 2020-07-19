@@ -1,1 +1,0 @@
-Directory::Create "${HOME}/.local/share/minidlna"
