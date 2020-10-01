@@ -61,3 +61,6 @@
 [submodule "vim/pack/default-plugins/start/vim-jsonnet"]
 	path = vim/pack/default-plugins/start/vim-jsonnet
 	url = https://github.com/google/vim-jsonnet
+[submodule "vim/pack/vim-plug/start/vim-plug"]
+	path = vim/pack/vim-plug/start/vim-plug
+	url = https://github.com/junegunn/vim-plug
