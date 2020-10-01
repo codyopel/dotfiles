@@ -1,18 +1,43 @@
 " Disable vi compatibility
 set nocompatible
 
+" Load plugins (.vim/pack/*/start/*/*)
+packloadall
+
+call plug#begin('~/.vim/plugged')
+" Themes
+Plug 'https://github.com/chlorm/vim-monokai-truecolor'
+Plug 'https://github.com/vim-airline/vim-airline'
+Plug 'https://github.com/vim-airline/vim-airline-themes'
+
+" Plugins
+Plug 'https://github.com/ntpeters/vim-better-whitespace'
+Plug 'https://github.com/google/vim-codefmt'
+Plug 'https://github.com/sgur/vim-editorconfig'
+Plug 'https://github.com/google/vim-maktaba'
+Plug 'https://github.com/preservim/nerdtree'
+Plug 'https://github.com/preservim/nerdcommenter'
+Plug 'https://github.com/mhinz/vim-signify'
+Plug 'https://github.com/tpope/vim-surround'
+Plug 'https://github.com/godlygeek/tabular'
+Plug 'https://github.com/benmills/vimux'
+Plug 'https://github.com/mg979/vim-visual-multi'
+
+" Languages
+Plug 'https://github.com/chlorm/vim-syntax-elvish', { 'for': 'elvish' }
+Plug 'https://github.com/fatih/vim-go', { 'for': 'go' }
+Plug 'https://github.com/google/vim-jsonnet', { 'for': 'jsonnet' }
+Plug 'https://github.com/LnL7/vim-nix', { 'for': 'nix' }
+Plug 'https://github.com/vim-python/python-syntax', { 'for': 'python' }
+Plug 'https://github.com/rust-lang/rust.vim', { 'for': 'rust' }
+call plug#end()
+
 " Enable syntax highlighting
 if &t_Co > 7 || has("gui_running")
   syntax on
   set hlsearch
   colorscheme monokai
 endif
-
-" Load plugins (.vim/pack/*/start/*/*)
-packloadall
-
-call plug#begin()
-call plug#end()
 
 " Plugin settings
 let g:signify_vcs_list = [ 'git' ]
