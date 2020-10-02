@@ -4,7 +4,18 @@ set nocompatible
 " Load plugins (.vim/pack/*/start/*/*)
 packloadall
 
-call plug#begin('~/.vim/plugged')
+if !exists("*plug#begin")
+  silent !curl -fsSLo ~/.vim/autoload/plug.vim "--create-dirs"
+      \ "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+endif
+
+if has("win32")
+  let s:vimdir = "~/viminfo"
+else
+  let s:vimdir = "~/.vim"
+endif
+
+call plug#begin(s:vimdir . '/pack/vim-plug/opt/')
 " Themes
 Plug 'https://github.com/chlorm/vim-monokai-truecolor'
 Plug 'https://github.com/vim-airline/vim-airline'
@@ -31,6 +42,12 @@ Plug 'https://github.com/LnL7/vim-nix', { 'for': 'nix' }
 Plug 'https://github.com/vim-python/python-syntax', { 'for': 'python' }
 Plug 'https://github.com/rust-lang/rust.vim', { 'for': 'rust' }
 call plug#end()
+
+" Update on first launch after reboot
+if !filereadable($XDG_RUNTIME_DIR . "/vim-plug")
+  PlugUpdate
+  call writefile([""], $XDG_RUNTIME_DIR . '/vim-plug', 'b')
+endif
 
 " Enable syntax highlighting
 if &t_Co > 7 || has("gui_running")
