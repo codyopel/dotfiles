@@ -75,8 +75,8 @@
     fi \
   }; f"
 
-	# Fix accidentally calling git from git (e.g. git git status)
-	git = !exec git
+  # Fix accidentally calling git from git (e.g. git git status)
+  git = !exec git
 
 [core]
   # Treat spaces before tabs and all kinds of trailing whitespace
@@ -114,6 +114,9 @@
   # Use `hexdump` to diff binary files
   textconv = hexdump -v -C
 
+[init]
+  defaultBranch = master
+
 [help]
   # Automatically correct and execute mistyped commands
   autocorrect = 1
@@ -124,6 +127,9 @@
 [push]
   default = simple
   gpgSign = if-asked
+
+[submodule]
+  recurse = true
 
 [user]
   name = Cody W. Opel
@@ -155,5 +161,3 @@
   pushInsteadOf = "gitlab:"
   pushInsteadOf = "git://gitlab.com/"
   pushInsteadOf = "https://gitlab.com/"
-[submodule]
-	recurse = true
