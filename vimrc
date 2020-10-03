@@ -120,9 +120,6 @@ map Q gq
 " so that you can undo CTRL-U after inserting a line break.
 inoremap <C-U> <C-G>u<C-U>
 
-highlight WhiteSpaces gui=undercurl guifg=White
-match WhiteSpaces / \+/
-
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
   " Enable file type detection.
