@@ -4,9 +4,10 @@ set nocompatible
 " Load plugins (.vim/pack/*/start/*/*)
 packloadall
 
-if !exists("*plug#begin")
-  silent !curl -fsSLo ~/.vim/autoload/plug.vim "--create-dirs"
+if exists("*plug#begin") == 1
+  silent !curl -fsSLo "~/.vim/autoload/plug.vim" "--create-dirs"
       \ "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+  source $MYVIMRC
 endif
 
 if has("win32")
