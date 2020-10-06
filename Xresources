@@ -5,7 +5,7 @@ Xft.hintstyle: hintslight
 Xft.lcdfilter: lcddefault
 Xft.rgba: rgb
 
-XTerm*faceName: Bitstream Vera Serif Mono
+XTerm*faceName: DejaVu Sans Mono
 xterm*faceSize: 11
 xterm*vt100*geometry: 80x60
 xterm*saveLines: 16384
