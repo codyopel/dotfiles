@@ -31,6 +31,7 @@ Plug 'https://github.com/preservim/nerdtree'
 Plug 'https://github.com/preservim/nerdcommenter'
 Plug 'https://github.com/mhinz/vim-signify'
 Plug 'https://github.com/tpope/vim-surround'
+Plug 'https://github.com/vim-syntastic/syntastic'
 Plug 'https://github.com/godlygeek/tabular'
 Plug 'https://github.com/benmills/vimux'
 Plug 'https://github.com/mg979/vim-visual-multi'
@@ -38,10 +39,12 @@ Plug 'https://github.com/mg979/vim-visual-multi'
 " Languages
 Plug 'https://github.com/chlorm/vim-syntax-elvish', { 'for': 'elvish' }
 Plug 'https://github.com/fatih/vim-go', { 'for': 'go' }
+Plug 'https://github.com/pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'https://github.com/google/vim-jsonnet', { 'for': 'jsonnet' }
 Plug 'https://github.com/LnL7/vim-nix', { 'for': 'nix' }
 Plug 'https://github.com/vim-python/python-syntax', { 'for': 'python' }
 Plug 'https://github.com/rust-lang/rust.vim', { 'for': 'rust' }
+Plug 'https://github.com/leafgarland/typescript-vim', { 'for': 'typescript' }
 call plug#end()
 
 " Update on first launch after reboot
