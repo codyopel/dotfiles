@@ -1,36 +1,24 @@
 # TODO:
-# - Port dotfiles manager and write an updater
-#   https://github.com/chlorm/kratos/blob/c82657c9565ce041ade093c473c3f6d0b25be0ad/modules/updater/main.bash
 # - Handle TERM environment variable
-# - Wrapper for prompt themes
 # - HIGHDPI
 # - Port pulseaudio wrapper (e.g. volume)
-# - Port user-agent handling
-#   https://github.com/chlorm/kratos/tree/c82657c9565ce041ade093c473c3f6d0b25be0ad/plugins/user-agent
-# - Port ssh key management
-#   https://github.com/chlorm/kratos/tree/c82657c9565ce041ade093c473c3f6d0b25be0ad/plugins/ssh
-# - Use another or port Git wrapper
-#   https://github.com/chlorm/kratos/tree/c82657c9565ce041ade093c473c3f6d0b25be0ad/plugins/git
-# - Password prompt
-# - Y/N prompt
 # - PATH manipulation?
 # - GOPATH / add to PATH
 # - https://github.com/chlorm/kratos/tree/c82657c9565ce041ade093c473c3f6d0b25be0ad/plugins/golang
-# - Completions
-# - Automate setting EDITOR/VISUAL environment variables
-#   https://github.com/chlorm/kratos/blob/c82657c9565ce041ade093c473c3f6d0b25be0ad/modules/editor/main.bash
-# - Port pager abstractions
-#   https://github.com/chlorm/kratos/blob/c82657c9565ce041ade093c473c3f6d0b25be0ad/modules/pager/main.bash
 #
-# Wrappers: (abstract platform specifics)
+
+# LOPRIO:
 # - Upper/Lower casing strings
-# - math (mode/round)
+# - math (mode)
 # - structured logging?
 # - cpu
 # - argument parsing
+# - Password prompt
+# - Y/N prompt
+# - Wrapper for prompt themes
+
 
 # Aliases
-# alias nixpaste="curl -F 'text=<-' http://nixpaste.noip.me"
 # alias sprunge="curl -F 'sprunge=<-' http://sprunge.us"
 
 
