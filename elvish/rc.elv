@@ -59,14 +59,6 @@ E:NIX_PATH = 'nixpkgs='(get-env HOME)'/Projects/triton:nixos-config=/etc/nixos/c
 
 fn ls [@a]{ e:ls '--color' $@a }
 
-fn ls-colors {
-  # Linux/Cygwin
-  local:dir-colors = (dircolors -b | grep -oP "(?<=').*(?=')")
-  E:LS_COLORS = $dir-colors
-  # FreeBSD
-  E:CLICOLOR = 1
-  E:LSCOLORS = 'ExGxFxdxCxDhDxaBadaCeC'
-}
 
 edit:prompt = {
   edit:styled (whoami) green
