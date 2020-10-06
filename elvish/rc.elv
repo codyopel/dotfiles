@@ -33,14 +33,9 @@
 # alias nixpaste="curl -F 'text=<-' http://nixpaste.noip.me"
 # alias sprunge="curl -F 'sprunge=<-' http://sprunge.us"
 
-use epm
-epm:install &silent-if-installed=$true github.com/chlorm/kratos
-#use github.com/chlorm/kratos/kratos
-use github.com/chlorm/kratos/kratos-init
-epm:install &silent-if-installed=$true github.com/chlorm/elvish-util-wrappers
-use github.com/chlorm/elvish-util-wrappers/btrfs
-use github.com/chlorm/elvish-util-wrappers/nix
-use github.com/chlorm/elvish-util-wrappers/nm
+
+use str
+
 
 edit:abbr['~t'] = ~/Projects/triton
 
