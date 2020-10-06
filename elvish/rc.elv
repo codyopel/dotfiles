@@ -60,6 +60,37 @@ E:NIX_PATH = 'nixpkgs='(get-env HOME)'/Projects/triton:nixos-config=/etc/nixos/c
 fn ls [@a]{ e:ls '--color' $@a }
 
 
+use github.com/chlorm/elvish-xdg/xdg
+xdg:populate-env-vars
+
+local:xdg-dirs = [ ]
+for local:i [ (keys $xdg:xdg-vars) ] {
+  if (not (eq $xdg:xdg-vars[$i] $nil)) {
+    xdg-dirs = [ $@xdg-dirs (get-env $i) ]
+  }
+}
+
+local:trash-dirs = [
+  (get-env XDG_DATA_HOME)'/trash/files/'
+  (get-env XDG_DATA_HOME)'/trash/info/'
+]
+
+local:custom-dirs = [
+  (get-env HOME)'/Projects'
+]
+
+kratos-init-dirs = [
+  $@xdg-dirs
+  $@trash-dirs
+  $@custom-dirs
+]
+set-env KRATOS_INIT_DIRS (str:join ':' $kratos-init-dirs)
+
+use epm
+epm:install &silent-if-installed=$true github.com/chlorm/kratos
+#use github.com/chlorm/kratos/kratos
+use github.com/chlorm/kratos/kratos-init
+
 edit:prompt = {
   edit:styled (whoami) green
   edit:styled '@' 'dim;white'
