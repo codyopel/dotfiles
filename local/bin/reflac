@@ -9,79 +9,86 @@ import shutil
 import subprocess
 import sys
 
-# FIXME: use something other than asserts
+
+def convert2flac(input: str):
+    filename, _ = os.path.splitext(input)
+    output = filename + '.flac'
+    print('converting: ' + input + ' -> ' + output)
+    p = subprocess.Popen(["ffmpeg", "-i", input, '-c:a', 'flac', output],
+                         stdout=subprocess.PIPE,
+                         stderr=subprocess.PIPE)
+    _, error = p.communicate()
+    if p.returncode != 0:
+        raise IOError("ffmpeg failed: %s" % error)
+    return output
+
+
+def set_tag(f: str, key: str, value: str):
+    p = subprocess.Popen(["metaflac", "--set-tag={}={}".format(key, value), f],
+                         stdout=subprocess.PIPE,
+                         stderr=subprocess.PIPE)
+    _, merror = p.communicate()
+    if p.returncode != 0:
+        raise IOError("metaflac failed: %s" % merror)
+
+
+def get_tag(f: str, key: str):
+    p = subprocess.Popen(["metaflac", "--show-tag={}".format(key), f],
+                         stdout=subprocess.PIPE,
+                         stderr=subprocess.PIPE)
+    output, error = p.communicate()
+    if p.returncode != 0:
+        raise IOError("metaflac failed: %s" % error)
+    out = output.rstrip().decode("utf-8")
+    return out.split('=')[-1]
+
+
+def reencode_flac(f: str):
+    cmd = [
+        'flac', f, '--force', '--verify', '--compression-level-8',
+        '--exhaustive-model-search', '--qlp-coeff-precision-search'
+    ]
+    p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    _, error = p.communicate()
+    if p.returncode != 0:
+        raise IOError("flac failed: %s" % error)
+
+
+def compress_flac(f):
+    compression = "COMPRESSION"
+    _, extension = os.path.splitext(f)
+    if extension == '.flac':
+        # Don't re-process processed files
+        tag = get_tag(f, compression)
+        if tag != '' and int(tag) == 8:
+            print('already compressed: ' + f)
+            return
+    else:
+        f = convert2flac(f)
+
+    reencode_flac(f)
+    set_tag(f, compression, str(8))
+    print('compressed: ' + f)
+
+
 assert shutil.which('flac') != None
 assert shutil.which('ffmpeg') != None
 assert shutil.which('metaflac') != None
 
-def convert2flac(ifile):
-  filename, extension = os.path.splitext(ifile)
-  print('converting: ' + ifile + ' -> ' + filename + '.flac')
-  p = subprocess.Popen(["ffmpeg", "-i", ifile, filename + ".flac"],
-                       stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-  _, error = p.communicate()
-  if p.returncode != 0:
-    raise IOError("ffmpeg failed: %s" % error)
-  return filename + '.flac'
-
-def flac_reencode(ifile):
-  filename, extension = os.path.splitext(ifile)
-  if extension == '.flac':
-    # Don't re-process processed files
-    if is_flac_compressed(ifile):
-      print('already compressed: ' + ifile)
-      return True
-  else:
-    ifile = convert2flac(ifile)
-
-  print('compressing: ' + ifile)
-
-  # XXX: maybe add a way to support decode through errors
-  f = subprocess.Popen(['flac', ifile, '--force', '--verify',
-                       '--compression-level-8', '--exhaustive-model-search'],
-                       stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-  _, ferror = f.communicate()
-  if f.returncode != 0:
-    raise IOError("flac failed: %s" % ferror)
-
-  m = subprocess.Popen(["metaflac", "--set-tag=COMPRESSION=8", ifile],
-                       stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-  _, merror = m.communicate()
-  if m.returncode != 0:
-    raise IOError("metaflac failed: %s" % merror)
-
-  # Check to see if subprocess succeeded
-  exitstatus = is_flac_compressed(ifile)
-
-  if exitstatus:
-    print('compressed: ' + ifile)
-
-  return exitstatus
-
-def is_flac_compressed(ifile):
-  l = subprocess.Popen(["metaflac", "--show-tag=COMPRESSION", ifile],
-                       stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-  output, error = l.communicate()
-  if l.returncode != 0:
-    raise IOError("metaflac failed: %s" % error)
-  out = output.rstrip().decode("utf-8")
-  return True if out == 'COMPRESSION=8' else False
-
 idir = str(sys.argv[1])
-assert os.path.isdir(idir)  # FIXME
+assert os.path.isdir(idir)
 
 audioFiles = []
-for r, dirs, files in os.walk(idir):
-  for f in files:
-    if os.path.isfile(os.path.join(r, f)):
-      filename, extension = os.path.splitext(f)
-      if extension not in ['.ape', '.flac', '.wav']:
-        continue
-      audioFiles.append(os.path.join(r, f))
-
+for root, dirs, files in os.walk(idir):
+    for f in files:
+        if os.path.isfile(os.path.join(root, f)):
+            filename, extension = os.path.splitext(f)
+            if extension not in ['.ape', '.flac', '.wav']:
+                continue
+            audioFiles.append(os.path.join(root, f))
 
 threads = multiprocessing.cpu_count()
 pool = multiprocessing.Pool(processes=threads)
-results = pool.map_async(flac_reencode, audioFiles)
+results = pool.map_async(compress_flac, audioFiles)
 pool.close()
 pool.join()
