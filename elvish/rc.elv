@@ -30,6 +30,7 @@ edit:abbr['~t'] = ~/Projects/triton
 E:EMAIL = 'cwopel@chlorm.net'
 
 E:DOTFILES_REPO = 'https://github.com/codyopel/dotfiles.git'
+E:KRATOS_INIT_DOTFILES_DIRS = $E:HOME'/.dotfiles'
 
 E:GIT_NAME = 'Cody Opel'
 E:GIT_EMAIL = $E:EMAIL
@@ -39,8 +40,6 @@ if ?(has-env 'SSH_ASKPASS' >/dev/null) {
 }
 
 E:NIX_PATH = 'nixpkgs='(get-env HOME)'/Projects/triton:nixos-config=/etc/nixos/configuration.nix:'
-
-fn ls [@a]{ e:ls '--color' $@a }
 
 
 use github.com/chlorm/elvish-xdg/xdg
@@ -73,54 +72,57 @@ use epm
 epm:install &silent-if-installed=$true github.com/chlorm/kratos
 #use github.com/chlorm/kratos/kratos
 use github.com/chlorm/kratos/kratos-init
+epm:install &silent-if-installed=$true github.com/chlorm/elvish-util-wrappers
+use github.com/chlorm/elvish-util-wrappers/btrfs
+use github.com/chlorm/elvish-util-wrappers/nix
+use github.com/chlorm/elvish-util-wrappers/nm
 
 edit:prompt = {
-  edit:styled (whoami) green
-  edit:styled '@' 'dim;white'
+  styled (whoami) green
+  styled-segment &dim=$true &fg-color=white '@'
   if (has-env SSH_CLIENT) {
-    edit:styled (hostname) 'bold;red'
+    styled-segment (hostname) &bold=$true &fg-color=red
   } else {
-    edit:styled (hostname) 'bold;white'
+    styled-segment &bold=$true &fg-color=white (hostname)
   }
-  edit:styled '[' 'dim;white'
-  edit:styled (tilde-abbr $pwd) red
-  edit:styled ']' 'dim;white'
-  edit:styled '〉' 'bold;cyan'
+  styled-segment &dim=$true &fg-color=white '['
+  styled (tilde-abbr $pwd) red
+  styled-segment &dim=$true &fg-color=white ']'
+  styled-segment '〉' &bold=$true &fg-color=cyan
 }
 edit:rprompt = { }
+
+fn ls [@a]{ e:ls '--color' $@a }
+
+# FreeBSD
+E:CLICOLOR = 1
+E:LSCOLORS = 'ExGxFxdxCxDhDxaBadaCeC'
+
+fn settitle [title]{
+  print "\033k"$title"\033\\"
+}
 
 fn update-machines {
   nix:rebuild-system 'boot' --option binary-caches '""'
   nix:rebuild-envs --option binary-caches '""'
   nixos-closures = (nix:find-nixos-closures)
-  nix-config-closures = [(nix:find-nixconfig-closures)]
+  nix-config-closures = [ (nix:find-nixconfig-closures) ]
 
   local:machines = [ ]
-  local:hostname = (hostname)
-  if (!=s $hostname 'NOS-4-A2') {
-    machines = [ $@machines '10.1.1.5' ]
+  local:hostname = (e:hostname)
+  if (!=s $hostname 'miranova') {
+    machines = [ $@machines 'miranova.aurora' ]
   }
   if (!=s $hostname 'Raenok') {
-    machines = [ $@machines '10.1.1.7' ]
+    machines = [ $@machines 'raenok.aurora' ]
   }
   for local:i $machines {
     nix:copy-closures $i $@nixos-closures $@nix-config-closures
   }
 }
 
-fn mssh {
-  sudo sshfs \
-    '-o' 'allow_other' 'cwopel@10.1.1.50:/home/cwopel' ~/tmnt
+# Force plexmediaplayer to only use X.Org
+fn plexmediaplayer {
+  E:QT_QPA_PLATFORM=xcb exec plexmediaplayer
 }
-
-fn beetu [@args]{
-  beet '-c' $E:HOME'/.config/beets/config-unconfirmed.yaml' $@args
-}
-
-fn youtube [@args]{
-  youtube-dl '-f' "bestvideo+bestaudio" '--no-check-certificate' \
-    '--prefer-insecure' '--console-title' $@args
-}
-
-fn dotfiles-dir { put $E:HOME'/.dotfiles' }
 
