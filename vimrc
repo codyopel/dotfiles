@@ -18,7 +18,7 @@ endif
 
 call plug#begin(s:vimdir . '/pack/vim-plug/opt/')
 " Themes
-Plug 'https://github.com/chlorm/vim-monokai-truecolor'
+Plug 'https://github.com/chlorm/vim-colors-truecolor'
 Plug 'https://github.com/vim-airline/vim-airline'
 Plug 'https://github.com/vim-airline/vim-airline-themes'
 
@@ -57,7 +57,7 @@ endif
 if &t_Co > 7 || has("gui_running")
   syntax on
   set hlsearch
-  colorscheme monokai
+  colorscheme truecolor
 endif
 
 " Plugin settings
