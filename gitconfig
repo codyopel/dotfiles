@@ -90,6 +90,7 @@
   # Treat spaces before tabs and all kinds of trailing whitespace
   # as an error.
   whitespace = space-before-tab,trailing-space
+  autocrlf = false
 
 [color]
   ui = auto
