@@ -23,19 +23,17 @@ use github.com/chlorm/elvish-util-wrappers/nm
 # TODO: don't populate env vars inside rc
 fn build-dir-list {
     epm:install &silent-if-installed=$true github.com/chlorm/elvish-xdg
-    use github.com/chlorm/elvish-xdg/xdg
-    xdg:populate-env-vars
+    use github.com/chlorm/elvish-xdg/xdg-dirs
+    xdg-dirs:populate-env
 
     xdgDirs = [ ]
-    for i [ (keys $xdg:XDG-VARS) ] {
-        if (not (eq $xdg:XDG-VARS[$i] $nil)) {
-            xdgDirs = [ $@xdgDirs (get-env $i) ]
-        }
+    for i $xdg-dirs:XDG-VARS {
+        xdgDirs = [ $@xdgDirs (get-env $i) ]
     }
 
     trashDirs = [
-        (get-env XDG_DATA_HOME)'/trash/files/'
-        (get-env XDG_DATA_HOME)'/trash/info/'
+        (get-env $xdg-dirs:XDG-DATA-HOME)'/trash/files/'
+        (get-env $xdg-dirs:XDG-DATA-HOME)'/trash/info/'
     ]
 
     customDirs = [
