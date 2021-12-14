@@ -85,7 +85,7 @@ edit:prompt = {
 edit:rprompt = { }
 
 # TODO: move to module
-fn ls [@a]{
+fn ls {|@a|
     try {
         e:ls '--color' $@a
     } except _ {
@@ -97,7 +97,7 @@ fn ls [@a]{
     }
 }
 
-fn settitle [title]{
+fn settitle {|title|
     print "\033k"$title"\033\\"
 }
 
