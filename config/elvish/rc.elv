@@ -96,10 +96,10 @@ set edit:rprompt = { }
 fn ls {|@a|
     try {
         e:ls '--color' $@a
-    } except _ {
+    } catch _ {
         try {
             e:ls '-G' $@a
-        } except _ {
+        } catch _ {
             e:ls $@a
         }
     }
@@ -133,5 +133,6 @@ fn update-machines {
 
 # Force plexmediaplayer to only use X.Org
 fn plexmediaplayer {
-    E:QT_QPA_PLATFORM=xcb exec plexmediaplayer
+    tmp E:QT_QPA_PLATFORM = xcb; exec plexmediaplayer
+}
 }
