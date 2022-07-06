@@ -1,0 +1,20 @@
+#!/usr/bin/env elvish
+
+
+use github.com/chlorm/elvish-ssh/conf
+use github.com/chlorm/elvish-stl/io
+use github.com/chlorm/elvish-stl/os
+use github.com/chlorm/elvish-stl/path
+use github.com/chlorm/elvish-stl/str
+
+
+# Populates the authorized_keys file
+var authKeyFile = (path:join $conf:DIR 'authorized_keys')
+var authKeysDir = (path:join $conf:DIR 'authorized-keys')
+os:remove $authKeyFile
+os:touch $authKeyFile
+var authPubKeys = (path:scandir $authKeysDir)
+for i $authPubKeys['files'] {
+    echo (io:cat (path:join $authPubKeys['root'] $i)) >> $authKeyFile
+}
+conf:set-permissions
