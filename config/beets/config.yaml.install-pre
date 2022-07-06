@@ -2,9 +2,8 @@
 
 
 use github.com/chlorm/elvish-stl/os
-use github.com/chlorm/elvish-xdg/xdg
+use github.com/chlorm/elvish-stl/path
+use github.com/chlorm/elvish-xdg/xdg-dirs
 
 
-if (==s 'unix' (os:ostype)) {
-  os:makedirs (xdg:get-dir XDG_DATA_HOME)'/beets'
-}
+os:makedirs (path:join (xdg-dirs:data-home) 'beets')
