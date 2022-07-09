@@ -89,6 +89,7 @@ set
   \ nowb
   "\ Line numbers
   \ number
+  \ redrawtime=10000
   "\ Show the cursor position all the time
   \ ruler
   \ scrolloff=3
