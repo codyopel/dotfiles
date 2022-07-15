@@ -7,8 +7,6 @@ config/flexget/variables.yml
 config/ncmpcpp/config
 config/ncmpcpp/error.log
 config/mpd/mpd.conf
-config/Terminal/terminalrc
-ncmpcpp/error.log
 ssh/authorized_keys
 ssh/id_*
 ssh/known_hosts*
