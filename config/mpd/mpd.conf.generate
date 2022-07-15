@@ -1,12 +1,12 @@
 # Directories and files
 filesystem_charset "UTF-8"
 music_directory "@{XDG_MUSIC_DIR}@"
-playlist_directory "@{XDG_CONFIG_DIR}@/mpd/playlists"
-db_file "@{XDG_DATA_HOME}@/mpd/database"
+playlist_directory "@{XDG_CONFIG_HOME}@/mpd/playlists"
+db_file "@{XDG_STATE_HOME}@/mpd/database"
 log_file "@{XDG_CACHE_HOME}@/mpd/log"
 pid_file "@{XDG_RUNTIME_DIR}@/mpd/mpd.pid"
-state_file "@{XDG_CACHE_DIR}@/mpd/state"
-sticker_file "@{XDG_CACHE_DIR}@/mpd/sticker"
+state_file "@{XDG_CACHE_HOME}@/mpd/state"
+sticker_file "@{XDG_CACHE_HOME}@/mpd/sticker"
 
 # Network
 bind_to_address "localhost"
@@ -30,7 +30,7 @@ input {
 audio_output {
   format         "44100:16:1"
   name           "MPD FIFO Output"
-  path           "@{XDG_RUNTIME_DIR}@/mpd/mpd.fifo"
+  path           "@{XDG_RUNTIME_DIR}@/mpd.fifo"
   type           "fifo"
 }
 audio_output {

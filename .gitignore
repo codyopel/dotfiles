@@ -4,13 +4,7 @@
 config/beets/library.db
 config/beets/state.pickle
 config/flexget/variables.yml
-config/mpd/database
-config/mpd/log
-config/mpd/lyrics/
-config/mpd/mpd.fifo
-config/mpd/pid
-config/mpd/state
-config/mpd/sticker.sql
+config/mpd/mpd.conf
 config/fish/fish_history
 config/fish/fishd.*
 config/sublime-text-3/Cache/
