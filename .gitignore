@@ -4,6 +4,8 @@
 config/beets/library.db
 config/beets/state.pickle
 config/flexget/variables.yml
+config/ncmpcpp/config
+config/ncmpcpp/error.log
 config/mpd/mpd.conf
 config/Terminal/terminalrc
 ncmpcpp/error.log
