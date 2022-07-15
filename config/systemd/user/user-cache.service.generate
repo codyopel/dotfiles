@@ -3,10 +3,8 @@ Description=Create the cache directory
 
 [Service]
 Type=oneshot
-User=%i
-Group=%i
-ExecStart=@(type -P mkdir)@ --mode=0700 --parents /dev/shm/@{USER}@
-ExecStart=@(type -P ln)@ --symbolic --force /dev/shm/@{USER}@ @{XDG_CACHE_HOME}@
+ExecStart=@(search-external mkdir)@ --mode=0700 --parents /dev/shm/@{USER}@
+ExecStart=@(search-external ln)@ --symbolic --force /dev/shm/@{USER}@ @{XDG_CACHE_HOME}@
 RemainAfterExit=yes
 Restart=no
 

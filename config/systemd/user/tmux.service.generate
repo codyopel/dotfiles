@@ -1,13 +1,10 @@
 [Unit]
 Description=Start tmux in detached session
-After=user-cache.service
 
 [Service]
 Type=forking
-User=%i
-Group=%i
-ExecStart=@(type -P tmux)@ new-session -s %u -d
-ExecStop=@(type -P tmux)@ kill-session -t %u
+ExecStart=@(search-external tmux)@ new-session -s %u -d
+ExecStop=@(search-external tmux)@ kill-session -t %u
 RemainAfterExit=yes
 
 [Install]
