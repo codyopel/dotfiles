@@ -1,0 +1,99 @@
+## Directory & File Structure:
+##  XDG_CONFIG_HOME/ncmpcpp/config
+##  XDG_CACHE_HOME/ncmpcpp/lyrics
+##  XDG_RUNTIME_DIR/mpd/mpd.fifo
+
+# MPD
+mpd_music_dir = @{XDG_MUSIC_DIR}@
+
+###################
+# Global settings #
+###################
+
+ncmpcpp_directory = @{XDG_CONFIG_HOME}@/ncmpcpp
+# FIXME: experiment with regex:2
+search_engine_default_search_mode = 1
+
+# Colors
+alternative_ui_separator_color = green
+current_item_inactive_column_prefix = "$(white)$r"
+current_item_inactive_column_suffix = "$/r$(white)"
+current_item_prefix = "$(cyan)$r"
+current_item_suffix = "$/r$(end)"
+empty_tag_color = yellow
+main_window_color = default
+state_line_color = white
+state_flags_color = white
+
+# Formatting
+ignore_leading_the = yes
+centered_cursor = yes
+autocenter_mode = yes
+browser_display_mode = columns
+song_library_format = {$7%n - }{$7%t}|{$7%f}
+
+# Mouse Support
+mouse_list_scroll_whole_page = yes
+
+# Lyrics
+## supported lyrics databases:
+## - 1 - lyricsplugin.com
+#lyrics_database = 1
+lyrics_directory = @{XDG_CACHE_HOME}@/ncmpcpp/lyrics
+external_editor = vim
+
+# Window Title
+song_window_title_format = {%A - }{%t}|{%f}
+
+# Header
+user_interface = alternative
+alternative_header_first_line_format = $b$0{%A}$9 $3•$9 $6{%y - %b}$9
+alternative_header_second_line_format ={$1%t$8}
+header_window_color = white
+volume_color = yellow
+clock_display_seconds = yes
+display_volume_level = no
+display_bitrate = yes
+
+# Progress Bar
+progressbar_look = ─░─
+progressbar_color = black
+
+# Status Bar
+song_status_format = {$8%A} $3• $b{$6%b}$1$/b
+# Status bar warning messages
+statusbar_color = yellow
+
+
+################
+# Tab Settings #
+################
+
+# Playlist tab
+song_list_format = {$8%A$9}$3•$9{$6%y - %b$9}$3•$9{$7%t$9}|{$7%f$9}$7$R{$3($b%l$/b)$9}
+song_columns_list_format = (7f)[green]{l:Length} (20)[white]{a:Artist} (5f)[magenta]{y:Year} (30)[magenta]{b:Album} (50)[cyan]{t|f:Track}
+now_playing_prefix = $9
+now_playing_suffix =  $4♫$9
+ask_before_clearing_playlists = yes
+playlist_show_remaining_time = yes
+playlist_shorten_total_times = yes
+
+# Browser Tab
+browser_sort_mode = format
+browser_sort_format = {$8%A - }{$7%t}|{$7%f} {($3%l)}
+
+# Media Library Tab
+media_library_primary_tag = album_artist
+
+# Tag Editor Tab
+default_tag_editor_pattern = %n - %t
+#tag_editor_album_format = {$8%A} - {$7%b}
+#tags_separator =  |
+#tag_editor_extended_numeration = no
+
+# Visualizer Tab
+visualizer_data_source = @{XDG_RUNTIME_DIR}@/mpd/mpd.fifo
+visualizer_in_stereo = no
+# (▉▉/●│/●▉/◆│)
+visualizer_look = ▉▉
+visualizer_color = white

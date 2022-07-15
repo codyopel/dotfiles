@@ -1,0 +1,6 @@
+def_key "left"
+  master_screen
+def_key "left"
+  previous_column
+def_key "left"
+  volume_up
