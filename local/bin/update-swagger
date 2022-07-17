@@ -1,0 +1,5 @@
+#!/bin/sh
+
+version="3.0.21"
+
+curl "https://repo1.maven.org/maven2/io/swagger/codegen/v3/swagger-codegen-cli/${version}/swagger-codegen-cli-${version}.jar" -o swagger-codegen-cli.jar

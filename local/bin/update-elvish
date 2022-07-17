@@ -1,0 +1,7 @@
+#!/bin/sh
+
+set -e
+
+go install -v src.elv.sh/cmd/elvish@master
+
+sudo install -D -m 755 -v "$HOME"/go/bin/elvish /usr/local/bin/elvish
