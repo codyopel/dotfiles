@@ -31,17 +31,13 @@ for i in "${RcloneMounts[@]}" ; do
     mkdir -p "${RCLONE_MOUNT_DIR}/${i}"
   fi
   rclone mount \
-    --quiet \
-    --stats 0 \
-    --read-only \
-    --allow-non-empty \
-    --checkers 32 \
-    --contimeout 15s \
-    --timeout 30s \
-    --low-level-retries 1 \
-    --retries 3 \
-    --dir-cache-time 1m \
-    --max-read-ahead 14G \
-    --acd-templink-threshold 0 \
+    --buffer-size 32M \
+    --dir-cache-time 72h \
+    --drive-chunk-size 256M \
+    --log-level INFO \
+    --vfs-read-chunk-size 32M \
+    --vfs-read-chunk-sie-limit off \
+    --poll-interval 1m \
+    --vfs-cache-mode writes \
     ${i}:/ "${RCLONE_MOUNT_DIR}/${i}" &
 done
