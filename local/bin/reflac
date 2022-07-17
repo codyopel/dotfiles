@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 # Ensures all lossless files in a given path are encoded as FLAC with
 # compression level 8.
