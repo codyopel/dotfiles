@@ -36,9 +36,6 @@ autocenter_mode = yes
 browser_display_mode = columns
 song_library_format = {$7%n - }{$7%t}|{$7%f}
 
-# Mouse Support
-mouse_list_scroll_whole_page = yes
-
 # Lyrics
 ## supported lyrics databases:
 ## - 1 - lyricsplugin.com
