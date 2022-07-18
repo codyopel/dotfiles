@@ -1,0 +1,8 @@
+#!/bin/sh
+
+set -e
+
+cargo install alacritty \
+    --git https://github.com/alacritty/alacritty \
+    --no-default-features \
+    --features=wayland

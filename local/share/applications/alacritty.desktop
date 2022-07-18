@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=Alacritty
+Exec=@{HOME}@/.cargo/bin/alacritty
+Type=Application
+StartupNotify=true
+Icon=utilities-terminal
