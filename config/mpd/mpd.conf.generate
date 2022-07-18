@@ -11,6 +11,8 @@ sticker_file "@{XDG_CACHE_HOME}@/mpd/sticker"
 # Network
 bind_to_address "localhost"
 port "6600"
+# TODO: after ncmpcpp/d9c55771bb1059671486b1df245075e10bd6e853
+#password "n0taS3cur3Pa55w0rdF0rMpd@admin"
 
 # Playlists
 max_playlist_length "4096"
