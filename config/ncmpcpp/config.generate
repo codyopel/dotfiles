@@ -1,7 +1,7 @@
 ## Directory & File Structure:
 ##  XDG_CONFIG_HOME/ncmpcpp/config
 ##  XDG_CACHE_HOME/ncmpcpp/lyrics
-##  XDG_RUNTIME_DIR/mpd/mpd.fifo
+##  XDG_RUNTIME_DIR/mpd.fifo
 
 # MPD
 mpd_music_dir = @{XDG_MUSIC_DIR}@
@@ -92,7 +92,7 @@ default_tag_editor_pattern = %n - %t
 #tag_editor_extended_numeration = no
 
 # Visualizer Tab
-visualizer_data_source = @{XDG_RUNTIME_DIR}@/mpd/mpd.fifo
+visualizer_data_source = @{XDG_RUNTIME_DIR}@/mpd.fifo
 visualizer_in_stereo = no
 # (▉▉/●│/●▉/◆│)
 visualizer_look = ▉▉
