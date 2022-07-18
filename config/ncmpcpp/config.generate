@@ -6,6 +6,8 @@
 
 # MPD
 mpd_host = @{XDG_RUNTIME_DIR}@/mpd/socket
+# TODO: after ncmpcpp/d9c55771bb1059671486b1df245075e10bd6e853
+#mpd_password "n0taS3cur3Pa55w0rdF0rMpd@admin"
 mpd_music_dir = @{XDG_MUSIC_DIR}@
 
 ###################
