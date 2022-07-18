@@ -2,8 +2,10 @@
 ##  XDG_CONFIG_HOME/ncmpcpp/config
 ##  XDG_CACHE_HOME/ncmpcpp/lyrics
 ##  XDG_RUNTIME_DIR/mpd.fifo
+##  XDG_RUNTIME_DIR/mpd/socket
 
 # MPD
+mpd_host = @{XDG_RUNTIME_DIR}@/mpd/socket
 mpd_music_dir = @{XDG_MUSIC_DIR}@
 
 ###################
