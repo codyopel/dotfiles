@@ -4,9 +4,11 @@
 config/beets/library.db
 config/beets/state.pickle
 config/flexget/variables.yml
+config/fontconfig/fonts.conf
 config/ncmpcpp/config
 config/ncmpcpp/error.log
 config/mpd/mpd.conf
+config/mpv/mpv.conf
 ssh/authorized_keys
 ssh/id_*
 ssh/known_hosts*
