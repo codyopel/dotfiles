@@ -4,10 +4,13 @@ root = true
 indent_style = space
 indent_size = 2
 charset = utf-8
-trim_trailing_whitespace = false
-insert_final_newline = false
+trim_trailing_whitespace = true
+insert_final_newline = true
 
 [*.{elv,install,install-pre,install-post}]
+indent_size = 4
+
+[*.{lua}]
 indent_size = 4
 
 [local/bin/*]
