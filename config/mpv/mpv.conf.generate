@@ -1,0 +1,12 @@
+vo=gpu
+gpu-api=@(use platform; if $platform:is-windows { print 'd3d11' } else { print 'vulkan' })@
+gpu-context=@(use platform; if $platform:is-windows { print 'd3d11' } else { print 'waylandvk' })@
+hwdec=auto-copy-safe
+video-sync=display-resample
+scale=ewa_lanczossharp
+# TODO: switch to pipewire
+ao=@(use platform; if $platform:is-windows { print 'wasapi' } else { print 'pulse' })@
+audio-channels=stereo
+volume=100
+volume-max=100
+osd-font='Noto Sans'
