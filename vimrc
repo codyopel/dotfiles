@@ -176,7 +176,11 @@ endif
 
 
 if isdirectory($XDG_RUNTIME_DIR)
-  let &viminfo = &viminfo . ",n" . $XDG_RUNTIME_DIR . "/viminfo"
+  if has('nvim')
+    let &viminfo = &viminfo . ",n" . $XDG_RUNTIME_DIR . "/nviminfo"
+  else
+    let &viminfo = &viminfo . ",n" . $XDG_RUNTIME_DIR . "/viminfo"
+  endif
 else
   let &viminfo = ""
 endif
