@@ -1,0 +1,13 @@
+[Unit]
+Description=mpDris2 - Music Player Daemon D-Bus bridge
+After=network.target
+Requires=mpd.service
+
+[Service]
+Type=simple
+ExecStart=@(search-external mpDris2)@
+Restart=on-failure
+BusName=org.mpris.MediaPlayer2.mpd
+
+[Install]
+WantedBy=default.target
