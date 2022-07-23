@@ -90,7 +90,7 @@ local packer_group = vim.api.nvim_create_augroup('Packer', { clear = true })
 vim.api.nvim_create_autocmd('BufWritePost', {
     command = 'source <afile> | PackerCompile',
     group = packer_group,
-    pattern = vim.fn.expand '$MYVIMRC',
+    pattern = 'init.lua',
 })
 
 local ok, _ = pcall(vim.cmd, 'colorscheme truecolor')
