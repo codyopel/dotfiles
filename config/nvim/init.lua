@@ -227,6 +227,7 @@ require('nvim-treesitter.configs').setup {
         'lua',
         'make',
         'markdown',
+        'meson',
         'nix',
         'perl',
         'python',
