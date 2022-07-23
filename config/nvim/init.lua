@@ -189,7 +189,7 @@ parser_config.jsonnet = {
         files = {"src/parser.c", "src/scanner.c"},
     },
 }
-vim.cmd 'autocmd BufRead,BufNewFile *meson.build set filetype=jsonnet'
+vim.cmd 'autocmd BufRead,BufNewFile *.jsonnet,*.libsonnet set filetype=jsonnet'
 parser_config.meson = {
     install_info = {
         url = "https://github.com/bearcove/tree-sitter-meson",
@@ -197,7 +197,7 @@ parser_config.meson = {
         files = {"src/parser.c"},
     },
 }
-vim.cmd 'autocmd BufRead,BufNewFile *.jsonnet,*.libsonnet set filetype=meson'
+vim.cmd 'autocmd BufRead,BufNewFile *meson.build set filetype=meson'
 require('nvim-treesitter.configs').setup {
     ensure_installed = {
         'bash',
