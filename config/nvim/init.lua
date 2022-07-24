@@ -23,11 +23,20 @@ require('packer').startup(function(use)
     use {
         'hrsh7th/nvim-cmp',
         requires = {
-            'hrsh7th/cmp-nvim-lsp',
-            'hrsh7th/cmp-buffer',
-            'hrsh7th/cmp-path',
-            'hrsh7th/cmp-cmdline',
-        }
+            { 'hrsh7th/cmp-buffer', after = 'nvim-cmp' },
+            { 'hrsh7th/cmp-nvim-lsp', after = 'nvim-cmp' },
+            { 'hrsh7th/cmp-path', after ='nvim-cmp' },
+            { 'hrsh7th/cmp-cmdline', after = 'nvim-cmp' },
+        },
+        config = function()
+            require('cmp').setup({
+                sources = {
+                    { name = 'nvim_lsp' },
+                    { name = 'buffer' },
+                }
+            })
+        end,
+        event = 'InsertEnter *',
     }
     -- Formatting
     use 'mhartington/formatter.nvim'
@@ -252,13 +261,6 @@ require('treesitter-context').setup {
     enable = true
 }
 require('gitsigns').setup()
-local cmp = require('cmp')
-cmp.setup({
-    sources = cmp.config.sources({
-        { name = 'nvim_lsp' },
-    }, {
-        { name = 'buffer' },
-    })
 })
 require'nvim-treesitter.configs'.setup {
     context_commentstring = {
