@@ -58,8 +58,9 @@ require('packer').startup(function(use)
     use {
         'numToStr/Comment.nvim',
         config = function()
-            require('Comment').setup()
+            require('Comment').setup({})
         end,
+        event = 'BufEnter',
     }
     --use 'ms-jpq/chadtree', {
     --    branch = 'chad',
@@ -266,8 +267,6 @@ require'nvim-treesitter.configs'.setup {
     context_commentstring = {
         enable = true
     }
-}
-require('Comment').setup()
 require("bufferline").setup {}
 require('lualine').setup {
     options = {
