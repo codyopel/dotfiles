@@ -11,19 +11,17 @@ require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'
     -- LSP
     use {
-        'williamboman/nvim-lsp-installer',
-        requires = {
-            'neovim/nvim-lsp-config',
-        },
-        config = function()
-            require('nvim-lsp-installer').setup {
-                automatic_installation = true,
-            }
-        end,
-    }
-    use {
         'neovim/nvim-lspconfig',
+        requires = {
+            'williamboman/nvim-lsp-installer',
+        },
+        event = 'BufRead',
         config = function()
+            -- XXX: Must come before lspconfig
+            require('nvim-lsp-installer').setup({
+                automatic_installation = true,
+            })
+
             local lspconfig = require('lspconfig')
             lspconfig.cmake.setup {
                 on_attach = on_attach,
