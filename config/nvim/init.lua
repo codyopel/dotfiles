@@ -10,14 +10,191 @@ end
 require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'
     -- LSP
-    use 'neovim/nvim-lspconfig'
-    use 'williamboman/nvim-lsp-installer'
+    use {
+        'williamboman/nvim-lsp-installer',
+        requires = {
+            'neovim/nvim-lsp-config',
+        },
+        config = function()
+            require('nvim-lsp-installer').setup {
+                automatic_installation = true,
+            }
+        end,
+    }
+    use {
+        'neovim/nvim-lspconfig',
+        config = function()
+            local lspconfig = require('lspconfig')
+            lspconfig.cmake.setup {
+                on_attach = on_attach,
+                flags = lsp_flags,
+            }
+            lspconfig.html.setup {
+                on_attach = on_attach,
+                flags = lsp_flags,
+            }
+            -- Java
+            -- TODO: jdtls
+            --lspconfig.jdtls.setup {}
+            lspconfig.jsonls.setup {
+                on_attach = on_attach,
+                flags = lsp_flags,
+            }
+            lspconfig.jsonnet_ls.setup {
+                on_attach = on_attach,
+                flags = lsp_flags,
+            }
+            lspconfig.sumneko_lua.setup {
+                on_attach = on_attach,
+                flags = lsp_flags,
+                settings = {
+                    Lua = {
+                        diagnostics = {
+                            globals = {'vim'}
+                        },
+                        runtime = {
+                            version = 'LuaJIT',
+                        },
+                        telemetry = {
+                            enable = false,
+                        },
+                        workspace = {
+                            library = vim.api.nvim_get_runtime_file('', true),
+                        },
+                    }
+                }
+            }
+            lspconfig.rnix.setup {
+                on_attach = on_attach,
+                flags = lsp_flags,
+            }
+            -- TODO:
+            --luaconfig.powershell_es.setup {}
+            lspconfig.pyright.setup {
+                on_attach = on_attach,
+                flags = lsp_flags,
+            }
+            -- TODO
+            --luaconfig.sqls.setup {}
+            lspconfig.tsserver.setup {
+                on_attach = on_attach,
+                flags = lsp_flags,
+            }
+            lspconfig.rust_analyzer.setup {
+                on_attach = on_attach,
+                flags = lsp_flags,
+                -- Server-specific settings
+                settings = {
+                    ["rust-analyzer"] = {}
+                },
+            }
+            -- TOML
+            lspconfig.taplo.setup {
+                on_attach = on_attach,
+                flags = lsp_flags,
+            }
+            -- FIXME:
+            -- luaconfig.vimls.setup {
+            --     on_attach = on_attach,
+            --     flags = lsp_flags,
+            -- }
+        end,
+    }
     -- Treesitter
     use {
         'nvim-treesitter/nvim-treesitter',
+        config = function()
+            -- Treesitter grammers not bundled with nvim-treesitter
+            local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
+            parser_config.elvish = {
+                install_info = {
+                    url = "~/Workspaces/elvish/tree-sitter-elvish",
+                    branch = "main",
+                    files = {"src/parser.c"},
+                    generate_requires_npm = false,
+                    requires_generate_from_grammer = true,
+                },
+            }
+            parser_config.jsonnet = {
+                install_info = {
+                    url = "https://github.com/sourcegraph/tree-sitter-jsonnet",
+                    branch = "main",
+                    files = {"src/parser.c", "src/scanner.c"},
+                },
+            }
+            vim.cmd 'autocmd BufRead,BufNewFile *.jsonnet,*.libsonnet set filetype=jsonnet'
+            parser_config.meson = {
+                install_info = {
+                    url = "https://github.com/bearcove/tree-sitter-meson",
+                    branch = "main",
+                    files = {"src/parser.c"},
+                },
+            }
+            vim.cmd 'autocmd BufRead,BufNewFile *meson.build set filetype=meson'
+            require('nvim-treesitter.configs').setup({
+                ensure_installed = {
+                    'bash',
+                    'c',
+                    'cmake',
+                    'comment',
+                    'cpp',
+                    'css',
+                    'dart',
+                    'devicetree',
+                    'dockerfile',
+                    'elvish',
+                    'glsl',
+                    'go',
+                    'gomod',
+                    'haskell',
+                    'hcl',
+                    'help',
+                    'html',
+                    'http',
+                    'java',
+                    'javascript',
+                    'json',
+                    --'jsonc',
+                    'jsonnet',
+                    'latex',
+                    'lua',
+                    'make',
+                    'markdown',
+                    'meson',
+                    'nix',
+                    'perl',
+                    'python',
+                    'query',  -- Treesitter
+                    'regex',
+                    'rust',
+                    'sql',
+                    'toml',
+                    'tsx',
+                    'typescript',
+                    'vim',
+                    'wgsl',
+                    'yaml',
+                },
+                highlight = {
+                    enable = true,
+                    additional_vim_regex_highlighting = false,
+                },
+                indent = { enable = true },
+                context_commentstring = {
+                    enable = true
+                }
+            })
+        end,
         run = ':TSUpdate',
     }
-    use 'nvim-treesitter/nvim-treesitter-context'
+    use {
+        'nvim-treesitter/nvim-treesitter-context',
+        config = function()
+            require('treesitter-context').setup({
+                enable = true
+            })
+        end,
+    }
     use 'nvim-treesitter/nvim-treesitter-textobjects'
     -- Completetions
     use {
@@ -42,7 +219,16 @@ require('packer').startup(function(use)
     use 'mhartington/formatter.nvim'
     use 'gpanders/editorconfig.nvim'
     -- Theme
-    use 'chlorm/vim-colors-truecolor'
+    use {
+        'chlorm/vim-colors-truecolor',
+        config = function()
+            local ok, _ = pcall(vim.cmd, 'colorscheme truecolor')
+            -- Fallback
+            if not ok then
+                vim.cmd 'colorscheme default'
+            end
+        end,
+    }
     -- Languages (Non-Treesitter)
     use 'chlorm/vim-syntax-elvish'
     -- Restore buffer scroll/cursor position when reopening a file.
@@ -51,6 +237,9 @@ require('packer').startup(function(use)
     use {
         'lewis6991/gitsigns.nvim',
         requires = { 'nvim-lua/plenary.nvim' },
+        config = function()
+            require('gitsigns').setup()
+        end,
     }
     -- Comments
     use 'JoosepAlviste/nvim-ts-context-commentstring'
@@ -75,10 +264,29 @@ require('packer').startup(function(use)
     use {
         'akinsho/bufferline.nvim',
         tag = "v2.*",
-        requires = 'kyazdani42/nvim-web-devicons',
+        requires = {
+            'kyazdani42/nvim-web-devicons',
+        },
+        config = function()
+            require('bufferline').setup({})
+        end,
     }
-    use 'nvim-lualine/lualine.nvim'
-    use 'lukas-reineke/indent-blankline.nvim'
+    use {
+        'nvim-lualine/lualine.nvim',
+        config = function()
+            require('lualine').setup({
+                options = {
+                    theme = 'auto',
+                }
+            })
+        end,
+    }
+    use {
+        'lukas-reineke/indent-blankline.nvim',
+        config = function()
+            --require("indent_blankline").setup{}
+        end,
+    }
     -- Fuzzy Finder (files, lsp, etc)
     -- use {
     --     'nvim-telescope/telescope.nvim',
@@ -103,177 +311,8 @@ vim.api.nvim_create_autocmd('BufWritePost', {
     pattern = 'init.lua',
 })
 
-local ok, _ = pcall(vim.cmd, 'colorscheme truecolor')
--- Fallback
-if not ok then
-    vim.cmd 'colorscheme default'
-end
-
 -- Shorthand
 local o = vim.opt
-
--- !!!: Must load before lspconfig
-require('nvim-lsp-installer'). setup {
-    automatic_installation = true,
-}
-local lspconfig = require('lspconfig')
-lspconfig.cmake.setup {
-    on_attach = on_attach,
-    flags = lsp_flags,
-}
-lspconfig.html.setup {
-    on_attach = on_attach,
-    flags = lsp_flags,
-}
--- Java
--- TODO: jdtls
---lspconfig.jdtls.setup {}
-lspconfig.jsonls.setup {
-    on_attach = on_attach,
-    flags = lsp_flags,
-}
-lspconfig.jsonnet_ls.setup {
-    on_attach = on_attach,
-    flags = lsp_flags,
-}
-lspconfig.sumneko_lua.setup {
-    on_attach = on_attach,
-    flags = lsp_flags,
-    settings = {
-        Lua = {
-            diagnostics = {
-                globals = {'vim'}
-            },
-            runtime = {
-                version = 'LuaJIT',
-            },
-            telemetry = {
-                enable = false,
-            },
-            workspace = {
-                library = vim.api.nvim_get_runtime_file('', true),
-            },
-        }
-    }
-}
-lspconfig.rnix.setup {
-    on_attach = on_attach,
-    flags = lsp_flags,
-}
--- TODO:
---luaconfig.powershell_es.setup {}
-lspconfig.pyright.setup {
-    on_attach = on_attach,
-    flags = lsp_flags,
-}
--- TODO
---luaconfig.sqls.setup {}
-lspconfig.tsserver.setup {
-    on_attach = on_attach,
-    flags = lsp_flags,
-}
-lspconfig.rust_analyzer.setup {
-    on_attach = on_attach,
-    flags = lsp_flags,
-    -- Server-specific settings
-    settings = {
-        ["rust-analyzer"] = {}
-    },
-}
--- TOML
-lspconfig.taplo.setup {
-    on_attach = on_attach,
-    flags = lsp_flags,
-}
--- FIXME:
--- luaconfig.vimls.setup {
---     on_attach = on_attach,
---     flags = lsp_flags,
--- }
--- Treesitter grammers not bundled with nvim-treesitter
-local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
-parser_config.jsonnet = {
-    install_info = {
-        url = "https://github.com/sourcegraph/tree-sitter-jsonnet",
-        branch = "main",
-        files = {"src/parser.c", "src/scanner.c"},
-    },
-}
-vim.cmd 'autocmd BufRead,BufNewFile *.jsonnet,*.libsonnet set filetype=jsonnet'
-parser_config.meson = {
-    install_info = {
-        url = "https://github.com/bearcove/tree-sitter-meson",
-        branch = "main",
-        files = {"src/parser.c"},
-    },
-}
-vim.cmd 'autocmd BufRead,BufNewFile *meson.build set filetype=meson'
-require('nvim-treesitter.configs').setup {
-    ensure_installed = {
-        'bash',
-        'c',
-        'cmake',
-        'comment',
-        'cpp',
-        'css',
-        'dart',
-        'devicetree',
-        'dockerfile',
-        'elvish',
-        'glsl',
-        'go',
-        'gomod',
-        'haskell',
-        'hcl',
-        'help',
-        'html',
-        'http',
-        'java',
-        'javascript',
-        'json',
-        --'jsonc',
-        'jsonnet',
-        'latex',
-        'lua',
-        'make',
-        'markdown',
-        'meson',
-        'nix',
-        'perl',
-        'python',
-        'query',  -- Treesitter
-        'regex',
-        'rust',
-        'sql',
-        'toml',
-        'tsx',
-        'typescript',
-        'vim',
-        'wgsl',
-        'yaml',
-    },
-    highlight = {
-        enable = true,
-        additional_vim_regex_highlighting = false,
-    },
-    indent = { enable = true }
-}
-require('treesitter-context').setup {
-    enable = true
-}
-require('gitsigns').setup()
-})
-require'nvim-treesitter.configs'.setup {
-    context_commentstring = {
-        enable = true
-    }
-require("bufferline").setup {}
-require('lualine').setup {
-    options = {
-        theme = 'auto',
-    }
-}
---require("indent_blankline").setup{}
 
 o.colorcolumn = { '81', '121' }
 -- Spaces instead of tabs
