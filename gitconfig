@@ -174,3 +174,6 @@
   name = Cody W. Opel
   email = cwopel@chlorm.net
   signingkey = 4ABF64E1
+
+[pull]
+  rebase = false
