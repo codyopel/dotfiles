@@ -4,7 +4,7 @@ local o = vim.opt
 o.colorcolumn = { '81', '121' }
 -- Spaces instead of tabs
 o.expandtab = true
-o.guifont = 'Noto Mono Nerd Font Complete Windows Compatible'
+o.guifont = 'NotoSansMono NF'
 o.laststatus = 2
 -- Faster scrolling
 o.lazyredraw = true
