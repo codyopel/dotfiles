@@ -42,6 +42,26 @@ o.title = true
 -- Save undo history
 o.undofile = true
 
+-- FIXME: Remove for >0.7.2
+--        72877bb17d70362f91a60b31bf0244dbf8ed58ae
+-- Use filetype.lua
+vim.g.do_filetype_lua = 1
+-- Disable filetype.vim
+vim.g.did_load_filetypes = 0
+vim.filetype.add({
+    extension = {
+        jsonnet = 'jsonnet',
+        libsonnet = 'jsonnet',
+    },
+    filename = {
+        ['asoundrc'] = 'alsaconf',
+        ['dir_colors'] = 'dircolors',
+        ['gitconfig'] = 'gitconfig',
+        ['xprofile'] = 'sh',
+        ['.xprofile'] = 'sh',
+    }
+})
+
 -- Install packer
 local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
 local is_bootstrap = false
@@ -166,7 +186,6 @@ use { 'nvim-treesitter/nvim-treesitter',
                 files = {"src/parser.c", "src/scanner.c"},
             },
         }
-        vim.api.nvim_command 'autocmd BufRead,BufNewFile *.jsonnet,*.libsonnet set filetype=jsonnet'
         parser_config.meson = {
             install_info = {
                 url = "https://github.com/bearcove/tree-sitter-meson",
@@ -174,7 +193,6 @@ use { 'nvim-treesitter/nvim-treesitter',
                 files = {"src/parser.c"},
             },
         }
-        vim.api.nvim_command 'autocmd BufRead,BufNewFile *meson.build set filetype=meson'
         require('nvim-treesitter.configs').setup({
             ensure_installed = {
                 'bash',
