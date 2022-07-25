@@ -1,3 +1,47 @@
+-- Shorthand
+local o = vim.opt
+
+o.colorcolumn = { '81', '121' }
+-- Spaces instead of tabs
+o.expandtab = true
+o.guifont = 'Noto Mono Nerd Font Complete Windows Compatible'
+o.laststatus = 2
+-- Faster scrolling
+o.lazyredraw = true
+-- Show listchars
+o.list = true
+o.listchars = {
+    tab = '→ ',
+    eol = '↲',
+    nbsp = '␣',
+    trail = '•',
+    extends = '⟩',
+    precedes = '⟨',
+    --space = '•'
+    space = '⋅',
+}
+o.mouse = 'a'
+-- Line numbers
+o.number = true
+-- Show cursor coordinates
+o.ruler = true
+o.shiftwidth = 4
+o.showbreak = '↪'
+-- Auto indent new lines
+o.smartindent = true
+o.smarttab = true
+o.swapfile = false
+-- Max columns for syntax highlighting
+-- NOTE: Will break highlighting for any lines after a line that exceeds
+--       the limit.
+o.synmaxcol = 240
+-- 1 tab == X spaces
+o.tabstop = 4
+-- Set terminal title
+o.title = true
+-- Save undo history
+o.undofile = true
+
 -- Install packer
 local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
 local is_bootstrap = false
@@ -223,7 +267,7 @@ require('packer').startup(function(use)
             local ok, _ = pcall(vim.cmd, 'colorscheme truecolor')
             -- Fallback
             if not ok then
-                vim.cmd 'colorscheme default'
+                vim.cmd('colorscheme default')
             end
         end,
     }
@@ -323,46 +367,3 @@ vim.api.nvim_create_autocmd('BufWritePost', {
     group = packer_group,
     pattern = 'init.lua',
 })
-
--- Shorthand
-local o = vim.opt
-
-o.colorcolumn = { '81', '121' }
--- Spaces instead of tabs
-o.expandtab = true
-o.laststatus = 2
--- Faster scrolling
-o.lazyredraw = true
--- Show listchars
-o.list = true
-o.listchars = {
-    tab = '→ ',
-    eol = '↲',
-    nbsp = '␣',
-    trail = '•',
-    extends = '⟩',
-    precedes = '⟨',
-    --space = '•'
-    space = '⋅',
-}
-o.mouse = 'a'
--- Line numbers
-o.number = true
--- Show cursor coordinates
-o.ruler = true
-o.shiftwidth = 4
-o.showbreak = '↪'
--- Auto indent new lines
-o.smartindent = true
-o.smarttab = true
-o.swapfile = false
--- Max columns for syntax highlighting
--- NOTE: Will break highlighting for any lines after a line that exceeds
---       the limit.
-o.synmaxcol = 240
--- 1 tab == X spaces
-o.tabstop = 4
--- Set terminal title
-o.title = true
--- Save undo history
-o.undofile = true
