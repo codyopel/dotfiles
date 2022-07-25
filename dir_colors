@@ -16,14 +16,17 @@ FILE 00
 RESET 0
 
 # Directory
-DIR 01;34
+DIR 34
 
 # Symbolic link(#/target){set to target to use the sym linked file's color}
-LINK 01;36
+LINK 36
+MULTIHARDLINK 04;36 # regular file with more than one link
+# Orphaned symlink
+ORPHAN 40;31
+MISSING 40;31
 
-MULTIHARDLINK 00 # regular file with more than one link
-FIFO 40;33 # pipe
-SOCK 01;35 # socket
+FIFO 33 # pipe
+SOCK 35 # socket
 DOOR 01;35 # door
 
 # Block device driver
@@ -32,164 +35,146 @@ BLK 40;33;01
 # Character device driver
 CHR 40;33;01
 
-# Orphaned symlink
-ORPHAN 00;31
+EXEC 01;32  # File has execute permissions
+SETUID 37;41  # file that is setuid (u+s)
+SETGID 30;43  # file that is setgid (g+s)
+CAPABILITY 30;41  # file with capability
+STICKY_OTHER_WRITABLE 30;42  # dir that is sticky and other-writable (+t,o+w)
+OTHER_WRITABLE 31;42  # dir that is other-writable (o+w) and not sticky
+STICKY 37;44  # dir with the sticky bit set (+t) and not other-writable
 
-# Orphaned symlink file
-MISSING 00;31
-SETUID 37;41	# file that is setuid (u+s)
-SETGID 30;43	# file that is setgid (g+s)
-CAPABILITY 30;41	# file with capability
-STICKY_OTHER_WRITABLE 30;42 # dir that is sticky and other-writable (+t,o+w)
-OTHER_WRITABLE 34;42 # dir that is other-writable (o+w) and not sticky
-STICKY 37;44	# dir with the sticky bit set (+t) and not other-writable
+ # Archives
+.7z   31
+.ace  31
+.alz  31
+.arc  31
+.arj  31
+.bz   31
+.bz2  31
+.cab  31
+.cpio 31
+.deb  31
+.dz   31
+.ear  31
+.gz   31
+.jar  31
+.lha  31
+.lrz  31
+.lz   31
+.lz4  31
+.lzh  31
+.lzma 31
+.lzo  31
+.rar  31
+.rpm  31
+.rz   31
+.sar  31
+.t7z  31
+.tar  31
+.taz  31
+.tbz  31
+.tbz2 31
+.tgz  31
+.tlz  31
+.txz  31
+.tz   31
+.tzo  31
+.war  31
+.xz   31
+.z    31
+.Z    31
+.zip  31
+.zoo  31
+.zst  31
 
-## TODO: add these extensions to the correct category
-## ????
-# http://wiki.xiph.org/index.php/MIME_Types_and_File_Extensions
-.xspf 00;36 # spreadsheet
-.ogx 01;35 # ogg
+# Image
+.asf  35
+.bmp  35
+.cgm  35
+.dl   35
+.emf  35
+.flc  35
+.fli  35
+.gif  35
+.gl   35
+.jpeg 35
+.jpg  35
+.jxl  35
+.mng  35
+.nuv  35
+.pbm  35
+.pcx  35
+.pgm  35
+.png  35
+.ppm  35
+.qt   35
+.rm   35
+.rmvb 35
+.svg  35
+.svgz 35
+.tga  35
+.tif  35
+.tiff 35
+.xbm  35
+.xcf  35
+.xpm  35
+.xwd  35
 
-# Executable (bright green)
-EXEC 01;32 # File has execute permissions
-.app 01;32
-.bat 01;32
-.btm 01;32
-.cmd 01;32
-.com 01;32
-.csh 01;32
-.exe 01;32
-.msi 01;32
-.reg 01;32
-.sh  01;32
+# Video
+.anx  01;36
+.avc  01;36
+.avi  01;36
+.axv  01;36
+.f4v  01;36
+.flv  01;36
+.h264 01;36
+.h265 01;36
+.hevc 01;36
+.hvc  01;36
+.m2ts 01;36
+.m2v  01;36
+.m4v  01;36
+.mov  01;36
+.mp4  01;36
+.mp4v 01;36
+.mpg  01;36
+.mpeg 01;36
+.mkv  01;36
+.ogm  01;36
+.ogv  01;36
+.ts   01;36
+.vob  01;36
+.webm 01;36
+.wmv  01;36
+.yuv  01;36
 
- # Archives (bright red)
-.7z   01;31
-.ace  01;31
-.alz  01;31
-.arc  01;31
-.arj  01;31
-.bz   01;31
-.bz2  01;31
-.cab  01;31
-.cpio 01;31
-.deb  01;31
-.dz   01;31
-.ear  01;31
-.gz   01;31
-.jar  01;31
-.lha  01;31
-.lrz  01;31
-.lz   01;31
-.lz4  01;31
-.lzh  01;31
-.lzma 01;31
-.lzo  01;31
-.rar  01;31
-.rpm  01;31
-.rz   01;31
-.sar  01;31
-.t7z  01;31
-.tar  01;31
-.taz  01;31
-.tbz  01;31
-.tbz2 01;31
-.tgz  01;31
-.tlz  01;31
-.txz  01;31
-.tz   01;31
-.tzo  01;31
-.war  01;31
-.xz   01;31
-.z    01;31
-.Z    01;31
-.zip  01;31
-.zoo  01;31
+# Document
+.doc   01;35
+.docx  01;35
+.pdf   01;35
+.ps    01;35
+.xspf  01;35
+.txt   00
+.patch 00
+.diff  00
+.log   00
+.tex   00
 
-# Image (bright purple)
-.jpg  01;35 # joint photographic experts group
-.jpeg 01;35 # joint photographic experts group
-.gif  01;35 # graphics interchange format
-.bmp  01;35 # bitmap
-.pbm  01;35
-.pgm  01;35
-.ppm  01;35
-.tga  01;35
-.xbm  01;35
-.xpm  01;35
-.tif  01;35
-.tiff 01;35
-.png  01;35 # portable network graphics
-.svg  01;35 # scalable vector graphics
-.svgz 01;35 # compressed scalable vector graphics
-.mng  01;35
-.pcx  01;35
-.qt   01;35
-.nuv  01;35
-.asf  01;35
-.rm   01;35
-.rmvb 01;35
-.flc  01;35
-.fli  01;35
-.gl   01;35
-.dl   01;35
-.xcf  01;35
-.xwd  01;35
-.cgm  01;35
-.emf  01;35
-
-# Video (bright purple)
-.anx  01;35
-.avc  01;35 # raw avc stream
-.avi  01;35 # audio video interleave
-.axv  01;35
-.f4v  01;35 # flash video
-.flv  01;35 # flash video
-.h264 01;35 # raw avc stream
-.h265 01;35 # raw hevc stream
-.hevc 01;35 # raw hevc stream
-.hvc  01;35 # raw hevc stream
-.m2ts 01;35
-.m2v  01;35
-.m4v  01;35
-.mov  01;35
-.mp4  01;35 # mpeg-4 part 14
-.mp4v 01;35 # mpeg-4 part 14
-.mpg  01;35
-.mpeg 01;35
-.mkv  01;35
-.ogm  01;35
-.ogv  01;35
-.ts   01;35
-.vob  01;35
-.webm 01;35
-.wmv  01;35
-.yuv  01;35
-
-# Document (green)
-.pdf   00;32 # portable document format
-.ps    00;32
-.txt   00;32 # text file
-.patch 00;32 # software patch diff
-.diff  00;32 # software patch diff
-.log   00;32
-.tex   00;32 # tex typesetting system
-.doc   00;32 # word process document
-
-# Audio (cyan)
-.aac  00;36 # advanced audio codec
-.ape  00;36 # monkey's audio
-.au   00;36
-.axa  00;36
-.flac 00;36 # free lossless audio codec
-.m4a  00;36 # mpeg-4 part 14
-.mid  00;36
-.midi 00;36
-.mka  00;36 # matroska audio container
-.mp3  00;36 # mpeg-1 or mpeg-2 audio layer 3
-.mpc  00;36
-.oga  00;36 # ogg container
-.ogg  00;36 # ogg container
-.ra   00;36
-.spx  00;36 # speex
-.wav  00;36
+# Audio
+.aac  01;31
+.ape  01;31
+.au   01;31
+.axa  01;31
+.flac 01;31
+.m4a  01;31
+.mid  01;31
+.midi 01;31
+.mka  01;31
+.mp3  01;31
+.mpc  01;31
+.oga  01;31
+.ogg  01;31
+.ogx  01;31
+.ra   01;31
+.spx  01;31
+.wav  01;31
