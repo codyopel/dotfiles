@@ -169,28 +169,28 @@ use { 'nvim-treesitter/nvim-treesitter',
     event = 'BufEnter',
     config = function()
         -- Treesitter grammers not bundled with nvim-treesitter
-        local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
+        local parser_config = require('nvim-treesitter.parsers').get_parser_configs()
         parser_config.elvish = {
             install_info = {
                 url = "~/Workspaces/elvish/tree-sitter-elvish",
-                branch = "main",
-                files = {"src/parser.c"},
+                branch = 'main',
+                files = { 'src/parser.c' },
                 generate_requires_npm = false,
                 requires_generate_from_grammer = true,
             },
         }
         parser_config.jsonnet = {
             install_info = {
-                url = "https://github.com/sourcegraph/tree-sitter-jsonnet",
-                branch = "main",
-                files = {"src/parser.c", "src/scanner.c"},
+                url = 'https://github.com/sourcegraph/tree-sitter-jsonnet',
+                branch = 'main',
+                files = { 'src/parser.c', 'src/scanner.c' },
             },
         }
         parser_config.meson = {
             install_info = {
-                url = "https://github.com/bearcove/tree-sitter-meson",
-                branch = "main",
-                files = {"src/parser.c"},
+                url = 'https://github.com/bearcove/tree-sitter-meson',
+                branch = 'main',
+                files = { 'src/parser.c' },
             },
         }
         require('nvim-treesitter.configs').setup({
