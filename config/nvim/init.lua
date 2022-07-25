@@ -63,12 +63,12 @@ vim.filetype.add({
 })
 
 -- Install packer
-local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
 local is_bootstrap = false
-if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
+if vim.api.nvim_get_runtime_file('lua/packer.lua', false)[1] == nil then
     is_bootstrap = true
-    vim.api.nvim_exec('!git clone https://github.com/wbthomason/packer.nvim ' .. install_path)
-    vim.api.nvim_command [[packadd packer.nvim]]
+    local install_path = vim.fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
+    vim.fn.execute('!git clone https://github.com/wbthomason/packer.nvim ' .. install_path)
+    vim.api.nvim_command('packadd packer.nvim')
 end
 
 require('packer').startup({function(use)
@@ -300,7 +300,7 @@ use { 'chlorm/vim-colors-truecolor',
         local ok, _ = pcall(vim.api.nvim_command, 'colorscheme truecolor')
         -- Fallback
         if not ok then
-            vim.cmd('colorscheme default')
+            vim.api.nvim_command('colorscheme default')
         end
     end,
 }
@@ -406,7 +406,7 @@ vim.api.nvim_create_autocmd('BufEnter', {
     callback = function()
         if #vim.api.nvim_list_wins() == 1
                 and vim.api.nvim_buf_get_name(0):match('NvimTree_') ~= nil then
-            vim.cmd('quit')
+            vim.api.nvim_command('quit')
         end
     end
 })
