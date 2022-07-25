@@ -227,6 +227,12 @@ require('packer').startup(function(use)
             end
         end,
     }
+    use {
+        'kyazdani42/nvim-web-devicons',
+        config = function()
+            require('nvim-web-devicons').setup({})
+        end,
+    }
     -- Languages (Non-Treesitter)
     use 'chlorm/vim-syntax-elvish'
     -- Restore buffer scroll/cursor position when reopening a file.
@@ -248,6 +254,15 @@ require('packer').startup(function(use)
             require('Comment').setup({})
         end,
         event = 'BufEnter',
+    }
+    use {
+        'kyazdani42/nvim-tree.lua',
+        requires = {
+            'kyazdani42/nvim-web-devicons',
+        },
+        config = function()
+            require('nvim-tree').setup({})
+        end,
     }
     --use 'ms-jpq/chadtree', {
     --    branch = 'chad',
