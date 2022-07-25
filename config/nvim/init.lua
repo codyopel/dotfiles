@@ -371,7 +371,13 @@ config = {
 -- Source and re-compile packer when init.lua is saved.
 local packer_group = vim.api.nvim_create_augroup('Packer', { clear = true })
 vim.api.nvim_create_autocmd('BufWritePost', {
-    command = 'source <afile> | PackerCompile',
-    group = packer_group,
     pattern = 'init.lua',
+    group = packer_group,
+    -- Reload config changes before PackerCompile
+    command = 'luafile <afile>'
+})
+vim.api.nvim_create_autocmd('BufWritePost', {
+    pattern = 'init.lua',
+    group = packer_group,
+    command = 'source <afile> | PackerCompile'
 })
