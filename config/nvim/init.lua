@@ -72,16 +72,18 @@ if vim.api.nvim_get_runtime_file('lua/packer.lua', false)[1] == nil then
 end
 
 require('packer').startup({function(use)
-use { 'wbthomason/packer.nvim',
-    opt = true,
+use 'wbthomason/packer.nvim'
+use {
+    'lewis6991/impatient.nvim',
+    config = function()
+        require('impatient')
+    end,
 }
 -- LSP
 use { 'neovim/nvim-lspconfig',
     requires = {
         'williamboman/nvim-lsp-installer',
     },
-    -- FIXME: figure out delayed loading of LSP
-    -- event = 'BufRead',
     config = function()
         -- XXX: Must come before lspconfig
         require('nvim-lsp-installer').setup({
@@ -166,7 +168,6 @@ use { 'neovim/nvim-lspconfig',
 }
 -- Treesitter
 use { 'nvim-treesitter/nvim-treesitter',
-    event = 'BufEnter',
     config = function()
         -- Treesitter grammers not bundled with nvim-treesitter
         local parser_config = require('nvim-treesitter.parsers').get_parser_configs()
@@ -253,7 +254,6 @@ use { 'nvim-treesitter/nvim-treesitter-context',
     after = {
         'nvim-treesitter'
     },
-    event = 'BufEnter',
     -- FIXME:
     -- config = function()
     --     require('treesitter-context').setup({
@@ -265,7 +265,6 @@ use { 'nvim-treesitter/nvim-treesitter-textobjects',
     after = {
         'nvim-treesitter',
     },
-    event = 'BufEnter',
 }
 -- Completetions
 use { 'hrsh7th/nvim-cmp',
@@ -284,7 +283,6 @@ use { 'hrsh7th/nvim-cmp',
             }
         })
     end,
-    event = 'InsertEnter *',
 }
 -- Snippet Engine and Snippet Expansion
 -- use {
@@ -305,7 +303,6 @@ use { 'chlorm/vim-colors-truecolor',
     end,
 }
 use { 'kyazdani42/nvim-web-devicons',
-    -- event = 'VimEnter',
     config = function()
         require('nvim-web-devicons').setup({})
     end,
@@ -317,21 +314,17 @@ use 'farmergreg/vim-lastplace'
 -- Git
 use { 'lewis6991/gitsigns.nvim',
     requires = { 'nvim-lua/plenary.nvim' },
-    event = 'BufEnter',
     config = function()
         require('gitsigns').setup()
     end,
 }
 -- Comments
-use { 'JoosepAlviste/nvim-ts-context-commentstring',
-    event = 'BufEnter',
-}
+use 'JoosepAlviste/nvim-ts-context-commentstring'
 -- Comment visual regions w/ "gc"
 use { 'numToStr/Comment.nvim',
     config = function()
         require('Comment').setup({})
     end,
-    event = 'BufEnter',
 }
 -- UI
 use { 'kyazdani42/nvim-tree.lua',
@@ -347,7 +340,6 @@ use { 'akinsho/bufferline.nvim',
     requires = {
         'kyazdani42/nvim-web-devicons',
     },
-    event = 'VimEnter',
     config = function()
         require('bufferline').setup({})
     end,
