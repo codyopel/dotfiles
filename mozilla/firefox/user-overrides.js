@@ -14,11 +14,11 @@ user_pref("media.rdd-ffmpeg.enabled", true);
 user_pref("media.navigator.mediadatadecoder_vpx_enabled", true);
 
 // JPEG-XL
-user_pref("image.jxl.enabled", true)
+user_pref("image.jxl.enabled", true);
 
 // Don't thrash SSDs, cache in memory instead.
-user_pref("browser.cache.disk.enable", false)
-user_pref("browser.cache.disk_cache_ssl", false)
+user_pref("browser.cache.disk.enable", false);
+user_pref("browser.cache.disk_cache_ssl", false);
 
 // Find bar
 user_pref("findbar.highlightAll", true);
@@ -28,7 +28,7 @@ user_pref("general.smoothScroll.mouseWheel.durationMinMS", 125);
 
 // FIXME: document
 // Disable "Upload" feature on screenshots
-user_pref("extensions.screenshots.upload-disabled", true)
+user_pref("extensions.screenshots.upload-disabled", true);
 
 //
 //// Arkenfox overrides
@@ -50,7 +50,7 @@ user_pref("keyword.enabled", true);
 // FIXME: 1003: Store extra session data
 // user_pref("browser.sessionstore.privacy_level", 2);
 // 1004: Use default session save interval
-user_pref("browser.sessionstore.interval", 15000)
+user_pref("browser.sessionstore.interval", 15000);
 // Allow mixed content (HTTP/HTTPS)
 user_pref("security.mixed_content.block_display_content", false);
 // 1246: HTTPS quick timeout
@@ -103,7 +103,7 @@ user_pref("accessibility.typeaheadfind", true);
 user_pref("browser.tabs.loadBookmarksInTabs", true);
 // 9000: Disable ALT-key toggling the menu bar
 user_pref("ui.key.menuAccessKey", 0);
-user_pref("ui.key.menuAccessKeyFocuses", false)
+user_pref("ui.key.menuAccessKeyFocuses", false);
 // 9000: Disable pocket
 user_pref("extensions.pocket.enabled", false);
 // 9000: Disable reader view
