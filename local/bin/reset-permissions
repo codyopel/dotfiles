@@ -1,18 +1,18 @@
 #!/usr/bin/env elvish
 
-fixDir = $pwd
+var fixDir = $pwd
 if (> (count $args) 0) {
-  if (> (count $args) 1) {
-    fail 'Only one argument allowed'
-  }
-  fixDir = $args[0]
+    if (> (count $args) 1) {
+        fail 'Only one argument allowed'
+    }
+    set fixDir = $args[0]
 }
 
 if (not ?(e:test -d $fixDir)) {
-  fail "Not a valid directory: "$fixDir
+    fail "Not a valid directory: "$fixDir
 }
 
-find $fixDir '-type' 'd' '-exec' 'chmod' '775' '{}' ';'
-find $fixDir '-type' 'f' '-exec' 'chmod' '664' '{}' ';'
+e:find $fixDir '-type' 'd' '-exec' 'chmod' '775' '{}' ';'
+e:find $fixDir '-type' 'f' '-exec' 'chmod' '664' '{}' ';'
 
 exit
