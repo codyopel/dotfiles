@@ -72,13 +72,13 @@ if vim.api.nvim_get_runtime_file('lua/packer.lua', false)[1] == nil then
 end
 
 require('packer').startup({function(use)
-use 'wbthomason/packer.nvim'
 use {
     'lewis6991/impatient.nvim',
-    config = function()
-        require('impatient')
-    end,
+     config = function()
+         require('impatient')
+     end,
 }
+use 'wbthomason/packer.nvim'
 -- LSP
 use { 'neovim/nvim-lspconfig',
     requires = {
