@@ -10,6 +10,7 @@ config/ncmpcpp/error.log
 config/mpd/mpd.conf
 config/mpv/mpv.conf
 config/systemd/user/*.service
+local/share/applications/alacritty.desktop
 ssh/authorized_keys
 ssh/id_*
 ssh/known_hosts*
