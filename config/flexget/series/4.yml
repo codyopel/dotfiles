@@ -1,8 +1,0 @@
-series:
-  television-list:
-    - "46 Yok Olan":
-        set:
-          tvdb_id: 309817
-    - "The 4400":
-        set:
-          tvdb_id: 73507
