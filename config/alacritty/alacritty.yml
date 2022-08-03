@@ -1,5 +1,7 @@
 font:
-  normal: Noto Sans Mono
+  normal:
+    family: NotoSansMono NF
+    style: Regular
 
 #search:
 #  matches:
