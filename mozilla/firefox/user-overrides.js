@@ -25,6 +25,8 @@ user_pref("findbar.highlightAll", true);
 // Smoother scroll animations
 user_pref("general.smoothScroll.mouseWheel.durationMaxMS", 400);
 user_pref("general.smoothScroll.mouseWheel.durationMinMS", 125);
+// Disable GTK overlay-scrollbars
+user_pref("widget.gtk.overlay-scrollbars.enabled", false);
 
 // FIXME: document
 // Disable "Upload" feature on screenshots
