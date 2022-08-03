@@ -66,8 +66,6 @@ pkgs: {
         # Graphical
           #eagle
           #gnome-tweak-tool
-          #kde5.kate
-          #kde5.quasselClient
           #virtmanager
       ];
     };*/
@@ -84,7 +82,6 @@ pkgs: {
         dash
         dmidecode
         dnstop
-        fish
         elvish
         git
         gptfdisk
@@ -97,7 +94,6 @@ pkgs: {
         iptables
         jq
         lm-sensors
-        mg
         mtr
         nftables
         nmap
@@ -106,11 +102,7 @@ pkgs: {
         p7zip
         psmisc
         python3Packages.speedtest-cli
-        rsync
-        screen
         smartmontools
-        sshfs
-        subversion
         sysstat
         tcpdump
         tmux
@@ -145,12 +137,8 @@ pkgs: {
         #nvidia-settings
         pavucontrol
         pulseaudio_full
-        sakura
-        scrot
-        slock
         stalonetray
         #teamspeak_client
-        totem
         #xfe
       ];
     };
@@ -199,8 +187,7 @@ pkgs: {
         #mpdris2
         mpv
         ncmpcpp
-        #python2Packages.mopidy
-        #vlc
+        totem
       ];
     };
 
@@ -261,15 +248,12 @@ pkgs: {
       paths = with self; [
         #goPackages.syncthing.bin
         python3Packages.guessit
-        #lftp
         ncdc
         #python2Packages.deluge
         #python2Packages.deluge_head
         python3Packages.flexget
         python3Packages.youtube-dl
         resilio
-        #rtorrent
-        #task-spooler
       ];
     };
 
@@ -301,12 +285,6 @@ pkgs: {
         firefox
       ];
     };*/
-
-    /*myHsEnv = self.haskellPackages.ghcWithPackages (self: with self; [
-      pandoc
-      xmonad
-      xmonad-contrib
-    ]);*/
 
     /*steamEnv = self.buildEnv {
       name = "steam-env";
