@@ -1,7 +1,0 @@
-#!/usr/bin/env elvish
-
-if ?(get-env HIGH_DPI) {
-    set-env SUCKLESS_FONT_SIZE 18
-} else {
-    set-env SUCKLESS_FONT_SIZE 12
-}

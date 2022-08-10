@@ -1,9 +1,6 @@
 pkgs: {
   allowUnfree = true;
   cabal.libraryProfiling = true;
-  # Suckless
-  st.conf = (builtins.readFile ./st/config.mach.h)
-    + (builtins.readFile ./st/config.inc.h);
 
   packageOverrides = self: rec {
 
