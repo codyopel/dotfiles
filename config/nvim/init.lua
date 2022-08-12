@@ -353,9 +353,12 @@ use { 'nvim-lualine/lualine.nvim',
         })
     end,
 }
+-- Indent guides
 use { 'lukas-reineke/indent-blankline.nvim',
     config = function()
-        --require("indent_blankline").setup{}
+        require("indent_blankline").setup({
+            show_current_context = true,
+        })
     end,
 }
 -- Fuzzy Finder (files, lsp, etc)
