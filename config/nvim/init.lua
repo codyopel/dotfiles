@@ -82,8 +82,9 @@ use 'wbthomason/packer.nvim'
 -- LSP
 use { 'neovim/nvim-lspconfig',
     requires = {
-        'williamboman/nvim-lsp-installer',
+        { 'williamboman/nvim-lsp-installer', event = 'VimEnter' }
     },
+    event = 'VimEnter',
     config = function()
         -- XXX: Must come before lspconfig
         require('nvim-lsp-installer').setup({
@@ -283,6 +284,7 @@ use { 'hrsh7th/nvim-cmp',
             }
         })
     end,
+    event = 'InsertEnter *',
 }
 -- Snippet Engine and Snippet Expansion
 -- use {
@@ -303,6 +305,7 @@ use { 'chlorm/vim-colors-truecolor',
     end,
 }
 use { 'kyazdani42/nvim-web-devicons',
+    event = 'VimEnter',
     config = function()
         require('nvim-web-devicons').setup({})
     end,
@@ -310,24 +313,43 @@ use { 'kyazdani42/nvim-web-devicons',
 -- Languages (Non-Treesitter)
 -- use 'chlorm/vim-syntax-elvish'
 -- Restore buffer scroll/cursor position when reopening a file.
-use 'farmergreg/vim-lastplace'
+use {
+    'farmergreg/vim-lastplace',
+    event = 'BufWinEnter',
+}
 -- Git
 use { 'lewis6991/gitsigns.nvim',
-    requires = { 'nvim-lua/plenary.nvim' },
+    requires = { 'nvim-lua/plenary.nvim', event = 'VimEnter' },
+    event = 'VimEnter',
     config = function()
-        require('gitsigns').setup()
+        require('gitsigns').setup({})
+    end,
+}
+use { 'sindrets/diffview.nvim',
+    requires = 'nvim-lua/plenary.nvim',
+    config = function()
+        require("diffview").setup({
+            -- see configuration in
+            -- https://github.com/sindrets/diffview.nvim#configuration
+        })
     end,
 }
 -- Comments
-use 'JoosepAlviste/nvim-ts-context-commentstring'
+use { 'JoosepAlviste/nvim-ts-context-commentstring',
+    event = 'VimEnter',
+}
 -- Comment visual regions w/ "gc"
 use { 'numToStr/Comment.nvim',
     config = function()
-        require('Comment').setup({})
+        require('Comment').setup({
+            padding = false,
+        })
     end,
+    event = 'VimEnter',
 }
 -- UI
 use { 'kyazdani42/nvim-tree.lua',
+    event = 'VimEnter',
     requires = {
         'kyazdani42/nvim-web-devicons',
     },
@@ -340,11 +362,13 @@ use { 'akinsho/bufferline.nvim',
     requires = {
         'kyazdani42/nvim-web-devicons',
     },
+    event = 'VimEnter',
     config = function()
         require('bufferline').setup({})
     end,
 }
 use { 'nvim-lualine/lualine.nvim',
+    event = 'VimEnter',
     config = function()
         require('lualine').setup({
             options = {
@@ -355,6 +379,7 @@ use { 'nvim-lualine/lualine.nvim',
 }
 -- Indent guides
 use { 'lukas-reineke/indent-blankline.nvim',
+    event = 'VimEnter',
     config = function()
         require("indent_blankline").setup({
             show_current_context = true,
