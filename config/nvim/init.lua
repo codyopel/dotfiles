@@ -392,7 +392,7 @@ vim.api.nvim_create_autocmd('BufWritePost', {
 vim.api.nvim_create_autocmd('BufWritePost', {
     pattern = '*/nvim/init.lua',
     group = packer_group,
-    command = 'source <afile> | PackerCompile'
+    command = 'source <afile> | PackerSync'
 })
 
 -- When quitting automatically close nvim-tree window.
