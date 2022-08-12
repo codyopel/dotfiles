@@ -405,3 +405,11 @@ vim.api.nvim_create_autocmd('BufEnter', {
         end
     end
 })
+
+-- Language specific settings
+local per_language_settings_group = vim.api.nvim_create_augroup('PerLanguageSettings', { clear = true })
+vim.api.nvim_create_autocmd('FileType', {
+    group = per_language_settings_group,
+    pattern = 'nix',
+    command = 'setlocal tabstop=2 shiftwidth=2',
+})
