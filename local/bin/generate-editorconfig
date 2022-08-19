@@ -1,0 +1,25 @@
+#!/usr/bin/env elvish
+# vim: set ft=elvish:
+
+
+use github.com/chlorm/elvish-stl/ini
+use github.com/chlorm/elvish-stl/path
+
+
+var out = (path:join (path:absolute $pwd) '.editorconfig')
+
+printf "%s\n\n" 'root = true' > $out
+
+var config = [
+    &'*'=[
+        &charset='utf-8'
+        &end_of_line='lf'
+        &indent_size='4'
+        &indent_style='space'
+        &insert_final_newline='true'
+        &trim_trailing_whitespace='true'
+    ]
+]
+
+var iniData = (ini:marshal $config)
+printf '%s' $iniData >> $out
