@@ -628,6 +628,7 @@ use { 'akinsho/bufferline.nvim',
     config = function()
         require('bufferline').setup({
             options = {
+                always_show_bufferline = false,
                 diagnostics = true,
                 show_close_icon = false,
                 show_tab_indicators = true,
