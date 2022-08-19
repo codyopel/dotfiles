@@ -1,16 +1,21 @@
--- Shorthand
-local o = vim.opt
+local intToBool = { [0]=false, [1]=true }
+local isWindows = intToBool[vim.fn.has('win32')]
+local isUnix = intToBool[vim.fn.has('unix')]
+-- TODO: look for local file or environment variable to toggle
+local isMinimal = false
 
-o.colorcolumn = { '81', '121' }
+vim.opt.clipboard = 'unnamedplus'
+vim.opt.colorcolumn = { '81', '121' }
+vim.opt.cursorline = true
 -- Spaces instead of tabs
-o.expandtab = true
-o.guifont = 'NotoSansMono NF'
-o.laststatus = 2
+vim.opt.expandtab = true
+vim.opt.fileencoding = 'utf-8'
+vim.opt.guifont = 'NotoSansMono NF'
 -- Faster scrolling
-o.lazyredraw = true
+vim.opt.lazyredraw = true
 -- Show listchars
-o.list = true
-o.listchars = {
+vim.opt.list = true
+vim.opt.listchars = {
     tab = '→ ',
     eol = '↲',
     nbsp = '␣',
@@ -20,27 +25,56 @@ o.listchars = {
     --space = '•'
     space = '⋅',
 }
-o.mouse = 'a'
+vim.opt.mouse = 'a'
 -- Line numbers
-o.number = true
--- Show cursor coordinates
-o.ruler = true
-o.shiftwidth = 4
-o.showbreak = '↪'
+vim.opt.number = true
+-- Keep cursor vertically centered
+vim.opt.scrolloff = 8
+vim.opt.shiftwidth = 4
+vim.opt.showbreak = '↪'
+vim.opt.sidescrolloff = 8
+-- Prevent UI from shifting when signcolumn loads
+vim.opt.signcolumn = 'yes'
+vim.opt.smartcase = true
 -- Auto indent new lines
-o.smartindent = true
-o.smarttab = true
-o.swapfile = false
+vim.opt.smartindent = true
+vim.opt.splitbelow = true
+vim.opt.splitright = true
+vim.opt.swapfile = false
 -- Max columns for syntax highlighting
 -- NOTE: Will break highlighting for any lines after a line that exceeds
 --       the limit.
-o.synmaxcol = 240
+vim.opt.synmaxcol = 240
 -- 1 tab == X spaces
-o.tabstop = 4
+vim.opt.tabstop = 4
 -- Set terminal title
-o.title = true
+vim.opt.title = true
 -- Save undo history
-o.undofile = true
+vim.opt.undofile = true
+--o.writebackup = false
+
+-- Disable some builtin plugins to improve load times
+--g.loaded_gzip = 1
+--g.loaded_zip = 1
+--g.loaded_zipPlugin = 1
+--g.loaded_tar = 1
+--g.loaded_tarPlugin = 1
+
+vim.g.loaded_getscript = 1
+vim.g.loaded_getscriptPlugin = 1
+vim.g.loaded_vimball = 1
+vim.g.loaded_vimballPlugin = 1
+vim.g.loaded_2html_plugin = 1
+
+vim.g.loaded_matchit = 1
+vim.g.loaded_matchparen = 1
+vim.g.loaded_logiPat = 1
+vim.g.loaded_rrhelper = 1
+
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+vim.g.loaded_netrwSettings = 1
+vim.g.loaded_netrwFileHandlers = 1
 
 -- FIXME: Remove for >0.7.2
 --        72877bb17d70362f91a60b31bf0244dbf8ed58ae
@@ -66,7 +100,8 @@ vim.filetype.add({
 local is_bootstrap = false
 if vim.api.nvim_get_runtime_file('lua/packer.lua', false)[1] == nil then
     is_bootstrap = true
-    local install_path = vim.fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
+    local install_path =
+        vim.fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
     vim.fn.execute('!git clone https://github.com/wbthomason/packer.nvim ' .. install_path)
     vim.api.nvim_command('packadd packer.nvim')
 end
@@ -79,41 +114,165 @@ use {
      end,
 }
 use 'wbthomason/packer.nvim'
--- LSP
-use { 'neovim/nvim-lspconfig',
-    requires = {
-        { 'williamboman/nvim-lsp-installer', event = 'VimEnter' }
-    },
+use 'antoinemadec/FixCursorHold.nvim'
+use 'nvim-lua/plenary.nvim'
+use { 'williamboman/mason.nvim',
+    disable = isMinimal,
     event = 'VimEnter',
     config = function()
-        -- XXX: Must come before lspconfig
-        require('nvim-lsp-installer').setup({
-            automatic_installation = true,
+        require('mason').setup()
+    end,
+}
+use { 'williamboman/mason-lspconfig.nvim',
+    after = {
+        'mason.nvim',
+    },
+    requires = {
+        'williamboman/mason.nvim',
+    },
+    disable = isMinimal,
+    event = 'VimEnter',
+    config = function()
+        require('mason-lspconfig').setup()
+    end,
+}
+use { 'WhoIsSethDaniel/mason-tool-installer.nvim',
+    after = {
+        'mason.nvim',
+    },
+    requires = {
+        'williamboman/mason.nvim',
+    },
+    disable = isMinimal,
+    event = 'VimEnter',
+    config = function()
+        local ensureInstalled = {
+            -- Ansible
+            'ansible-language-server',
+            -- AWK
+            'awk-language-server',
+            -- C(++)
+            'clangd',
+            -- CMake
+            'cmake-language-server',
+            -- CSS
+            --'css-lsp',
+            --'cssmodules-language-server',
+            -- Docker
+            'dockerfile-language-server',
+            --Go
+            'gopls',
+            -- HTML
+            'html-lsp',
+            -- Java
+            'jdtls',
+            -- Json
+            'json-lsp',
+            -- Jsonnet
+            'jsonnet-language-server',
+            -- Lua
+            'lua-language-server',
+            -- Nickel
+            --'nickel-lang-lsp',
+            -- Nix
+            'rnix-lsp',
+            -- Perl
+            'perlnavigator',
+            -- Python
+            'pyright',
+            -- Rust
+            'rust-analyzer',
+            -- Saltstack
+            --'salt-lsp',
+            -- Shell
+            'bash-language-server',
+            'shellcheck',
+            'shfmt',
+            -- TOML
+            'taplo',
+            -- Typescript
+            'typescript-language-server',
+            -- Viml
+            'vim-language-server',
+            -- Yaml
+            'yaml-language-server',
+        }
+
+        --if isUnix then
+        --    -- TODO:
+        --end
+
+        if isWindows then
+            -- Powershell
+            table.insert(ensureInstalled, 'powershell-editor-services')
+        end
+
+        require('mason-tool-installer').setup({
+            auto_update = false,
+            run_on_start = true,
+            start_delay = 5000,
+            ensure_installed = ensureInstalled,
         })
+    end,
+}
+-- LSP
+use { 'neovim/nvim-lspconfig',
+    after = {
+        'mason-lspconfig.nvim',
+    },
+    requires = {
+        'williamboman/mason-lspconfig',
+    },
+    disable = isMinimal,
+    event = 'VimEnter',
+    config = function()
+        local onAttach = function(client, bufnr)
+            -- Enable completion triggered by <c-x><c-o>
+            vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+            -- Mappings.
+            local bufopts = { noremap=true, silent=true, buffer=bufnr }
+            vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
+            vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+            vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+            vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
+            vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+            vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
+            vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
+            vim.keymap.set('n', '<space>wl', function()
+                print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+            end, bufopts)
+            vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
+            vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
+            vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
+            vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+            vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, bufopts)
+        end
+
+        local defaults = {
+            on_attach = onAttach,
+        }
 
         local lspconfig = require('lspconfig')
-        lspconfig.cmake.setup {
-            on_attach = on_attach,
-            flags = lsp_flags,
-        }
-        lspconfig.html.setup {
-            on_attach = on_attach,
-            flags = lsp_flags,
-        }
+        -- Bash
+        lspconfig.bashls.setup(defaults)
+        -- C(++)
+        lspconfig.clangd.setup(defaults)
+        -- Cmake
+        lspconfig.cmake.setup(defaults)
+        -- Go
+        lspconfig.gopls.setup(defaults)
+        -- HTML
+        lspconfig.html.setup(defaults)
         -- Java
-        -- TODO: jdtls
-        --lspconfig.jdtls.setup {}
-        lspconfig.jsonls.setup {
-            on_attach = on_attach,
-            flags = lsp_flags,
-        }
-        lspconfig.jsonnet_ls.setup {
-            on_attach = on_attach,
-            flags = lsp_flags,
-        }
+        lspconfig.jdtls.setup(defaults)
+        -- Json
+        lspconfig.jsonls.setup(defaults)
+        -- Jsonnet
+        lspconfig.jsonnet_ls.setup(defaults)
+        -- Lua
         lspconfig.sumneko_lua.setup {
-            on_attach = on_attach,
-            flags = lsp_flags,
+            on_attach = onAttach,
             settings = {
                 Lua = {
                     diagnostics = {
@@ -131,56 +290,119 @@ use { 'neovim/nvim-lspconfig',
                 }
             }
         }
-        lspconfig.rnix.setup {
-            on_attach = on_attach,
-            flags = lsp_flags,
-        }
+        -- Nix
+        lspconfig.rnix.setup(defaults)
+        -- Powershell
         -- TODO:
-        --luaconfig.powershell_es.setup {}
-        lspconfig.pyright.setup {
-            on_attach = on_attach,
-            flags = lsp_flags,
-        }
+        --lspconfig.powershell_es.setup(defaults)
+        -- Python
+        lspconfig.pyright.setup(defaults)
+        -- SQL
         -- TODO
-        --luaconfig.sqls.setup {}
-        lspconfig.tsserver.setup {
-            on_attach = on_attach,
-            flags = lsp_flags,
-        }
+        --lspconfig.sqls.setup(defaults)
+        lspconfig.tsserver.setup(defaults)
+        -- Rust
         lspconfig.rust_analyzer.setup {
-            on_attach = on_attach,
-            flags = lsp_flags,
+            on_attach = onAttach,
             -- Server-specific settings
             settings = {
                 ["rust-analyzer"] = {}
             },
         }
         -- TOML
-        lspconfig.taplo.setup {
-            on_attach = on_attach,
-            flags = lsp_flags,
+        lspconfig.taplo.setup(defaults)
+        -- Viml
+        lspconfig.vimls.setup(defaults)
+    end,
+}
+-- LSP missing features
+use { 'jose-elias-alvarez/null-ls.nvim',
+    disable = isMinimal,
+    event = 'VimEnter',
+    config = function()
+        local nullLs = require('null-ls')
+
+        local jsonnetfmt = {
+            method = nullLs.methods.FORMATTING,
+            filetypes = { "jsonnet" },
+            generator = nullLs.generator({
+                command = "jsonnetfmt",
+                args = { "-" },
+                to_stdin = true,
+            }),
         }
-        -- FIXME:
-        -- luaconfig.vimls.setup {
-        --     on_attach = on_attach,
-        --     flags = lsp_flags,
-        -- }
+        nullLs.register(jsonnetfmt)
+
+        nullLs.setup({
+            sources = {
+                -- Formatters
+                nullLs.builtins.formatting.clang_format,
+                nullLs.builtins.formatting.cmake_format,
+                nullLs.builtins.formatting.gofmt,
+                nullLs.builtins.formatting.jq,
+                nullLs.builtins.formatting.nixpkgs_fmt,
+                nullLs.builtins.formatting.prettier,
+                nullLs.builtins.formatting.rustfmt,
+                nullLs.builtins.formatting.shfmt,
+                nullLs.builtins.formatting.stylua,
+                nullLs.builtins.formatting.yapf,
+                -- Linters
+                --nullLs.builtins.diagnostics.buf,  -- proto
+                --nullLs.builtins.diagnostics.checkmate,  -- make
+                nullLs.builtins.diagnostics.chktex,
+                --nullLs.builtins.diagnostics.cppcheck,
+                --nullLs.builtins.diagnostics.deadnix,
+                --nullLs.builtins.diagnostics.editorconfig-checker,
+                --nullLs.builtins.diagnostics.gitlint,
+                nullLs.builtins.diagnostics.markdownlint,
+                --nullLs.builtins.diagnostics.mypy,
+                --nullLs.builtins.diagnostics.protoc-gen-lint,
+                --nullLs.builtins.diagnostics.protolint,
+                nullLs.builtins.diagnostics.shellcheck,
+                nullLs.builtins.diagnostics.yamllint,
+            },
+        })
+    end,
+}
+use { 'lvimuser/lsp-inlayhints.nvim',
+    disable = isMinimal,
+    event = 'VimEnter',
+    config = function()
+        require('lsp-inlayhints').setup()
+    end,
+}
+-- LSP progress UI
+use { 'j-hui/fidget.nvim',
+    disable = isMinimal,
+    event = 'VimEnter',
+    config = function()
+        require('fidget').setup()
+    end,
+}
+use { 'folke/which-key.nvim',
+    disable = isMinimal,
+    event = 'VimEnter',
+    config = function()
+        require("which-key").setup({})
     end,
 }
 -- Treesitter
 use { 'nvim-treesitter/nvim-treesitter',
+    event = 'BufWinEnter',
+    run = ':TSUpdate',
     config = function()
         -- Treesitter grammers not bundled with nvim-treesitter
-        local parser_config = require('nvim-treesitter.parsers').get_parser_configs()
-        parser_config.elvish = {
-            install_info = {
-                url = "~/Workspaces/elvish/tree-sitter-elvish",
-                branch = 'main',
-                files = { 'src/parser.c' },
-                generate_requires_npm = false,
-                requires_generate_from_grammer = true,
-            },
-        }
+        local parser_config =
+            require('nvim-treesitter.parsers').get_parser_configs()
+        --parser_config.elvish = {
+        --    install_info = {
+        --        url = "~/Workspaces/elvish/tree-sitter-elvish",
+        --        branch = 'main',
+        --        files = { 'src/parser.c' },
+        --        generate_requires_npm = false,
+        --        requires_generate_from_grammer = true,
+        --    },
+        --}
         parser_config.jsonnet = {
             install_info = {
                 url = 'https://github.com/sourcegraph/tree-sitter-jsonnet',
@@ -241,20 +463,26 @@ use { 'nvim-treesitter/nvim-treesitter',
             },
             highlight = {
                 enable = true,
-                additional_vim_regex_highlighting = false,
+                additional_vim_regex_highlighting = isMinimal,
             },
-            indent = { enable = true },
+            indent = {
+                enable = true,
+            },
             context_commentstring = {
-                enable = true
+                enable = true,
             }
         })
     end,
-    run = ':TSUpdate',
 }
 use { 'nvim-treesitter/nvim-treesitter-context',
     after = {
         'nvim-treesitter'
     },
+    requires = {
+        'nvim-treesitter/nvim-treesitter',
+    },
+    disable = isMinimal,
+    event = 'BufEnter',
     -- FIXME:
     -- config = function()
     --     require('treesitter-context').setup({
@@ -266,15 +494,22 @@ use { 'nvim-treesitter/nvim-treesitter-textobjects',
     after = {
         'nvim-treesitter',
     },
+    requires = {
+        'nvim-treesitter/nvim-treesitter'
+    },
+    disable = isMinimal,
+    event = 'BufEnter',
 }
 -- Completetions
 use { 'hrsh7th/nvim-cmp',
     requires = {
-        { 'hrsh7th/cmp-buffer', after = 'nvim-cmp' },
-        { 'hrsh7th/cmp-nvim-lsp', after = 'nvim-cmp' },
-        { 'hrsh7th/cmp-path', after ='nvim-cmp' },
-        { 'hrsh7th/cmp-cmdline', after = 'nvim-cmp' },
+        { 'hrsh7th/cmp-buffer', after = 'nvim-cmp', event = 'InsertEnter' },
+        { 'hrsh7th/cmp-nvim-lsp', after = 'nvim-cmp', event = 'InsertEnter' },
+        { 'hrsh7th/cmp-path', after ='nvim-cmp', event = 'InsertEnter' },
+        --{ 'hrsh7th/cmp-cmdline', after = 'nvim-cmp', event = 'InsertEnter' },
     },
+    disable = isMinimal,
+    event = 'InsertEnter',
     config = function()
         require('cmp').setup({
             sources = {
@@ -284,18 +519,18 @@ use { 'hrsh7th/nvim-cmp',
             }
         })
     end,
-    event = 'InsertEnter *',
 }
 -- Snippet Engine and Snippet Expansion
 -- use {
 --     'L3MON4D3/LuaSnip',
 --     requires = { 'saadparwaiz1/cmp_luasnip' }
 -- }
--- Formatting
-use 'mhartington/formatter.nvim'
-use 'gpanders/editorconfig.nvim'
+use { 'gpanders/editorconfig.nvim',
+    event = 'BufWinEnter',
+}
 -- Theme
 use { 'chlorm/vim-colors-truecolor',
+    event = 'BufWinEnter',
     config = function()
         local ok, _ = pcall(vim.api.nvim_command, 'colorscheme truecolor')
         -- Fallback
@@ -305,28 +540,43 @@ use { 'chlorm/vim-colors-truecolor',
     end,
 }
 use { 'kyazdani42/nvim-web-devicons',
+    disable = isMinimal,
     event = 'VimEnter',
     config = function()
         require('nvim-web-devicons').setup({})
     end,
 }
 -- Languages (Non-Treesitter)
--- use 'chlorm/vim-syntax-elvish'
+use 'chlorm/vim-syntax-elvish'
 -- Restore buffer scroll/cursor position when reopening a file.
-use {
-    'farmergreg/vim-lastplace',
+use { 'farmergreg/vim-lastplace',
     event = 'BufWinEnter',
 }
 -- Git
 use { 'lewis6991/gitsigns.nvim',
-    requires = { 'nvim-lua/plenary.nvim', event = 'VimEnter' },
+    after = {
+        'plenary.nvim',
+    },
+    requires = {
+        'nvim-lua/plenary.nvim'
+    },
+    disable = isMinimal,
     event = 'VimEnter',
     config = function()
         require('gitsigns').setup({})
     end,
 }
 use { 'sindrets/diffview.nvim',
-    requires = 'nvim-lua/plenary.nvim',
+    after = {
+        'plenary.nvim',
+    },
+    requires = {
+        'nvim-lua/plenary.nvim',
+        'kyazdani42/nvim-web-devicons',
+    },
+    disable = isMinimal,
+    -- FIXME: load on command instead
+    event = 'VimEnter',
     config = function()
         require("diffview").setup({
             -- see configuration in
@@ -336,25 +586,36 @@ use { 'sindrets/diffview.nvim',
 }
 -- Comments
 use { 'JoosepAlviste/nvim-ts-context-commentstring',
+    after = {
+        'nvim-treesitter',
+    },
+    requires = {
+        'nvim-treesitter/nvim-treesitter',
+    },
+    disable = isMinimal,
     event = 'VimEnter',
 }
 -- Comment visual regions w/ "gc"
 use { 'numToStr/Comment.nvim',
+    event = 'VimEnter',
     config = function()
         require('Comment').setup({
             padding = false,
         })
     end,
-    event = 'VimEnter',
 }
 -- UI
 use { 'kyazdani42/nvim-tree.lua',
-    event = 'VimEnter',
     requires = {
         'kyazdani42/nvim-web-devicons',
     },
+    disable = isMinimal,
+    event = 'VimEnter',
     config = function()
-        require('nvim-tree').setup({})
+        require('nvim-tree').setup({
+            open_on_setup = true,
+            open_on_setup_file = true,
+        })
     end,
 }
 use { 'akinsho/bufferline.nvim',
@@ -362,18 +623,52 @@ use { 'akinsho/bufferline.nvim',
     requires = {
         'kyazdani42/nvim-web-devicons',
     },
+    disable = isMinimal,
     event = 'VimEnter',
     config = function()
-        require('bufferline').setup({})
+        require('bufferline').setup({
+            options = {
+                diagnostics = true,
+                show_close_icon = false,
+                show_tab_indicators = true,
+                diagnostics_indicator = function(diagnostics_dict)
+                    local s = " "
+                    for e, n in pairs(diagnostics_dict) do
+                        local sym = e == "error" and " "
+                                or (e == "warning" and " " or "" )
+                        s = s .. n .. sym
+                    end
+                    return s
+                end,
+                offsets = {
+                    {
+                        filetype = "NvimTree",
+                        text = "File Explorer",
+                        highlight = "Directory",
+                        text_align = "left",
+                    }
+                },
+            },
+        })
     end,
 }
 use { 'nvim-lualine/lualine.nvim',
+    disable = isMinimal,
     event = 'VimEnter',
     config = function()
         require('lualine').setup({
             options = {
                 theme = 'auto',
             }
+        })
+    end,
+}
+use { 'petertriho/nvim-scrollbar',
+    disable = isMinimal,
+    event = 'WinScrolled',
+    config = function()
+        require('scrollbar').setup({
+            set_highlights = false,
         })
     end,
 }
@@ -387,15 +682,26 @@ use { 'lukas-reineke/indent-blankline.nvim',
     end,
 }
 -- Fuzzy Finder (files, lsp, etc)
--- use {
---     'nvim-telescope/telescope.nvim',
---     requires = { 'nvim-lua/plenary.nvim' }
--- }
---use {
---    'nvim-telescope/telescope-fzf-native.nvim',
---    run = 'make',
---    cond = vim.fn.executable "make" == 1
---}
+use { 'nvim-telescope/telescope.nvim',
+    after = {
+        'plenary.nvim',
+    },
+    requires = {
+        'nvim-lua/plenary.nvim',
+    },
+    disable = isMinimal,
+    event = 'VimEnter',
+}
+use { 'nvim-telescope/telescope-fzf-native.nvim',
+    disable = isMinimal,
+    event = 'VimEnter',
+    run = [[
+        cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release \
+        && cmake --build build --config Release \
+        && cmake --install build --prefix build
+    ]],
+    cond = vim.fn.executable 'cmake' == 1
+}
 
 if is_bootstrap then
     require('packer').sync()
@@ -421,6 +727,7 @@ vim.api.nvim_create_autocmd('BufWritePost', {
 })
 
 -- When quitting automatically close nvim-tree window.
+if not isMinimal then
 vim.api.nvim_create_autocmd('BufEnter', {
     nested = true,
     callback = function()
@@ -430,9 +737,24 @@ vim.api.nvim_create_autocmd('BufEnter', {
         end
     end
 })
+end
+
+--local formatter_group =
+--    vim.api.nvim_create_augroup('FormatterGroup', { clear = true })
+--vim.api.nvim_create_autocmd('BufWritePost', {
+--    pattern = '*',
+--    group = formatter_group,
+--    command = 'FormatWrite',
+--})
 
 -- Language specific settings
-local per_language_settings_group = vim.api.nvim_create_augroup('PerLanguageSettings', { clear = true })
+local per_language_settings_group =
+    vim.api.nvim_create_augroup('PerLanguageSettings', { clear = true })
+vim.api.nvim_create_autocmd('FileType', {
+    group = per_language_settings_group,
+    pattern = 'elvish',
+    command = 'set iskeyword+=-'
+})
 vim.api.nvim_create_autocmd('FileType', {
     group = per_language_settings_group,
     pattern = 'nix',
