@@ -40,6 +40,7 @@ fn build-dir-list {
     set initDirs = [
         $@initDirs
         (path:join (path:home) 'Projects')
+        (path:join (path:home) 'Workspaces')
     ]
 
     put (str:join ':' $initDirs)
@@ -99,7 +100,7 @@ fn settitle {|title|
 }
 
 set edit:abbr['~t'] = ~/Projects/triton
-set E:NIX_PATH = 'nixpkgs='(get-env HOME)'/Projects/triton:nixos-config=/etc/nixos/configuration.nix:'
+set E:NIX_PATH = 'nixpkgs='(get-env HOME)'/Workspaces/triton/triton:nixos-config=/etc/nixos/configuration.nix:'
 
 fn update-machines {
     nix:rebuild-system 'boot' --option binary-caches '""'
