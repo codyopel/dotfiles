@@ -1,7 +1,5 @@
 # TODO:
-# - Handle TERM environment variable
 # - HIGHDPI
-# - PATH manipulation?
 # LOPRIO:
 # - math (mode)
 # - Password prompt
@@ -36,15 +34,6 @@ fn build-dir-list {
     # XDG Directories
     for i $xdg-dirs:XDG-VARS {
         set initDirs = [ $@initDirs (get-env $i) ]
-    }
-
-    # Linux trash directories
-    if $platform:is-linux {
-        set initDirs = [
-            $@initDirs
-            (get-env $xdg-dirs:XDG-DATA-HOME)'/trash/files/'
-            (get-env $xdg-dirs:XDG-DATA-HOME)'/trash/info/'
-        ]
     }
 
     # Custom personal directories
