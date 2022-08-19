@@ -101,6 +101,13 @@ fn ls {|@a|
     }
 }
 
+fn vi {|@a|
+    nvim $@a
+}
+fn vim {|@a|
+    nvim $@a
+}
+
 fn settitle {|title|
     printf "%sk%s%s" $ansi:ESC $title $ansi:ST
 }
