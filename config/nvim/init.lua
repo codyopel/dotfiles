@@ -614,7 +614,7 @@ use { 'kyazdani42/nvim-tree.lua',
     config = function()
         require('nvim-tree').setup({
             open_on_setup = true,
-            open_on_setup_file = true,
+            open_on_setup_file = false,
         })
     end,
 }
