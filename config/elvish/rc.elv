@@ -68,7 +68,13 @@ epm:install &silent-if-installed=$true github.com/chlorm/kratos
 use github.com/chlorm/kratos/kratos-init
 
 set edit:prompt = {
-    styled (e:whoami) green
+    var user = $nil
+    try {
+        set user = (get-env 'USER')
+    } catch _ {
+        set user = (get-env 'username')
+    }
+    styled $user green
     styled-segment &dim=$true &fg-color=white '@'
     if (has-env SSH_CLIENT) {
         styled-segment (platform:hostname) &bold=$true &fg-color=red
