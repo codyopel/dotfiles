@@ -115,8 +115,12 @@ use {
      end,
 }
 use 'wbthomason/packer.nvim'
-use 'antoinemadec/FixCursorHold.nvim'
 use 'nvim-lua/plenary.nvim'
+use { 'antoinemadec/FixCursorHold.nvim',
+    config = function()
+        vim.g.cursorhold_updatetime = 100
+    end,
+}
 use { 'williamboman/mason.nvim',
     disable = isMinimal,
     event = 'VimEnter',
