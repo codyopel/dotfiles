@@ -1,6 +1,5 @@
 ## Directory & File Structure:
 ##  XDG_CONFIG_HOME/ncmpcpp/config
-##  XDG_CACHE_HOME/ncmpcpp/lyrics
 ##  XDG_RUNTIME_DIR/mpd.fifo
 ##  XDG_RUNTIME_DIR/mpd/socket
 
@@ -36,12 +35,7 @@ autocenter_mode = yes
 browser_display_mode = columns
 song_library_format = {$7%n - }{$7%t}|{$7%f}
 
-# Lyrics
-## supported lyrics databases:
-## - 1 - lyricsplugin.com
-#lyrics_database = 1
-lyrics_directory = @{XDG_CACHE_HOME}@/ncmpcpp/lyrics
-external_editor = vim
+external_editor = nvim
 
 # Window Title
 song_window_title_format = {%A - }{%t}|{%f}
