@@ -1,14 +1,3 @@
-# TODO:
-# - HIGHDPI
-# LOPRIO:
-# - math (mode)
-# - Password prompt
-# - Y/N prompt
-# - Wrapper for prompt themes
-# ALIASES:
-# - sprunge="curl -F 'sprunge=<-' http://sprunge.us"
-
-
 use epm
 use str
 epm:install &silent-if-installed=$true github.com/chlorm/elvish-stl
