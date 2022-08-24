@@ -380,7 +380,7 @@ use { 'folke/which-key.nvim',
     disable = isMinimal,
     event = 'VimEnter',
     config = function()
-        require("which-key").setup({})
+        require('which-key').setup()
     end,
 }
 -- Treesitter
@@ -555,7 +555,7 @@ use { 'lewis6991/gitsigns.nvim',
         'plenary.nvim',
     },
     requires = {
-        'nvim-lua/plenary.nvim'
+        'nvim-lua/plenary.nvim',
     },
     disable = isMinimal,
     event = 'VimEnter',
@@ -682,7 +682,7 @@ use { 'petertriho/nvim-scrollbar',
 use { 'lukas-reineke/indent-blankline.nvim',
     event = 'VimEnter',
     config = function()
-        require("indent_blankline").setup({
+        require('indent_blankline').setup({
             show_current_context = true,
         })
     end,
