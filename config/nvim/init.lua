@@ -11,6 +11,7 @@ vim.opt.cursorline = true
 vim.opt.expandtab = true
 vim.opt.fileencoding = 'utf-8'
 vim.opt.guifont = 'NotoSansMono NF'
+vim.opt.iskeyword:append('-')
 -- Faster scrolling
 vim.opt.lazyredraw = true
 -- Show listchars
@@ -751,11 +752,6 @@ end
 -- Language specific settings
 local per_language_settings_group =
     vim.api.nvim_create_augroup('PerLanguageSettings', { clear = true })
-vim.api.nvim_create_autocmd('FileType', {
-    group = per_language_settings_group,
-    pattern = 'elvish',
-    command = 'set iskeyword+=-'
-})
 vim.api.nvim_create_autocmd('FileType', {
     group = per_language_settings_group,
     pattern = 'nix',
