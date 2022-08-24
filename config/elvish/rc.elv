@@ -56,27 +56,6 @@ set-env KRATOS_INIT_DIRS (build-dir-list)
 epm:install &silent-if-installed=$true github.com/chlorm/kratos
 use github.com/chlorm/kratos/kratos-init
 
-set edit:prompt = {
-    var user = $nil
-    try {
-        set user = (get-env 'USER')
-    } catch _ {
-        set user = (get-env 'username')
-    }
-    styled $user green
-    styled-segment &dim=$true &fg-color=white '@'
-    if (has-env SSH_CLIENT) {
-        styled-segment (platform:hostname) &bold=$true &fg-color=red
-    } else {
-        styled-segment &bold=$true &fg-color=white (platform:hostname)
-    }
-    styled-segment &dim=$true &fg-color=white '['
-    styled (tilde-abbr $pwd) red
-    styled-segment &dim=$true &fg-color=white ']'
-    styled-segment '〉' &bold=$true &fg-color=cyan
-}
-set edit:rprompt = { }
-
 # TODO: move to module
 fn ls {|@a|
     try {
