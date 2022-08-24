@@ -745,14 +745,6 @@ vim.api.nvim_create_autocmd('BufEnter', {
 })
 end
 
---local formatter_group =
---    vim.api.nvim_create_augroup('FormatterGroup', { clear = true })
---vim.api.nvim_create_autocmd('BufWritePost', {
---    pattern = '*',
---    group = formatter_group,
---    command = 'FormatWrite',
---})
-
 -- Language specific settings
 local per_language_settings_group =
     vim.api.nvim_create_augroup('PerLanguageSettings', { clear = true })
