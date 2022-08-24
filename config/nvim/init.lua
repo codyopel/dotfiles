@@ -376,14 +376,6 @@ use { 'lvimuser/lsp-inlayhints.nvim',
         require('lsp-inlayhints').setup()
     end,
 }
--- LSP progress UI
-use { 'j-hui/fidget.nvim',
-    disable = isMinimal,
-    event = 'VimEnter',
-    config = function()
-        require('fidget').setup()
-    end,
-}
 use { 'folke/which-key.nvim',
     disable = isMinimal,
     event = 'VimEnter',
@@ -659,13 +651,21 @@ use { 'akinsho/bufferline.nvim',
     end,
 }
 use { 'nvim-lualine/lualine.nvim',
+    requires = {
+        'arkav/lualine-lsp-progress',
+        'kyazdani42/nvim-web-devicons',
+    },
     disable = isMinimal,
     event = 'VimEnter',
     config = function()
         require('lualine').setup({
             options = {
                 theme = 'auto',
-            }
+            },
+            sections = {
+                lualine_x = { 'lsp_progress' },
+                lualine_y = {'encoding', 'fileformat', 'filetype'},
+            },
         })
     end,
 }
