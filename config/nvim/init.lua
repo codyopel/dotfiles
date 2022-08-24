@@ -625,18 +625,8 @@ use { 'akinsho/bufferline.nvim',
         require('bufferline').setup({
             options = {
                 always_show_bufferline = false,
-                diagnostics = true,
                 show_close_icon = false,
                 show_tab_indicators = true,
-                diagnostics_indicator = function(diagnostics_dict)
-                    local s = " "
-                    for e, n in pairs(diagnostics_dict) do
-                        local sym = e == "error" and " "
-                                or (e == "warning" and " " or "" )
-                        s = s .. n .. sym
-                    end
-                    return s
-                end,
                 offsets = {
                     {
                         filetype = "NvimTree",
