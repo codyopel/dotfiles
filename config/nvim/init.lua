@@ -363,7 +363,6 @@ use { 'jose-elias-alvarez/null-ls.nvim',
                 --nullLs.builtins.diagnostics.mypy,
                 --nullLs.builtins.diagnostics.protoc-gen-lint,
                 --nullLs.builtins.diagnostics.protolint,
-                --nullLs.builtins.diagnostics.shellcheck,
                 nullLs.builtins.diagnostics.yamllint,
             },
         })
