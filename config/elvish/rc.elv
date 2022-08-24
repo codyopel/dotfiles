@@ -1,17 +1,9 @@
 use epm
-use str
 epm:install &silent-if-installed=$true github.com/chlorm/elvish-stl
-epm:install &silent-if-installed=$true github.com/chlorm/elvish-term
-epm:install &silent-if-installed=$true github.com/chlorm/elvish-util-wrappers
+use github.com/chlorm/elvish-stl/env
 use github.com/chlorm/elvish-stl/path
 use github.com/chlorm/elvish-stl/platform
-use github.com/chlorm/elvish-term/ansi
-# CLI helpers
-use github.com/chlorm/elvish-util-wrappers/btrfs
-use github.com/chlorm/elvish-util-wrappers/git
-use github.com/chlorm/elvish-util-wrappers/nix
-use github.com/chlorm/elvish-util-wrappers/nm
-
+use github.com/chlorm/elvish-stl/str
 
 # TODO: don't populate env vars inside rc
 fn build-dir-list {
@@ -20,9 +12,10 @@ fn build-dir-list {
     xdg-dirs:populate-env
 
     var initDirs = [ ]
+
     # XDG Directories
     for i $xdg-dirs:XDG-VARS {
-        set initDirs = [ $@initDirs (get-env $i) ]
+        set initDirs = [ $@initDirs (env:get $i) ]
     }
 
     # Custom personal directories
@@ -32,15 +25,15 @@ fn build-dir-list {
         (path:join (path:home) 'Workspaces')
     ]
 
-    put (str:join ':' $initDirs)
+    str:join ':' $initDirs
 }
 
-set-env EMAIL 'cwopel@chlorm.net'
-set-env GIT_NAME 'Cody Opel'
-set-env GIT_EMAIL (get-env EMAIL)
+env:set EMAIL 'cwopel@chlorm.net'
+env:set GIT_NAME 'Cody Opel'
+env:set GIT_EMAIL (env:get 'EMAIL')
 # FIXME: this will eventually be multiple repos and need some other format.
-set-env DOTFILES_REPO 'https://github.com/codyopel/dotfiles.git'
-set-env DOTFILE_REPOS '{
+env:set DOTFILES_REPO 'https://github.com/codyopel/dotfiles.git'
+env:set DOTFILE_REPOS '{
     # FIXME: need to either make this just an array, have multiple top-level
     #        keys, or a generic key name.  Would be ideal to support archives
     #        and other formats at some point.
@@ -51,8 +44,8 @@ set-env DOTFILE_REPOS '{
     ]
 }'
 
-set-env KRATOS_INIT_DOTFILES_DIRS (path:join (path:home) '.dotfiles')
-set-env KRATOS_INIT_DIRS (build-dir-list)
+env:set KRATOS_INIT_DOTFILES_DIRS (path:join (path:home) '.dotfiles')
+env:set KRATOS_INIT_DIRS (build-dir-list)
 epm:install &silent-if-installed=$true github.com/chlorm/kratos
 use github.com/chlorm/kratos/kratos-init
 
@@ -76,12 +69,13 @@ fn vim {|@a|
     nvim $@a
 }
 
-fn settitle {|title|
-    printf "%sk%s%s" $ansi:ESC $title $ansi:ST
-}
+# CLI helpers
+#epm:install &silent-if-installed=$true github.com/chlorm/elvish-util-wrappers
+#use github.com/chlorm/elvish-util-wrappers/git
 
 set edit:abbr['~t'] = ~/Projects/triton
-set E:NIX_PATH = 'nixpkgs='(get-env HOME)'/Workspaces/triton/triton:nixos-config=/etc/nixos/configuration.nix:'
+env:set NIX_PATH ^
+    'nixpkgs='(path:home)'/Workspaces/triton/triton:nixos-config=/etc/nixos/configuration.nix:'
 
 fn update-machines {
     nix:rebuild-system 'boot' --option binary-caches '""'
