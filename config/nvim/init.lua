@@ -659,7 +659,6 @@ use { 'nvim-lualine/lualine.nvim',
     end,
 }
 use { 'petertriho/nvim-scrollbar',
-    disable = isMinimal,
     event = 'WinScrolled',
     config = function()
         require('scrollbar').setup({
