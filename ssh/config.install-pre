@@ -6,7 +6,7 @@ use github.com/chlorm/elvish-stl/io
 use github.com/chlorm/elvish-stl/path
 
 
-var authKeysDir = (path:join $conf:DIR 'authorized-keys')
+var authKeysDir = (path:join $conf:DIR 'authorized_keys.d')
 var pubKeyFiles = (path:scandir $authKeysDir)
 var pubKeys = [ ]
 for pubKey $pubKeyFiles['files'] {

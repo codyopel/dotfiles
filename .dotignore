@@ -1,4 +1,4 @@
 LICENSE
 README.md
 bootstrap.sh
-ssh/authorized-keys
+ssh/authorized_keys.d
