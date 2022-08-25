@@ -119,8 +119,8 @@
   nobranch = red
   untracked = cyan
 
-#[commit]
-#  gpgSign = 1
+[commit]
+  gpgSign = true
 
 [diff]
   # Detect copies as well as renames
@@ -129,6 +129,12 @@
 [diff "bin"]
   # Use `hexdump` to diff binary files
   textconv = hexdump -v -C
+
+[gpg]
+  format = ssh
+
+[gpg "ssh"]
+  defaultKeyCommand = git-get-signing-key
 
 [help]
   # Automatically correct and execute mistyped commands
@@ -143,6 +149,9 @@
 
 [submodule]
   recurse = true
+
+[tag]
+  gpgSign = true
 
 # URL shorthands
 
@@ -173,7 +182,6 @@
 [user]
   name = Cody W. Opel
   email = cwopel@chlorm.net
-  signingkey = 4ABF64E1
 
 [pull]
   rebase = false

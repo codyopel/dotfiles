@@ -1,0 +1,16 @@
+#!/usr/bin/env elvish
+# vim: set ft=elvish:
+
+use re
+
+fn get-key {
+    var keys = [ (ssh-add -L) ]
+    for i $keys {
+        if (re:match '^sk-' $i) {
+            print 'key::'$i'cwopel@chlorm.net'
+            return
+        }
+    }
+}
+
+get-key
