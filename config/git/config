@@ -139,6 +139,9 @@
 [init]
   defaultBranch = master
 
+[pull]
+  rebase = false
+
 [push]
   default = simple
   gpgSign = if-asked
@@ -178,6 +181,3 @@
 [user]
   name = Cody W. Opel
   email = cwopel@chlorm.net
-
-[pull]
-  rebase = false
