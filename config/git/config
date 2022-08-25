@@ -75,11 +75,13 @@
 
   initsubmodules = !git submodule update --init --recursive
 
-  # Removes a commited submodule and all traces, use deinit instead if uncommited
+  # Removes a submodule and all traces
   rmsubmodule = "!f() { \
-      git rm --force \"$1\" \
-        && rm -frv \".git/modules/$1\" \
-    ;}; f"
+    git submodule deinit \"$1\" \
+    && git rm --force \"$1\" \
+    && git rm --cached \"$1\" || : \
+    && rm -frv \".git/modules/$1\" \
+  ;}; f"
 
   # Fix accidentally calling git from git (e.g. git git status)
   git = !exec git
