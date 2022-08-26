@@ -4,60 +4,45 @@ set nocompatible
 " Load plugins (.vim/pack/*/start/*/*)
 packloadall
 
-if exists("*plug#begin") == 1
-  silent !curl -fsSLo "~/.vim/autoload/plug.vim" "--create-dirs"
-      \ "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
-  source $MYVIMRC
+" Windows does not provide HOME so you must set it.
+let s:home = $HOME
+if has('win32')
+  let s:vimdir = s:home . '/viminfo'
+else
+  let s:vimdir = s:home . '/.vim'
 endif
 
-if has("win32")
-  let s:vimdir = "~/viminfo"
-else
-  let s:vimdir = "~/.vim"
+if empty(glob(s:vimdir.'/autoload/plug.vim'))
+  silent execute '!curl -fsSLo ' . s:vimdir . '/autoload/plug.vim --create-dirs '.
+      \ 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
 call plug#begin(s:vimdir . '/pack/vim-plug/opt/')
 " Themes
-Plug 'https://github.com/chlorm/vim-colors-truecolor'
+Plug 'https://github.com/sainnhe/sonokai'
 Plug 'https://github.com/vim-airline/vim-airline'
 Plug 'https://github.com/vim-airline/vim-airline-themes'
 
 " Plugins
-Plug 'https://github.com/ntpeters/vim-better-whitespace'
-Plug 'https://github.com/google/vim-codefmt'
 Plug 'https://github.com/sgur/vim-editorconfig'
-Plug 'https://github.com/google/vim-maktaba'
-Plug 'https://github.com/preservim/nerdtree'
-Plug 'https://github.com/preservim/nerdcommenter'
 Plug 'https://github.com/mhinz/vim-signify'
-Plug 'https://github.com/tpope/vim-surround'
-Plug 'https://github.com/vim-syntastic/syntastic'
-Plug 'https://github.com/godlygeek/tabular'
-Plug 'https://github.com/benmills/vimux'
-Plug 'https://github.com/mg979/vim-visual-multi'
 
 " Languages
 Plug 'https://github.com/chlorm/vim-syntax-elvish', { 'for': 'elvish' }
-Plug 'https://github.com/fatih/vim-go', { 'for': 'go' }
-Plug 'https://github.com/pangloss/vim-javascript', { 'for': 'javascript' }
-Plug 'https://github.com/google/vim-jsonnet', { 'for': 'jsonnet' }
-Plug 'https://github.com/LnL7/vim-nix', { 'for': 'nix' }
-Plug 'https://github.com/vim-python/python-syntax', { 'for': 'python' }
-Plug 'https://github.com/rust-lang/rust.vim', { 'for': 'rust' }
-Plug 'https://github.com/leafgarland/typescript-vim', { 'for': 'typescript' }
 call plug#end()
 
 " Update on first launch after reboot
-if !filereadable($XDG_RUNTIME_DIR . "/vim-plug")
+if !filereadable($XDG_RUNTIME_DIR . '/vim-plug.lock')
   PlugUpdate
-  call writefile([""], $XDG_RUNTIME_DIR . '/vim-plug', 'b')
+  call writefile([""], $XDG_RUNTIME_DIR . '/vim-plug.lock', 'b')
 endif
 
 " Enable syntax highlighting
 if &t_Co > 7 || has("gui_running")
   syntax on
   set hlsearch
-  colorscheme truecolor
+  colorscheme sonokai
 endif
 
 " Plugin settings
@@ -66,41 +51,40 @@ let g:signify_realtime=1
 let g:airline_theme='murmur'
 
 set
-  \ ai
+  \ autoindent
   "\ set background=none " Don't set to use terminals background
   "\ Allow backspacing over everything in insert mode
   \ backspace=indent,eol,start
+  "\ Use system clipboard
+  \ clipboard=unnamedplus
   "\ Line length ruler
   \ colorcolumn=81
   "\ Highligh current line
   \ cursorline
   \ encoding=utf8
   \ expandtab
-  \ ffs=unix,dos,mac
-  "\ Keep 50 lines of command line history
+  "\ command history
   \ history=50
   \ incsearch
   \ laststatus=2
   \ list
-  \ listchars=tab:→\ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨,space:•
-  \ nobackup
+  \ listchars=tab:→\ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨,space:⋅
   \ nomodeline
   \ noswapfile
-  \ nowb
+  \ nowritebackup
   "\ Line numbers
   \ number
   \ redrawtime=10000
   "\ Show the cursor position all the time
   \ ruler
-  \ scrolloff=3
-  \ shiftwidth=2
-  \ si
+  \ scrolloff=8
+  \ shiftwidth=4
+  \ smartindent
   \ showbreak=↪
   "\ Display incomplete commands
   \ showcmd
   \ smarttab
-  \ softtabstop=0
-  \ tabstop=2
+  \ tabstop=4
   "\ Set terminal title
   \ title
   "\ Restore previous title when exiting Vim
@@ -113,9 +97,6 @@ if has('mouse')
   set mouse=a
 endif
 
-" Automatically strip whitespace
-"autocmd BufWritePre * :call TrimWhitespace()
-
 """"""""""""""""""""""""""""""""" Key binds """"""""""""""""""""""""""""""""""""
 nnoremap <leader>w :silent !xdg-open <C-R>=escape("<C-R><C-F>", "#?&;\|%")<CR><CR>
 " Don't use Ex mode, use Q for formatting
@@ -125,46 +106,43 @@ map Q gq
 " so that you can undo CTRL-U after inserting a line break.
 inoremap <C-U> <C-G>u<C-U>
 
-" Only do this part when compiled with support for autocommands.
-if has("autocmd")
-  " Enable file type detection.
-  " Use the default filetype settings, so that mail gets 'tw' set to 72,
-  " 'cindent' is on in C files, etc.
-  " Also load indent files, to automatically do language-dependent indenting.
-  filetype plugin indent on
+" Enable file type detection.
+" Use the default filetype settings, so that mail gets 'tw' set to 72,
+" 'cindent' is on in C files, etc.
+" Also load indent files, to automatically do language-dependent indenting.
+filetype plugin indent on
 
-  " Put these in an autocmd group, so that we can delete them easily.
-  augroup vimrcEx
-  au!
+" Put these in an autocmd group, so that we can delete them easily.
+augroup vimrcEx
+au!
 
-  autocmd FileType text setlocal textwidth=80
 
-  " When editing a file, always jump to the last known cursor position.
-  " Don't do it when the position is invalid or when inside an event handler
-  " (happens when dropping a file on gvim).
-  " Also don't do it when the mark is in the first line, that is the default
-  " position when opening a file.
-  autocmd BufReadPost *
-    \ if line("'\"") > 1 && line("'\"") <= line("$") |
-    \   exe "normal! g`\"" |
-    \ endif
-  "autocmd BufLeave * let b:winview = winsaveview()
-  "autocmd BufEnter * if(exists('b:winview')) | call winrestview(b:winview) | endif
-  augroup END
+" When editing a file, always jump to the last known cursor position.
+" Don't do it when the position is invalid or when inside an event handler
+" (happens when dropping a file on gvim).
+" Also don't do it when the mark is in the first line, that is the default
+" position when opening a file.
+autocmd BufReadPost *
+  \ if line("'\"") > 1 && line("'\"") <= line("$") |
+  \   exe "normal! g`\"" |
+  \ endif
+"autocmd BufLeave * let b:winview = winsaveview()
+"autocmd BufEnter * if(exists('b:winview')) | call winrestview(b:winview) | endif
+augroup END
 
-  " Special Settings For Specific Files
-  autocmd BufNewFile,BufRead *.nix
-    \ set shiftwidth=2 |
-    \ set tabstop=2
-  autocmd Syntax go
-    \ set shiftwidth=4 |
-    \ set softtabstop=4 |
-    \ set tabstop=4
-  autocmd Syntax python
-    \ set shiftwidth=4 |
-    \ set softtabstop=4 |
-    \ set tabstop=4
-endif " has("autocmd")
+" Language/Files specific settings
+autocmd FileType text setlocal textwidth=80
+autocmd BufNewFile,BufRead *.nix
+  \ set shiftwidth=2 |
+  \ set tabstop=2
+autocmd Syntax go
+  \ set shiftwidth=4 |
+  \ set softtabstop=4 |
+  \ set tabstop=4
+autocmd Syntax python
+  \ set shiftwidth=4 |
+  \ set softtabstop=4 |
+  \ set tabstop=4
 
 " Convenient command to see the difference between the current buffer and the
 " file it was loaded from, thus the changes you made.
@@ -174,24 +152,8 @@ if !exists(":DiffOrig")
       \ | wincmd p | diffthis
 endif
 
-
 if isdirectory($XDG_RUNTIME_DIR)
-  if has('nvim')
-    let &viminfo = &viminfo . ",n" . $XDG_RUNTIME_DIR . "/nviminfo"
-  else
-    let &viminfo = &viminfo . ",n" . $XDG_RUNTIME_DIR . "/viminfo"
-  endif
+  let &viminfo = &viminfo . ",n" . $XDG_RUNTIME_DIR . "/viminfo"
 else
   let &viminfo = ""
 endif
-
-augroup autoformat_settings
-  autocmd FileType bzl AutoFormatBuffer buildifier
-  autocmd FileType c,cpp,proto,javascript AutoFormatBuffer clang-format
-  autocmd FileType dart AutoFormatBuffer dartfmt
-  autocmd FileType go AutoFormatBuffer gofmt
-  autocmd FileType gn AutoFormatBuffer gn
-  autocmd FileType html,css,sass,scss,less,json AutoFormatBuffer js-beautify
-  autocmd FileType java AutoFormatBuffer google-java-format
-  autocmd FileType python AutoFormatBuffer yapf
-augroup END
