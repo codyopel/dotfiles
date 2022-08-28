@@ -30,6 +30,7 @@ Plug 'https://github.com/mhinz/vim-signify'
 
 " Languages
 Plug 'https://github.com/chlorm/vim-syntax-elvish', { 'for': 'elvish' }
+Plug 'https://github.com/LnL7/vim-nix', { 'for': 'nix' }
 call plug#end()
 
 " Update on first launch after reboot
