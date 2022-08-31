@@ -1,3 +1,4 @@
+// v104
 //
 //// Personal overrides
 //
@@ -88,6 +89,7 @@ user_pref("browser.taskbar.lists.enabled", false);
 user_pref("browser.taskbar.lists.frequent.enabled", false);
 user_pref("browser.taskbar.lists.recent.enabled", false);
 user_pref("browser.taskbar.lists.tasks.enabled", false);
+// FIXME: Probably breaks some sites
 // 7013: Don't allow sites to disable copy/paste.
 user_pref("dom.event.clipboardevents.enabled", false);
 // 9000: Welcome/Whats New
