@@ -51,6 +51,7 @@ vim.opt.tabstop = 4
 vim.opt.title = true
 -- Save undo history
 vim.opt.undofile = true
+vim.opt.wildmode = 'list:longest'
 --o.writebackup = false
 
 -- Disable some builtin plugins to improve load times
