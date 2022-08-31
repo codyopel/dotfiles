@@ -46,8 +46,6 @@ user_pref("browser.startup.page", 3);
 user_pref("network.dns.disableIPv6", false);
 // FIXME: 0703: Uniform Naming Convention, maybe enable?
 // user_pref("network.file.disable_unc_paths", true);
-// 0801: Location bar search
-user_pref("keyword.enabled", true);
 // FIXME: 0905: does this break anything, or does this only apply to iframes?
 // FIXME: 1003: Store extra session data
 // user_pref("browser.sessionstore.privacy_level", 2);
