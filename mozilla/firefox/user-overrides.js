@@ -71,9 +71,6 @@ user_pref("pdfjs.disabled", true);
 // FIXME: 2651/2652/2654: download handling
 // 2801: Keep cookies until they expire
 user_pref("network.cookie.lifetimePolicy", 0);
-// FIXME: 2803: Persist third-party cookies
-// user_pref("network.cookie.thirdparty.sessionOnly", true);
-// user_pref("network.cookie.thirdparty.nonsecureSessionOnly", true);
 // 2810: Keep history across sessions
 user_pref("privacy.clearOnShutdown.history", false);
 // 4504: Disable letterboxing
