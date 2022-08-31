@@ -63,10 +63,10 @@ fn ls {|@a|
 }
 
 fn vi {|@a|
-    nvim $@a
+    e:nvim $@a
 }
 fn vim {|@a|
-    nvim $@a
+    e:nvim $@a
 }
 
 # CLI helpers
