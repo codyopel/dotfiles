@@ -95,3 +95,20 @@ fn update-machines {
         nix:copy-closures $i $@nixos-closures $@nix-config-closures
     }
 }
+
+fn rename {|repl new file|
+    use github.com/chlorm/elvish-stl/os
+    use github.com/chlorm/elvish-stl/re
+    var newfile = (re:replace $repl $new $file)
+    if (==s $file $newfile) {
+        return
+    }
+    echo $file '->' $newfile >&2
+    os:move $file $newfile
+}
+
+fn renameall {|repl new|
+    for i [(put *)] {
+        rename $repl $new $i
+    }
+}
