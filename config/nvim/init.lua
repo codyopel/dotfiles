@@ -92,8 +92,24 @@ vim.filetype.add({
         ['asoundrc'] = 'alsaconf',
         ['dir_colors'] = 'dircolors',
         ['gitconfig'] = 'gitconfig',
+        ['htoprc'] = 'dosini',
+        ['minttyrc'] = 'dosini',
+        ['mpd.conf'] = 'nginx',
+        ['mpd.conf.generate'] = 'nginx',
+        ['mpDris2.conf'] = 'dosini',
+        ['mpv.conf'] = 'dosini',
+        ['mpv.conf.generate'] = 'dosini',
+        ['spectrwm.conf'] = 'dosini',
         ['xprofile'] = 'sh',
         ['.xprofile'] = 'sh',
+    },
+    pattern = {
+        ['.*git/config'] = 'gitconfig',
+        ['.*ncmpcpp/config'] = 'dosini',
+        ['.*ncmpcpp/config.generate'] = 'dosini',
+        ['.*pipewire/.*.conf'] = 'nginx',
+        ['.*systemd/user/.*.service'] = 'systemd',
+        ['.*systemd/user/.*.service.generate'] = 'systemd',
     }
 })
 
