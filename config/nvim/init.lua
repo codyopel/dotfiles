@@ -281,6 +281,8 @@ use { 'neovim/nvim-lspconfig',
         lspconfig.clangd.setup(defaults)
         -- Cmake
         lspconfig.cmake.setup(defaults)
+        -- Elvish
+        lspconfig.elvish.setup(defaults)
         -- Go
         lspconfig.gopls.setup(defaults)
         -- HTML
