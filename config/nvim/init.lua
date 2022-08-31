@@ -23,7 +23,6 @@ vim.opt.listchars = {
     trail = '•',
     extends = '⟩',
     precedes = '⟨',
-    --space = '•'
     space = '⋅',
 }
 vim.opt.mouse = 'a'
