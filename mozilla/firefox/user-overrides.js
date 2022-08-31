@@ -62,9 +62,8 @@ user_pref("dom.security.https_only_mode_send_http_background_request", true);
 // 1601/1602: Send cross-origin referer, use open-referer-control ext
 user_pref("network.http.referer.XOriginPolicy", 0);
 user_pref("network.http.referer.XOriginTrimmingPolicy", 0);
-// FIXME: 2022: DRM for Netflix/Hulu etc., maybe just keep google-chrome for
-// these
-// user_pref("media.eme.enabled", true);
+// 2022: Disable DRM prompt
+user_pref("browser.eme.ui.enabled", false);
 // FIXME: 2403: Allow popups (might be needed for paypal)
 // user_pref("dom.disable_open_during_load", false);
 // 2607: Enable devtools
