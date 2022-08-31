@@ -95,9 +95,3 @@ fn update-machines {
         nix:copy-closures $i $@nixos-closures $@nix-config-closures
     }
 }
-
-# Force plexmediaplayer to only use X.Org
-fn plexmediaplayer {
-    tmp E:QT_QPA_PLATFORM = xcb; exec plexmediaplayer
-}
-}
