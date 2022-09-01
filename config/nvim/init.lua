@@ -274,27 +274,27 @@ use { 'neovim/nvim-lspconfig',
             on_attach = onAttach,
         }
 
-        local lspconfig = require('lspconfig')
+        local lspConfig = require('lspconfig')
         -- Bash
-        lspconfig.bashls.setup(defaults)
+        lspConfig.bashls.setup(defaults)
         -- C(++)
-        lspconfig.clangd.setup(defaults)
+        lspConfig.clangd.setup(defaults)
         -- Cmake
-        lspconfig.cmake.setup(defaults)
+        lspConfig.cmake.setup(defaults)
         -- Elvish
-        lspconfig.elvish.setup(defaults)
+        lspConfig.elvish.setup(defaults)
         -- Go
-        lspconfig.gopls.setup(defaults)
+        lspConfig.gopls.setup(defaults)
         -- HTML
-        lspconfig.html.setup(defaults)
+        lspConfig.html.setup(defaults)
         -- Java
-        lspconfig.jdtls.setup(defaults)
+        lspConfig.jdtls.setup(defaults)
         -- Json
-        lspconfig.jsonls.setup(defaults)
+        lspConfig.jsonls.setup(defaults)
         -- Jsonnet
-        lspconfig.jsonnet_ls.setup(defaults)
+        lspConfig.jsonnet_ls.setup(defaults)
         -- Lua
-        lspconfig.sumneko_lua.setup {
+        lspConfig.sumneko_lua.setup {
             on_attach = onAttach,
             settings = {
                 Lua = {
@@ -314,18 +314,18 @@ use { 'neovim/nvim-lspconfig',
             }
         }
         -- Nix
-        lspconfig.rnix.setup(defaults)
+        lspConfig.rnix.setup(defaults)
         -- Powershell
         -- TODO:
-        --lspconfig.powershell_es.setup(defaults)
+        --lspConfig.powershell_es.setup(defaults)
         -- Python
-        lspconfig.pyright.setup(defaults)
+        lspConfig.pyright.setup(defaults)
         -- SQL
         -- TODO
-        --lspconfig.sqls.setup(defaults)
-        lspconfig.tsserver.setup(defaults)
+        --lspConfig.sqls.setup(defaults)
+        lspConfig.tsserver.setup(defaults)
         -- Rust
-        lspconfig.rust_analyzer.setup {
+        lspConfig.rust_analyzer.setup {
             on_attach = onAttach,
             -- Server-specific settings
             settings = {
@@ -333,9 +333,9 @@ use { 'neovim/nvim-lspconfig',
             },
         }
         -- TOML
-        lspconfig.taplo.setup(defaults)
+        lspConfig.taplo.setup(defaults)
         -- Viml
-        lspconfig.vimls.setup(defaults)
+        lspConfig.vimls.setup(defaults)
     end,
 }
 -- LSP missing features
@@ -406,9 +406,9 @@ use { 'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate',
     config = function()
         -- Treesitter grammers not bundled with nvim-treesitter
-        local parser_config =
+        local parserConfig =
             require('nvim-treesitter.parsers').get_parser_configs()
-        --parser_config.elvish = {
+        --parserConfig.elvish = {
         --    install_info = {
         --        url = "~/Workspaces/elvish/tree-sitter-elvish",
         --        branch = 'main',
@@ -417,14 +417,14 @@ use { 'nvim-treesitter/nvim-treesitter',
         --        requires_generate_from_grammer = true,
         --    },
         --}
-        parser_config.jsonnet = {
+        parserConfig.jsonnet = {
             install_info = {
                 url = 'https://github.com/sourcegraph/tree-sitter-jsonnet',
                 branch = 'main',
                 files = { 'src/parser.c', 'src/scanner.c' },
             },
         }
-        parser_config.meson = {
+        parserConfig.meson = {
             install_info = {
                 url = 'https://github.com/bearcove/tree-sitter-meson',
                 branch = 'main',
@@ -747,7 +747,7 @@ vim.api.nvim_create_autocmd('BufEnter', {
                 and vim.api.nvim_buf_get_name(0):match('NvimTree_') ~= nil then
             vim.api.nvim_command('quit')
         end
-    end
+    end,
 })
 end
 
