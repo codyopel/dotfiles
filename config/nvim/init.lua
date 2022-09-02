@@ -237,11 +237,20 @@ use { 'WhoIsSethDaniel/mason-tool-installer.nvim',
     end,
 }
 -- LSP
+use { 'lvimuser/lsp-inlayhints.nvim',
+    disable = isMinimal,
+    event = 'VimEnter',
+    config = function()
+        require('lsp-inlayhints').setup()
+    end,
+}
 use { 'neovim/nvim-lspconfig',
     after = {
+        'lsp-inlayhints.nvim',
         'mason-lspconfig.nvim',
     },
     requires = {
+        'lvimuser/lsp-inlayhints.nvim',
         'williamboman/mason-lspconfig',
     },
     disable = isMinimal,
@@ -268,6 +277,8 @@ use { 'neovim/nvim-lspconfig',
             vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
             vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
             vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, bufopts)
+
+            require("lsp-inlayhints").on_attach(client, bufnr, false)
         end
 
         local defaults = {
@@ -384,13 +395,6 @@ use { 'jose-elias-alvarez/null-ls.nvim',
                 nullLs.builtins.diagnostics.yamllint,
             },
         })
-    end,
-}
-use { 'lvimuser/lsp-inlayhints.nvim',
-    disable = isMinimal,
-    event = 'VimEnter',
-    config = function()
-        require('lsp-inlayhints').setup()
     end,
 }
 use { 'folke/which-key.nvim',
