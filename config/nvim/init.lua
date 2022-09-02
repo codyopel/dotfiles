@@ -428,13 +428,6 @@ use { 'nvim-treesitter/nvim-treesitter',
                 files = { 'src/parser.c', 'src/scanner.c' },
             },
         }
-        parserConfig.meson = {
-            install_info = {
-                url = 'https://github.com/bearcove/tree-sitter-meson',
-                branch = 'main',
-                files = { 'src/parser.c' },
-            },
-        }
         require('nvim-treesitter.configs').setup({
             ensure_installed = {
                 'bash',
