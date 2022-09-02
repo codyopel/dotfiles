@@ -286,12 +286,20 @@ use { 'neovim/nvim-lspconfig',
         }
 
         local lspConfig = require('lspconfig')
+        -- Ansible
+        lspConfig.ansiblels.setup(defaults)
+        -- AWK
+        lspConfig.awk_ls.setup(defaults)
         -- Bash
         lspConfig.bashls.setup(defaults)
         -- C(++)
         lspConfig.clangd.setup(defaults)
         -- Cmake
         lspConfig.cmake.setup(defaults)
+        -- CSS
+        lspConfig.cssls.setup(defaults)
+        -- Docker
+        lspConfig.dockerls.setup(defaults)
         -- Elvish
         lspConfig.elvish.setup(defaults)
         -- Go
@@ -326,15 +334,16 @@ use { 'neovim/nvim-lspconfig',
         }
         -- Nix
         lspConfig.rnix.setup(defaults)
+        -- Perl
+        lspConfig.perlls.setup(defaults)
         -- Powershell
-        -- TODO:
-        --lspConfig.powershell_es.setup(defaults)
+        if isWindows then
+            lspConfig.powershell_es.setup(defaults)
+        end
         -- Python
         lspConfig.pyright.setup(defaults)
         -- SQL
-        -- TODO
-        --lspConfig.sqls.setup(defaults)
-        lspConfig.tsserver.setup(defaults)
+        lspConfig.sqls.setup(defaults)
         -- Rust
         lspConfig.rust_analyzer.setup {
             on_attach = onAttach,
@@ -343,10 +352,20 @@ use { 'neovim/nvim-lspconfig',
                 ["rust-analyzer"] = {}
             },
         }
+        -- Salt Stack
+        lspConfig.salt_ls.setup(defaults)
+        -- Tailwind CSS
+        lspConfig.tailwindcss.setup(defaults)
         -- TOML
         lspConfig.taplo.setup(defaults)
+        -- Typescript
+        lspConfig.tsserver.setup(defaults)
         -- Viml
         lspConfig.vimls.setup(defaults)
+        -- YAML
+        lspConfig.yamlls.setup(defaults)
+        -- Zig
+        lspConfig.zls.setup(defaults)
     end,
 }
 -- LSP missing features
