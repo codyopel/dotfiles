@@ -8,6 +8,10 @@ git submodule update
 mkdir -p "$HOME"/.config/elvish/
 ln -sf "$HOME"/.dotfiles/config/elvish/rc.elv "$HOME"/.config/elvish/rc.elv
 
+PATH="$PATH:$HOME/.local/bin:$HOME/.dotfiles/local/bin"
+install-go
+update-elvish
+
 elvish -c '
 use epm
 epm:install github.com/chlorm/elvish-dotfile-manager
