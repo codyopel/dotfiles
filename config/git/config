@@ -114,7 +114,6 @@
   added = green
   changed = yellow
   deleted = red
-  header = white
   nobranch = red
   untracked = cyan
 
