@@ -179,6 +179,7 @@ use { 'WhoIsSethDaniel/mason-tool-installer.nvim',
             -- CSS
             --'css-lsp',
             --'cssmodules-language-server',
+            'tailwindcss-language-server',
             -- Docker
             'dockerfile-language-server',
             --Go
@@ -193,6 +194,8 @@ use { 'WhoIsSethDaniel/mason-tool-installer.nvim',
             'jsonnet-language-server',
             -- Lua
             'lua-language-server',
+            -- Markdown
+            'markdownlint',
             -- Nickel
             --'nickel-lang-lsp',
             -- Nix

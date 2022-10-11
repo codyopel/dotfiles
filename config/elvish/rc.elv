@@ -25,7 +25,7 @@ fn build-dir-list {
         (path:join (path:home) 'Workspaces')
     ]
 
-    str:join ':' $initDirs
+    str:join $env:DELIMITER $initDirs
 }
 
 env:set EMAIL 'cwopel@chlorm.net'
