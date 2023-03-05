@@ -414,7 +414,7 @@ use { 'jose-elias-alvarez/null-ls.nvim',
                 -- Linters
                 --nullLs.builtins.diagnostics.buf,  -- proto
                 --nullLs.builtins.diagnostics.checkmate,  -- make
-                nullLs.builtins.diagnostics.chktex,
+                --nullLs.builtins.diagnostics.chktex,
                 --nullLs.builtins.diagnostics.cppcheck,
                 --nullLs.builtins.diagnostics.deadnix,
                 --nullLs.builtins.diagnostics.editorconfig-checker,
