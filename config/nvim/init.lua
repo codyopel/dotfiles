@@ -161,6 +161,8 @@ use { 'WhoIsSethDaniel/mason-tool-installer.nvim',
     disable = isMinimal,
     event = 'VimEnter',
     config = function()
+        -- TODO:
+        -- - jsonnet-bundler
         local ensureInstalled = {
             -- Ansible
             'ansible-language-server',
@@ -311,6 +313,7 @@ use { 'neovim/nvim-lspconfig',
         lspConfig.dockerls.setup(defaults)
         -- Elvish
         lspConfig.elvish.setup(defaults)
+        -- TODO: GLSL
         -- Go
         lspConfig.gopls.setup(defaults)
         -- HTML
