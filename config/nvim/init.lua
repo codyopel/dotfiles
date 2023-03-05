@@ -77,12 +77,6 @@ vim.g.loaded_netrwPlugin = 1
 vim.g.loaded_netrwSettings = 1
 vim.g.loaded_netrwFileHandlers = 1
 
--- FIXME: Remove for >0.7.2
---        72877bb17d70362f91a60b31bf0244dbf8ed58ae
--- Use filetype.lua
-vim.g.do_filetype_lua = 1
--- Disable filetype.vim
-vim.g.did_load_filetypes = 0
 vim.filetype.add({
     extension = {
         jsonnet = 'jsonnet',
