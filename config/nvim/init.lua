@@ -77,12 +77,6 @@ vim.g.loaded_netrwPlugin = 1
 vim.g.loaded_netrwSettings = 1
 vim.g.loaded_netrwFileHandlers = 1
 
--- FIXME: Remove for >0.7.2
---        72877bb17d70362f91a60b31bf0244dbf8ed58ae
--- Use filetype.lua
-vim.g.do_filetype_lua = 1
--- Disable filetype.vim
-vim.g.did_load_filetypes = 0
 vim.filetype.add({
     extension = {
         jsonnet = 'jsonnet',
@@ -167,6 +161,8 @@ use { 'WhoIsSethDaniel/mason-tool-installer.nvim',
     disable = isMinimal,
     event = 'VimEnter',
     config = function()
+        -- TODO:
+        -- - jsonnet-bundler
         local ensureInstalled = {
             -- Ansible
             'ansible-language-server',
@@ -179,6 +175,7 @@ use { 'WhoIsSethDaniel/mason-tool-installer.nvim',
             -- CSS
             --'css-lsp',
             --'cssmodules-language-server',
+            'tailwindcss-language-server',
             -- Docker
             'dockerfile-language-server',
             --Go
@@ -193,6 +190,8 @@ use { 'WhoIsSethDaniel/mason-tool-installer.nvim',
             'jsonnet-language-server',
             -- Lua
             'lua-language-server',
+            -- Markdown
+            'markdownlint',
             -- Nickel
             --'nickel-lang-lsp',
             -- Nix
@@ -314,6 +313,7 @@ use { 'neovim/nvim-lspconfig',
         lspConfig.dockerls.setup(defaults)
         -- Elvish
         lspConfig.elvish.setup(defaults)
+        -- TODO: GLSL
         -- Go
         lspConfig.gopls.setup(defaults)
         -- HTML
@@ -414,13 +414,12 @@ use { 'jose-elias-alvarez/null-ls.nvim',
                 -- Linters
                 --nullLs.builtins.diagnostics.buf,  -- proto
                 --nullLs.builtins.diagnostics.checkmate,  -- make
-                nullLs.builtins.diagnostics.chktex,
+                --nullLs.builtins.diagnostics.chktex,
                 --nullLs.builtins.diagnostics.cppcheck,
                 --nullLs.builtins.diagnostics.deadnix,
                 --nullLs.builtins.diagnostics.editorconfig-checker,
                 --nullLs.builtins.diagnostics.gitlint,
                 nullLs.builtins.diagnostics.markdownlint,
-                --nullLs.builtins.diagnostics.mypy,
                 --nullLs.builtins.diagnostics.protoc-gen-lint,
                 --nullLs.builtins.diagnostics.protolint,
                 nullLs.builtins.diagnostics.yamllint,
@@ -722,6 +721,20 @@ use { 'petertriho/nvim-scrollbar',
         })
     end,
 }
+--use { 'karb94/neoscroll.nvim',
+--    config = function()
+--        vim.keymap.set('n', '<ScrollWheelUp>', '<C-y>')
+--        vim.keymap.set('n', '<ScrollWheelDown>', '<C-e>')
+--        vim.keymap.set('i', '<ScrollWheelUp>', '<C-y>')
+--        vim.keymap.set('i', '<ScrollWheelDown>', '<C-e>')
+--        vim.keymap.set('v', '<ScrollWheelUp>', '<C-y>')
+--        vim.keymap.set('v', '<ScrollWheelDown>', '<C-e>')
+--
+--        require('neoscroll').setup({
+--            mappings = { '<C-y>', '<C-e>' },
+--        })
+--    end,
+--}
 -- Indent guides
 use { 'lukas-reineke/indent-blankline.nvim',
     event = 'VimEnter',
