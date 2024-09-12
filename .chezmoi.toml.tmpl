@@ -1,0 +1,24 @@
+{{- $email := "cwopel@chlorm.net" -}}
+
+{{- $headless := true -}}
+
+{{- $hostname := .chezmoi.hostname -}}
+{{- if eq .chezmoi.os "darwin" -}}
+{{-   $hostname = output "networksetup" "-getcomputername" | quote -}}
+{{- end -}}
+{{- if eq $hostname "NOS4A2" "Raenok" -}}
+{{-     $headless = false -}}
+{{- end -}}
+
+{{- $osRelease := .chezmoi.os -}}
+
+[data]
+    email = {{ $email | quote }}
+    headless = {{ $headless }}
+    hostname = {{ $hostname | quote }}
+
+[github]
+    refreshPeriod = "12h"
+
+[interpreters.elv]
+    command = 'elvish'

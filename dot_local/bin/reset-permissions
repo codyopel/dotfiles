@@ -1,0 +1,28 @@
+#!/usr/bin/env elvish
+
+
+use github.com/chlorm/elvish-stl/os
+use github.com/chlorm/elvish-stl/platform
+
+
+if (not $platform:unix) {
+    fail 'Unix only'
+}
+
+var fixDir = $pwd
+if (> (count $args) 0) {
+    if (> (count $args) 1) {
+        fail 'Only one argument allowed'
+    }
+    set fixDir = $args[0]
+}
+
+if (not (os:is-dir $fixDir)) {
+    fail "Not a valid directory: "$fixDir
+}
+
+#path:walk $fixDir
+e:find $fixDir '-type' 'd' '-exec' 'chmod' '775' '{}' ';'
+e:find $fixDir '-type' 'f' '-exec' 'chmod' '664' '{}' ';'
+
+exit

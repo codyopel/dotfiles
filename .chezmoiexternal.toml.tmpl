@@ -1,0 +1,71 @@
+# Firefox
+#{{- if not .headless -}}
+#{{- $mozillaDir := ".mozilla/" -}}
+#{{- if eq .chezmoi.os "windows" -}}
+#{{-     $mozillaDir = "AppData/Roaming/Mozilla/" -}}
+#{{- end -}}
+#["{{ $mozillaDir }}/firefox/arkenfox/"]
+#    type = "archive"
+#    url = {{ gitHubReleaseAssetURL "arkenfox/user.js" "128.0" "128.0.tar.gz" | quote }}
+#    # Non-deterministic tarball
+#    checksum.sha256 = "DF22475F9653BAC564C5F496D27B86A4984E12D2E64E61727D0E198828F0F1EF"
+#{{ end }}  # .headless
+
+# Fonts
+{{- if not .headless -}}
+{{- $fontDir := ".local/share/fonts/" -}}
+{{- if eq .chezmoi.os "darwin" -}}
+{{-     $fontDir = "Library/Fonts/" -}}
+{{- else if eq .chezmoi.os "windows" -}}
+{{-     $fontDir = "AppData/Local/Microsoft/Windows/Fonts/" -}}
+{{- end -}}
+# NerdFonts
+["{{ $fontDir }}"]
+    type = "archive"
+    url = {{ gitHubReleaseAssetURL "ryanoasis/nerd-fonts" "v3.2.1" "Noto.tar.xz" | quote }}
+    checksum.sha256 = "4be621219ff5508c4176487b4fdc8cd0f6d8d8fceeb935f83df11a49dca3096f"
+    include = [
+        "NotoSansMNerdFontMono-Regular.ttf",
+    ]
+{{- end -}}  # .headless
+
+# MPV
+{{- if not .headless -}}
+{{- $mpvDir := ".config/mpv/" -}}
+{{- if eq .chezmoi.os "windows" -}}
+{{-     $mpvDir = "AppData/Roaming/mpv/" -}}
+{{- end -}}
+# MPV - UOSC
+["{{ $mpvDir }}"]
+    type = "archive"
+    url = {{ gitHubReleaseAssetURL "tomasklaen/uosc" "5.5.0" "uosc.zip" | quote }}
+    checksum.sha256 = "DF22475F9653BAC564C5F496D27B86A4984E12D2E64E61727D0E198828F0F1EF"
+    refreshPeriod = "168h"
+
+# MPV - Thumbfast
+["{{ $mpvDir }}scripts/thumbfast/"]
+    type = "archive"
+    url = "https://github.com/po5/thumbfast/archive/f1fdf10b17f394f2d42520d0e9bf22feaa20a9f4.tar.gz"
+    checksum.sha256 = "632eec63ce420a459f063986bface7912e7a84f654bba1ee926e8b5a2b8acd71"
+    stripComponents = 1
+    include = [
+        "*/thumbfast.lua",
+    ]
+    refreshPeriod = "168h"
+
+# MPV - VR-reversal
+["{{ $mpvDir }}scripts/vr-reversal/"]
+    type = "archive"
+    url = "https://github.com/dfaker/VR-reversal/archive/d69aecdb3767420b9a9fb4e7fa00d7fbe69a1eda.tar.gz"
+    checksum.sha256 = "5fe88db59a2a409e775b29e688b3c9d8a958dae80efd9bbd7a6310d803075ad6"
+    stripComponents = 1
+    include = [
+        "*/360plugin.lua",
+        {{- if eq .chezmoi.os "windows" -}}
+        "*/vr-reversal.bat",
+        {{- end -}}
+    ]
+    refreshPeriod = "168h"
+
+{{- end -}}  # .headless
+

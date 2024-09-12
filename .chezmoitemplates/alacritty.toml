@@ -1,0 +1,31 @@
+[colors.bright]
+black = "0x75715e"
+blue = "0x2196e8"
+cyan = "0x66d9ef"
+green = "0xa6e22e"
+magenta = "0xae81ff"
+red = "0xfd971f"
+white = "0xf8f8f0"
+yellow = "0xe6db74"
+
+[colors.normal]
+black = "0x272822"
+blue = "0x2196e8"
+cyan = "0x66d9ef"
+green = "0xa6e22e"
+magenta = "0xae81ff"
+red = "0xf92672"
+white = "0xf8f8f2"
+yellow = "0xe6db74"
+
+[colors.primary]
+background = "0x282828"
+foreground = "0xf8f8f2"
+
+[shell]
+program = "elvish"
+
+[window]
+dimensions = { columns = 120, lines = 30 }
+opacity = 0.99
+padding = { x = 3, y = 3 }

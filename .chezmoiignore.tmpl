@@ -1,0 +1,62 @@
+LICENSE
+README.md
+bootstrap.ps1
+bootstrap.sh
+
+ssh-config.install-post
+TODO
+
+{{ if ne .chezmoi.os "darwin" }}
+Library/
+{{ end }}
+{{ if ne .chezmoi.os "linux" }}
+.config/
+.local/
+.var/
+{{ end }}
+{{ if ne .chezmoi.os "windows" }}
+AppData/
+Documents/
+{{ end }}
+
+# Chezmoi scripts
+{{ if ne .chezmoi.os "darwin" }}
+.chezmoiscripts/darwin/**
+{{ end }}
+{{ if ne .chezmoi.os "linux" }}
+.chezmoiscripts/linux/**
+{{ end }}
+{{ if ne .chezmoi.os "windows" }}
+.chezmoiscripts/windows/**
+{{ end }}
+
+{{ if .headless }}
+.config/alacritty/
+.config/alsa/
+.config/beets/
+.config/fontconfig/
+.config/environment.d/10-gtk-overlay-scrollbars.conf
+.config/gtk-3.0/
+.config/JPEGView/
+.config/kitty/
+.config/mpd/
+.config/mpDris2/
+.config/mpv/
+.config/ncmpcpp/
+.config/pipewire/
+.config/stalonetrayrc
+.mozilla/
+{{ end }}
+
+# MinTTY
+{{ if ne .chezmoi.os "windows" }}
+.minttyrc
+{{ end }}
+
+{{ if ne .chezmoi.os "linux" }}
+.dir_colors
+.nixpkgs/
+.screenrc
+.vimrc
+.xprofile
+{{ end }}
