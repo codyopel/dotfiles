@@ -4,16 +4,16 @@
 ##  XDG_RUNTIME_DIR/mpd/socket
 
 # MPD
-mpd_host = @{XDG_RUNTIME_DIR}@/mpd/socket
+mpd_host = {{ env "XDG_RUNTIME_DIR" }}/mpd/socket
 # TODO: after ncmpcpp/d9c55771bb1059671486b1df245075e10bd6e853
 #mpd_password "n0taS3cur3Pa55w0rdF0rMpd@admin"
-mpd_music_dir = @{XDG_MUSIC_DIR}@
+mpd_music_dir = {{ env "XDG_MUSIC_DIR" }}
 
 ###################
 # Global settings #
 ###################
 
-ncmpcpp_directory = @{XDG_CONFIG_HOME}@/ncmpcpp
+ncmpcpp_directory = {{ env "XDG_CONFIG_HOME" }}/ncmpcpp
 # FIXME: experiment with regex:2
 search_engine_default_search_mode = 1
 
@@ -87,7 +87,7 @@ default_tag_editor_pattern = %n - %t
 #tag_editor_extended_numeration = no
 
 # Visualizer Tab
-visualizer_data_source = @{XDG_RUNTIME_DIR}@/mpd.fifo
+visualizer_data_source = {{ env "XDG_RUNTIME_DIR" }}/mpd.fifo
 visualizer_in_stereo = no
 # (▉▉/●│/●▉/◆│)
 visualizer_look = ▉▉
