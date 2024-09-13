@@ -539,6 +539,7 @@ local plugins = {
             indent = {
                 enable = true,
             },
+            modules = { },
             sync_install = false,
             ts_context_commentstring = {
                 enable = true,
@@ -588,11 +589,11 @@ local plugins = {
             --    When you use, lazy loading, call :InjectemeInfo to activate
             -- "standard", if no injections should be changed from standard settings in 
             --    the runtime directory, i.e. ~/.config/nvim/queries/<language>/injections.scm
-            mode = "standard", 
+            mode = "standard",
             -- after toggling an injection, all buffers are reloaded to reset treesitter
             -- you can set this to false, and avoid that the plugin asks you to save buffers 
             -- before changing an injection
-            reload_all_buffers = true, 
+            reload_all_buffers = true,
 })
     end,
 },
