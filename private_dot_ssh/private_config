@@ -1,2 +1,4 @@
-HashKnownHosts yes
+AddKeysToAgent yes
 CheckHostIP no
+HashKnownHosts yes
+SecurityKeyProvider internal
