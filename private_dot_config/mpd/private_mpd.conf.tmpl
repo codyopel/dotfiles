@@ -1,16 +1,15 @@
 # Directories and files
 filesystem_charset "UTF-8"
-music_directory "@{XDG_MUSIC_DIR}@"
-playlist_directory "@{XDG_CONFIG_HOME}@/mpd/playlists"
-db_file "@{XDG_STATE_HOME}@/mpd/database"
-log_file "@{XDG_CACHE_HOME}@/mpd/log"
-pid_file "@{XDG_RUNTIME_DIR}@/mpd/mpd.pid"
-state_file "@{XDG_CACHE_HOME}@/mpd/state"
-sticker_file "@{XDG_CACHE_HOME}@/mpd/sticker"
+music_directory "{{ env "XDG_MUSIC_DIR" }}"
+playlist_directory "{{ env "XDG_CONFIG_HOME" }}/mpd/playlists"
+db_file "{{ env "XDG_STATE_HOME" }}/mpd/database"
+log_file "{{ env "XDG_CACHE_HOME" }}/mpd/log"
+pid_file "{{ env "XDG_RUNTIME_DIR" }}/mpd/mpd.pid"
+state_file "{{ env "XDG_CACHE_HOME" }}/mpd/state"
+sticker_file "{{ env "XDG_CACHE_HOME" }}/mpd/sticker"
 
 # Network
-bind_to_address "localhost"
-port "6600"
+bind_to_address "{{ env "XDG_RUNTIME_DIR" }}/mpd/socket"
 # TODO: after ncmpcpp/d9c55771bb1059671486b1df245075e10bd6e853
 #password "n0taS3cur3Pa55w0rdF0rMpd@admin"
 
@@ -30,13 +29,13 @@ input {
 
 # Audio Outputs
 audio_output {
-  format         "44100:16:1"
+  format         "48000:16:1"
   name           "MPD FIFO Output"
-  path           "@{XDG_RUNTIME_DIR}@/mpd.fifo"
+  path           "{{ env "XDG_RUNTIME_DIR" }}/mpd.fifo"
   type           "fifo"
 }
 audio_output {
-  dsd            "yes"
+  dsd            "no"
   format         "48000:32:2"
   mixer_type     "software"
   mixer_device   "default"
