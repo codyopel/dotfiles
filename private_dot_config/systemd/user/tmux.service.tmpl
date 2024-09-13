@@ -3,8 +3,8 @@ Description=Start tmux in detached session
 
 [Service]
 Type=forking
-ExecStart=@(search-external tmux)@ new-session -s %u -d
-ExecStop=@(search-external tmux)@ kill-session -t %u
+ExecStart={{ lookPath "tmux" }} new-session -s %u -d
+ExecStop={{ lookPath "tmux" }} kill-session -t %u
 RemainAfterExit=yes
 
 [Install]
