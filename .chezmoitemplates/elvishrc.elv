@@ -170,7 +170,7 @@ fn rename {|repl new file &c=$false|
 
 fn renameall {|repl new &c=$false|
   for i [(put *)] {
-    fixer &c=$c $repl $new $i
+    rename &c=$c $repl $new $i
   }
 }
 
