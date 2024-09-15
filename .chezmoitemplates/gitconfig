@@ -94,6 +94,7 @@
   # as an error.
   whitespace = space-before-tab,trailing-space
   autocrlf = false
+  {{ if .isWindows }}sshCommand = "{{ lookPath "ssh" | replaceAllRegex "\\\\" "\\\\\\\\" | replaceAllRegex " " "\\\\ " }}"{{ end }}
 
 [color]
   ui = auto
@@ -131,8 +132,10 @@
 [gpg]
   format = ssh
 
+{{ if not .isWindows }}
 [gpg "ssh"]
   defaultKeyCommand = git-get-signing-key
+{{ end }}
 
 [help]
   # Automatically correct and execute mistyped commands
@@ -183,3 +186,4 @@
 [user]
   name = Cody W. Opel
   email = cwopel@chlorm.net
+  {{ if .isWindows }}signingKey = key::sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIEDWDoaTZoc1R3GTH10o34rwWxXHsWoRguG7VbmCEqI7AAAACHNzaDoxOTYx ssh:1961{{ end }}
