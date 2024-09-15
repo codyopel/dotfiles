@@ -1,7 +1,7 @@
 # Firefox
 #{{- if not .headless -}}
 #{{- $mozillaDir := ".mozilla/" -}}
-#{{- if eq .chezmoi.os "windows" -}}
+#{{- if .isWindows -}}
 #{{-     $mozillaDir = "AppData/Roaming/Mozilla/" -}}
 #{{- end -}}
 #["{{ $mozillaDir }}/firefox/arkenfox/"]
@@ -14,9 +14,9 @@
 # Fonts
 {{- if not .headless -}}
 {{- $fontDir := ".local/share/fonts/" -}}
-{{- if eq .chezmoi.os "darwin" -}}
+{{- if .isMacos -}}
 {{-     $fontDir = "Library/Fonts/" -}}
-{{- else if eq .chezmoi.os "windows" -}}
+{{- else if .isWindows -}}
 {{-     $fontDir = "AppData/Local/Microsoft/Windows/Fonts/" -}}
 {{- end -}}
 # NerdFonts
@@ -32,7 +32,7 @@
 # MPV
 {{- if not .headless -}}
 {{- $mpvDir := ".config/mpv/" -}}
-{{- if eq .chezmoi.os "windows" -}}
+{{- if .isWindows -}}
 {{-     $mpvDir = "AppData/Roaming/mpv/" -}}
 {{- end -}}
 # MPV - UOSC

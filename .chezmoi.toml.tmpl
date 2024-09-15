@@ -2,6 +2,21 @@
 
 {{- $headless := true -}}
 
+{{- $isLinux := false -}}
+{{- $isMacos := false -}}
+{{- $isWindows := false -}}
+{{- if eq .chezmoi.os "linux" -}}
+{{-     $isLinux = true -}}
+{{- else if eq .chezmoi.os "darwin" -}}
+{{-     $isMacos = true -}}
+{{- else if eq .chezmoi.os "windows" -}}
+{{-     $isWindows = true -}}
+{{- end -}}
+{{- $isUnix := false -}}
+{{- if eq .chezmoi.os "darwin" "linux" -}}
+{{-     $isUnix = true -}}
+{{- end -}}
+
 {{- $hostname := .chezmoi.hostname -}}
 {{- if eq .chezmoi.os "darwin" -}}
 {{-   $hostname = output "networksetup" "-getcomputername" | quote -}}
@@ -10,12 +25,15 @@
 {{-     $headless = false -}}
 {{- end -}}
 
-{{- $osRelease := .chezmoi.os -}}
-
 [data]
     email = {{ $email | quote }}
     headless = {{ $headless }}
     hostname = {{ $hostname | quote }}
+    # Helper functions
+    isLinux = {{ $isLinux }}
+    isMacos = {{ $isMacos }}
+    isWindows = {{ $isWindows }}
+    isUnix = {{ $isUnix }}
 
 [github]
     refreshPeriod = "12h"

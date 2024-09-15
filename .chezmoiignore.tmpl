@@ -3,33 +3,22 @@ README.md
 bootstrap.ps1
 bootstrap.sh
 
-ssh-config.install-post
-TODO
-
-{{ if ne .chezmoi.os "darwin" }}
+{{ if not .isMacos }}
+.chezmoiscripts/darwin/**
 Library/
 {{ end }}
-{{ if ne .chezmoi.os "linux" }}
+
+{{ if not .isLinux }}
+.chezmoiscripts/linux/**
 .config/
 .local/
 .var/
-{{ end }}
-{{ if ne .chezmoi.os "windows" }}
-AppData/
-Documents/
-{{ end }}
 
-# Chezmoi scripts
-{{ if ne .chezmoi.os "darwin" }}
-.chezmoiscripts/darwin/**
-{{ end }}
-{{ if ne .chezmoi.os "linux" }}
-.chezmoiscripts/linux/**
-{{ end }}
-{{ if ne .chezmoi.os "windows" }}
-.chezmoiscripts/windows/**
-{{ end }}
-
+.dir_colors
+.nixpkgs/
+.screenrc
+.vimrc
+.xprofile
 {{ if .headless }}
 .config/alacritty/
 .config/alsa/
@@ -47,16 +36,12 @@ Documents/
 .config/stalonetrayrc
 .mozilla/
 {{ end }}
-
-# MinTTY
-{{ if ne .chezmoi.os "windows" }}
-.minttyrc
 {{ end }}
 
-{{ if ne .chezmoi.os "linux" }}
-.dir_colors
-.nixpkgs/
-.screenrc
-.vimrc
-.xprofile
+{{ if not .isWindows }}
+.chezmoiscripts/windows/**
+AppData/
+Documents/
+
+.minttyrc
 {{ end }}
