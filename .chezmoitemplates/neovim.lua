@@ -94,15 +94,15 @@ vim.filetype.add({
     },
     filename = {
         ['asoundrc'] = 'alsaconf',
-        ['dot_dir_colors'] = 'dircolors',
+        ['private_dot_dir_colors'] = 'dircolors',
         ['gitconfig'] = 'gitconfig',
         ['htoprc'] = 'dosini',
-        ['dot_minttyrc'] = 'dosini',
+        ['private_dot_minttyrc'] = 'dosini',
         ['mpd.conf'] = 'nginx',
         ['mpDris2.conf'] = 'dosini',
         ['mpv.conf'] = 'dosini',
         ['spectrwm.conf'] = 'dosini',
-        ['dot_xprofile'] = 'sh',
+        ['private_dot_xprofile'] = 'sh',
         ['.xprofile'] = 'sh',
     },
     pattern = {
