@@ -15,7 +15,7 @@ vim.opt.cursorline = true
 -- Spaces instead of tabs
 vim.opt.expandtab = true
 vim.opt.fileencoding = 'utf-8'
-vim.opt.guifont = 'NotoSansM NFM Reg'
+vim.opt.guifont = 'NotoSansM Nerd Font Mono'
 vim.opt.iskeyword:append('-')
 -- Faster scrolling
 vim.opt.lazyredraw = true
