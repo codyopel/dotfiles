@@ -22,6 +22,9 @@ yellow = "0xe6db74"
 background = "0x282828"
 foreground = "0xf8f8f2"
 
+[font]
+normal = { family = "NotoSansM Nerd Font Mono", style = "Regular" }
+
 [shell]
 program = "elvish"
 
