@@ -190,4 +190,5 @@ STICKY 37;44  # dir with the sticky bit set (+t) and not other-writable
 .ra   01;31
 .spx  01;31
 .wav  01;31
+.wv   01;31
 .xspf 01;31
