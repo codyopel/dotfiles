@@ -11,7 +11,7 @@ use github.com/chlorm/elvish-stl/re
 use github.com/chlorm/elvish-term/ansi
 use github.com/chlorm/elvish-term/osc
 # CLI helpers
-use github.com/chlorm/elvish-util-wrappers/aconv
+use github.com/chlorm/elvish-util-wrappers/audio
 #use github.com/chlorm/elvish-util-wrappers/btrfs
 #use github.com/chlorm/elvish-util-wrappers/git
 #use github.com/chlorm/elvish-util-wrappers/nix
