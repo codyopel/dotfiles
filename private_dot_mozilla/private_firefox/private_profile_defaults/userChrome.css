@@ -1,0 +1,13 @@
+/*@import url(autohide_sidebar.css);*/
+
+#TabsToolbar {
+    visibility: collapse;
+}
+#nav-bar {
+    margin-top: -40px;
+    margin-right: 138px;
+}
+#toolbar-menubar {
+    height: 40px;
+    margin-left: -100vw;
+}
