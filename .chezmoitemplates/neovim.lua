@@ -754,8 +754,12 @@ local plugins = {
                 theme = 'auto',
             },
             sections = {
+                lualine_a = { 'mode' },
+                lualine_b = { 'filename' },
+                lualine_c = { 'diagnostics' },
                 lualine_x = { 'lsp_progress' },
-                lualine_y = {'encoding', 'fileformat', 'filetype'},
+                lualine_y = { 'encoding', 'fileformat', 'filetype' },
+                lualine_z = { 'location' },
             },
         })
     end,
