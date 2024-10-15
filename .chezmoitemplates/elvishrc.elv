@@ -161,3 +161,31 @@ fn yt {|@args|
     yt-dlp -f 'bv*+ba' $@args
 }
 
+fn jdremux {
+    var v = (put *.mp4)
+    var a = $nil
+    try {
+        set a = (put *.m4a)
+    } catch _ {
+        set a = (put *.opus)
+    }
+    var c = (put *.jpg)
+    var d = ''
+    try {
+        set d = (slurp < *.txt)
+    } catch _ { }
+    if (eq $a $nil) { fail }
+    ffmpeg -i $v -i $a -i $c -map 0:0 -map 1:0 -map 2:0 -c copy -disposition:2 attached_pic -metadata comment=$d out.mp4
+    try { os:remove $v } catch _ { }
+    try { os:remove $a } catch _ { }
+    try { os:remove $c } catch _ { }
+    try {
+        for i [ (put *.srt) ] {
+            os:remove $i
+        }
+    } catch _ { }
+    try { os:remove (put *.txt) } catch _ { }
+    os:move out.mp4 $v
+    rename '(.*) \([0-9]+p_[0-9]+fps_(?:H264|VP9)-[0-9]+kbit_[A-Z]+\)(.mp4)$' '$1$2' $v &c
+}
+
