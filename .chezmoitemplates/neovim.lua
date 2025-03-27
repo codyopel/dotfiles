@@ -386,7 +386,7 @@ local plugins = {
 },
 -- LSP missing features
 {
-    'jose-elias-alvarez/null-ls.nvim',
+    'nvimtools/none-ls.nvim',
     enabled = not isMinimal,
     config = function()
         local nullLs = require('null-ls')
