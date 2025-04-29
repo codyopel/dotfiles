@@ -25,7 +25,7 @@ foreground = "0xf8f8f2"
 [font]
 normal = { family = "NotoSansM Nerd Font Mono", style = "Regular" }
 
-[shell]
+[terminal.shell]
 program = "elvish"
 
 [window]
