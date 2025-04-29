@@ -243,16 +243,17 @@ local plugins = {
 },
 -- LSP
 {
-    'lvimuser/lsp-inlayhints.nvim',
+    'felpafel/inlay-hint.nvim',
     enabled = not isMinimal,
+    event = 'LspAttach',
     config = function()
-        require('lsp-inlayhints').setup()
+        require('inlay-hint').setup()
     end,
 },
 {
     'neovim/nvim-lspconfig',
     dependencies = {
-        'lvimuser/lsp-inlayhints.nvim',
+        'felpafel/inlay-hint.nvim',
         'williamboman/mason-lspconfig',
     },
     enabled = not isMinimal,
