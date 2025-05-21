@@ -33,17 +33,17 @@
 {{- if not .headless -}}
 {{- $mpvDir := ".config/mpv/" -}}
 {{- if .isWindows -}}
-{{-     $mpvDir = "AppData/Roaming/mpv/" -}}
+{{-     $mpvDir = "AppData/Roaming/mpv" -}}
 {{- end -}}
 # MPV - UOSC
-["{{ $mpvDir }}"]
+["{{ $mpvDir }}/"]
     type = "archive"
     url = {{ gitHubReleaseAssetURL "tomasklaen/uosc" "5.8.0" "uosc.zip" | quote }}
     checksum.sha256 = "d0eda0c758fb5a051d77ec2bce4b2161b980fa5291523aa3849a7beebf55681a"
     refreshPeriod = "168h"
 
 # MPV - Thumbfast
-["{{ $mpvDir }}scripts/thumbfast/"]
+["{{ $mpvDir }}/scripts/thumbfast/"]
     type = "archive"
     url = "https://github.com/po5/thumbfast/archive/9deb0733c4e36938cf90e42ddfb7a19a8b2f4641.tar.gz"
     checksum.sha256 = "1c984a92ebe12dfdb3cc4901117ca2f48fa0c227f6e99ce05f30782bac332e11"
@@ -54,7 +54,7 @@
     refreshPeriod = "168h"
 
 # MPV - VR-reversal
-["{{ $mpvDir }}scripts/vr-reversal/"]
+["{{ $mpvDir }}/scripts/vr-reversal/"]
     type = "archive"
     url = "https://github.com/dfaker/VR-reversal/archive/d69aecdb3767420b9a9fb4e7fa00d7fbe69a1eda.tar.gz"
     checksum.sha256 = "5fe88db59a2a409e775b29e688b3c9d8a958dae80efd9bbd7a6310d803075ad6"
