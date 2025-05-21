@@ -189,3 +189,73 @@ fn jdremux {
     rename '(.*) \([0-9]+p_[0-9]+fps_(?:H264|VP9)-[0-9]+kbit_[A-Z]+\)(.mp4)$' '$1$2' $v &c
 }
 
+{{ if .isWindows }}
+
+# TODO: -r
+fn cp {|@args|
+    if (> (count $args) 2) {
+        try {
+            var _ = (os:is-dir $args[-1])
+        } catch e {
+            fail $e
+        }
+        for i $args[0..-1] {
+            os:copy $i $args[-1]
+        }
+        return
+    }
+
+    os:copy $args[0] $args[1]
+}
+
+fn htop {
+    e:btm
+}
+
+fn mkdir {|@args|
+    if (==s $args[0] '-p') {
+        set args = $args[1..]
+        for i $args {
+            os:makedirs $i
+        }
+        return
+    }
+
+    for i $args {
+        os:makedir $i
+    }
+}
+
+fn mv {|@args|
+    if (> (count $args) 2) {
+        try {
+            var _ = (os:is-dir $args[-1])
+        } catch e {
+            fail $e
+        }
+        for i $args[0..-1] {
+            os:move $i $args[-1]
+        }
+        return
+    }
+
+    os:move $args[0] $args[1]
+}
+
+fn rm {|@args|
+    var recursive = $false
+    if (==s $args[0] '-r') {
+        set recursive = $true
+        set args = $args[1..]
+    }
+    for i $args {
+        if $recursive {
+            os:removedirs $i
+        } else {
+            os:remove $i
+        }
+    }
+}
+
+{{ end }}
+
