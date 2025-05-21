@@ -35,6 +35,7 @@ fn fix-vr-reversal-resolution-scale {
     }
 }
 
+rename-plugin 'sub-select' 'sub-select'
 rename-plugin 'thumbfast' 'thumbfast'
 rename-plugin 'vr-reversal' '360plugin'
 fix-vr-reversal-resolution-scale

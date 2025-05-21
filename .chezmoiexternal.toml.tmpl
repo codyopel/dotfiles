@@ -67,5 +67,16 @@
     ]
     refreshPeriod = "168h"
 
+# MPV - Sub-Select
+["{{ $mpvDir }}/scripts/sub-select/"]
+    type = "archive"
+    url = "https://github.com/CogentRedTester/mpv-sub-select/archive/26d24a0fd1d69988eaedda6056a2c87d0a55b6cb.tar.gz"
+    checksum.sha256 = "ca608beb618a5ffbf0eb3395d370104009c4a1ade01a1975ece84465a85c46ea"
+    stripComponents = 1
+    include = [
+        "*/sub-select.lua"
+    ]
+    refreshPeriod = "168h"
+
 {{- end -}}  # .headless
 
