@@ -21,7 +21,7 @@
 {{- if eq .chezmoi.os "darwin" -}}
 {{-   $hostname = output "networksetup" "-getcomputername" | quote -}}
 {{- end -}}
-{{- if eq $hostname "miranova" "NOS4A2" "Raenok" -}}
+{{- if eq $hostname "miranova" "NOS4A2" "raenok" -}}
 {{-     $headless = false -}}
 {{- end -}}
 
