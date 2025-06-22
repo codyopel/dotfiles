@@ -122,6 +122,9 @@
   gpgSign = true
 
 [diff]
+{{ if and (lookPath "difft") (lookPath "less") }}
+  external = difft
+{{ end }}
   # Detect copies as well as renames
   renames = copies
 
