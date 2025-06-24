@@ -15,19 +15,13 @@ if $platform:is-windows {
 
 fn rename-plugin {|dir plugin|
     var m = (path:join $MPVDIR $dir 'main.lua')
-    var p = (path:join $MPVDIR $dir $plugin'.lua')
-    if (and (os:exists $m) ^
-            (os:exists $p)) {
-        os:remove $m
-    }
-
-    if (os:exists $p) {
-        os:move $p $m
+    if (not (os:exists $m)) {
+        printf "require('%s')\n" $plugin > $m
     }
 }
 
 fn fix-vr-reversal-resolution-scale {
-    var m = (path:join $MPVDIR 'vr-reversal' 'main.lua')
+    var m = (path:join $MPVDIR 'vr-reversal' '360plugin.lua')
     if (os:exists $m) {
         var t = (slurp < $m)
         set t = (str:replace 'local res  = 1.0' 'local res  = 10.0' $t)
