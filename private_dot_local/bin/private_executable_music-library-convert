@@ -1,0 +1,183 @@
+#!/usr/bin/env elvish
+# vim: ft=elvish
+
+# Trancodes all audio files in a source directory to a target directory.
+# Assumes a directory structure of <first letter/number>/<artist>/<album>/<track>
+
+use github.com/chlorm/elvish-stl/list
+use github.com/chlorm/elvish-stl/os
+use github.com/chlorm/elvish-stl/path
+use github.com/chlorm/elvish-stl/re
+use github.com/chlorm/elvish-stl/str
+use github.com/chlorm/elvish-util-wrappers/ffmpeg
+
+
+var SOURCE_PATH = $args[0]
+var TARGET_PATH = $args[1]
+
+
+fn output-filename {|file|
+    var base = (path:basename $file)
+    re:replace (path:ext $base)'$' '.ogg' $base
+}
+
+fn transcode-audio-file {|input output|
+    var ebur128Measure = (ffmpeg:filter-ebur128-measure $input 0)
+    var ebur128 = (ffmpeg:filter-ebur128 $ebur128Measure)
+    # Silent audio files cannot be measured
+    var ebur128Enable = $true
+    if (==s $ebur128Measure['input_i'] '-inf') {
+        set ebur128Enable = $false
+    }
+    var args = [
+        '-n'
+        #'-v' 'trace'
+        '-hide_banner'
+        '-fflags' '-autobsf+bitexact'
+        '-i' $input
+        # Strip replaygain side data using volume filter
+        '-filter_complex' '[0:a:0]volume=replaygain=drop'(if $ebur128Enable { put '[srg];[srg]'$ebur128 })'[out]'
+        '-map' '[out]'
+        '-resampler' 'soxr'
+        '-dither_method' 'triangular'
+        '-precision' 33
+        '-cheby' 1
+        '-map_metadata' 0
+        # Strip replaygain metadata
+        '-metadata' 'REPLAYGAIN_ALBUM_GAIN='
+        '-metadata' 'REPLAYGAIN_ALBUM_PEAK='
+        '-metadata' 'REPLAYGAIN_TRACK_GAIN='
+        '-metadata' 'REPLAYGAIN_TRACK_PEAK='
+        '-threads' 1
+        '-vn'
+        '-c:0' 'libopus'
+        '-b:0' '128k'
+        '-vbr' 'on'
+        '-compression_level' 10
+        '-frame_duration' 20
+        $output
+
+    ]
+    try {
+        echo 'ffmpeg' $@args >&2
+        e:ffmpeg $@args
+    } catch e {
+        if (os:exists $output) {
+            os:remove $output
+        }
+        echo 'failed at: ffmpeg '$@args >&2
+        fail $e
+    }
+}
+
+fn transcode-image-file {|input output|
+    e:magick 'convert' ^
+        '-size' '500x500' ^
+        $input ^
+        '-resize' '500x500^' ^
+        $output
+
+}
+
+fn is-audio-file {|file|
+    var validExtensions = [
+        '.flac'
+        '.ogg'
+        '.m4a'
+        '.mp3'
+        '.wv'
+    ]
+    if (list:has $validExtensions (str:to-lower (path:ext $file))) {
+        put $true
+        return
+    }
+    put $false
+}
+
+fn is-image-file {|file|
+    var validExtensions = [
+        '.jpg'
+        '.jpeg'
+        '.png'
+        '.tiff'
+    ]
+    if (list:has [ ] (str:to-lower (path:ext $file))) {
+        put $true
+        return
+    }
+    put $false
+}
+
+fn get-dirs {|path|
+    put (path:scandir $path)['dirs']
+}
+
+fn get-files {|path|
+    put (path:scandir $path)['files']
+}
+
+fn do-artist {|source target|
+    var artistImg = (path:join $source 'artist.jpg')
+    if (os:exists $artistImg) {
+        os:makedirs $target
+        os:copy $artistImg $target
+    }
+}
+
+fn do-album {|source target|
+    var albumImgSourceBase = (path:join $source 'Folder.')
+    var albumImgSource = '/non-existant-path'
+    var art = $false
+    for i [ 'jpg' 'png' 'tiff' ] {
+        if (os:exists $albumImgSourceBase$i) {
+            set art = $true
+            set albumImgSource = $albumImgSourceBase$i
+            break
+        }
+    }
+    os:makedirs $target
+    if (and $art (not (os:exists (path:join $target 'Folder.jpg')))) {
+        transcode-image-file $albumImgSource (path:join $target 'Folder.jpg')
+    }
+}
+
+fn do-track {|source target|
+    if (not (is-audio-file $source)) {
+        return
+    }
+    if (not (os:exists $target)) {
+        put [ $source $target ]
+    }
+}
+
+fn main {
+    for root (get-dirs $SOURCE_PATH) {
+        var rootDirSource = (path:join $SOURCE_PATH $root)
+        var rootDirTarget = (path:join $TARGET_PATH $root)
+        for artist (get-dirs $rootDir) {
+            echo '>'$artist >&2
+            var artistDirSource = (path:join $rootDirSource $artist)
+            var artistDirTarget = (path:join $rootDirTarget $artist)
+            do-artist $artistDirSource $artistDirTarget
+            for album (get-dirs $artistDirSource) {
+                echo '>>'$album >&2
+                var albumDirSource = (path:join $artistDirSource $album)
+                var albumDirTarget = (path:join $artistDirTarget $album)
+                do-album $albumDirSource $albumDirTarget
+                for track (get-files $albumDirSource) {
+                    do-track ^
+                        (path:join $albumDirSource $track) ^
+                        (path:join $albumDirTarget (output-filename $track))
+                }
+
+            }
+        }
+    } | peach &num-workers=10 {|x|
+        echo "Transcoding: "$x[1] >&2
+        transcode-audio-file $x[0] $x[1]
+    }
+}
+
+main
+
+

@@ -1,0 +1,48 @@
+#!/usr/bin/env elvish
+# vim: ft=elvish
+
+
+use github.com/chlorm/elvish-stl/path
+
+
+var ROOT = $pwd
+
+fn fix-albumartist {|f|
+    echo '>'$f >&2
+    var albumArtist = ''
+    try {
+        set albumArtist = (e:kid3-cli -c 'get ALBUMARTIST' $f)
+    } catch _ { }
+    if (==s $albumArtist '') {
+        var artist = (e:kid3-cli -c 'get ARTIST[0]' $f)
+        e:kid3-cli -c 'set ALBUMARTIST "'$artist'"' $f
+    }
+}
+
+fn get-dirs {|path|
+    put (path:scandir $path)['dirs']
+}
+
+fn get-files {|path|
+    put (path:scandir $path)['files']
+}
+
+for prefix (get-dirs $ROOT) {
+    var prefixDir = (path:join $ROOT $prefix)
+    for artist (get-dirs $prefixDir) {
+        var artistDir = (path:join $prefixDir $artist)
+        for album (get-dirs $artistDir) {
+            var albumDir = (path:join $artistDir $album)
+            for track (get-files $albumDir) {
+                # TODO: support more extensions
+                if (not (==s (path:ext $track) '.ogg')) {
+                    continue
+                }
+                var t = (path:join $albumDir $track)
+                put $t
+            }
+        }
+    }
+} | peach &num-workers=10 {|x|
+    fix-albumartist $x
+}
