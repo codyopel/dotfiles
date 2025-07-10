@@ -1,8 +1,10 @@
 use epm
-use str
-#epm:install &silent-if-installed=$true github.com/chlorm/elvish-stl
-#epm:install &silent-if-installed=$true github.com/chlorm/elvish-term
-#epm:install &silent-if-installed=$true github.com/chlorm/elvish-util-wrappers
+epm:install &silent-if-installed=$true github.com/chlorm/elvish-stl
+epm:install &silent-if-installed=$true github.com/chlorm/elvish-term
+epm:install &silent-if-installed=$true github.com/chlorm/elvish-util-wrappers
+epm:install &silent-if-installed=$true github.com/chlorm/elvish-xdg
+epm:install &silent-if-installed=$true github.com/chlorm/kratos
+
 use github.com/chlorm/elvish-stl/env
 use github.com/chlorm/elvish-stl/os
 use github.com/chlorm/elvish-stl/path
