@@ -6,26 +6,35 @@ epm:install &silent-if-installed=$true github.com/chlorm/elvish-xdg
 epm:install &silent-if-installed=$true github.com/chlorm/kratos
 
 use github.com/chlorm/elvish-stl/env
+use github.com/chlorm/elvish-stl/exec
+use github.com/chlorm/elvish-stl/ini
+use github.com/chlorm/elvish-stl/io
+use github.com/chlorm/elvish-stl/list
+use github.com/chlorm/elvish-stl/map
 use github.com/chlorm/elvish-stl/os
 use github.com/chlorm/elvish-stl/path
 use github.com/chlorm/elvish-stl/platform
+use github.com/chlorm/elvish-stl/proc
 use github.com/chlorm/elvish-stl/re
+use github.com/chlorm/elvish-stl/str
 use github.com/chlorm/elvish-term/ansi
 use github.com/chlorm/elvish-term/osc
+use github.com/chlorm/elvish-xdg/xdg-dirs
 # CLI helpers
+use github.com/chlorm/elvish-git/filter-repo
+use github.com/chlorm/elvish-git/status
 use github.com/chlorm/elvish-util-wrappers/audio
 #use github.com/chlorm/elvish-util-wrappers/btrfs
-#use github.com/chlorm/elvish-util-wrappers/git
+use github.com/chlorm/elvish-util-wrappers/ffmpeg
 #use github.com/chlorm/elvish-util-wrappers/nix
-#use github.com/chlorm/elvish-util-wrappers/nm
+use github.com/chlorm/elvish-util-wrappers/nm
+use github.com/chlorm/elvish-util-wrappers/yt-dlp
 
 
 set-env LANG C.UTF-8
 
 # TODO: don't populate env vars inside rc
 fn build-dir-list {
-    #epm:install &silent-if-installed=$true github.com/chlorm/elvish-xdg
-    use github.com/chlorm/elvish-xdg/xdg-dirs
     xdg-dirs:populate-env
 
     var initDirs = [ ]
