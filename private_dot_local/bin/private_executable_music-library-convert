@@ -154,7 +154,7 @@ fn main {
     for root (get-dirs $SOURCE_PATH) {
         var rootDirSource = (path:join $SOURCE_PATH $root)
         var rootDirTarget = (path:join $TARGET_PATH $root)
-        for artist (get-dirs $rootDir) {
+        for artist (get-dirs $rootDirSource) {
             echo '>'$artist >&2
             var artistDirSource = (path:join $rootDirSource $artist)
             var artistDirTarget = (path:join $rootDirTarget $artist)
