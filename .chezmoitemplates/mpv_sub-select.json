@@ -7,7 +7,7 @@
     {
         "alang": ["jpn", "ja"],
         "slang": "eng?",
-        "blacklist": [ "sign" ]
+        "blacklist": [ "sign", "song" ]
     },
     {
         "inherit": "^",
