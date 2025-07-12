@@ -93,7 +93,7 @@
   # Treat spaces before tabs and all kinds of trailing whitespace
   # as an error.
   whitespace = space-before-tab,trailing-space
-  autocrlf = true
+  autocrlf = {{ if .isWindows }}true{{ else }}false{{ end }}
   {{ if .isWindows }}sshCommand = "{{ lookPath "ssh" | replaceAllRegex "\\\\" "\\\\\\\\" | replaceAllRegex " " "\\\\ " }}"{{ end }}
 
 [color]
