@@ -78,5 +78,16 @@
     ]
     refreshPeriod = "168h"
 
+# MPV - delete-current-file
+["{{ $mpvDir }}/scripts/delete-current-file/"]
+    type = "archive"
+    url = "https://github.com/stax76/mpv-scripts/archive/9a3103a687b4cac18438b2ea96ead8c30d953940.tar.gz"
+    checksum.sha256 = "996f66bfe5e6be8def06b0ecd545e7f438b46c7dc29e6122bdcd545e9fedbd76"
+    stripComponents = 1
+    include = [
+        "*/delete_current_file.lua"
+    ]
+    refreshPeriod = "168h"
+
 {{- end -}}  # .headless
 

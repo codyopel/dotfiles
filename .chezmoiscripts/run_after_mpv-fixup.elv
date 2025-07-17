@@ -23,12 +23,13 @@ fn rename-plugin {|dir plugin|
 fn fix-vr-reversal-resolution-scale {
     var m = (path:join $MPVDIR 'vr-reversal' '360plugin.lua')
     if (os:exists $m) {
-        var t = (slurp < $m)
+        var t = (io:open $m)
         set t = (str:replace 'local res  = 1.0' 'local res  = 10.0' $t)
         printf "%s" $t > $m
     }
 }
 
+rename-plugin 'delete-current-file' 'delete_current_file'
 rename-plugin 'sub-select' 'sub-select'
 rename-plugin 'thumbfast' 'thumbfast'
 rename-plugin 'vr-reversal' '360plugin'
