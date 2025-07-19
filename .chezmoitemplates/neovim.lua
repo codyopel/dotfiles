@@ -1,7 +1,7 @@
 local intToBool = { [0]=false, [1]=true }
 local isWindows = intToBool[vim.fn.has('win32')]
 local isUnix = intToBool[vim.fn.has('unix')]
-function hasExe(exe)
+local function hasExe(exe)
     return intToBool[vim.fn.executable(exe)]
 end
 local masonPath = vim.fn.stdpath('data') .. '/mason/packages'
