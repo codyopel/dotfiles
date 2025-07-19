@@ -93,7 +93,9 @@ STICKY 37;44  # dir with the sticky bit set (+t) and not other-writable
 .zst  31
 
 # Other binary files
+.dll  31
 .exe  31
+.obj  31
 .so   31
 
 # Image
@@ -170,6 +172,53 @@ STICKY 37;44  # dir with the sticky bit set (+t) and not other-writable
 .diff  00
 .log   00
 .tex   00
+
+# Code
+.asp  33
+.aspx 33
+.bash 33
+.c    33
+.cgi  33
+.conf 33
+.cpp  33
+.css  33
+.cxx  33
+.cs   33
+Dockerfile 33
+.Dockerfile 33
+.ebuild 33
+.elv  33
+.go   33
+.h    33
+.hpp  33
+.htm  33
+.html 33
+.hxx  33
+.ini  33
+.java 33
+.js   33
+.json 33
+.jsonnet 33
+.jsp  33
+.jsx  33
+.libsonnet 33
+.lua  33
+Makefile 33
+.md   33
+PKGBUILD 33
+.pl   33
+.ps1  33
+.py   33
+.rb   33
+.rs   33
+.sh   33
+.tmpl 33
+.toml 33
+.ts   33
+.yaml 33
+.yml  33
+.xml  33
+.zsh  33
 
 # Audio
 .aac  01;31
