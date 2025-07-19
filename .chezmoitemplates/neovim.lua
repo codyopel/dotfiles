@@ -119,12 +119,6 @@ vim.filetype.add({
 local plugins = {
 'nvim-lua/plenary.nvim',
 {
-    'antoinemadec/FixCursorHold.nvim',
-    config = function()
-        vim.g.cursorhold_updatetime = 100
-    end,
-},
-{
     'williamboman/mason.nvim',
     enabled = not isMinimal,
     config = function()
