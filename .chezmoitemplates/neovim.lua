@@ -161,6 +161,10 @@ local plugins = {
             'jdtls',
             -- Lua
             'lua-language-server',
+            -- Python
+            'black',
+            'isort',
+            'yapf',
             -- Rust
             'rust-analyzer',
             -- Saltstack
@@ -405,17 +409,6 @@ local plugins = {
 
         nullLs.setup({
             sources = {
-                -- Formatters
-                nullLs.builtins.formatting.clang_format,
-                nullLs.builtins.formatting.cmake_format,
-                nullLs.builtins.formatting.gofmt,
-                nullLs.builtins.formatting.jq,
-                nullLs.builtins.formatting.nixpkgs_fmt,
-                nullLs.builtins.formatting.prettier,
-                nullLs.builtins.formatting.rustfmt,
-                nullLs.builtins.formatting.shfmt,
-                nullLs.builtins.formatting.stylua,
-                nullLs.builtins.formatting.yapf,
                 -- Linters
                 --nullLs.builtins.diagnostics.buf,  -- proto
                 --nullLs.builtins.diagnostics.checkmate,  -- make
@@ -624,6 +617,51 @@ local plugins = {
 --     'L3MON4D3/LuaSnip',
 --     dependencies = { 'saadparwaiz1/cmp_luasnip' }
 -- }
+{
+    'stevearc/conform.nvim',
+    config = function()
+        local pythonFmt = { 'isort', 'black' }
+        -- FIXME: https://github.com/stevearc/conform.nvim/pull/691
+        if isWindows then
+            pythonFmt = { 'black' }
+        end
+        local taploCmd = 'taplo'
+        if isWindows then
+            taploCmd = masonPath .. '/taplo/taplo.exe'
+        end
+        require('conform').setup({
+            formatters = {
+                taplo = {
+                    command = taploCmd,
+                },
+                yapf = {
+                    args = { '--quiet', '--style', '{based_on_style: google, indent_width: 4}' },
+                },
+            },
+            formatters_by_ft = {
+                c = { 'clang-format' },
+                cpp = { 'clang-format' },
+                go = { 'gofmt' },
+                javascript = { 'prettierd', 'prettier', stop_after_first = true },
+                json = { 'jq' },
+                jsonnet = { 'jsonnetfmt' },
+                lua = { 'stylua' },
+                nix = { 'nixfmt' },
+                python = pythonFmt,
+                rust = { 'rustfmt', lsp_format = 'fallback' },
+                sh = { 'shfmt' },
+                sql = { 'sqlfmt' },
+                toml = { 'taplo' },
+                xml = { 'xmllint' },
+                yaml = { 'yamlfmt' },
+            },
+            format_on_save = {
+                timeout_ms = 500,
+                lsp_format = 'fallback',
+            },
+        })
+    end,
+},
 {
     'gpanders/editorconfig.nvim',
     event = 'BufWinEnter',
