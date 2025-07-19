@@ -4,6 +4,7 @@ local isUnix = intToBool[vim.fn.has('unix')]
 function hasExe(exe)
     return intToBool[vim.fn.executable(exe)]
 end
+local masonPath = vim.fn.stdpath('data') .. '/mason/packages'
 -- TODO: look for local file or environment variable to toggle
 local isMinimal = false
 
@@ -352,11 +353,18 @@ local plugins = {
         -- Powershell
         if isWindows then
             lspConfig.powershell_es.setup({
-                bundle_path = vim.fn.stdpath('data') .. '/mason/packages/powershell-editor-services/',
+                bundle_path = masonPath .. '/powershell-editor-services/',
             })
         end
         -- Python
-        lspConfig.pyright.setup(defaults)
+        local pyrightCmd = { 'pyright-langserver', '--stdio' }
+        if isWindows then
+            pyrightCmd = { 'node', masonPath .. '/pyright/node_modules/pyright/langserver.index.js', '--stdio' }
+        end
+        lspConfig.pyright.setup({
+            cmd = pyrightCmd,
+            on_attach = defaults.on_attach,
+        })
         -- SQL
         lspConfig.sqlls.setup(defaults)
         -- Rust
@@ -372,7 +380,13 @@ local plugins = {
         -- Tailwind CSS
         lspConfig.tailwindcss.setup(defaults)
         -- TOML
-        lspConfig.taplo.setup(defaults)
+        local taploCmd = 'taplo'
+        if isWindows then
+            taploCmd = masonPath .. '/taplo/taplo.exe'
+        end
+        lspConfig.taplo.setup({
+            cmd = { taploCmd, "lsp", "stdio" }
+        })
         -- Typescript
         lspConfig.ts_ls.setup(defaults)
         -- Viml
