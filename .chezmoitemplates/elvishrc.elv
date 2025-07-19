@@ -87,7 +87,7 @@ fn cat {|@args|
             e:cat $@args
         } catch _ {
             for i $args {
-                var f = (os:open $i)
+                var f = (io:read $i)
                 echo $f
             }
         }
