@@ -367,7 +367,7 @@ fn aniname {|&c=$false &codec=''|
     var group = '\[([a-zA-Z0-9_ -]+)\]'
     var sep = '(?: |\.)'
     var sepl = '(?: - | |\.-\.|\.|_-_|_)'
-    var title = '([a-zA-Z0-9!\._\(\) -]+?)'
+    var title = '([a-zA-Z0-9!\.,_\(\) -]+?)'
     var ep = '(S[0-9]{2}E[0-9]{2}|(?:E|)[0-9]{2})'
     var eptitle = '(?:'$sepl'([a-zA-Z0-9!''\. -]+)|)'
     var ext = '\.(mkv|mp4)'
