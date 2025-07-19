@@ -12,7 +12,7 @@ var pubKeys = [ ]
 for pubKey $pubKeyFiles['files'] {
     set pubKeys = [
         $@pubKeys
-        (io:open (path:join $pubKeyFiles['root'] $pubKey))
+        (io:read (path:join $pubKeyFiles['root'] $pubKey))
     ]
 }
 conf:populate-authorized-keys $@pubKeys

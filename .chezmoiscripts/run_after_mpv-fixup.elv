@@ -23,7 +23,7 @@ fn rename-plugin {|dir plugin|
 fn fix-vr-reversal-resolution-scale {
     var m = (path:join $MPVDIR 'vr-reversal' '360plugin.lua')
     if (os:exists $m) {
-        var t = (io:open $m)
+        var t = (io:read $m)
         set t = (str:replace 'local res  = 1.0' 'local res  = 10.0' $t)
         printf "%s" $t > $m
     }
