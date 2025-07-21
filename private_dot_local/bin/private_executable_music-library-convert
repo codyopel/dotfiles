@@ -101,11 +101,32 @@ fn is-image-file {|file|
         '.png'
         '.tiff'
     ]
-    if (list:has [ ] (str:to-lower (path:ext $file))) {
+    if (list:has $validExtensions (str:to-lower (path:ext $file))) {
         put $true
         return
     }
     put $false
+}
+
+do-image-file {|source target filename|
+    var imgSource = $nil
+    for i [ 'jpg' 'jpeg' 'png' 'tiff' ] {
+        var img = (path:join $source $filename'.'$i)
+        if (os:exists $img) {
+            set imgSource = $img
+            break
+        }
+    }
+
+    if (eq $imgSource $nil) {
+        return
+    }
+
+    var imgTarget = (path:join $target $filename'.jpg')
+    if (not (os:exists $imgTarget)) {
+        os:makedirs $target
+        transcode-imafe-file $imgSource $imgTarget
+    }
 }
 
 fn get-dirs {|path|
@@ -116,40 +137,6 @@ fn get-files {|path|
     put (path:scandir $path)['files']
 }
 
-fn do-artist {|source target|
-    var artistImg = (path:join $source 'artist.jpg')
-    if (os:exists $artistImg) {
-        os:makedirs $target
-        os:copy $artistImg $target
-    }
-}
-
-fn do-album {|source target|
-    var albumImgSourceBase = (path:join $source 'Folder.')
-    var albumImgSource = '/non-existant-path'
-    var art = $false
-    for i [ 'jpg' 'png' 'tiff' ] {
-        if (os:exists $albumImgSourceBase$i) {
-            set art = $true
-            set albumImgSource = $albumImgSourceBase$i
-            break
-        }
-    }
-    os:makedirs $target
-    if (and $art (not (os:exists (path:join $target 'Folder.jpg')))) {
-        transcode-image-file $albumImgSource (path:join $target 'Folder.jpg')
-    }
-}
-
-fn do-track {|source target|
-    if (not (is-audio-file $source)) {
-        return
-    }
-    if (not (os:exists $target)) {
-        put [ $source $target ]
-    }
-}
-
 fn main {
     for root (get-dirs $SOURCE_PATH) {
         var rootDirSource = (path:join $SOURCE_PATH $root)
@@ -158,16 +145,19 @@ fn main {
             echo '>'$artist >&2
             var artistDirSource = (path:join $rootDirSource $artist)
             var artistDirTarget = (path:join $rootDirTarget $artist)
-            do-artist $artistDirSource $artistDirTarget
+            do-image-file $artistDirSource $artistDirTarget 'artist'
             for album (get-dirs $artistDirSource) {
                 echo '>>'$album >&2
                 var albumDirSource = (path:join $artistDirSource $album)
                 var albumDirTarget = (path:join $artistDirTarget $album)
-                do-album $albumDirSource $albumDirTarget
-                for track (get-files $albumDirSource) {
-                    do-track ^
-                        (path:join $albumDirSource $track) ^
-                        (path:join $albumDirTarget (output-filename $track))
+                do-image-file $albumDirSource $albumDirTarget 'Folder'
+               for track (get-files $albumDirSource) {
+                    if (not (is-audio-file $source)) {
+                        return
+                    }
+                    if (not (os:exists $target)) {
+                        put [ $source $target ]
+                    }
                 }
 
             }
