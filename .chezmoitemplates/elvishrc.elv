@@ -101,7 +101,7 @@ fn ls {|@a|
         e:eza '-a' $@a 2>$os:NULL
     } catch _ {
         try {
-            e:ls '--color' $@a 2>$os:NUll
+            e:ls '--color' $@a 2>$os:NULL
         } catch _ {
             try {
                 e:ls '-G' $@a 2>$os:NULL
