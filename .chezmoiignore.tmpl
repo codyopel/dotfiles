@@ -20,7 +20,8 @@ Library/
 .screenrc
 .vimrc
 .xprofile
-{{ if .headless }}
+{{ end }}
+{{ if (or (not .isLinux) .headless) }}
 .config/alacritty/
 .config/alsa/
 .config/beets/
@@ -36,7 +37,6 @@ Library/
 .config/pipewire/
 .config/stalonetrayrc
 .mozilla/
-{{ end }}
 {{ end }}
 
 {{ if not .isWindows }}
