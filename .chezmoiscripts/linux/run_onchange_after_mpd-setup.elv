@@ -6,7 +6,7 @@ use github.com/chlorm/elvish-stl/platform
 use github.com/chlorm/elvish-xdg/xdg-dirs
 
 
-if (or (not $platform:is-unix) (not (has-external 'mpd')) {
+if (or (not $platform:is-unix) (not (has-external 'mpd'))) {
     echo 'mpd-setup.elv: Nothing to do' >&2
     exit
 }
