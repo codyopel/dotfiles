@@ -1,8 +1,16 @@
-#!/bin/sh
+#!/usr/bin/env elvish
+# vim: ft=elvish
 
-set -e
 
-cargo install alacritty \
-    --git https://github.com/alacritty/alacritty \
-    --no-default-features \
-    --features=wayland
+use github.com/chlorm/elvish-stl/platform
+
+
+var a = [ ]
+if $platform:is-linux {
+    set a = [ '--features=wayland' ]
+}
+
+e:cargo install alacritty ^
+    --git 'https://github.com/alacritty/alacritty' ^
+    --no-default-features ^
+    $@a

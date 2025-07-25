@@ -1,23 +1,20 @@
-#!/usr/bin/env bash
+#!/usr/bin/env elvish
+# vim: ft=elvish
 
-set -e
 
-if ! type fusermount >/dev/null 2>&1; then
-  echo 'fuse is not install, attempting installation' >&2
-  if type dnf >/dev/null 2>&1; then
-    sudo dnf -y install fuse
-  elif type yum >/dev/null 2>&1; then
-    sudo yum -y install fuse
-  elif type apt >/dev/null 2>&1; then
-    sudo apt install fuse
-  elif type apt-get >/dev/null 2>&1; then
-    sudo apt-get install fuse
-  else
-    echo 'no method to install fuse' >&2
-    exit 1
-  fi
-fi
+use pkg
+use github.com/chlorm/elvish-stl/platform
+use github.com/chlorm/elvish-util-wrappers/su
 
-go install -v github.com/rclone/rclone@master
-sudo install -D -m 0755 -v "$HOME"/go/bin/rclone /usr/local/bin/rclone
-rclone --version
+
+if (and $platform:is-unix (not (has-external fusermount))) {
+    echo 'fuse is not install, attempting installation' >&2
+    pkg:install 'fuse'
+}
+
+e:go install -v github.com/rclone/rclone@master
+
+if $platform:is-unix {
+    su:do install -D -m 0755 -v "$HOME"/go/bin/rclone /usr/local/bin/rclone
+    rclone --version
+}

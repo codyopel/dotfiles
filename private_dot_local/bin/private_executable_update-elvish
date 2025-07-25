@@ -1,7 +1,13 @@
-#!/bin/sh
+#!/usr/bin/env elvish
+# vim: ft=elvish
 
-set -e
 
-go install -v src.elv.sh/cmd/elvish@master
+use github.com/chlorm/elvish-stl/platform
+use github.com/chlorm/elvish-util-wrappers/su
 
-sudo install -D -m 755 -v "$HOME"/go/bin/elvish /usr/local/bin/elvish
+
+e:go install -v src.elv.sh/cmd/elvish@master
+
+if $platform:is-unix {
+    su:do install -D -m 755 -v $E:HOME'/go/bin/elvish' '/usr/local/bin/elvish'
+}

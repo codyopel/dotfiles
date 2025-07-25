@@ -1,13 +1,19 @@
-#!/bin/sh
+#!/usr/bin/env elvish
+# vim: ft=elvish
 
-set -e
 
-go install -v github.com/google/go-jsonnet/cmd/jsonnet@latest
-go install -v github.com/google/go-jsonnet/cmd/jsonnetfmt@latest
-go install -v github.com/google/go-jsonnet/cmd/jsonnet-lint@latest
-go install -v github.com/jsonnet-bundler/jsonnet-bundler/cmd/jb@latest
+use github.com/chlorm/elvish-stl/platform
+use github.com/chlorm/elvish-util-wrappers/su
 
-sudo install -D -m 755 -v "$HOME"/go/bin/jsonnet /usr/local/bin/jsonnet
-sudo install -D -m 755 -v "$HOME"/go/bin/jsonnetfmt /usr/local/bin/jsonnetfmt
-sudo install -D -m 755 -v "$HOME"/go/bin/jsonnet-lint /usr/local/bin/jsonnet-lint
-sudo install -D -m 755 -v "$HOME"/go/bin/jb /usr/local/bin/jb
+
+e:go install -v github.com/google/go-jsonnet/cmd/jsonnet@latest
+e:go install -v github.com/google/go-jsonnet/cmd/jsonnetfmt@latest
+e:go install -v github.com/google/go-jsonnet/cmd/jsonnet-lint@latest
+e:go install -v github.com/jsonnet-bundler/jsonnet-bundler/cmd/jb@latest
+
+if $platform:is-unix {
+    su:do install -D -m 755 -v $E:HOME'/go/bin/jsonnet /usr/local/bin/jsonnet'
+    su:do install -D -m 755 -v $E:HOME'/go/bin/jsonnetfmt /usr/local/bin/jsonnetfmt'
+    su:do install -D -m 755 -v $E:HOME'/go/bin/jsonnet-lint /usr/local/bin/jsonnet-lint'
+    su:do install -D -m 755 -v $E:HOME'/go/bin/jb /usr/local/bin/jb'
+}
