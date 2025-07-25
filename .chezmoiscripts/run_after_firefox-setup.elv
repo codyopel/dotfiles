@@ -7,6 +7,12 @@ use github.com/chlorm/elvish-util-wrappers/firefox
 
 
 var FIREFOX-DIR = (firefox:get-dir)
+
+if (not (os:exists $FIREFOX-DIR)) {
+    echo 'firefox-setup.elv: Nothing to do' >&2
+    exit
+}
+
 var PROFILE-DIRS = (firefox:get-profile-dirs)
 
 fn user-chrome {

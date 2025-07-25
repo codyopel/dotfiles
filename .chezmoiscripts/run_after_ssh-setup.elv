@@ -16,4 +16,8 @@ for pubKey $pubKeyFiles['files'] {
     ]
 }
 conf:populate-authorized-keys $@pubKeys
-conf:set-permissions
+try {
+    conf:set-permissions
+} catch e {
+    echo $e >&2
+}

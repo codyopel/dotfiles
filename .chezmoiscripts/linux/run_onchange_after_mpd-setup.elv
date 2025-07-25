@@ -2,8 +2,14 @@
 
 
 use github.com/chlorm/elvish-stl/os
+use github.com/chlorm/elvish-stl/platform
 use github.com/chlorm/elvish-xdg/xdg-dirs
 
+
+if (or (not $platform:is-unix) (not (has-external 'mpd')) {
+    echo 'mpd-setup.elv: Nothing to do' >&2
+    exit
+}
 
 var cache = (xdg-dirs:cache-home)'/mpd'
 os:makedirs $cache
@@ -22,4 +28,6 @@ os:makedirs $state
 os:chmod 700 $state
 os:touch $state'/database'
 
-e:systemctl --user enable mpd.socket
+if (and $platform:is-linux (has-external 'systemctl')) {
+    e:systemctl --user enable mpd.socket
+}

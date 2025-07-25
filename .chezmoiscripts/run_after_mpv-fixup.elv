@@ -29,6 +29,11 @@ fn fix-vr-reversal-resolution-scale {
     }
 }
 
+if (not (os:exists $MPVDIR)) {
+    echo 'mpv-fixup.elv: Nothing to do' >&2
+    exit
+}
+
 rename-plugin 'delete-current-file' 'delete_current_file'
 rename-plugin 'sub-select' 'sub-select'
 rename-plugin 'thumbfast' 'thumbfast'

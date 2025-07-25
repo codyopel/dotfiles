@@ -50,6 +50,11 @@ var settings = [
     ]
 ]
 
+if (not (has-external 'dconf')) {
+    echo 'gnome-setup.elv: Nothing to do' >&2
+    exit
+}
+
 for schema [ (keys $settings) ] {
     for key [ (keys $settings[$schema]) ] {
         var value = $settings[$schema][$key]
