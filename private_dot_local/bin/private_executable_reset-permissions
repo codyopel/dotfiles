@@ -1,4 +1,5 @@
 #!/usr/bin/env elvish
+# vim: ft=elvish
 
 
 use github.com/chlorm/elvish-stl/os

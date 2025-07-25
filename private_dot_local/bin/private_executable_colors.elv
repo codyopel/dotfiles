@@ -1,4 +1,5 @@
 #!/usr/bin/env elvish
+# vim: ft=elvish
 
 for i [ (range 0 16) ] {
     var x = $i

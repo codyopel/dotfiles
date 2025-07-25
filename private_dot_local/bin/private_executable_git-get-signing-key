@@ -1,5 +1,5 @@
 #!/usr/bin/env elvish
-# vim: set ft=elvish:
+# vim: ft=elvish
 
 use re
 
