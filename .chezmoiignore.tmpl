@@ -15,11 +15,9 @@ Library/
 .var/
 
 .dir_colors
-.mozilla/
 .nixpkgs/
 .screenrc
 .vimrc
-.xprofile
 {{ end }}
 {{ if (or (not .isLinux) .headless) }}
 .config/alacritty/
@@ -28,7 +26,6 @@ Library/
 .config/fontconfig/
 .config/environment.d/10-gtk-overlay-scrollbars.conf
 .config/gtk-3.0/
-.config/JPEGView/
 .config/kitty/
 .config/mpd/
 .config/mpDris2/
@@ -36,7 +33,12 @@ Library/
 .config/ncmpcpp/
 .config/pipewire/
 .config/stalonetrayrc
+.config/wallpaper/
+.config/wezterm/
+.local/share/applications/
 .mozilla/
+.var/app/
+.xprofile
 {{ end }}
 
 {{ if not .isWindows }}
