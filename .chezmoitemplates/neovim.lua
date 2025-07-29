@@ -4,6 +4,14 @@ local isUnix = intToBool[vim.fn.has('unix')]
 local function hasExe(exe)
     return intToBool[vim.fn.executable(exe)]
 end
+-- cmd is a table (e.g. {cmd, args, ...})
+local function cmdSuccess(cmd)
+    local e = vim.system(cmd):wait()
+    if e.code <= 0 then
+        return true
+    end
+    return false
+end
 local masonPath = vim.fn.stdpath('data') .. '/mason/packages'
 -- TODO: look for local file or environment variable to toggle
 local isMinimal = false
@@ -156,10 +164,6 @@ local plugins = {
             'jdtls',
             -- Lua
             'lua-language-server',
-            -- Python
-            'black',
-            'isort',
-            'yapf',
             -- Rust
             'rust-analyzer',
             -- Saltstack
@@ -220,9 +224,13 @@ local plugins = {
             inst('yaml-language-server')
         end
 
-        if hasExe('python') then
+        if hasExe('python') and cmdSuccess({ 'python', '-m', 'pip', '--version' }) then
             -- CMake
             inst('cmake-language-server')
+            -- Python
+            inst('black')
+            inst('isort')
+            inst('yapf')
             -- XML
             inst('xmlformatter')
         end
