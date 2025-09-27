@@ -38,10 +38,7 @@ fn transcode-audio-file {|input output|
         # Strip replaygain side data using volume filter
         '-filter_complex' '[0:a:0]volume=replaygain=drop'(if $ebur128Enable { put '[srg];[srg]'$ebur128 })'[out]'
         '-map' '[out]'
-        '-resampler' 'soxr'
-        '-dither_method' 'triangular'
-        '-precision' 33
-        '-cheby' 1
+        (ffmpeg:default-resampler-flags)
         '-map_metadata' 0
         # Strip replaygain metadata
         '-metadata' 'REPLAYGAIN_ALBUM_GAIN='

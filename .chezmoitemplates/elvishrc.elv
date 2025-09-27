@@ -363,19 +363,6 @@ fn strip-all {
     renameall '^2' '' &c
 }
 
-fn aniname {|&c=$false &codec=''|
-    var group = '\[([a-zA-Z0-9_ -]+)\]'
-    var sep = '(?: |\.)'
-    var sepl = '(?: - | |\.-\.|\.|_-_|_)'
-    var title = '([a-zA-Z0-9!\.,_\(\) -]+?)'
-    var ep = '(S[0-9]{2}E[0-9]{2}|(?:E|)[0-9]{2})'
-    var eptitle = '(?:'$sepl'([a-zA-Z0-9!''\. -]+)|)'
-    var ext = '\.(mkv|mp4)'
-    renameall &c=$c ^
-        '^'$group$sep$title$sepl$ep$eptitle$sep'.*'$ext'$' ^
-        '$2.$3.$4.'$codec'mediainfo-$1.$5'
-}
-
 fn mpvc {|v1 v2|
     e:mpv --lavfi-complex="[vid1][vid2]hstack[vo];[aid1][aid2]amix[ao]" $v1 --external-file=$v2
 }

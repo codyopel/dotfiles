@@ -2,15 +2,19 @@
 
 set -e
 
-if ! type go >/dev/null 2>&1; then
+has-bin() {
+    type $1 >/dev/null 2>&1
+}
+
+if ! has-bin go; then
   echo 'golang is not install, attempting installation' >&2
-  if type dnf >/dev/null 2>&1; then
+  if has-bin dnf; then
     sudo dnf -y install golang
-  elif type yum >/dev/null 2>&1; then
+  elif has-bin yum; then
     sudo yum -y install golang
-  elif type apt >/dev/null 2>&1; then
+  elif has-bin apt; then
     sudo apt install go
-  elif type apt-get >/dev/null 2>&1; then
+  elif has-bin apt-get; then
     sudo apt-get install go
   else
     echo 'no method to install golang' >&2
@@ -18,15 +22,15 @@ if ! type go >/dev/null 2>&1; then
   fi
 fi
 
-if ! type git >/dev/null 2>&1; then
+if ! has-bin git; then
   echo 'git is not install, attempting installation' >&2
-  if type dnf >/dev/null 2>&1; then
+  if has-bin dnf; then
     sudo dnf -y install git
-  elif type yum >/dev/null 2>&1; then
+  elif has-bin yum; then
     sudo yum -y install git
-  elif type apt >/dev/null 2>&1; then
+  elif has-bin apt; then
     sudo apt install git
-  elif type apt-get >/dev/null 2>&1; then
+  elif has-bin apt-get; then
     sudo apt-get install git
   else
     echo 'no method to install git' >&2
