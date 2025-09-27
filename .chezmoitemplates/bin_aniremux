@@ -1,0 +1,169 @@
+#!/usr/bin/env elvish
+# vim: ft=elvish:
+
+use github.com/chlorm/elvish-util-wrappers/ffmpeg
+use github.com/chlorm/elvish-stl/list
+use github.com/chlorm/elvish-stl/re
+use github.com/chlorm/elvish-stl/str
+
+
+var -TAGS = 'tags'
+var -ENG = 'eng'
+var -INDEX = 'index'
+var -TITLE = 'title'
+
+
+fn has-title-dialog {|stream string|
+    var r = '.*(dialog|english subtitles|english|full(?:(?: |)(?:subtitles|subs|)|)).*'
+    var b = (re:match $r (str:to-lower $string))
+    if (not $b) {
+        if (== $stream['disposition']['default'] 1) {
+            set b = (re:match 'english' (str:to-lower $string))
+        }
+    }
+    put $b
+}
+
+fn has-title-signs {|stream string|
+    var space = '(?: |)'
+    var sep = $space'(?:/|and|&|\\|\+)'$space
+    var suro = '(?:\[|\(|)'
+    var surc = '(?:\]|\)|)'
+    var r = '.*(signs'$sep'songs|titles'$sep'signs|forced|'$suro'signs'$surc').*'
+    re:match $r (str:to-lower $string)
+}
+
+fn get-subtitle-stream-dialogue-eng {|streams|
+    ffmpeg:get-subtitle-stream-with-lang-and-title $streams $-ENG $has-title-dialog~
+}
+
+fn get-subtitle-stream-signs-eng {|streams|
+    ffmpeg:get-subtitle-stream-with-lang-and-title $streams $-ENG $has-title-signs~
+}
+
+fn parse-subtitle-group {|string|
+    var contents = '([0-9a-zA-Z_ -]+)'
+    var regex = '(?:\['$contents'\]|\('$contents'\))'
+    if (re:match $regex $string) {
+        re:find $regex $string
+        return
+    }
+    fail
+}
+
+fn remux {|file|
+    var p = (ffmpeg:probe $file)['streams']
+
+    var subtitle-eng-dialog = (get-subtitle-stream-dialogue-eng $p)
+    var subtitle-eng-dialog-group = $nil
+    try {
+        set subtitle-eng-dialog-group = (parse-subtitle-group $subtitle-eng-dialog $subtitle-eng-dialog[$-TAGS][$-TITLE] )
+    } catch _ { }
+
+    var subtitle-eng-signs = $nil
+    if (> (count (ffmpeg:get-subtitle-streams-eng $p)) 1) {
+        set subtitle-eng-signs = (get-subtitle-stream-signs-eng $p)
+    }
+    var subtitle-eng-signs-group = $nil
+    try {
+        set subtitle-eng-signs-group = (parse-subtitle-group $subtitle-eng-signs[$-TAGS][$-TITLE])
+    } catch _ { }
+
+    var hasEngAudio = $true
+    try {
+        put (ffmpeg:get-audio-streams-eng $p)[0]
+    } catch e {
+        set hasEngAudio = $false
+        echo $e >&2
+    }
+
+    var ffargs = [
+        '-fflags' '+genpts'
+        '-i' $file
+        '-map' '0:v:0'
+        '-map' '0:'(ffmpeg:get-audio-streams-jpn $p)[0][$-INDEX]
+    ]
+
+    if $hasEngAudio {
+        set ffargs = [
+            $@ffargs
+            '-map' '0:'(ffmpeg:get-audio-streams-eng $p)[0][$-INDEX]
+        ]
+    }
+    if (not (eq $subtitle-eng-signs $nil)) {
+        set ffargs = [
+            $@ffargs
+            '-map' '0:'$subtitle-eng-signs[$-INDEX]
+        ]
+    }
+    set ffargs = [
+        $@ffargs
+        '-map' '0:'$subtitle-eng-dialog[$-INDEX]
+    ]
+    if (ffmpeg:has-attachments $p) {
+        set ffargs = [
+            $@ffargs
+            '-map' '0:t'
+        ]
+    }
+    set ffargs = [
+        $@ffargs
+        '-c' 'copy'
+        '-disposition:a:0' '+default-forced'
+        '-metadata:s:a:0' 'title=Japanese'
+        '-metadata:s:a:0' 'language=jpn'
+    ]
+    if $hasEngAudio {
+        set ffargs = [
+            $@ffargs
+            '-disposition:a:1' '-default-forced'
+            '-metadata:s:a:1' 'title=English'
+            '-metadata:s:a:1' 'language=eng'
+        ]
+    }
+    if (not (eq $subtitle-eng-signs $nil)) {
+        set ffargs = [
+            $@ffargs
+            '-disposition:s:0' '-default+forced'
+            '-disposition:s:1' '+default-forced'
+            '-metadata:s:s:0' 'title=Signs & Songs'
+            '-metadata:s:s:0' 'language=eng'
+            '-metadata:s:s:1' 'title=Dialogue'
+            '-metadata:s:s:1' 'language=eng'
+        ]
+    } else {
+        set ffargs = [
+            $@ffargs
+            '-disposition:s:0' '+default-forced'
+            '-metadata:s:s:0' 'title=Dialogue'
+            '-metadata:s:s:0' 'language=eng'
+        ]
+    }
+    if (not (eq $subtitle-eng-dialog-group $nil)) {
+        set ffargs = [
+            $@ffargs
+            '-metadata:s:s:1' 'source='$subtitle-eng-dialog-group
+        ]
+    }
+    if (not (eq $subtitle-eng-signs-group $nil)) {
+        set ffargs = [
+            $@ffargs
+            '-metadata:s:s:0' 'source='$subtitle-eng-signs-group
+        ]
+    }
+    set ffargs = [
+        $@ffargs
+        (ffmpeg:default-mkv-flags)
+        '2'$file
+    ]
+
+    e:ffmpeg $@ffargs
+}
+
+fn main {
+    for v [ (put *'.mkv') ] {
+        remux $v
+    }
+}
+
+main
