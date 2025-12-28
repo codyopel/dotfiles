@@ -14,7 +14,7 @@ var -TITLE = 'title'
 
 
 fn has-title-dialog {|stream string|
-    var r = '.*(dialog|english subtitles|english|full(?:(?: |)(?:subtitles|subs|)|)).*'
+    var r = '.*(dialog|english subtitles|english|(?:full(?:(?: |)|)(?:subtitles|subs|)|)).*'
     var b = (re:match $r (str:to-lower $string))
     if (not $b) {
         if (== $stream['disposition']['default'] 1) {
