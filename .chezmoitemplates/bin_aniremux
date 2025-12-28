@@ -79,6 +79,7 @@ fn remux {|file|
 
     var ffargs = [
         '-fflags' '+genpts'
+        '-fix_sub_duration'
         '-i' $file
         '-map' '0:v:0'
         '-map' '0:'(ffmpeg:get-audio-streams-jpn $p)[0][$-INDEX]
