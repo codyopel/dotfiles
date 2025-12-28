@@ -105,7 +105,7 @@ fn is-image-file {|file|
     put $false
 }
 
-do-image-file {|source target filename|
+fn do-image-file {|source target filename|
     var imgSource = $nil
     for i [ 'jpg' 'jpeg' 'png' 'tiff' ] {
         var img = (path:join $source $filename'.'$i)
@@ -122,7 +122,7 @@ do-image-file {|source target filename|
     var imgTarget = (path:join $target $filename'.jpg')
     if (not (os:exists $imgTarget)) {
         os:makedirs $target
-        transcode-imafe-file $imgSource $imgTarget
+        transcode-image-file $imgSource $imgTarget
     }
 }
 
