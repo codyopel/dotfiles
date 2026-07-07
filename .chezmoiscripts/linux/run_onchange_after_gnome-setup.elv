@@ -34,6 +34,9 @@ var settings = [
             'trayIconsReloaded@selfmade.pl'
         ]"
     ]
+    &/org/gnome/shell/extensions/coverflowalttab=[
+        &start-with-next="true"
+    ]
     &/org/gnome/shell/extensions/dash-to-panel=[
         &dot-postion="'BOTTOM'"
         &dot-style-focused="'METRO'"
