@@ -13,6 +13,9 @@ var settings = [
     &/org/gnome/desktop/peripherals/touchpad=[
         &natural-scroll="false"
     ]
+    &/org/gnome/desktop/wm/keybindings=[
+        &switch-windows="['<Alt>Tab']"
+    ]
     &/org/gnome/file-roller/general=[
         &compression-level="'maximum'"
     ]
