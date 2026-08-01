@@ -358,9 +358,242 @@ fn jdremux {
     rename '(.*) \([0-9]+p_[0-9]+fps_(?:H264|VP9)-[0-9]+kbit_[A-Z]+\)(.mp4)$' '$1$2' $v &c
 }
 
+fn find-high-bitrate {
+    var p = (path:join (path:absolute .) '1500p')
+    for i [ (put *) ] {
+        var ext = (path:ext $i)
+        if (not (list:has [ '.mkv' '.mp4' '.ts' ] $ext)) {
+            continue
+        }
+
+        try {
+            var b = (e:ffprobe -v quiet -print_format json -show_format $i | from-json)['format']['bit_rate']
+            if (> (/ $b 1000) 2000) {
+                if (not (os:exists $p)) {
+                    os:makedir $p
+                }
+                os:move $i $p
+            }
+        } catch _ {
+            echo "failed: "$i >&2
+        }
+    }
+}
+
 fn strip-all {
     ffmpeg:fix-all
     renameall '^2' '' &c
+}
+
+
+fn annexb {|file|
+    var codec = (
+        e:ffprobe ^
+            '-v' 'error' ^
+            '-select_streams' 'v:0' ^
+            '-show_entries' 'stream=codec_name' ^
+            '-of' 'default=noprint_wrappers=1:nokey=1' ^
+            $file
+    )
+
+    # Exit early if it's not a codec that uses Annex B standard
+    if (not (list:has [ 'h264' 'hevc' ] $codec)) {
+        put $false
+        return
+    }
+
+    # Extract the configuration flag or data pointer from the codec extradata
+    # AVCC/HVCC streams will output a structural data representation here.
+    # Pure Annex B streams will output nothing (blank string).
+    var annexbCheck = ''
+    try {
+        var annexbCheck = (
+            ffprobe ^
+                '-v' 'error' ^
+                '-select_streams' 'v:0' ^
+                '-show_entries' 'stream=extradata' ^
+                '-of' 'default=noprint_wrappers=1:nokey=1' ^
+                $file
+        )
+    } catch _ {
+        put $true
+        return
+    }
+
+    put $false
+}
+
+fn jpg {|input|
+    var ext = (path:ext $input)
+    e:magick ^
+        $input ^
+        '-sampling-factor' '4:4:4' ^
+        '-colorspace' 'sRGB' ^
+        '-define' 'jpeg:dct-method=float' ^
+        (re:replace $ext'$' '.jpg' $input)
+}
+
+fn png {|input|
+    var ext = (path:ext $input)
+    e:magick ^
+        $input ^
+        '-define' 'png:compression-filter=2' ^
+        '-define' 'png:compression-level=9' ^
+        '-define' 'png:compression-strategy=2' ^
+        (re:replace $ext'$' '.png' $input)
+}
+
+fn jxl-info {|file|
+    var info = [ (e:jxlinfo $file) ]
+    put $info
+}
+
+fn jxl-islossless {|info|
+    var lossless = $false
+    for i $info {
+        if (re:match '\(possibly\) lossless' $i) {
+            set lossless = $true
+            break
+        }
+    }
+    put $lossless
+}
+
+fn jxl-isjpeg {|info|
+    list:has $info 'JPEG bitstream reconstruction data available'
+}
+
+fn isjpeg {|file|
+    var ext = (path:ext $file)
+    list:has [ '.jpg' '.jpeg' ] (str:to-lower $ext)
+}
+
+fn jxl-output {|file|
+    var ext = (path:ext $file)
+    var out = (re:replace $ext'$' '.jxl' $file)
+    put $out
+}
+
+fn jxl-encode {|input output &lossless=$true|
+    var distance = [ '--distance=0' ]
+    if (and (not $lossless) (not (isjpeg $input))) {
+        set distance = [ '--distance=1.45' ]
+    }
+    e:cjxl ^
+        '--quiet' ^
+        '--lossless_jpeg=1' ^
+        '--effort=10' ^
+        '--brotli_effort=11' ^
+        '--iterations=100' ^
+        '--modular_group_size=3' ^
+        '--modular_nb_prev_channels=11' ^
+        '--modular_predictor=15' ^
+        $@distance ^
+        -- $input $output
+}
+
+fn jxl {|input &lossless=$true|
+    var ext = (path:ext $input)
+    var output = (jxl-output $input)
+    var new = $output'.new'
+    var old = $input'.old'
+    var inSize = (os:stat $input)['size']
+    var outSize = 0
+    if (os:exists $new) {
+        os:remove $new
+    }
+    try {
+        echo $input' -> '$output >&2
+        jxl-encode ^
+            &lossless=$lossless ^
+            $input $new
+    } catch e {
+        if (os:exists $new) {
+            os:remove $new
+        }
+        fail $e
+    } else {
+        set outSize = (os:stat $new)['size']
+        if (> $outSize $inSize) {
+            echo 'output larger than input, skipping' >&2
+            os:remove $new
+            return
+        }
+        try {
+            os:move $input $old
+            os:move $new $output
+            os:remove $old
+        } catch e {
+            if (os:exists $old) {
+                os:move $old $input
+            }
+            if (os:exists $new) {
+                os:remove $new
+            }
+            fail $e
+        }
+        echo 'savings: '(- $inSize $outSize) >&2
+    }
+}
+
+fn jxlall {|&reencode=$false &lossless=$true|
+    var files = [
+        (put *[nomatch-ok].jpg)
+        (put *[nomatch-ok].JPG)
+        (put *[nomatch-ok].jpeg)
+        (put *[nomatch-ok].JPEG)
+        (put *[nomatch-ok].jif)
+        (put *[nomatch-ok].JIF)
+        (put *[nomatch-ok].jfif)
+        (put *[nomatch-ok].JFIF)
+        (put *[nomatch-ok].png)
+        (put *[nomatch-ok].PNG)
+    ]
+    if $reencode {
+        set files = [ $@files (put *[nomatch-ok].jxl) ]
+    }
+    put $@files | peach &num-workers=16 {|i|
+        var ext = (path:ext $i)
+        var lext = (str:to-lower $ext)
+        if (and $reencode (==s $lext '.jxl')) {
+            var info = (jxl-info $i)
+            if (jxl-isjpeg $info) {
+                echo 'skipping lossy jpeg: '$i >&2
+                continue
+            }
+            if (not (jxl-islossless $info)) {
+                echo 'skipping lossy jxl: '$i >&2
+                continue
+            }
+        }
+
+        var errors = []
+        try {
+            jxl &lossless=$lossless $i
+        } catch e {
+            set errors = [ $@errors $e ]
+        }
+
+        for i $errors {
+            echo $e >&2
+        }
+    }
+}
+
+fn djxlall {
+    for i [ (put *.jxl) ] {
+        var info = (jxl-info $i)
+        if (jxl-isjpeg $info) {
+            e:djxl $i (re:replace '\.jxl$' '.jpg' $i)
+        }
+    }
+}
+
+fn fuckwebp {
+    for i [ (put *.webp) ] {
+        png $i
+        os:remove $i
+   }
 }
 
 fn mpvc {|v1 v2|
