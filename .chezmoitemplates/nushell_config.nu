@@ -68,20 +68,24 @@ def --wrapped vim [...args: string] {
 }
 alias vi = vim
 
-def rename [regex: string, repl: string, filename: string, -c] {
+def rename [regex: string, repl: string, filename: string, --apply(-a)] {
     let newfilename: string = echo $filename | str replace -r $regex $repl
     if $filename == $newfilename {
         return
     }
     print -e $"($filename) -> ($newfilename)"
-    if $c {
+    if $apply {
         mv $filename $newfilename
     }
 }
 
-def renameall [regex: string, repl: string, -c] {
+def renameall [regex: string, repl: string, --apply(-a)] {
     for i in (glob --no-dir --no-symlink *) {
-        rename $regex $repl $i -c
+        if $apply {
+            rename $regex $repl $i --apply
+        } else {
+            rename $regex $repl $i
+        }
     }
 }
 
