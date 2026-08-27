@@ -80,7 +80,7 @@ def rename [regex: string, repl: string, filename: string, --apply(-a)] {
 }
 
 def renameall [regex: string, repl: string, --apply(-a)] {
-    for i in (glob --no-dir --no-symlink *) {
+    for i in (glob --no-symlink *) {
         if $apply {
             rename $regex $repl $i --apply
         } else {
