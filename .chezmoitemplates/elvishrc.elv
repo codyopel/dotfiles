@@ -655,7 +655,7 @@ fn vmaf3 {|reference encode|
         '-f' 'null' '-'
 }
 
-{{ if .isWindows }}
+{{ if .os.isWindows }}
 
 # TODO: -r
 fn cp {|@args|

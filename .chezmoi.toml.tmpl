@@ -32,7 +32,8 @@
     email = {{ $email | quote }}
     headless = {{ $headless }}
     hostname = {{ $hostname | quote }}
-    # Helper functions
+
+[data.os]
     isLinux = {{ $isLinux }}
     isMacos = {{ $isMacos }}
     isWindows = {{ $isWindows }}

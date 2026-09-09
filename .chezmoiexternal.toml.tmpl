@@ -1,7 +1,7 @@
 # Firefox
 #{{- if not .headless -}}
 #{{- $mozillaDir := ".mozilla/" -}}
-#{{- if .isWindows -}}
+#{{- if .os.isWindows -}}
 #{{-     $mozillaDir = "AppData/Roaming/Mozilla/" -}}
 #{{- end -}}
 #["{{ $mozillaDir }}/firefox/arkenfox/"]
@@ -14,9 +14,9 @@
 # Fonts
 {{- if not .headless -}}
 {{- $fontDir := ".local/share/fonts/" -}}
-{{- if .isMacos -}}
+{{- if .os.isMacos -}}
 {{-     $fontDir = "Library/Fonts/" -}}
-{{- else if .isWindows -}}
+{{- else if .os.isWindows -}}
 {{-     $fontDir = "AppData/Local/Microsoft/Windows/Fonts/" -}}
 {{- end -}}
 # NerdFonts
@@ -32,7 +32,7 @@
 # MPV
 {{- if not .headless -}}
 {{- $mpvDir := ".config/mpv/" -}}
-{{- if .isWindows -}}
+{{- if .os.isWindows -}}
 {{-     $mpvDir = "AppData/Roaming/mpv" -}}
 {{- end -}}
 # MPV - UOSC
@@ -61,7 +61,7 @@
     stripComponents = 1
     include = [
         "*/360plugin.lua",
-        {{- if eq .chezmoi.os "windows" -}}
+        {{- if .os.isWindows -}}
         "*/vr-reversal.bat",
         {{- end -}}
     ]

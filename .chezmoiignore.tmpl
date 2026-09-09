@@ -3,12 +3,12 @@ README.md
 bootstrap.ps1
 bootstrap.sh
 
-{{ if not .isMacos }}
+{{ if not .os.isMacos }}
 .chezmoiscripts/darwin/**
 Library/
 {{ end }}
 
-{{ if not .isLinux }}
+{{ if not .os.isLinux }}
 .chezmoiscripts/linux/**
 .config/
 .local/
@@ -19,7 +19,7 @@ Library/
 .screenrc
 .vimrc
 {{ end }}
-{{ if (or (not .isLinux) .headless) }}
+{{ if (or (not .os.isLinux) .headless) }}
 .config/alacritty/
 .config/alsa/
 .config/beets/
@@ -45,7 +45,7 @@ Library/
 .xprofile
 {{ end }}
 
-{{ if not .isWindows }}
+{{ if not .os.isWindows }}
 .chezmoiscripts/windows/**
 AppData/
 Documents/
