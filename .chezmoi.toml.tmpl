@@ -25,6 +25,22 @@
 {{-     $headless = false -}}
 {{- end -}}
 
+{{- $cpuCores := 1 }}
+{{- $cpuThreads := 1 }}
+{{- if eq .chezmoi.os "darwin" }}
+{{-   $cpuCores = (output "sysctl" "-n" "hw.physicalcpu_max") | trim | atoi }}
+{{-   $cpuThreads = (output "sysctl" "-n" "hw.logicalcpu_max") | trim | atoi }}
+{{- else if eq .chezmoi.os "linux" }}
+{{-   $cpuCoresPerSocket = (output "sh" "-c" "cat /sys/devices/system/cpu/cpu*/topology/core_id | sort -u | wc -l") | trim | atoi }}
+{{-   $cpuThreadsPerCore = (output "sh" "-c" "cat /sys/devices/system/cpu/cpu0/topology/thread_siblings_list | tr ',' '\n' | wc -l") | trim | atoi }}
+{{-   $cpuSockets = (output "sh" "-c" "cat /sys/devices/system/cpu/cpu*/topology/physical_package_id | sort -u | wc -l") | trim | atoi }}
+{{-   $cpuCores = mul $cpuCoresPerSocket $cpuSockets }}
+{{-   $cpuThreads = mul $cpuCores $cpuThreadsPerCore }}
+{{- else if eq .chezmoi.os "windows" }}
+{{-   $cpuCores = (output "pwsh.exe" "-NoProfile" "-NonInteractive" "-Command" "(Get-CimInstance -ClassName 'Win32_Processor').NumberOfCores") | trim | atoi }}
+{{-   $cpuThreads = (output "pwsh.exe" "-NoProfile" "-NonInteractive" "-Command" "(Get-CimInstance -ClassName 'Win32_Processor').NumberOfLogicalProcessors") | trim | atoi }}
+{{- end }}
+
 [cd]
     command = 'elvish'
 
@@ -38,6 +54,10 @@
     isMacos = {{ $isMacos }}
     isWindows = {{ $isWindows }}
     isUnix = {{ $isUnix }}
+
+[data.cpu]
+    cores = {{ $cpuCores }}
+    threads = {{ $cpuThreads }}
 
 [github]
     refreshPeriod = "12h"
