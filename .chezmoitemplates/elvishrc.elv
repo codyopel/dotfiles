@@ -423,24 +423,36 @@ fn annexb {|file|
     put $false
 }
 
+fn preserve-metadata-time {|original new|
+    e:exiftool ^
+        '-TagsFromFile' $original ^
+        '-FileCreateDate' ^
+        '-FileModifyDate' ^
+        $new
+}
+
 fn jpg {|input|
     var ext = (path:ext $input)
+    var output = (re:replace $ext'$' '.jpg' $input)
     e:magick ^
         $input ^
         '-sampling-factor' '4:4:4' ^
         '-colorspace' 'sRGB' ^
         '-define' 'jpeg:dct-method=float' ^
-        (re:replace $ext'$' '.jpg' $input)
+        $output
+    preserve-metadata-time $input $output
 }
 
 fn png {|input|
     var ext = (path:ext $input)
+    var output = (re:replace $ext'$' '.png' $input)
     e:magick ^
         $input ^
         '-define' 'png:compression-filter=2' ^
         '-define' 'png:compression-level=9' ^
         '-define' 'png:compression-strategy=2' ^
-        (re:replace $ext'$' '.png' $input)
+        $output
+    preserve-metadata-time $input $output
 }
 
 fn jxl-info {|file|
@@ -490,6 +502,7 @@ fn jxl-encode {|input output &lossless=$true|
         '--modular_predictor=15' ^
         $@distance ^
         -- $input $output
+    preserve-metadata-time $input $output
 }
 
 fn jxl {|input &lossless=$true|
@@ -584,7 +597,9 @@ fn djxlall {
     for i [ (put *.jxl) ] {
         var info = (jxl-info $i)
         if (jxl-isjpeg $info) {
-            e:djxl $i (re:replace '\.jxl$' '.jpg' $i)
+            var output = (re:replace '\.jxl$' '.jpg' $i)
+            e:djxl $i $output
+            preserve-metadata-time $i $output
         }
     }
 }
