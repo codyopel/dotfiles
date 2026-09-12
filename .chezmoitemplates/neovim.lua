@@ -265,80 +265,40 @@ local plugins = {
         },
         enabled = not isMinimal,
         config = function()
-            local signs = {
-                Error = ' ',
-                Warning = ' ',
-                Hint = ' ',
-                Information = ' '
-            }
+            local enabledLsps = {}
 
-            --for type, icon in pairs(signs) do
-            --    local hl = 'DiagnosticSign' .. type
-            --    -- FIXME: migrate to vim.diagnostic.config
-            --    --vim.fn.sign_define(hl, {text = icon, texthl = hl, numhl = hl})
-            --end
-
-            local onAttach = function(client, bufnr)
-                -- Enable completion triggered by <c-x><c-o>
-                vim.api.nvim_set_option_value('omnifunc', 'v:lua.vim.lsp.omnifunc', { buf = bufnr })
-
-                -- Mappings.
-                local bufopts = { noremap = true, silent = true, buffer = bufnr }
-                vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-                vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-                vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-                vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-                vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
-                vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
-                vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
-                vim.keymap.set('n', '<space>wl', function()
-                    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-                end, bufopts)
-                vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
-                vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
-                vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
-                vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-                vim.keymap.set('n', '<space>f', vim.lsp.buf.format, bufopts)
+            local function enable(lsp)
+                table.insert(enabledLsps, lsp)
             end
 
-            local defaults = {
-                on_attach = function(client, bufnr)
-                    if client.server_capabilities.inlayHintProvider then
-                        vim.lsp.inlay_hint.enable(bufnr, true)
-                    end
-                end,
-            }
-
-            local lspConfig = require('lspconfig')
             -- Ansible
-            lspConfig.ansiblels.setup(defaults)
+            enable("ansiblels")
             -- AWK
-            lspConfig.awk_ls.setup(defaults)
+            enable("awk_ls")
             -- Bash
-            lspConfig.bashls.setup(defaults)
+            enable("bashls")
             -- C(++)
-            lspConfig.clangd.setup(defaults)
+            enable("clangd")
             -- Cmake
-            lspConfig.cmake.setup(defaults)
+            enable("cmake")
             -- CSS
-            lspConfig.cssls.setup(defaults)
+            enable("cssls")
             -- Docker
-            lspConfig.dockerls.setup(defaults)
+            enable("dockerls")
             -- Elvish
-            --lspConfig.elvish.setup(defaults)
+            --enable("elvish")
             -- Go
-            lspConfig.gopls.setup(defaults)
+            enable("gopls")
             -- HTML
-            lspConfig.html.setup(defaults)
+            enable("html")
             -- Java
-            lspConfig.jdtls.setup(defaults)
+            enable("jdtls")
             -- Json
-            lspConfig.jsonls.setup(defaults)
+            enable("jsonls")
             -- Jsonnet
-            lspConfig.jsonnet_ls.setup(defaults)
+            enable("jsonnet_ls")
             -- Lua
-            lspConfig.lua_ls.setup {
-                on_attach = onAttach,
+            vim.lsp.config('lua_ls', {
                 settings = {
                     Lua = {
                         diagnostics = {
@@ -353,59 +313,65 @@ local plugins = {
                         workspace = {
                             library = vim.api.nvim_get_runtime_file('', true),
                             checkThirdParty = false,
-                        },
+                        }
                     }
                 }
-            }
+            })
+            enable("lua_ls")
             -- Nix
-            lspConfig.rnix.setup(defaults)
+            enable("rnix")
             -- Perl
-            lspConfig.perlls.setup(defaults)
+            enable("perlls")
             -- Powershell
             if isWindows then
-                lspConfig.powershell_es.setup({
+                vim.lsp.config('powershell_es', {
                     bundle_path = masonPath .. '/powershell-editor-services/',
                 })
+                enable("powershell_es")
             end
             -- Python
             local pyrightCmd = { 'pyright-langserver', '--stdio' }
             if isWindows then
                 pyrightCmd = { 'node', masonPath .. '/pyright/node_modules/pyright/langserver.index.js', '--stdio' }
             end
-            lspConfig.pyright.setup({
+            vim.lsp.config('pyright', {
                 cmd = pyrightCmd,
-                on_attach = defaults.on_attach,
+                --on_attach = defaults.on_attach,
             })
+            enable("pyright")
             -- SQL
-            lspConfig.sqlls.setup(defaults)
+            enable("sqlls")
             -- Rust
-            lspConfig.rust_analyzer.setup({
-                on_attach = onAttach,
-                -- Server-specific settings
+            vim.lsp.config('rust_analyzer', {
+                --on_attach = onAttach,
                 settings = {
                     ['rust-analyzer'] = {}
                 },
             })
+            enable('rust_analyzer')
             -- Salt Stack
-            lspConfig.salt_ls.setup(defaults)
+            enable("salt_ls")
             -- Tailwind CSS
-            lspConfig.tailwindcss.setup(defaults)
+            enable("tailwindcss")
             -- TOML
             local taploCmd = 'taplo'
             if isWindows then
                 taploCmd = masonPath .. '/taplo/taplo.exe'
             end
-            lspConfig.taplo.setup({
+            vim.lsp.config('taplo', {
                 cmd = { taploCmd, "lsp", "stdio" }
             })
+            enable('taplo')
             -- Typescript
-            lspConfig.ts_ls.setup(defaults)
+            enable("ts_ls")
             -- Viml
-            lspConfig.vimls.setup(defaults)
+            enable("vimls")
             -- YAML
-            lspConfig.yamlls.setup(defaults)
+            enable("yamlls")
             -- Zig
-            lspConfig.zls.setup(defaults)
+            enable("zls")
+
+            vim.lsp.enable(enabledLsps)
         end,
     },
     {
