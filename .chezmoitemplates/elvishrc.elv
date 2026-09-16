@@ -424,6 +424,7 @@ fn annexb {|file|
 }
 
 fn preserve-metadata-time {|original new|
+    if (==s $original $new) { return }
     e:exiftool ^
         '-TagsFromFile' $original ^
         '-FileCreateDate' ^
@@ -434,6 +435,7 @@ fn preserve-metadata-time {|original new|
 fn jpg {|input|
     var ext = (path:ext $input)
     var output = (re:replace $ext'$' '.jpg' $input)
+    echo $input' -> '$output >&2
     e:magick ^
         $input ^
         '-sampling-factor' '4:4:4' ^
@@ -446,6 +448,7 @@ fn jpg {|input|
 fn png {|input|
     var ext = (path:ext $input)
     var output = (re:replace $ext'$' '.png' $input)
+    echo $input' -> '$output >&2
     e:magick ^
         $input ^
         '-define' 'png:compression-filter=2' ^
@@ -453,6 +456,24 @@ fn png {|input|
         '-define' 'png:compression-strategy=2' ^
         $output
     preserve-metadata-time $input $output
+}
+
+fn gif2mp4 {|gif|
+    var ext = (path:ext $gif)
+    var output = (re:replace (re:quote $ext)'$' '.mp4' $gif)
+    echo $gif' -> '$output >&2
+    e:ffmpeg ^
+        -n ^
+        -hide_banner ^
+        -i $gif ^
+        -map 0 ^
+        -c:v libx264 ^
+        -crf 18 ^
+        -preset veryslow ^
+        -pix_fmt yuv420p ^
+        -vf 'scale=trunc(iw/2)*2:trunc(ih/2)*2' ^
+        -an ^
+        $output
 }
 
 fn jxl-info {|file|
@@ -486,10 +507,14 @@ fn jxl-output {|file|
     put $out
 }
 
-fn jxl-encode {|input output &lossless=$true|
+fn jxl-encode {|input output &lossless=$true &reconstruction=$true|
     var distance = [ '--distance=0' ]
     if (and (not $lossless) (not (isjpeg $input))) {
         set distance = [ '--distance=1.45' ]
+    }
+    var reconstruct = [ ]
+    if (not $reconstruction) {
+        set reconstruct = [ '--allow_jpeg_reconstruction=0' ]
     }
     e:cjxl ^
         '--quiet' ^
@@ -501,11 +526,12 @@ fn jxl-encode {|input output &lossless=$true|
         '--modular_nb_prev_channels=11' ^
         '--modular_predictor=15' ^
         $@distance ^
+        $@reconstruct ^
         -- $input $output
     preserve-metadata-time $input $output
 }
 
-fn jxl {|input &lossless=$true|
+fn jxl {|input &lossless=$true &reconstruction=$true|
     var ext = (path:ext $input)
     var output = (jxl-output $input)
     var new = $output'.new'
@@ -515,10 +541,14 @@ fn jxl {|input &lossless=$true|
     if (os:exists $new) {
         os:remove $new
     }
+    if (os:exists $output) {
+        fail 'skipping: filename collision'
+    }
     try {
         echo $input' -> '$output >&2
         jxl-encode ^
             &lossless=$lossless ^
+            &reconstruction=$reconstruction ^
             $input $new
     } catch e {
         if (os:exists $new) {
@@ -549,18 +579,34 @@ fn jxl {|input &lossless=$true|
     }
 }
 
+fn -jpg-files {
+    put ^
+        *[nomatch-ok][type:regular].jpg ^
+        *[nomatch-ok][type:regular].JPG ^
+        *[nomatch-ok][type:regular].jpeg ^
+        *[nomatch-ok][type:regular].JPEG ^
+        *[nomatch-ok][type:regular].jif ^
+        *[nomatch-ok][type:regular].JIF ^
+        *[nomatch-ok][type:regular].jfif ^
+        *[nomatch-ok][type:regular].JFIF
+}
+
+fn -png-files {
+    put ^
+        *[nomatch-ok][type:regular].png ^
+        *[nomatch-ok][type:regular].PNG
+}
+
+fn -jxl-files {
+    put ^
+        *[nomatch-ok][type:regular].jxl ^
+        *[nomatch-ok][type:regular].JXL
+}
+
 fn jxlall {|&reencode=$false &lossless=$true|
     var files = [
-        (put *[nomatch-ok].jpg)
-        (put *[nomatch-ok].JPG)
-        (put *[nomatch-ok].jpeg)
-        (put *[nomatch-ok].JPEG)
-        (put *[nomatch-ok].jif)
-        (put *[nomatch-ok].JIF)
-        (put *[nomatch-ok].jfif)
-        (put *[nomatch-ok].JFIF)
-        (put *[nomatch-ok].png)
-        (put *[nomatch-ok].PNG)
+        (-jpg-files)
+        (-png-files)
     ]
     if $reencode {
         set files = [ $@files (put *[nomatch-ok].jxl) ]
@@ -594,7 +640,7 @@ fn jxlall {|&reencode=$false &lossless=$true|
 }
 
 fn djxlall {
-    for i [ (put *.jxl) ] {
+    for i [ (-jxl-files) ] {
         var info = (jxl-info $i)
         if (jxl-isjpeg $info) {
             var output = (re:replace '\.jxl$' '.jpg' $i)
@@ -604,11 +650,105 @@ fn djxlall {
     }
 }
 
+fn reset-image-orientation {
+    var files = [
+        (-jpg-files)
+        (-jxl-files)
+    ]
+
+    put $@files | peach &num-workers=8 {|i|
+        try {
+            e:exiftool -Orientation= -overwrite_original $i
+        } catch _ {
+            echo 'failed: '$i >&2
+        }
+    }
+}
+
 fn fuckwebp {
     for i [ (put *.webp) ] {
         png $i
         os:remove $i
    }
+}
+
+fn fix-exts {
+        #&'application/zlib'=zlib
+    var mimemap = [
+        &'application/epub+zip'=epub
+        &'application/gzip'=gz
+        &'application/pdf'=pdf
+        &'application/x-7z-compressed'=7z
+        &'application/x-bittorrent'=torrent
+        &'application/x-bzip2'=bz2
+        &'application/x-rar-compressed'=rar
+        &'application/x-subrip'=srt
+        &'application/x-tar'=tar
+        &'application/vnd.oasis.opendocument.spreadsheet'=ods
+        &'application/zip'=zip
+        &'audio/flac'=flac
+        &'audio/mpeg'=mp3
+        &'audio/ogg'=ogg
+        &'audio/wav'=wav
+        &'audio/x-m4a'=m4a
+        &'image/gif'=gif
+        &'image/jpeg'=jpg
+        &'image/jpx'=jp2
+        &'image/jxl'=jxl
+        &'image/png'=png
+        &'image/svg+xml'=svg
+        &'image/vnd.djvu'=djvu
+        &'image/webp'=webp
+        &'video/3gpp'=3gp
+        &'video/mp4'=mp4
+        &'video/mpeg'=mpg
+        &'video/ogg'=ogv
+        &'video/webm'=webm
+        &'video/quicktime'=mov
+        &'video/x-flv'=flv
+        &'video/x-m4v'=m4v
+        &'video/x-matroska'=mkv
+        &'video/x-ms-asf'=wmv
+        &'video/x-msvideo'=avi
+    ]
+    var ignore = [
+        #&'application/vnd.android.package-archive'=apk
+        #&'application/java-archive'=jar
+        'application/vnd.android.package-archive'
+        'application/java-archive'
+        'application/json'
+    ]
+    put *[type:regular] | peach &num-workers=4 {|i|
+        var mime = (mimetype $i)
+
+        if (==s $mime[..4] 'text') { continue }
+
+        if (list:has $ignore $mime) { continue }
+
+        if (not (map:has-key $mimemap $mime)) {
+            printf "Unknown mimetype `%s` for `%s`\n" $mime $i >&2
+            continue
+        }
+
+        var ext = 'does-not-exist'
+        try {
+            set ext = (path:ext $i)[1..]
+        } catch e {
+            echo "Can't get extension for: "$i >&2
+            continue
+        }
+        if (==s $mimemap[$mime] $ext) { continue }
+
+        if (==s $ext 'part') { continue }
+
+        try {
+            var new = (re:replace $ext $mimemap[$mime] $i)
+            printf "%s -> %s\n" $i $new >&2
+            os:move $i $new
+        } catch e {
+            echo $e >&2
+        }
+    }
 }
 
 fn mpvc {|v1 v2|
