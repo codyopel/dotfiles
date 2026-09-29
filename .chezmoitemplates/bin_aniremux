@@ -14,7 +14,7 @@ var -TITLE = 'title'
 
 
 fn has-title-dialog {|stream string|
-    var r = '.*(dialog|english subtitles|english|(?:full(?:(?: |)|)(?:subtitles|subs|)|)).*'
+    var r = '.*(dialo(?:u|)g(?:ue|)|english|eng|full(?: |)(?:subtitles|subs|)).*'
     var b = (re:match $r (str:to-lower $string))
     if (not $b) {
         if (== $stream['disposition']['default'] 1) {
@@ -26,10 +26,11 @@ fn has-title-dialog {|stream string|
 
 fn has-title-signs {|stream string|
     var space = '(?: |)'
-    var sep = $space'(?:/|and|&|\\|\+)'$space
+    var sep = $space'(?:/|and|&|\\|\+|)'$space
     var suro = '(?:\[|\(|)'
     var surc = '(?:\]|\)|)'
-    var r = '.*(signs'$sep'songs|titles'$sep'signs|forced|'$suro'signs'$surc').*'
+    var signs = 'sign(?:s|)'
+    var r = '.*('$signs$sep'songs|titles'$sep$signs'|forced|'$suro$signs$surc'|song(?:s|)|s&s).*'
     re:match $r (str:to-lower $string)
 }
 
