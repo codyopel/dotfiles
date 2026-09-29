@@ -113,14 +113,14 @@ fn remux {|file|
     set ffargs = [
         $@ffargs
         '-c' 'copy'
-        '-disposition:a:0' '+default-forced'
+        '-disposition:a:0' '+default+original-forced-dub'
         '-metadata:s:a:0' 'title=Japanese'
         '-metadata:s:a:0' 'language=jpn'
     ]
     if $hasEngAudio {
         set ffargs = [
             $@ffargs
-            '-disposition:a:1' '-default-forced'
+            '-disposition:a:1' '-default-forced-original-dub'
             '-metadata:s:a:1' 'title=English'
             '-metadata:s:a:1' 'language=eng'
         ]
@@ -128,17 +128,17 @@ fn remux {|file|
     if (not (eq $subtitle-eng-signs $nil)) {
         set ffargs = [
             $@ffargs
-            '-disposition:s:0' '-default+forced'
-            '-disposition:s:1' '+default-forced'
+            '-disposition:s:0' '-default+forced-original-dub'
             '-metadata:s:s:0' 'title=Signs & Songs'
             '-metadata:s:s:0' 'language=eng'
+            '-disposition:s:1' '+default-forced-original-dub'
             '-metadata:s:s:1' 'title=Dialogue'
             '-metadata:s:s:1' 'language=eng'
         ]
     } else {
         set ffargs = [
             $@ffargs
-            '-disposition:s:0' '+default-forced'
+            '-disposition:s:0' '+default-forced-original-dub'
             '-metadata:s:s:0' 'title=Dialogue'
             '-metadata:s:s:0' 'language=eng'
         ]
