@@ -82,6 +82,8 @@ fn remux {|file|
         '-fflags' '+genpts'
         '-fix_sub_duration'
         '-i' $file
+        '-map_metadata' '0'
+        '-map_chapters' '0'
         '-map' '0:v:0'
         '-map' '0:'(ffmpeg:get-audio-streams-jpn $p)[0][$-INDEX]
     ]
