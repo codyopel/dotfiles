@@ -68,12 +68,12 @@ fn transcode-audio-file {|input output|
 }
 
 fn transcode-image-file {|input output|
+    var ext = (path:ext $input)
     e:magick 'convert' ^
         '-size' '500x500' ^
         $input ^
         '-resize' '500x500^' ^
-        $output
-
+        (re:replace (re:quote $ext)'$' '.jpg' $output)
 }
 
 fn is-audio-file {|file|
