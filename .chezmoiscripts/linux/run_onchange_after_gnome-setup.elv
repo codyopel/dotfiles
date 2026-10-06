@@ -16,22 +16,37 @@ var settings = [
     &/org/gnome/desktop/wm/keybindings=[
         &switch-windows="['<Alt>Tab']"
     ]
+    &/org/gnome/desktop/notifications/application/org-gnome-nautilus=[
+        &enable='false'
+    ]
     &/org/gnome/file-roller/general=[
         &compression-level="'maximum'"
     ]
     &/org/gnome/nautilus/preferences=[
+        &default-folder-viewer="'icon-view'"
         &open-folder-on-dnd-hover="false"
+        &show-directory-item-counts="'always'"
         &show-image-thumbnails="'always'"
     ]
     &/org/gnome/settings-daemon/plugins/power=[
         &power-button-action="'nothing'"
     ]
-    &/org/gnome/shell/extensions=[
+    &/org/gnome/shell=[
         &enabled-extensions="[
             'CoverflowAltTab@palatis.blogspot.com',
             'clipboard-indicator@tudmotu.com',
             'dash-to-panel@jderose9.github.com',
             'trayIconsReloaded@selfmade.pl'
+        ]"
+        &favorite-apps="[
+            'org.gnome.Nautilus.desktop',
+            'foot.desktop', 'firefox.desktop',
+            'com.google.Chrome.desktop',
+            'tv.plex.PlexDesktop.desktop',
+            'org.telegram.desktop.desktop',
+            'com.discordapp.Discord.desktop',
+            'io.element.Element.desktop',
+            'com.edde746.plezy.desktop'
         ]"
     ]
     &/org/gnome/shell/extensions/coverflowalttab=[
@@ -53,6 +68,10 @@ var settings = [
             'RIPPLE': 0.40000000000000002,
             'SIMPLE': 0.20999999999999999
         }"
+    ]
+    &/org/gnome/TextEditor=[
+        &restore-sesson='false'
+        &show-line-numbers='true'
     ]
 ]
 
