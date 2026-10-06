@@ -194,6 +194,8 @@ local plugins = {
             end
 
             if hasExe('go') then
+                -- Docker
+                inst('docker-language-server')
                 -- Go
                 inst('gopls')
                 -- Jsonnet
@@ -209,8 +211,6 @@ local plugins = {
                 end
                 -- BASH
                 inst('bash-language-server')
-                -- Docker
-                inst('dockerfile-language-server')
                 -- HTML
                 inst('html-lsp')
                 -- Json
@@ -287,7 +287,7 @@ local plugins = {
             -- CSS
             enable("cssls")
             -- Docker
-            enable("dockerls")
+            enable("docker-language-server")
             -- Elvish
             --enable("elvish")
             -- Go
