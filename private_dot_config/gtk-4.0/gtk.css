@@ -1,0 +1,5 @@
+/* Hide all modern Libadwaita toast popups (Moved, Copied, Deleted) */
+.nautilus-window toast,
+window.nautilus-window toast {
+    opacity: 0;
+}
