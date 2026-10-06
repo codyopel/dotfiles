@@ -628,10 +628,6 @@ local plugins = {
         'stevearc/conform.nvim',
         config = function()
             local pythonFmt = { 'isort', 'black' }
-            -- FIXME: https://github.com/stevearc/conform.nvim/pull/691
-            if isWindows then
-                pythonFmt = { 'black' }
-            end
             local taploCmd = 'taplo'
             if isWindows then
                 taploCmd = masonPath .. '/taplo/taplo.exe'
