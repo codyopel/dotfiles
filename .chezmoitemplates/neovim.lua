@@ -4,6 +4,9 @@ local isUnix = intToBool[vim.fn.has('unix')]
 local function hasExe(exe)
     return intToBool[vim.fn.executable(exe)]
 end
+local function hasCC()
+    return hasExe('cc') or hasExe('gcc') or hasExe('clang') or hasExe('cl') or hasExe('zig')
+end
 -- cmd is a table (e.g. {cmd, args, ...})
 local function cmdSuccess(cmd)
     local e = vim.system(cmd):wait()
@@ -432,7 +435,7 @@ local plugins = {
     {
         'nvim-treesitter/nvim-treesitter',
         build = ':TSUpdate',
-        --enabled = hasExe('cc') or hasExe('gcc') or hasExe('clang') or hasExe('cl') or hasExe('zig'),
+        enabled = hasCC(),
         config = function()
             -- Treesitter grammers not bundled with nvim-treesitter
             local parserConfig =
@@ -887,10 +890,12 @@ require('lazy').setup(plugins, lazyOpts)
 --end
 
 -- Language specific settings
-local per_language_settings_group =
-    vim.api.nvim_create_augroup('PerLanguageSettings', { clear = true })
-vim.api.nvim_create_autocmd('FileType', {
-    group = per_language_settings_group,
-    pattern = 'nix',
-    command = 'setlocal tabstop=2 shiftwidth=2',
-})
+if hasCC() then
+    local per_language_settings_group =
+        vim.api.nvim_create_augroup('PerLanguageSettings', { clear = true })
+    vim.api.nvim_create_autocmd('FileType', {
+        group = per_language_settings_group,
+        pattern = 'nix',
+        command = 'setlocal tabstop=2 shiftwidth=2',
+    })
+end
