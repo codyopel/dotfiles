@@ -526,7 +526,7 @@ local plugins = {
             local function install(grammer)
                 table.insert(enabledGrammers, grammer)
             end
-            if hasExe('node') then
+            if hasExe('node') and hasExe('tree-sitter') then
                 install('latex')
             end
             require('nvim-treesitter.configs').setup({
