@@ -35,6 +35,7 @@ if (not (os:exists $MPVDIR)) {
 }
 
 rename-plugin 'delete-current-file' 'delete_current_file'
+rename-plugin 'metadata-osd' 'scripts.metadata_osd'
 rename-plugin 'sub-select' 'sub-select'
 rename-plugin 'thumbfast' 'thumbfast'
 rename-plugin 'vr-reversal' '360plugin'

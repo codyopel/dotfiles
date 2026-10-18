@@ -89,5 +89,16 @@
     ]
     refreshPeriod = "168h"
 
+# MPV - metadata-osd
+["{{ $mpvDir }}/scripts/metadata-osd/"]
+    type = "archive"
+    url = "https://github.com/vc-01/metadata-osd/archive/c371ca69319340d37e3bdf427f00aa20e0a06d60.tar.gz"
+    checksum.sha256 = "882741a8d3c0ae6d191382c4be0989cbe8c72eb86ceaf747b1d325fa9ff34e64"
+    stripComponents = 1
+    include = [
+        "*/scripts/metadata_osd.lua"
+    ]
+    refreshPersiod = "168h"
+
 {{- end -}}  # .headless
 
